@@ -1,0 +1,23 @@
+
+### Padronizar mensagens assim:
+
+tipo(escopo): descrição curta
+
+Explicação opcional do que mudou e por quê.
+
+US: #US-XX 
+
+
+---
+
+| Tipo | Quando usar | Exemplo |
+|---|---|---|
+| `feat` | Adicionar uma funcionalidade | `feat(auth): implementar login com JWT` |
+| `fix` | Corrigir um defeito | `fix(user): impedir cadastro com email duplicado` |
+| `docs` | Alterar documentação | `docs: registrar instruções de instalação` |
+| `test` | Criar ou ajustar testes | `test(study): testar cadastro de estudos` |
+| `refactor` | Reorganizar código sem mudar seu comportamento | `refactor(user): simplificar validação de cadastro` |
+| `chore` | Configurar ferramentas e estrutura | `chore: criar estrutura inicial do repositório` |
+| `ci` | Alterar integração contínua | `ci: executar testes backend no GitHub Actions` |
+| `build` | Alterar dependências ou configuração de build | `build(backend): adicionar dependência do PostgreSQL` |
+| `style` | Ajustar formatação do código | `style(web): corrigir indentação dos componentes` |
