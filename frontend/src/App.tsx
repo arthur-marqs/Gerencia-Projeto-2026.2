@@ -1,8 +1,39 @@
-import type { FormEvent } from 'react'
+import { useState, type FormEvent } from 'react'
+
+type LoginErrors = {
+  email?: string
+  password?: string
+}
 
 function App() {
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+  const [errors, setErrors] = useState<LoginErrors>({})
+  const [message, setMessage] = useState('')
+
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault()
+
+    const nextErrors: LoginErrors = {}
+    const normalizedEmail = email.trim()
+
+    if (!normalizedEmail) {
+      nextErrors.email = 'Informe seu e-mail.'
+    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(normalizedEmail)) {
+      nextErrors.email = 'Informe um e-mail válido.'
+    }
+
+    if (!password) {
+      nextErrors.password = 'Informe sua senha.'
+    }
+
+    setErrors(nextErrors)
+
+    if (Object.keys(nextErrors).length === 0) {
+      setMessage('Os campos estão preenchidos. A autenticação será conectada depois.')
+    } else {
+      setMessage('')
+    }
   }
 
   return (
@@ -38,7 +69,11 @@ function App() {
             Informe suas credenciais para continuar.
           </p>
 
-          <form className="mt-8 space-y-5" onSubmit={handleSubmit}>
+          <form
+            className="mt-8 space-y-5"
+            noValidate
+            onSubmit={handleSubmit}
+          >
             <div>
               <label
                 className="block text-sm font-medium text-slate-700"
@@ -48,13 +83,32 @@ function App() {
               </label>
               <input
                 autoComplete="username"
-                className="mt-2 w-full rounded-xl border border-slate-300 px-4 py-3 outline-none transition focus:border-blue-600 focus:ring-4 focus:ring-blue-100"
-                id="email"
-                name="email"
+                aria-describedby={errors.email ? 'email-error' : undefined}
+                aria-invalid={Boolean(errors.email)}
+                className={`mt-2 w-full rounded-xl border px-4 py-3 outline-none transition focus:ring-4 ${
+                    errors.email
+                      ? 'border-red-500 focus:border-red-600 focus:ring-red-100'
+                      : 'border-slate-300 focus:border-blue-600 focus:ring-blue-100'
+                  }`}
+                  onChange={(event) => {
+                    setEmail(event.target.value)
+                    setErrors((current) => ({ ...current, email: undefined }))
+                    setMessage('')
+                  }}
                 placeholder="voce@empresa.com"
                 required
                 type="email"
+                value={email}
               />
+              {errors.email && (
+                <p
+                  className="mt-2 text-sm text-red-700"
+                  id="email-error"
+                  role="alert"
+                >
+                  {errors.email}
+                </p>
+              )}
             </div>
 
             <div>
@@ -66,13 +120,32 @@ function App() {
               </label>
               <input
                 autoComplete="current-password"
-                className="mt-2 w-full rounded-xl border border-slate-300 px-4 py-3 outline-none transition focus:border-blue-600 focus:ring-4 focus:ring-blue-100"
-                id="password"
-                name="password"
+                aria-describedby={errors.password ? 'password-error' : undefined}
+                aria-invalid={Boolean(errors.password)}
+                className={`mt-2 w-full rounded-xl border px-4 py-3 outline-none transition focus:ring-4 ${
+                  errors.password
+                    ? 'border-red-500 focus:border-red-600 focus:ring-red-100'
+                    : 'border-slate-300 focus:border-blue-600 focus:ring-blue-100'
+                }`}
+                onChange={(event) => {
+                  setPassword(event.target.value)
+                  setErrors((current) => ({ ...current, password: undefined }))
+                  setMessage('')
+                }}
                 placeholder="Digite sua senha"
                 required
                 type="password"
+                value={password}
               />
+              {errors.password && (
+                <p
+                  className="mt-2 text-sm text-red-700"
+                  id="password-error"
+                  role="alert"
+                >
+                  {errors.password}
+                </p>
+              )}
             </div>
 
             <button
@@ -82,6 +155,12 @@ function App() {
               Entrar
             </button>
           </form>
+
+          {message && (
+            <p className="mt-4 text-sm text-slate-600" role="status">
+              {message}
+            </p>
+          )}
 
           <p className="mt-6 text-center text-xs text-slate-500">
             SetupFlow · Planejamento e acompanhamento da produção
