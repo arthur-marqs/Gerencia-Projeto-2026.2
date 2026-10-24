@@ -8,21 +8,42 @@ function LoginPage() {
   const [message, setMessage] = useState('')
   const [showPassword, setShowPassword] = useState(false)
 
-  function handleSubmit(event: FormEvent<HTMLFormElement>) {
-    event.preventDefault()
+async function handleSubmit(event: FormEvent<HTMLFormElement>) {
+  event.preventDefault()
 
-    const validationErrors = validateLogin(email, password)
-    setErrors(validationErrors)
+  const validationErrors = validateLogin(email, password)
+  setErrors(validationErrors)
+  setMessage('')
 
-    if (Object.keys(validationErrors).length > 0) {
-      setMessage('')
+  if (Object.keys(validationErrors).length > 0) {
+    return
+  }
+
+  try {
+const response = await fetch('http://127.0.0.1:8000/api/auth/login', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      credentials: 'include',
+      body: JSON.stringify({ email, password }),
+    })
+
+    const data: {
+      detail?: string
+      usuario?: { nome?: string }
+    } = await response.json()
+
+    if (!response.ok) {
+      setMessage(data.detail ?? 'Não foi possível realizar o login.')
       return
     }
 
-    setMessage(
-      'Os campos estão preenchidos. A autenticação será conectada depois.',
-    )
+    setMessage(`Login realizado. Bem-vindo, ${data.usuario?.nome ?? ''}.`)
+  } catch {
+    setMessage('Não foi possível conectar à API. Verifique se ela está em execução.')
   }
+}
 
   return (
     <main className="min-h-screen bg-slate-950 px-4 py-10 text-slate-900">
