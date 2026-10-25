@@ -4,6 +4,8 @@ Este guia explica como configurar o backend e o PostgreSQL em uma máquina de de
 
 Cada pessoa executa sua própria instância local do PostgreSQL. O GitHub contém as migrations que recriam a estrutura do banco, mas não contém o banco local, usuários de teste, sessões ou senhas.
 
+
+
 ## Ferramentas usadas
 
 - Python 3.11
@@ -123,6 +125,7 @@ No `psql`, liste as tabelas:
 \dt
 ```
 
+**Obs: Nesta US01 foram implementadas apeans as seguintes tabelas: controle_tentativas_login, falhas de_login, perfis, usuarios, usuario_perfil e sessoes.**                                                   
 ## 4. Criar um usuário local de teste
 
 O banco começa sem usuários. Crie um usuário pelo script da aplicação:
