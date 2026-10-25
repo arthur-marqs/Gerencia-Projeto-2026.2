@@ -6,7 +6,7 @@
 
 ## 1. Como ler este documento
 
-A primeira parte apresenta o **Diagrama Entidade-Relacionamento (DER) em notação de Peter Chen**. A segunda mantém o mapeamento para PostgreSQL, com tabelas, tipos, chaves e restrições. Os diagramas anteriores em pé de galinha foram substituídos.
+A primeira parte apresenta o **Diagrama Entidade-Relacionamento (DER) em notação de Peter Chen**. A segunda mantém o mapeamento para PostgreSQL, com tabelas, tipos, chaves e restrições.
 
 Os diagramas estão divididos por assunto. Uma entidade que aparece em mais de um quadro é a mesma entidade; a repetição evita cruzamentos de linhas. Cada quadro é uma visão parcial de um relacionamento, e não um banco separado. Atributos selecionados aparecem nas imagens; os demais são descritos no catálogo e no mapeamento.
 
@@ -17,14 +17,13 @@ Os diagramas estão divididos por assunto. Uma entidade que aparece em mais de u
 | Entidade | Retângulo. |
 | Relacionamento | Losango ligado às entidades, sem seta. |
 | Atributo | Elipse ligada à entidade ou ao relacionamento. |
-| Identificador | Nome do atributo sublinhado. |
+| Chave Primaria | Nome do atributo sublinhado. |
 | Participação parcial | Linha simples; mínimo zero. |
 | Participação total | Linha dupla; mínimo um. |
 | Cardinalidade | Par `(mínimo,máximo)` colocado junto à entidade à qual se refere. |
 
 Usamos Chen com cardinalidade mínima/máxima. Por exemplo: `(0,N)` ao lado de FAMÍLIA significa que **uma família pode participar de zero a muitas ocorrências de AGRUPA**; `(1,1)` ao lado de PRODUTO significa que cada produto participa exatamente uma vez, pertencendo a uma família. Não interpretar esses pares como rótulos de cardinalidade colocados na extremidade oposta.
 
-Nesta versão não há entidades fracas nem atributos multivalorados nos desenhos. A ausência desses símbolos é intencional. Identificadores conceituais não são chaves estrangeiras: `family_id`, por exemplo, aparece somente no mapeamento relacional.
 
 ## 2. Escopo e premissas
 
