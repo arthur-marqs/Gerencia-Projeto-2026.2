@@ -1,10 +1,11 @@
 from datetime import datetime, timedelta, timezone
 from hashlib import sha256
 
-from fastapi import APIRouter, Cookie, Depends, HTTPException, Response, status
+from fastapi import APIRouter, Cookie, Depends, HTTPException, Response, status, Request
 
-from sqlalchemy import select
+from sqlalchemy import select, delete, func, select
 from sqlalchemy.orm import Session
+from sqlalchemy.dialects.postgresql import insert as pg_insert
 
 from app.api.deps import get_db
 from app.core.config import settings
@@ -13,6 +14,8 @@ from app.models.perfil import Perfil
 from app.models.sessao import Sessao
 from app.models.usuario import Usuario
 from app.models.usuario_perfil import usuario_perfil
+from app.models.controle_tentativas_login import ControleTentativasLogin
+from app.models.falha_login import FalhaLogin
 from app.schemas.auth import LoginRequest
 
 
@@ -22,9 +25,48 @@ router = APIRouter()
 @router.post("/login")
 def login(
     dados: LoginRequest,
+    request: Request,
     response: Response,
     db: Session = Depends(get_db),
 ):
+    ip_origem = request.client.host if request.client else "0.0.0.0"
+    agora = datetime.now(timezone.utc)
+    inicio_janela = agora - timedelta(minutes=5)
+
+    db.execute(
+        pg_insert(ControleTentativasLogin)
+        .values(email_tentado=dados.email, ip_origem=ip_origem)
+        .on_conflict_do_nothing(
+            index_elements=[
+                ControleTentativasLogin.email_tentado,
+                ControleTentativasLogin.ip_origem,
+            ]
+        )
+    )
+
+    controle = db.scalar(
+        select(ControleTentativasLogin)
+        .where(
+            ControleTentativasLogin.email_tentado == dados.email,
+            ControleTentativasLogin.ip_origem == ip_origem,
+        )
+        .with_for_update()
+    )
+
+    if controle is None:
+        db.rollback()
+        raise HTTPException(
+            status_code=500,
+            detail="Não foi possível processar o login.",
+        )
+
+    if controle.bloqueado_ate is not None and controle.bloqueado_ate > agora:
+        db.rollback()
+        raise HTTPException(
+            status_code=status.HTTP_429_TOO_MANY_REQUESTS,
+            detail="Muitas tentativas. Tente novamente em 15 minutos.",
+        )
+
     usuario = db.scalar(
         select(Usuario).where(Usuario.email == dados.email)
     )
@@ -34,12 +76,49 @@ def login(
         or not usuario.ativo
         or not verify_password(dados.password, usuario.senha_hash)
     ):
+        db.execute(
+            delete(FalhaLogin).where(
+                FalhaLogin.email_tentado == dados.email,
+                FalhaLogin.ip_origem == ip_origem,
+                FalhaLogin.ocorrida_em < inicio_janela,
+            )
+        )
+        db.add(
+            FalhaLogin(
+                email_tentado=dados.email,
+                ip_origem=ip_origem,
+            )
+        )
+        db.flush()
+
+        total_falhas = db.scalar(
+            select(func.count(FalhaLogin.id_falha)).where(
+                FalhaLogin.email_tentado == dados.email,
+                FalhaLogin.ip_origem == ip_origem,
+                FalhaLogin.ocorrida_em >= inicio_janela,
+            )
+        ) or 0
+
+        if total_falhas >= 5:
+            controle.bloqueado_ate = agora + timedelta(minutes=15)
+
+        controle.atualizado_em = agora
+        db.commit()
+
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
             detail="E-mail ou senha inválidos.",
         )
 
-    agora = datetime.now(timezone.utc)
+    db.execute(
+        delete(FalhaLogin).where(
+            FalhaLogin.email_tentado == dados.email,
+            FalhaLogin.ip_origem == ip_origem,
+        )
+    )
+    controle.bloqueado_ate = None
+    controle.atualizado_em = agora
+
     expira_em = agora + timedelta(hours=settings.session_ttl_hours)
     token, token_hash = create_session_token()
 
@@ -64,10 +143,7 @@ def login(
 
     perfis = db.scalars(
         select(Perfil.codigo)
-        .join(
-            usuario_perfil,
-            Perfil.id_perfil == usuario_perfil.c.id_perfil,
-        )
+        .join(usuario_perfil, Perfil.id_perfil == usuario_perfil.c.id_perfil)
         .where(usuario_perfil.c.id_usuario == usuario.id_usuario)
     ).all()
 
@@ -80,7 +156,6 @@ def login(
             "perfis": perfis,
         },
     }
-
 
 @router.get("/me")
 def get_current_user(
