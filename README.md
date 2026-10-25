@@ -66,3 +66,8 @@ O sistema permitirá organizar ordens de produção considerando fatores como te
 - **Backend**: Python, FastAPI
 - **Banco de dados**: PostgreSQL
 - **Ferramentas**: Git e GitHub
+
+
+## Outros 
+
+Consulte as [instruções do backend](backend/README.md) para configurar o PostgreSQL e executar a API.
