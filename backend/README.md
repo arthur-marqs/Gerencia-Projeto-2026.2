@@ -195,7 +195,13 @@ Execute a suíte básica de login e sessão:
 .\.venv\Scripts\python.exe -m pytest -v testes\integration\test_us01_auth.py
 ```
 
-Os testes quantitativos do Driver05 são independentes desta suíte básica.
+Execute separadamente a suíte quantitativa do Driver05, que inclui 20 ciclos (200 solicitações bloqueadas) e valida isolamento e limites de tempo:
+
+```powershell
+.\.venv\Scripts\python.exe -m pytest -v --junitxml=junit-driver05.xml testes\integration\drivers\test_driver05_rate_limiting.py
+```
+
+As duas suítes também podem ser executadas juntas com `.\.venv\Scripts\python.exe -m pytest -v --junitxml=junit.xml testes`.
 
 ## Desenvolvimento em equipe
 

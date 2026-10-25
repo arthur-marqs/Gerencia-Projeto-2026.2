@@ -105,6 +105,12 @@ def login(
         controle.atualizado_em = agora
         db.commit()
 
+        if total_falhas >= 5:
+            raise HTTPException(
+                status_code=status.HTTP_429_TOO_MANY_REQUESTS,
+                detail="Muitas tentativas. Tente novamente em 15 minutos.",
+            )
+
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
             detail="E-mail ou senha inválidos.",
