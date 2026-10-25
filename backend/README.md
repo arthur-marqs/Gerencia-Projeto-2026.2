@@ -9,7 +9,7 @@ Cada pessoa executa sua própria instância local do PostgreSQL. O GitHub conté
 ## Ferramentas usadas
 
 - Python 3.11
-- PostgreSQL 18.6
+- PostgreSQL 18 (também usado no CI)
 - FastAPI
 - SQLAlchemy
 - Alembic
@@ -105,7 +105,7 @@ Com o ambiente configurado, aplique as migrations:
 .\.venv\Scripts\alembic.exe upgrade head
 ```
 
-As migrations criam as tabelas de autenticação, os índices e os perfis iniciais definidos no projeto.
+As migrations criam as tabelas, constraints e índices que declaram e inserem os perfis iniciais. Há um índice declarado no ORM que a migration inicial não cria; consulte o [documento do modelo de dados](../docs/arquitetura/modelo-de-dados.md) para essa diferença.
 
 Para conferir a revisão aplicada:
 
@@ -125,7 +125,7 @@ No `psql`, liste as tabelas:
 \dt
 ```
 
-**Obs: Nesta US01 foram implementadas apeans as seguintes tabelas: controle_tentativas_login, falhas de_login, perfis, usuarios, usuario_perfil e sessoes.**                                                   
+**Observação:** nesta etapa da US01, as migrations criam `controle_tentativas_login`, `falhas_login`, `perfis`, `usuarios`, `usuario_perfil` e `sessoes`. As tabelas de outras funcionalidades ainda não foram implementadas.
 ## 4. Criar um usuário local de teste
 
 O banco começa sem usuários. Crie um usuário pelo script da aplicação:

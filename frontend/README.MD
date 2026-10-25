@@ -14,17 +14,17 @@ Aplicação em desenvolvimento para planejamento e acompanhamento da produção.
 ## Requisitos
 
 - Windows com PowerShell
-- Node.js e npm (confira as versões instaladas com `node --version` e `npm --version`)
-- Python 3.11.9
+- Node.js 20.19+ ou 22.12+ e npm (requisito do Vite 8; confira com `node --version` e `npm --version`)
+- Python 3.11
 - Git (opcional, para obter o projeto)
 
 ## Versões das ferramentas
 
-Versões informadas no ambiente usado durante o desenvolvimento:
+Versões registradas no ambiente de desenvolvimento e no CI:
 
 | Ferramenta | Versão |
 | --- | --- |
-| Python | 3.11.9 |
+| Python | 3.11 (CI); 3.11.9 no ambiente local usado |
 | FastAPI | 0.162.0 |
 | Uvicorn | 0.54.0 |
 | Node.js e npm | Verifique com `node --version` e `npm --version` |
@@ -45,9 +45,10 @@ O número de versão de `psql` identifica o cliente de linha de comando; ele nã
 Gerencia-Projeto-2026.2/
 ├── backend/
 │   ├── app/
-│   │   └── main.py
+│   ├── migrations/
+│   ├── testes/
 │   ├── requirements.txt
-│   └── .venv/
+│   └── README.md
 └── frontend/
     ├── public/
     │   └── images/
