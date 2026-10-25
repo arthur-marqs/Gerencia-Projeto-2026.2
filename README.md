@@ -71,10 +71,11 @@ O sistema permitirá organizar ordens de produção considerando fatores como te
 ## Outros 
 
 Consulte as [instruções do backend](backend/README.md) para configurar o PostgreSQL e executar a API.
+Consulte também o [mapa visual do projeto](docs/estrutura-projeto.md) para ver a árvore real do repositório, a responsabilidade de cada arquivo e o fluxo de login.
 ---
-## Organização do repositório (Sugestão)
+## Organização arquitetural planejada (referência futura)
 
-O SetupFlow utiliza um único repositório para backend, frontend, testes e documentação. O backend é organizado por camadas, com o algoritmo de sequenciamento isolado das rotas e do banco de dados.
+O SetupFlow utiliza um único repositório para backend, frontend, testes e documentação. A árvore abaixo é uma proposta de organização futura, não um inventário do código implementado. Para a estrutura atual, consulte o [mapa visual do projeto](docs/estrutura-projeto.md).
 
 ```text
 setupflow/

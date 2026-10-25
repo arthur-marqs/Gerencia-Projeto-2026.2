@@ -8,8 +8,8 @@ Aplicação em desenvolvimento para planejamento e acompanhamento da produção.
 - **Validação:** verifica e-mail e senha no navegador e mostra mensagens para campos inválidos ou vazios.
 - **Senha:** botão de olho para mostrar ou ocultar o conteúdo digitado.
 - **Marca:** símbolo SetupFlow na coluna esquerda e wordmark no cartão de login.
-- **Backend:** API FastAPI com documentação interativa e endpoint `GET /api/health`.
-- **Autenticação e banco:** ainda não conectados nesta versão. O envio do formulário não autentica usuários nem grava dados.
+- **Backend:** API FastAPI com documentação interativa, endpoint `GET /api/health` e rotas de autenticação.
+- **Autenticação e banco:** o formulário envia credenciais para a API; o backend verifica a senha e mantém sessões no PostgreSQL.
 
 ## Requisitos
 
@@ -117,13 +117,15 @@ A tela permite preencher e-mail e senha. Ao enviar o formulário:
 - campos vazios exibem mensagens de validação;
 - e-mail em formato inválido exibe uma mensagem;
 - o botão de olho alterna a visualização da senha;
-- com os campos preenchidos, a tela informa que a autenticação será conectada depois.
-
-Essa mensagem confirma somente o preenchimento dos campos. Não representa um login bem-sucedido.
+- com os campos válidos, o frontend envia `POST /api/auth/login` com cookies habilitados;
+- em caso de sucesso, mostra uma saudação com o nome retornado pela API;
+- em caso de erro de autenticação ou conexão, mostra a mensagem correspondente.
 
 ## Banco de dados
 
-O PostgreSQL está instalado no ambiente de desenvolvimento, mas a aplicação descrita neste README ainda não possui conexão configurada. Não é necessário iniciar PostgreSQL ou Docker para executar a versão atual. A integração do banco e a autenticação real estão planejadas para esta release.
+O login real depende do PostgreSQL e da configuração do backend descrita no [README do backend](../backend/README.md). Para usar o formulário no navegador, inicie o PostgreSQL e a API antes de iniciar o frontend. Os testes automatizados do backend não precisam dos servidores HTTP do frontend ou do Uvicorn; usam `TestClient` e um PostgreSQL de teste.
+
+Para uma visão das pastas, arquivos e do fluxo de autenticação, consulte o [mapa visual do projeto](../docs/estrutura-projeto.md).
 
 ## Encerrar
 
