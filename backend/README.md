@@ -165,11 +165,37 @@ Abra o endereço informado pelo Vite, normalmente <http://localhost:5173>.
 
 O backend e o frontend precisam permanecer rodando em terminais separados.
 
-## Banco para testes automatizados
+## Testes de integração da US01
 
-Quando os testes automatizados forem configurados, use um banco separado, como `setupflow_test`. Não execute testes em um banco com dados que você queira preservar.
+Os testes exercitam a API e um PostgreSQL real. Crie um banco exclusivo para testes com nome terminado em `_test`, por exemplo `setupflow_test`, usando uma conta administradora:
 
-A configuração dos testes deve selecionar o banco `setupflow_test`, aplicar as migrations nele e limpar os dados entre os testes. Nunca use credenciais reais em testes ou no repositório.
+```sql
+CREATE DATABASE setupflow_test
+    OWNER setupflow_dev
+    ENCODING 'UTF8';
+```
+
+Na pasta `backend`, configure `TEST_DATABASE_URL` no PowerShell com as credenciais locais do PostgreSQL:
+
+```powershell
+$env:TEST_DATABASE_URL = "postgresql+psycopg://setupflow_dev:<SENHA>@localhost:5432/setupflow_test"
+```
+
+Se a senha tiver caracteres especiais, use a forma percent-encoded na URL. Os testes exigem essa variável e recusam a execução se o nome do banco não terminar em `_test`. Eles aplicam as migrations antes de limpar e preparar os dados isolados de cada caso. Não defina `DATABASE_URL` para executar a suíte; essa variável não é usada como fallback.
+
+Instale as dependências do backend, incluindo pytest e httpx2 (usado pelo TestClient da versão atual do Starlette):
+
+```powershell
+.\.venv\Scripts\python.exe -m pip install -r requirements.txt
+```
+
+Execute a suíte básica de login e sessão:
+
+```powershell
+.\.venv\Scripts\python.exe -m pytest -v testes\integration\test_us01_auth.py
+```
+
+Os testes quantitativos do Driver05 são independentes desta suíte básica.
 
 ## Desenvolvimento em equipe
 

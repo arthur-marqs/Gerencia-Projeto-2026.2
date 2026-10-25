@@ -15,6 +15,8 @@ MarkupSafe==3.0.4
 opentelemetry-api==1.45.1
 psycopg==3.3.6
 psycopg-binary==3.3.6
+httpx2==2.16.0
+pytest==8.4.2
 pwdlib==0.3.1
 pycparser==3.12
 pydantic==2.14.1
