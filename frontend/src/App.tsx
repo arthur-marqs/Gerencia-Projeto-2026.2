@@ -1,15 +1,87 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import LoginPage from './features/auth/pages/LoginPage'
 import AuthenticatedPage from './features/auth/pages/AuthenticatedPage'
 
-function App() {
-  const [usuarioNome, setUsuarioNome] = useState<string | null>(null)
+type UsuarioAutenticado = {
+  nome: string
+  perfis: string[]
+}
 
-  if (usuarioNome) {
-    return <AuthenticatedPage nome={usuarioNome} />
+async function buscarUsuarioAutenticado(): Promise<UsuarioAutenticado | null> {
+  const response = await fetch('http://localhost:8000/api/auth/me', {
+    credentials: 'include',
+  })
+
+  if (!response.ok) {
+    return null
   }
 
-  return <LoginPage onLogin={setUsuarioNome} />
+  const data: {
+    usuario: UsuarioAutenticado
+  } = await response.json()
+
+  return data.usuario
+}
+
+function App() {
+  const [usuario, setUsuario] = useState<UsuarioAutenticado | null>(null)
+  const [carregandoSessao, setCarregandoSessao] = useState(true)
+
+  useEffect(() => {
+    let ativo = true
+
+    async function restaurarSessao() {
+      try {
+        const usuarioAutenticado = await buscarUsuarioAutenticado()
+
+        if (ativo) {
+          setUsuario(usuarioAutenticado)
+        }
+      } catch {
+        if (ativo) {
+          setUsuario(null)
+        }
+      } finally {
+        if (ativo) {
+          setCarregandoSessao(false)
+        }
+      }
+    }
+
+    void restaurarSessao()
+
+    return () => {
+      ativo = false
+    }
+  }, [])
+
+  async function carregarUsuarioAposLogin() {
+    try {
+      const usuarioAutenticado = await buscarUsuarioAutenticado()
+      setUsuario(usuarioAutenticado)
+    } catch {
+      setUsuario(null)
+    }
+  }
+
+  if (carregandoSessao) {
+    return (
+      <main className="grid min-h-screen place-items-center bg-slate-950 text-white">
+        <p>Carregando...</p>
+      </main>
+    )
+  }
+
+  if (usuario) {
+    return (
+      <AuthenticatedPage
+        nome={usuario.nome}
+        perfis={usuario.perfis}
+      />
+    )
+  }
+
+  return <LoginPage onLogin={carregarUsuarioAposLogin} />
 }
 
 export default App
