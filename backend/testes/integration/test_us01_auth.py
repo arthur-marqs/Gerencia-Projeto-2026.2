@@ -46,7 +46,7 @@ def test_senha_incorreta_e_rejeitada_sem_criar_sessao(seeded_auth):
     response = _login(client, state.email, "SenhaErrada!2026")
 
     assert response.status_code == 401
-    assert response.json()["detail"] == "E-mail ou senha inválidos."
+    assert response.json()["detail"] == "Não foi possível entrar. Verifique suas credenciais."
     assert "set-cookie" not in response.headers
     assert _session_count(state.engine) == 0
 
@@ -57,7 +57,7 @@ def test_email_nao_cadastrado_retorna_mensagem_generica(seeded_auth):
     response = _login(client, "nao.existe@example.com", state.password)
 
     assert response.status_code == 401
-    assert response.json()["detail"] == "E-mail ou senha inválidos."
+    assert response.json()["detail"] == "Não foi possível entrar. Verifique suas credenciais."
     assert "set-cookie" not in response.headers
     assert _session_count(state.engine) == 0
 
