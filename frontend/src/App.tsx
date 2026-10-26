@@ -64,6 +64,17 @@ function App() {
     }
   }
 
+  async function sair() {
+    const response = await fetch('http://localhost:8000/api/auth/logout', {
+      method: 'POST',
+      credentials: 'include',
+    })
+
+    if (response.ok) {
+      setUsuario(null)
+    }
+  }
+
   if (carregandoSessao) {
     return (
       <main className="grid min-h-screen place-items-center bg-slate-950 text-white">
@@ -77,6 +88,7 @@ function App() {
       <AuthenticatedPage
         nome={usuario.nome}
         perfis={usuario.perfis}
+        onLogout={sair}
       />
     )
   }

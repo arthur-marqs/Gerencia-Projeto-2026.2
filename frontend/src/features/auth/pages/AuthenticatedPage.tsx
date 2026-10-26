@@ -1,61 +1,57 @@
+import Header from '../../../components/layout/Header'
+import Sidebar from '../../../components/layout/Sidebar'
+
 type AuthenticatedPageProps = {
   nome: string
   perfis: string[]
+  onLogout: () => void
+
 }
 
-function AuthenticatedPage({ nome, perfis }: AuthenticatedPageProps) {
-  const ehPlanejador = perfis.includes('PLANEJADOR')
-  const ehOperador = perfis.includes('OPERADOR')
-
+function AuthenticatedPage({
+  nome,
+  perfis,
+  onLogout
+}: AuthenticatedPageProps) {
   return (
-    <main className="min-h-screen bg-slate-950 px-4 py-10 text-white">
-      <div className="mx-auto max-w-4xl">
-        <h1 className="text-3xl font-bold">
-          Bem-vindo, {nome}.
-        </h1>
+    <div className="min-h-screen bg-slate-100">
+      <Sidebar perfis={perfis} />
 
-        <p className="mt-3 text-slate-300">
-          Acesse as áreas disponíveis para o seu perfil.
-        </p>
+      <div className="lg:pl-64">
+        <Header
+          nome={nome}
+          perfis={perfis}
+          onLogout={onLogout}
+        />
 
-        <div className="mt-4 flex flex-wrap gap-2">
-          {perfis.map((perfil) => (
-            <span
-              className="rounded-full bg-blue-700 px-3 py-1 text-sm font-medium"
-              key={perfil}
-            >
-              {perfil}
-            </span>
-          ))}
-        </div>
+        <main className="px-4 py-5 pt-[100px] sm:px-6 lg:px-7 xl:px-8">
+          <div className="mx-auto max-w-[1500px]">
+            <section className="relative overflow-hidden rounded-2xl border border-slate-200 bg-white px-6 py-6 shadow-sm sm:px-8 lg:px-9">
+              <div className="relative z-10 max-w-2xl">
+                <div className="mb-3 flex flex-wrap gap-2">
+                  {perfis.map((perfil) => (
+                    <span
+                      key={perfil}
+                      className="inline-flex items-center rounded-full bg-blue-50 px-3 py-1 text-xs font-semibold uppercase tracking-wide text-blue-700"
+                    >
+                      {perfil}
+                    </span>
+                  ))}
+                </div>
 
-        <section className="mt-8 grid gap-4 md:grid-cols-2">
-          {ehPlanejador && (
-            <article className="rounded-2xl bg-slate-900 p-6">
-              <h2 className="text-xl font-semibold">
-                Área do Planejador
-              </h2>
+                <h1 className="text-3xl font-bold tracking-tight text-slate-950 sm:text-4xl">
+                  Bem-vindo, {nome}.
+                </h1>
 
-              <p className="mt-2 text-slate-300">
-                Acesso às funcionalidades de cadastro e planejamento da produção.
-              </p>
-            </article>
-          )}
-
-          {ehOperador && (
-            <article className="rounded-2xl bg-slate-900 p-6">
-              <h2 className="text-xl font-semibold">
-                Área do Operador
-              </h2>
-
-              <p className="mt-2 text-slate-300">
-                Acesso às funcionalidades de consulta e execução da produção.
-              </p>
-            </article>
-          )}
-        </section>
+                <p className="mt-3 max-w-xl text-sm leading-6 text-slate-500 sm:text-base">
+                  Acesse as funcionalidades disponíveis para sua conta.
+                </p>
+              </div>
+            </section>
+          </div>
+        </main>
       </div>
-    </main>
+    </div>
   )
 }
 
