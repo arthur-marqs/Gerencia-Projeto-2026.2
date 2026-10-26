@@ -1,1 +1,0 @@
-deve conter instruções específicas de instalação, execução e testes. O README principal apresenta o projeto e aponta para essas instruções.

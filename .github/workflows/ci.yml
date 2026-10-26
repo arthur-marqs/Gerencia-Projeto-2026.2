@@ -1,0 +1,82 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  backend-tests:
+    name: Backend pytest
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:18
+        env:
+          POSTGRES_DB: setupflow_test
+          POSTGRES_USER: setupflow_test
+          POSTGRES_PASSWORD: setupflow_test
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U setupflow_test -d setupflow_test"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+    env:
+      TEST_DATABASE_URL: postgresql+psycopg://setupflow_test:setupflow_test@localhost:5432/setupflow_test
+    defaults:
+      run:
+        working-directory: backend
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install backend dependencies
+        run: python -m pip install -r requirements.txt
+
+      - name: Run backend pytest suite
+        run: python -m pytest -v --junitxml=junit.xml testes
+
+      - name: Publish JUnit report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: backend-junit-report
+          path: backend/junit.xml
+          if-no-files-found: warn
+
+
+  frontend-checks:
+    name: Frontend lint and build
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: frontend
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: "npm"
+          cache-dependency-path: frontend/package-lock.json
+
+      - name: Install frontend dependencies
+        run: npm ci
+
+      - name: Run frontend lint
+        run: npm run lint
+
+      - name: Build frontend
+        run: npm run build  

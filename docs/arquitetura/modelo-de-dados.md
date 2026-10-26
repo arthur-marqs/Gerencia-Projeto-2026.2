@@ -1,12 +1,17 @@
 # Modelo de dados do SetupFlow
 
-**Versão:** 0.2 — DER conceitual em Peter Chen e mapeamento relacional  
-**Data:** 22/10/2026  
-**Estado:** proposta para validação antes das migrações.
+**Versão:** 0.3 — proposta conceitual e esquema implementado de autenticação
+**Data:** 25/10/2026
+**Estado:** autenticação da US01 implementada; demais áreas permanecem propostas.
 
 ## 1. Como ler este documento
 
-A primeira parte apresenta o **Diagrama Entidade-Relacionamento (DER) em notação de Peter Chen**. A segunda mantém o mapeamento para PostgreSQL, com tabelas, tipos, chaves e restrições. Os diagramas anteriores em pé de galinha foram substituídos.
+Este documento agora separa explicitamente dois níveis:
+
+1. **Implementado:** esquema PostgreSQL da autenticação da US01, derivado dos modelos ORM e das migrations em `backend/`. O DER de Peter Chen fornecido pela equipe está em [der-autenticacao-implementado.jpeg](diagramas/der-autenticacao-implementado.jpeg).
+2. **Proposto:** DER conceitual para cadastros, ordens, planejamento e execução, seguido pelo mapeamento relacional ainda não migrado. Essas partes são referência de evolução, não descrevem tabelas que existam no banco atual.
+
+Quando houver diferença entre a proposta conceitual e o banco atual, a seção **Implementação atual** e as migrations são a referência do que está executável.
 
 Os diagramas estão divididos por assunto. Uma entidade que aparece em mais de um quadro é a mesma entidade; a repetição evita cruzamentos de linhas. Cada quadro é uma visão parcial de um relacionamento, e não um banco separado. Atributos selecionados aparecem nas imagens; os demais são descritos no catálogo e no mapeamento.
 
@@ -17,16 +22,17 @@ Os diagramas estão divididos por assunto. Uma entidade que aparece em mais de u
 | Entidade | Retângulo. |
 | Relacionamento | Losango ligado às entidades, sem seta. |
 | Atributo | Elipse ligada à entidade ou ao relacionamento. |
-| Identificador | Nome do atributo sublinhado. |
+| Chave Primaria | Nome do atributo sublinhado. |
 | Participação parcial | Linha simples; mínimo zero. |
 | Participação total | Linha dupla; mínimo um. |
 | Cardinalidade | Par `(mínimo,máximo)` colocado junto à entidade à qual se refere. |
 
 Usamos Chen com cardinalidade mínima/máxima. Por exemplo: `(0,N)` ao lado de FAMÍLIA significa que **uma família pode participar de zero a muitas ocorrências de AGRUPA**; `(1,1)` ao lado de PRODUTO significa que cada produto participa exatamente uma vez, pertencendo a uma família. Não interpretar esses pares como rótulos de cardinalidade colocados na extremidade oposta.
 
-Nesta versão não há entidades fracas nem atributos multivalorados nos desenhos. A ausência desses símbolos é intencional. Identificadores conceituais não são chaves estrangeiras: `family_id`, por exemplo, aparece somente no mapeamento relacional.
 
 ## 2. Escopo e premissas
+
+As premissas e tabelas desta seção dizem respeito ao **modelo conceitual planejado**. Não presumir que já existam no PostgreSQL.
 
 A base é a proposta do SetupFlow e as decisões da conversa. O backlog completo não foi recuperado na elaboração original; as premissas continuam sujeitas à validação da equipe.
 
@@ -42,7 +48,138 @@ A base é a proposta do SetupFlow e as decisões da conversa. O backlog completo
 
 A proposta permite cadastrar família, produto ou máquina antes de suas associações, por isso usa mínimo zero nesses lados. Para planejar uma ordem, as regras do serviço devem exigir os dados e compatibilidades necessários.
 
-## 3. DER — cadastros e ordens
+## Implementação atual — autenticação da US01
+
+### Diagrama de Peter Chen implementado
+
+![DER implementado de login, perfis, sessões e controle de tentativas em notação de Peter Chen](diagramas/der-autenticacao-implementado.jpeg)
+
+O diagrama representa as seis tabelas do esquema atual: `usuarios`, `perfis`, `usuario_perfil`, `sessoes`, `controle_tentativas_login` e `falhas_login`. A relação N:N USUÁRIO–PERFIL é implementada pela entidade associativa `usuario_perfil`. O controle de tentativas é identificado pela combinação de e-mail tentado e IP, e não por uma FK para um usuário: assim também são contadas tentativas com e-mail inexistente.
+
+### Onde a implementação está
+
+| Responsabilidade | Arquivos | O que fazem |
+|---|---|---|
+| Modelos SQLAlchemy | `backend/app/models/usuario.py`, `perfil.py`, `usuario_perfil.py`, `sessao.py`, `controle_tentativas_login.py`, `falha_login.py` | Definem colunas, tipos, chaves, índices e restrições ORM. `backend/app/models/__init__.py` importa os modelos para registrá-los no metadata. |
+| Criação do esquema | `backend/migrations/versions/8c4926160d84_cria_esquema_de_autenticacao.py` | Cria as seis tabelas, FKs, chaves, checks e índices declarados nesta revisão. |
+| Dados iniciais de perfil | `backend/migrations/versions/4ba7b334799a_insere_perfis_de_acesso.py` | Insere `PLANEJADOR` e `OPERADOR`. |
+| Configuração das migrations | `backend/alembic.ini`, `backend/migrations/env.py` | Configuram Alembic e carregam os modelos para o metadata das migrations. |
+| Engine e sessão do banco | `backend/app/db/base.py`, `backend/app/db/session.py`, `backend/app/api/deps.py` | Definem a base ORM, conectam ao PostgreSQL e fornecem sessões às rotas. |
+| Contrato de entrada | `backend/app/schemas/auth.py` | Valida e-mail e senha, normalizando o e-mail para minúsculas e removendo espaços externos. |
+| Regras de autenticação | `backend/app/api/routes/auth.py` | Verifica credenciais, conta falhas, bloqueia tentativas, cria/revoga sessões e responde `/api/auth/me`. |
+| Hashes e token | `backend/app/core/security.py` | Gera/verifica hash de senha e gera o token aleatório, armazenando o hash SHA-256 da sessão. |
+| Testes com banco real | `backend/testes/integration/conftest.py`, `test_us01_auth.py`, `drivers/test_driver05_rate_limiting.py` | Protegem o banco `_test`, aplicam migrations e exercitam login, ciclo da sessão e Driver05. |
+
+### Tabelas realmente criadas
+
+Tipos abaixo são PostgreSQL/SQLAlchemy. `UUID` usa `gen_random_uuid()` como valor padrão; timestamps usam fuso horário. O sufixo `NULL` indica campo opcional.
+
+#### `usuarios`
+
+| Coluna | Tipo | Chave / regra |
+|---|---|---|
+| `id_usuario` | UUID | PK, gerado pelo banco. |
+| `nome` | `varchar(150)` | Obrigatório; não pode ser vazio após `trim`. |
+| `email` | `varchar(254)` | Obrigatório, único; deve estar em minúsculas, sem espaços externos, e não vazio. |
+| `senha_hash` | `text` | Obrigatório e não vazio; guarda somente o hash da senha. |
+| `ativo` | boolean | Obrigatório, padrão `TRUE`. Login e consulta de sessão exigem usuário ativo. |
+| `criado_em` | `timestamptz` | Obrigatório, padrão `CURRENT_TIMESTAMP`. |
+
+Não há coluna `perfil` ou `role` em `usuarios`: um usuário pode ter vários perfis por meio de `usuario_perfil`.
+
+#### `perfis`
+
+| Coluna | Tipo | Chave / regra |
+|---|---|---|
+| `id_perfil` | UUID | PK, gerado pelo banco. |
+| `codigo` | `varchar(30)` | Obrigatório e único; deve ser maiúsculo, sem espaços externos e não vazio. |
+| `nome` | `varchar(80)` | Obrigatório e não vazio após `trim`. |
+| `descricao` | text | Opcional. |
+
+Os códigos iniciais inseridos por migration são `PLANEJADOR` e `OPERADOR`.
+
+#### `usuario_perfil`
+
+| Coluna | Tipo | Chave / regra |
+|---|---|---|
+| `id_usuario` | UUID | PK composta e FK para `usuarios.id_usuario`; `ON DELETE CASCADE`. |
+| `id_perfil` | UUID | PK composta e FK para `perfis.id_perfil`; `ON DELETE RESTRICT`. |
+
+A PK é `(id_usuario, id_perfil)`, impedindo a mesma associação duplicada. O índice `ix_usuario_perfil_perfil` permite localizar usuários por perfil. O banco permite que usuário ou perfil ainda não tenha associações; a regra de que cada usuário ativo receba ao menos um perfil não é uma constraint implementada.
+
+#### `sessoes`
+
+| Coluna | Tipo | Chave / regra |
+|---|---|---|
+| `id_sessao` | UUID | PK, gerado pelo banco. |
+| `id_usuario` | UUID | Obrigatório; FK para `usuarios.id_usuario`, `ON DELETE CASCADE`. |
+| `token_hash` | `varchar(64)` | Obrigatório e único; deve conter exatamente 64 caracteres hexadecimais minúsculos. |
+| `criada_em` | `timestamptz` | Obrigatório, padrão `CURRENT_TIMESTAMP`. |
+| `expira_em` | `timestamptz` | Obrigatório e posterior a `criada_em`. |
+| `invalidada_em` | `timestamptz NULL` | Nulo enquanto válida; se preenchido, não pode anteceder `criada_em`. Logout registra a invalidação. |
+
+Índices: `ix_sessoes_usuario` em `id_usuario` e `ix_sessoes_expiracao` em `expira_em`. A relação é USUÁRIO `(0,N)` — POSSUI — SESSÃO `(1,1)`: uma sessão pertence a exatamente um usuário, e o modelo permite múltiplas sessões por usuário.
+
+O token em texto puro é emitido no cookie `setupflow_session` com `HttpOnly`; o banco recebe apenas o SHA-256. A duração configurada por padrão é oito horas (`SESSION_TTL_HOURS`), e não uma coluna adicional no modelo.
+
+#### `controle_tentativas_login`
+
+| Coluna | Tipo | Chave / regra |
+|---|---|---|
+| `email_tentado` | `varchar(254)` | Obrigatório; primeira parte da PK composta; minúsculas, sem espaços externos e não vazio. |
+| `ip_origem` | `inet` | Obrigatório; segunda parte da PK composta. |
+| `bloqueado_ate` | `timestamptz NULL` | Instante até o qual novas requisições da combinação são recusadas. |
+| `atualizado_em` | `timestamptz` | Obrigatório, padrão `CURRENT_TIMESTAMP`. |
+
+A PK `(email_tentado, ip_origem)` isola o estado por login tentado e endereço IP. Não há FK dessa tabela para `usuarios`, intencionalmente: tentativas para e-mails inexistentes também recebem controle. A combinação é compartilhada entre instâncias porque o estado fica no PostgreSQL, e não em memória local.
+
+#### `falhas_login`
+
+| Coluna | Tipo | Chave / regra |
+|---|---|---|
+| `id_falha` | UUID | PK, gerado pelo banco. |
+| `email_tentado` | `varchar(254)` | Obrigatório; integra a FK composta para o controle. |
+| `ip_origem` | `inet` | Obrigatório; integra a FK composta para o controle. |
+| `ocorrida_em` | `timestamptz` | Obrigatório, padrão `CURRENT_TIMESTAMP`. |
+
+`(email_tentado, ip_origem)` referencia a PK composta de `controle_tentativas_login`, com `ON DELETE CASCADE`. Cada falha pertence a um controle; um controle pode ter zero ou várias falhas. A rota remove falhas anteriores à janela de cinco minutos antes de contar as recentes.
+
+**Diferença ORM/migration a conhecer:** o modelo `FalhaLogin` declara o índice `ix_falhas_login_combinacao_data` em `(email_tentado, ip_origem, ocorrida_em)`, mas a migration inicial contém a criação desse índice comentada em uma string. Portanto, um banco criado apenas com as migrations atuais **não recebe esse índice**. A migration ou o modelo deve ser alinhado em uma migration futura antes de se considerar o índice presente nos bancos.
+
+### Relações e cardinalidades do esquema atual
+
+Cardinalidades no formato (mínimo, máximo), vistas da participação da entidade indicada:
+
+| Relação implementada | Participações | Implementação relacional |
+|---|---|---|
+| USUÁRIO — POSSUI — PERFIL | Usuário `(0,N)`; Perfil `(0,N)` | N:N resolvida por `usuario_perfil`; ambos os lados podem ter zero vínculos. |
+| USUÁRIO — MANTÉM — SESSÃO | Usuário `(0,N)`; Sessão `(1,1)` | FK obrigatória `sessoes.id_usuario`. |
+| CONTROLE TENTATIVAS — REGISTRA — FALHA LOGIN | Controle `(0,N)`; Falha `(1,1)` | FK composta da falha para `(email_tentado, ip_origem)` do controle. |
+
+Essa interpretação reflete as constraints do banco. A imagem de Peter Chen é uma representação conceitual; as cardinalidades e a garantia física devem ser lidas conforme a tabela acima e as FKs/constraints da migration.
+
+### Como o Driver05 usa esses dados
+
+`POST /api/auth/login` obtém o e-mail validado pelo schema e o IP do cliente (`request.client.host`). Em uma transação, cria se necessário e bloqueia a linha de `controle_tentativas_login` com `SELECT ... FOR UPDATE`. Se `bloqueado_ate` ainda estiver no futuro, responde `429` antes de verificar a senha ou criar sessão.
+
+Quando as credenciais falham, a rota exclui falhas anteriores a cinco minutos, insere uma linha em `falhas_login` e conta as falhas da combinação dentro da janela. A quinta falha define `bloqueado_ate` para 15 minutos à frente e responde `429`. Falhas anteriores à quinta respondem `401`. Durante o bloqueio, inclusive com senha correta, não se cria sessão nem cookie. Em login válido após o bloqueio, falhas são apagadas e `bloqueado_ate` volta a `NULL`.
+
+O `SELECT ... FOR UPDATE` serializa atualizações para a mesma combinação e o PostgreSQL compartilha o controle entre instâncias que usam esse banco. A garantia depende de todas as instâncias apontarem para o mesmo PostgreSQL.
+
+### Migrations e evolução do esquema
+
+| Revisão | Conteúdo |
+|---|---|
+| `8c4926160d84` | Cria `controle_tentativas_login`, `perfis`, `usuarios`, `falhas_login`, `sessoes` e `usuario_perfil`, com constraints e índices efetivamente executados pela migration. |
+| `4ba7b334799a` | Insere os perfis `PLANEJADOR` e `OPERADOR`. |
+
+As migrations são aplicadas com `alembic upgrade head`, a partir de `backend/`. Para alterar o esquema, atualize o modelo e crie uma nova migration revisada; não edite uma migration já aplicada em ambientes compartilhados. A suíte de integração também aplica `head` automaticamente, sempre no PostgreSQL selecionado por `TEST_DATABASE_URL` validada com sufixo `_test`.
+
+### O que ainda não está implementado
+
+O PostgreSQL atual contém apenas as seis tabelas de autenticação desta seção. Não há tabelas de família, produto, máquina, compatibilidade, ordem, idempotência, planejamento, cenário, aprovação, execução, pausa ou auditoria. As entidades, atributos e regras restantes deste documento são propostas, até existirem modelos e migrations correspondentes.
+
+## 3. DER conceitual proposto — cadastros e ordens (não implementado)
 
 ![DER de cadastros em Peter Chen](diagramas/chen-cadastros.png)
 
@@ -55,11 +192,11 @@ A proposta permite cadastrar família, produto ou máquina antes de suas associa
 
 **Tempo por unidade pertence ao relacionamento COMPATÍVEL**, pois pode variar conforme o par produto–máquina. No modelo relacional, esse relacionamento origina `product_machines`.
 
-## 4. DER — sessões e controles técnicos
+## 4. DER conceitual anterior — sessões e controles técnicos (substituído)
 
 ![DER de segurança em Peter Chen](diagramas/chen-seguranca.png)
 
-Este recorte usa a mesma notação para entidades técnicas de suporte aos drivers. Ele é separado do domínio produtivo para facilitar a leitura.
+Este é um desenho conceitual anterior, não o esquema implementado. Para o modelo real de login, perfil, sessão e Driver05, use exclusivamente o DER e o catálogo da seção **Implementação atual — autenticação da US01**.
 
 | Relacionamento | Participação da primeira entidade | Participação da segunda entidade |
 |---|---|---|
@@ -68,7 +205,7 @@ Este recorte usa a mesma notação para entidades técnicas de suporte aos drive
 | USUÁRIO — SOLICITA — REGISTRO IDEMP. | Usuário `(0,N)` | Registro `(1,1)` |
 | ORDEM — É RESULTADO — REGISTRO IDEMP. | Ordem `(0,1)` | Registro `(1,1)` |
 
-CONTROLE LOGIN pode existir para um login inexistente; por isso o vínculo com USUÁRIO é opcional. REGISTRO IDEMP. significa **registro de idempotência**: conserva o resultado de uma solicitação para que reenvios não criem novas ordens. O lado da ordem é opcional porque o registro pode expirar após a janela garantida, enquanto a ordem permanece.
+As relações USUÁRIO–CONTROLE LOGIN e REGISTRO IDEMP. abaixo são somente propostas e não existem como FKs/tabelas no banco atual. Na implementação, `controle_tentativas_login` é identificado por `(email_tentado, ip_origem)` e pode existir para um e-mail sem usuário cadastrado. REGISTRO IDEMP. significa **registro de idempotência** e permanece uma ideia futura para reenvios de ordens.
 
 ## 5. DER — planejamento
 
@@ -121,7 +258,7 @@ Vínculos de autoria complementares: USUÁRIO — INICIA — EXECUÇÃO e USUÁR
 
 ## 7. Catálogo de atributos conceituais
 
-Identificadores dos desenhos estão sublinhados. Na tabela abaixo, eles aparecem em coluna própria. Não se incluem FKs como atributos conceituais: os vínculos são representados pelos relacionamentos.
+Esta tabela descreve o DER **proposto**, não os atributos implantados. Para os campos e chaves do esquema atual, consulte as tabelas da seção **Implementação atual — autenticação da US01**. Identificadores dos desenhos estão sublinhados. Na tabela abaixo, eles aparecem em coluna própria. Não se incluem FKs como atributos conceituais: os vínculos são representados pelos relacionamentos.
 
 | Entidade ou relacionamento | Identificador proposto | Outros atributos principais |
 |---|---|---|
@@ -146,11 +283,11 @@ Identificadores dos desenhos estão sublinhados. Na tabela abaixo, eles aparecem
 
 APROVAÇÃO é identificada pelo plano no mapeamento atual. Se for desenhada como entidade dependente sem identificador próprio, usar entidade fraca e relacionamento identificador em Chen. Ela não aparece como entidade forte nas imagens desta entrega.
 
-Código é identificador de negócio dos cadastros e das ordens. Na implementação, essas entidades também recebem `id` UUID como chave técnica, preservando o código como único. Hash de senha, hash de token, versão concorrente e detalhes de resposta são elementos técnicos documentados a seguir.
+Código é identificador de negócio proposto para cadastros e ordens. A implementação atual de autenticação não tem as entidades de cadastros e ordens, e usa os nomes/tipos `id_usuario`, `id_perfil`, `email` e outros descritos na seção implementada. Hash de senha e hash de token estão no esquema atual; campos de versão concorrente e detalhes de resposta continuam sendo propostas.
 
-## 8. Mapeamento para PostgreSQL
+## 8. Mapeamento relacional proposto para PostgreSQL (não implantado)
 
-Esta parte é **relacional**, não uma continuação da notação gráfica de Chen. Os nomes das tabelas permanecem alinhados ao backend.
+Esta parte é **relacional**, não uma continuação da notação gráfica de Chen. As tabelas e regras abaixo são uma proposta para evolução e **não são criadas pelas migrations atuais**. A exceção — o esquema implementado de autenticação — está documentada no início do documento; não use os nomes de tabela desta seção como se já estivessem no banco.
 
 - Entidade forte → tabela com chave primária.
 - Relacionamento 1:N → FK no lado N, obrigatória quando a participação desse lado for total.
@@ -253,7 +390,9 @@ Não criar uma restrição única sobre produto, quantidade e prazo: duas ordens
 
 O vínculo com planejamento é representado pelos itens e pela aprovação da sequência. Evitar duplicar essa informação em um estado `planned` sem uma regra explícita de sincronização.
 
-### 4. Autenticação e idempotência — base da R1
+### 4. Proposta anterior de autenticação e idempotência — substituída para autenticação
+
+`auth_sessions` e `login_guards` são nomes e estruturas de uma proposta anterior, substituídos pelo esquema atual `sessoes`, `controle_tentativas_login` e `falhas_login` documentado no início. Não criar estas tabelas duplicadas. `idempotency_records` segue sendo uma proposta futura para operações de cadastro de ordens, que ainda não estão implementadas.
 
 
 #### `auth_sessions`

@@ -68,10 +68,14 @@ O sistema permitirá organizar ordens de produção considerando fatores como te
 - **Ferramentas**: Git e GitHub
 
 
----
-## Organização do repositório (Sugestão)
+## Outros 
 
-O SetupFlow utiliza um único repositório para backend, frontend, testes e documentação. O backend é organizado por camadas, com o algoritmo de sequenciamento isolado das rotas e do banco de dados.
+Consulte as [instruções do backend](backend/README.md) para configurar o PostgreSQL e executar a API.
+Consulte também o [mapa visual do projeto](docs/estrutura-projeto.md) para ver a árvore real do repositório, a responsabilidade de cada arquivo e o fluxo de login.
+---
+## Organização arquitetural planejada (referência futura)
+
+O SetupFlow utiliza um único repositório para backend, frontend, testes e documentação. A árvore abaixo é uma proposta de organização futura, não um inventário do código implementado. Para a estrutura atual, consulte o [mapa visual do projeto](docs/estrutura-projeto.md).
 
 ```text
 setupflow/
@@ -363,4 +367,3 @@ setupflow/
 - Os arquivos de dependências e seus locks são mantidos no repositório.
 - Os testes e as evidências devem ser vinculados às US e aos drivers correspondentes.
 - Quando o Jira for a fonte oficial do backlog, a documentação deve referenciá-lo para evitar versões divergentes.
-

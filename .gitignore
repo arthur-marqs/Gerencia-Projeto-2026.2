@@ -1,0 +1,24 @@
+# Python: ambiente virtual e arquivos gerados
+.venv/
+__pycache__/
+*.py[cod]
+
+# Testes e análise de código
+.pytest_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+
+# Configurações locais e segredos
+.env
+.env.*
+!.env.example
+
+# Frontend: dependências e compilação
+node_modules/
+dist/
+*.tsbuildinfoP
+
+# Arquivos do sistema
+Thumbs.db
+.DS_Store
