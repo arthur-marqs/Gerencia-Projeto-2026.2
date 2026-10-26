@@ -1,7 +1,10 @@
 import { useState, type FormEvent } from 'react'
 import { validateLogin, type LoginErrors } from '../validation/validateLogin'
+type LoginPageProps = {
+  onLogin: (nome: string) => void
+}
 
-function LoginPage() {
+function LoginPage({ onLogin }: LoginPageProps) {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [errors, setErrors] = useState<LoginErrors>({})
@@ -39,7 +42,7 @@ const response = await fetch('http://127.0.0.1:8000/api/auth/login', {
       return
     }
 
-    setMessage(`Login realizado. Bem-vindo, ${data.usuario?.nome ?? ''}.`)
+    onLogin(data.usuario?.nome ?? 'Usuário')
   } catch {
     setMessage('Não foi possível conectar à API. Verifique se ela está em execução.')
   }
