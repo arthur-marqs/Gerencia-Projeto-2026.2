@@ -121,9 +121,9 @@ def test_me_rejeita_sessao_expirada(seeded_auth, monkeypatch):
         def now(cls, tz=None):
             return datetime.now(tz) + timedelta(days=1)
 
-    from app.api.routes import auth
+    from app.api import deps
 
-    monkeypatch.setattr(auth, "datetime", ExpiredSessionClock)
+    monkeypatch.setattr(deps, "datetime", ExpiredSessionClock)
 
     response = client.get("/api/auth/me")
     assert response.status_code == 401

@@ -3,11 +3,11 @@ from hashlib import sha256
 
 from fastapi import APIRouter, Cookie, Depends, HTTPException, Response, status, Request
 
-from sqlalchemy import select, delete, func, select
+from sqlalchemy import delete, func, select
 from sqlalchemy.orm import Session
 from sqlalchemy.dialects.postgresql import insert as pg_insert
 
-from app.api.deps import get_db
+from app.api.deps import get_current_user, get_db
 from app.core.config import settings
 from app.core.security import create_session_token, verify_password
 from app.models.perfil import Perfil
@@ -164,38 +164,10 @@ def login(
     }
 
 @router.get("/me")
-def get_current_user(
-    token: str | None = Cookie(default=None, alias="setupflow_session"),
+def me(
+    usuario: Usuario = Depends(get_current_user),
     db: Session = Depends(get_db),
 ):
-    if token is None:
-        raise HTTPException(
-            status_code=401,
-            detail="Sessão inválida ou expirada.",
-        )
-
-    token_hash = sha256(token.encode("utf-8")).hexdigest()
-    agora = datetime.now(timezone.utc)
-
-    consulta = (
-        select(Usuario)
-        .join(Sessao, Sessao.id_usuario == Usuario.id_usuario)
-        .where(
-            Sessao.token_hash == token_hash,
-            Sessao.invalidada_em.is_(None),
-            Sessao.expira_em > agora,
-            Usuario.ativo.is_(True),
-        )
-    )
-
-    usuario = db.scalar(consulta)
-
-    if usuario is None:
-        raise HTTPException(
-            status_code=401,
-            detail="Sessão inválida ou expirada.",
-        )
-
     perfis = db.scalars(
         select(Perfil.codigo)
         .join(usuario_perfil, Perfil.id_perfil == usuario_perfil.c.id_perfil)
