@@ -1,10 +1,11 @@
 import { useState } from 'react'
 import Header from '../../../components/layout/Header'
 import Sidebar from '../../../components/layout/Sidebar'
+import FamiliesPage from '../../families/pages/FamiliesPage'
 import MaquinasPage from '../../maquinas/pages/MaquinasPage'
 import ProdutosPage from '../../produtos/pages/ProdutosPage'
 
-type Pagina = 'dashboard' | 'produtos' | 'maquinas'
+type Pagina = 'dashboard' | 'produtos' | 'familias' | 'maquinas'
 
 type AuthenticatedPageProps = {
   nome: string
@@ -17,26 +18,29 @@ function AuthenticatedPage({
   perfis,
   onLogout,
 }: AuthenticatedPageProps) {
-  const [paginaAtiva, setPaginaAtiva] = useState<Pagina>('dashboard')
+  const [paginaAtual, setPaginaAtual] = useState<Pagina>('dashboard')
+  const ehPlanejador = perfis.includes('PLANEJADOR')
 
   return (
     <div className="min-h-screen bg-slate-100">
       <Sidebar
         perfis={perfis}
-        paginaAtiva={paginaAtiva}
-        onNavegar={setPaginaAtiva}
+        paginaAtual={paginaAtual}
+        onNavigate={setPaginaAtual}
       />
 
       <div className="lg:pl-64">
-        <Header
-          nome={nome}
-          perfis={perfis}
-          onLogout={onLogout}
-        />
+        <Header nome={nome} perfis={perfis} onLogout={onLogout} />
 
-        {paginaAtiva === 'produtos' ? (
+        {paginaAtual === 'produtos' && ehPlanejador ? (
           <ProdutosPage />
-        ) : paginaAtiva === 'maquinas' ? (
+        ) : paginaAtual === 'familias' && ehPlanejador ? (
+          <main className="px-4 py-5 pt-[100px] sm:px-6 lg:px-7 xl:px-8">
+            <div className="mx-auto max-w-[1500px]">
+              <FamiliesPage />
+            </div>
+          </main>
+        ) : paginaAtual === 'maquinas' && ehPlanejador ? (
           <MaquinasPage />
         ) : (
           <main className="px-4 py-5 pt-[100px] sm:px-6 lg:px-7 xl:px-8">

@@ -1,3 +1,4 @@
+
 """Fixtures de integração da US01. Usam exclusivamente um banco *_test."""
 
 from __future__ import annotations
@@ -10,8 +11,8 @@ import pytest
 from alembic import command
 from alembic.config import Config
 from sqlalchemy import create_engine, text
-from sqlalchemy.exc import ArgumentError
 from sqlalchemy.engine import make_url
+from sqlalchemy.exc import ArgumentError
 from sqlalchemy.orm import sessionmaker
 
 
@@ -19,7 +20,9 @@ from sqlalchemy.orm import sessionmaker
 def auth_test_context():
     test_database_url = os.getenv("TEST_DATABASE_URL")
     if not test_database_url:
-        pytest.fail("Defina TEST_DATABASE_URL para um banco PostgreSQL de teste terminado em _test.")
+        pytest.fail(
+            "Defina TEST_DATABASE_URL para um banco PostgreSQL de teste terminado em _test."
+        )
 
     try:
         parsed_url = make_url(test_database_url)
@@ -40,6 +43,7 @@ def auth_test_context():
         pytest.fail("TEST_DATABASE_URL deve informar o usuário PostgreSQL.")
 
     test_url = parsed_url.set(drivername="postgresql+psycopg")
+
     for name, value in {
         "DB_USER": parsed_url.username or "",
         "DB_PASSWORD": parsed_url.password or "",
@@ -59,6 +63,7 @@ def auth_test_context():
 
     engine = create_engine(test_url)
     app = None
+
     try:
         command.upgrade(config, "head")
 
@@ -73,7 +78,9 @@ def auth_test_context():
                 yield db
 
         app.dependency_overrides[get_db] = override_get_db
+
         yield SimpleNamespace(app=app, engine=engine, factory=factory)
+
     finally:
         if app is not None:
             app.dependency_overrides.clear()
@@ -87,12 +94,13 @@ def auth_state(auth_test_context):
         connection.execute(
             text(
                 """
-                TRUNCATE TABLE maquinas, produtos, falhas_login, sessoes,
-                    usuario_perfil,
+                TRUNCATE TABLE families, maquinas, produtos, falhas_login,
+                    sessoes, usuario_perfil,
                     usuarios, controle_tentativas_login CASCADE
                 """
             )
         )
+
         connection.execute(
             text(
                 """
@@ -104,6 +112,7 @@ def auth_state(auth_test_context):
                 """
             )
         )
+
         user_id = connection.execute(
             text(
                 """
@@ -118,15 +127,19 @@ def auth_state(auth_test_context):
                 "senha_hash": _hash_password("SenhaTesteUS01!2026"),
             },
         ).scalar_one()
+
         connection.execute(
             text(
                 """
                 INSERT INTO usuario_perfil (id_usuario, id_perfil)
-                SELECT :user_id, id_perfil FROM perfis WHERE codigo = 'PLANEJADOR'
+                SELECT :user_id, id_perfil
+                FROM perfis
+                WHERE codigo = 'PLANEJADOR'
                 """
             ),
             {"user_id": user_id},
         )
+
         operator_user_id = connection.execute(
             text(
                 """
@@ -141,11 +154,14 @@ def auth_state(auth_test_context):
                 "senha_hash": _hash_password("SenhaTesteUS01!2026"),
             },
         ).scalar_one()
+
         connection.execute(
             text(
                 """
                 INSERT INTO usuario_perfil (id_usuario, id_perfil)
-                SELECT :user_id, id_perfil FROM perfis WHERE codigo = 'OPERADOR'
+                SELECT :user_id, id_perfil
+                FROM perfis
+                WHERE codigo = 'OPERADOR'
                 """
             ),
             {"user_id": operator_user_id},

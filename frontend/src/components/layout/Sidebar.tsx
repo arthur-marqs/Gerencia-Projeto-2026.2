@@ -1,20 +1,18 @@
+type Pagina = 'dashboard' | 'produtos' | 'familias' | 'maquinas'
+
 type SidebarProps = {
   perfis: string[]
-  paginaAtiva: 'dashboard' | 'produtos' | 'maquinas'
-  onNavegar: (pagina: 'dashboard' | 'produtos' | 'maquinas') => void
+  paginaAtual: Pagina
+  onNavigate: (pagina: Pagina) => void
 }
 
-function Sidebar({
-  perfis,
-  paginaAtiva,
-  onNavegar,
-}: SidebarProps) {
-  const podeGerenciarCadastros = perfis.includes('PLANEJADOR')
+function Sidebar({ perfis, paginaAtual, onNavigate }: SidebarProps) {
+  const ehPlanejador = perfis.includes('PLANEJADOR')
 
-  function classeItem(ativo: boolean) {
+  function classeItem(pagina: Pagina) {
     return [
       'flex w-full items-center rounded-lg px-4 py-2.5 text-left text-sm font-semibold transition-colors duration-200',
-      ativo
+      paginaAtual === pagina
         ? 'bg-blue-600 text-white hover:bg-blue-700'
         : 'text-slate-300 hover:bg-slate-800 hover:text-white',
     ].join(' ')
@@ -30,30 +28,44 @@ function Sidebar({
         />
       </div>
 
-      <nav className="flex-1 space-y-1 px-3 pt-2">
+      <nav
+        aria-label="Navegação principal"
+        className="flex-1 space-y-1 px-3 pt-2"
+      >
         <button
           type="button"
-          onClick={() => onNavegar('dashboard')}
-          className={classeItem(paginaAtiva === 'dashboard')}
+          aria-current={paginaAtual === 'dashboard' ? 'page' : undefined}
+          onClick={() => onNavigate('dashboard')}
+          className={classeItem('dashboard')}
         >
           Dashboard
         </button>
 
-        {podeGerenciarCadastros && (
+        {ehPlanejador && (
           <>
             <button
               type="button"
               data-cy="menu-produtos"
-              onClick={() => onNavegar('produtos')}
-              className={classeItem(paginaAtiva === 'produtos')}
+              aria-current={paginaAtual === 'produtos' ? 'page' : undefined}
+              onClick={() => onNavigate('produtos')}
+              className={classeItem('produtos')}
             >
               Produtos
             </button>
             <button
               type="button"
+              aria-current={paginaAtual === 'familias' ? 'page' : undefined}
+              onClick={() => onNavigate('familias')}
+              className={classeItem('familias')}
+            >
+              Famílias de produtos
+            </button>
+            <button
+              type="button"
               data-cy="menu-maquinas"
-              onClick={() => onNavegar('maquinas')}
-              className={classeItem(paginaAtiva === 'maquinas')}
+              aria-current={paginaAtual === 'maquinas' ? 'page' : undefined}
+              onClick={() => onNavigate('maquinas')}
+              className={classeItem('maquinas')}
             >
               Máquinas
             </button>
