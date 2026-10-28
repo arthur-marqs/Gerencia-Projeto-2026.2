@@ -18,6 +18,10 @@ class ProdutoCreate(BaseModel):
         return valor
 
 
+class ProdutoFamiliaUpdate(BaseModel):
+    family_id: UUID | None
+
+
 class ProdutoResponse(BaseModel):
     model_config = ConfigDict(from_attributes=True)
 
@@ -25,5 +29,6 @@ class ProdutoResponse(BaseModel):
     codigo: str
     nome: str
     unidade: str
+    family_id: UUID | None
     ativo: bool
     criado_em: datetime
