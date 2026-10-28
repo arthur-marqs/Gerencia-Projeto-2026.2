@@ -26,6 +26,8 @@ function MaquinasPage() {
   const [maquinas, setMaquinas] = useState<Maquina[]>([])
   const [carregando, setCarregando] = useState(true)
   const [erroListagem, setErroListagem] = useState('')
+  const [maquinaEmEdicao, setMaquinaEmEdicao] = useState<string | null>(null)
+  const [maquinaEmAcao, setMaquinaEmAcao] = useState<string | null>(null)
 
   async function carregarMaquinas() {
     setCarregando(true)
@@ -104,7 +106,27 @@ function MaquinasPage() {
     return Object.keys(novosErros).length === 0
   }
 
-  async function cadastrarMaquina(event: FormEvent<HTMLFormElement>) {
+  function cancelarEdicao() {
+    setMaquinaEmEdicao(null)
+    setCodigo('')
+    setNome('')
+    setDescricao('')
+    setErros({})
+    setMensagemErro('')
+    setMensagemSucesso('')
+  }
+
+  function editarMaquina(maquina: Maquina) {
+    setMaquinaEmEdicao(maquina.id_maquina)
+    setCodigo(maquina.codigo)
+    setNome(maquina.nome)
+    setDescricao(maquina.descricao ?? '')
+    setErros({})
+    setMensagemErro('')
+    setMensagemSucesso('')
+  }
+
+  async function salvarMaquina(event: FormEvent<HTMLFormElement>) {
     event.preventDefault()
     setMensagemErro('')
     setMensagemSucesso('')
@@ -116,8 +138,11 @@ function MaquinasPage() {
     setSalvando(true)
 
     try {
-      const response = await fetch('http://localhost:8000/api/maquinas', {
-        method: 'POST',
+      const endpoint = maquinaEmEdicao
+        ? `http://localhost:8000/api/maquinas/${maquinaEmEdicao}`
+        : 'http://localhost:8000/api/maquinas'
+      const response = await fetch(endpoint, {
+        method: maquinaEmEdicao ? 'PUT' : 'POST',
         credentials: 'include',
         headers: {
           'Content-Type': 'application/json',
@@ -154,20 +179,106 @@ function MaquinasPage() {
       }
 
       if (!response.ok) {
-        setMensagemErro('Não foi possível cadastrar a máquina.')
+        setMensagemErro(
+          maquinaEmEdicao
+            ? 'Não foi possível atualizar a máquina.'
+            : 'Não foi possível cadastrar a máquina.',
+        )
         return
       }
 
-      setCodigo('')
-      setNome('')
-      setDescricao('')
-      setErros({})
-      setMensagemSucesso('Máquina cadastrada com sucesso.')
+      const estavaEditando = Boolean(maquinaEmEdicao)
+      cancelarEdicao()
+      setMensagemSucesso(
+        estavaEditando
+          ? 'Máquina atualizada com sucesso.'
+          : 'Máquina cadastrada com sucesso.',
+      )
       await carregarMaquinas()
     } catch {
       setMensagemErro('Não foi possível conectar ao servidor.')
     } finally {
       setSalvando(false)
+    }
+  }
+
+  async function alterarStatus(maquina: Maquina) {
+    const novoStatus = !maquina.ativo
+    const confirmacao = novoStatus
+      ? `Deseja ativar a máquina ${maquina.codigo}?`
+      : `Deseja inativar a máquina ${maquina.codigo}? Ela não será disponibilizada para novos planejamentos.`
+    if (!window.confirm(confirmacao)) {
+      return
+    }
+
+    setMaquinaEmAcao(maquina.id_maquina)
+    setMensagemErro('')
+    setMensagemSucesso('')
+    try {
+      const response = await fetch(
+        `http://localhost:8000/api/maquinas/${maquina.id_maquina}/status`,
+        {
+          method: 'PATCH',
+          credentials: 'include',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ ativo: novoStatus }),
+        },
+      )
+      if (!response.ok) {
+        setMensagemErro(
+          novoStatus
+            ? 'Não foi possível ativar a máquina.'
+            : 'Não foi possível inativar a máquina.',
+        )
+        return
+      }
+
+      setMensagemSucesso(
+        novoStatus
+          ? 'Máquina ativada com sucesso.'
+          : 'Máquina inativada com sucesso.',
+      )
+      await carregarMaquinas()
+    } catch {
+      setMensagemErro('Não foi possível conectar ao servidor.')
+    } finally {
+      setMaquinaEmAcao(null)
+    }
+  }
+
+  async function excluirMaquina(maquina: Maquina) {
+    if (
+      !window.confirm(
+        `Deseja excluir definitivamente a máquina ${maquina.codigo}?`,
+      )
+    ) {
+      return
+    }
+
+    setMaquinaEmAcao(maquina.id_maquina)
+    setMensagemErro('')
+    setMensagemSucesso('')
+    try {
+      const response = await fetch(
+        `http://localhost:8000/api/maquinas/${maquina.id_maquina}`,
+        { method: 'DELETE', credentials: 'include' },
+      )
+      if (response.status === 409) {
+        const data = await response.json()
+        setMensagemErro(data.detail)
+        return
+      }
+      if (!response.ok) {
+        setMensagemErro('Não foi possível excluir a máquina.')
+        return
+      }
+
+      setMensagemSucesso('Máquina excluída com sucesso.')
+      await carregarMaquinas()
+    } catch {
+      setMensagemErro('Não foi possível conectar ao servidor.')
+    } finally {
+      setMaquinaEmAcao(null)
     }
   }
 
@@ -186,14 +297,14 @@ function MaquinasPage() {
           <section className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
             <div className="mb-6">
               <h2 className="text-lg font-semibold text-slate-900">
-                Nova máquina
+                {maquinaEmEdicao ? 'Editar máquina' : 'Nova máquina'}
               </h2>
               <p className="mt-1 text-sm text-slate-500">
                 Preencha o código e o nome obrigatórios.
               </p>
             </div>
 
-            <form className="space-y-5" onSubmit={cadastrarMaquina} noValidate>
+            <form className="space-y-5" onSubmit={salvarMaquina} noValidate>
               <div>
                 <label
                   htmlFor="maquina-codigo"
@@ -283,8 +394,21 @@ function MaquinasPage() {
                 disabled={salvando}
                 className="w-full cursor-pointer rounded-xl bg-blue-600 px-5 py-3 text-sm font-semibold text-white transition hover:bg-blue-700 disabled:cursor-not-allowed disabled:opacity-60"
               >
-                {salvando ? 'Salvando...' : 'Cadastrar máquina'}
+                {salvando
+                  ? 'Salvando...'
+                  : maquinaEmEdicao
+                    ? 'Salvar alterações'
+                    : 'Cadastrar máquina'}
               </button>
+              {maquinaEmEdicao && (
+                <button
+                  type="button"
+                  onClick={cancelarEdicao}
+                  className="w-full cursor-pointer rounded-xl border border-slate-300 px-5 py-3 text-sm font-semibold text-slate-700 transition hover:bg-slate-50"
+                >
+                  Cancelar edição
+                </button>
+              )}
             </form>
           </section>
 
@@ -294,7 +418,7 @@ function MaquinasPage() {
                 Máquinas cadastradas
               </h2>
               <p className="mt-1 text-sm text-slate-500">
-                Máquinas ativas disponíveis para utilização no planejamento.
+                Consulte o status e gerencie a disponibilidade das máquinas.
               </p>
             </div>
 
@@ -332,6 +456,7 @@ function MaquinasPage() {
                       <th className="px-6 py-4 font-semibold">Nome</th>
                       <th className="px-6 py-4 font-semibold">Descrição</th>
                       <th className="px-6 py-4 font-semibold">Status</th>
+                      <th className="px-6 py-4 font-semibold">Ações</th>
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-slate-100">
@@ -358,6 +483,33 @@ function MaquinasPage() {
                           >
                             {maquina.ativo ? 'Ativa' : 'Inativa'}
                           </span>
+                        </td>
+                        <td className="px-6 py-4">
+                          <div className="flex flex-wrap gap-2">
+                            <button
+                              type="button"
+                              onClick={() => editarMaquina(maquina)}
+                              className="cursor-pointer rounded-lg border border-slate-300 px-3 py-1.5 text-xs font-semibold text-slate-700 hover:bg-slate-50"
+                            >
+                              Editar
+                            </button>
+                            <button
+                              type="button"
+                              disabled={maquinaEmAcao === maquina.id_maquina}
+                              onClick={() => void alterarStatus(maquina)}
+                              className="cursor-pointer rounded-lg border border-blue-200 px-3 py-1.5 text-xs font-semibold text-blue-700 hover:bg-blue-50 disabled:opacity-50"
+                            >
+                              {maquina.ativo ? 'Inativar' : 'Ativar'}
+                            </button>
+                            <button
+                              type="button"
+                              disabled={maquinaEmAcao === maquina.id_maquina}
+                              onClick={() => void excluirMaquina(maquina)}
+                              className="cursor-pointer rounded-lg border border-red-200 px-3 py-1.5 text-xs font-semibold text-red-700 hover:bg-red-50 disabled:opacity-50"
+                            >
+                              Excluir
+                            </button>
+                          </div>
                         </td>
                       </tr>
                     ))}

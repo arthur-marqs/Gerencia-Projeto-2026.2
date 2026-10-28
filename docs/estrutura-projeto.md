@@ -187,7 +187,8 @@ O pytest instancia a aplicação ASGI em processo com `TestClient`; não inicial
 
 ## Limites do escopo implementado
 
-- O backend implementa saúde, autenticação e cadastro/listagem de produtos e máquinas. O cadastro de máquinas está disponível somente para o perfil `PLANEJADOR`; ordens e planejamento ainda não foram implementados.
+- O backend implementa saúde, autenticação e cadastro/listagem de produtos e máquinas. O cadastro de máquinas está disponível sopy -3.11 -m venv .venv
+.\.venv\Scripts\python.exe -m pip install -r requirements.txtmente para o perfil `PLANEJADOR`; ordens e planejamento ainda não foram implementados.
 - `backend/app/scheduling/` e `backend/app/services/` estão previstos na arquitetura futura, mas ainda não contêm módulos implementados.
 - A tela atual do frontend concentra o fluxo de login; não há navegação de dashboard ou gestão de produção.
 - O arquivo `docs/arquitetura/Arquitetura-SetupFlow.png` representa a arquitetura proposta. O diagrama Mermaid deste documento representa o fluxo efetivamente implementado para autenticação.

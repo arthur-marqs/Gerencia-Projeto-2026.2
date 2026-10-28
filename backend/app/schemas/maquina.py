@@ -18,6 +18,14 @@ class MaquinaCreate(BaseModel):
         return valor
 
 
+class MaquinaUpdate(MaquinaCreate):
+    pass
+
+
+class MaquinaStatusUpdate(BaseModel):
+    ativo: bool
+
+
 class MaquinaResponse(BaseModel):
     model_config = ConfigDict(from_attributes=True)
 

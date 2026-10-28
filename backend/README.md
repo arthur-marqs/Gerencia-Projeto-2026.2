@@ -125,7 +125,7 @@ No `psql`, liste as tabelas:
 \dt
 ```
 
-As migrations também criam `produtos` e `maquinas`. O perfil `PLANEJADOR` pode cadastrar e consultar produtos em `/api/produtos` e máquinas em `/api/maquinas`; o perfil `OPERADOR` não tem acesso a essas rotas. Máquinas são cadastradas com código e nome obrigatórios, descrição opcional e status ativo por padrão.
+As migrations também criam `produtos` e `maquinas`. O perfil `PLANEJADOR` pode cadastrar e consultar produtos em `/api/produtos` e gerenciar máquinas em `/api/maquinas`; o perfil `OPERADOR` não tem acesso a essas rotas. Máquinas são cadastradas com código e nome obrigatórios, descrição opcional e status ativo por padrão. O cadastro de máquinas também permite editar os dados (`PUT /api/maquinas/{id}`), alterar o status (`PATCH /api/maquinas/{id}/status`) e excluir (`DELETE /api/maquinas/{id}`). A exclusão é bloqueada quando uma chave estrangeira indica registros vinculados; nesses casos, a máquina pode ser inativada para preservar os dados.
 
 Os testes de cadastro e controle de acesso das máquinas ficam em `testes/integration/test_us03_maquinas.py`. Configure `TEST_DATABASE_URL` como descrito acima e execute:
 
