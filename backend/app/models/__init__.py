@@ -1,6 +1,7 @@
 from app.models.family import Family
 from app.models.controle_tentativas_login import ControleTentativasLogin
 from app.models.falha_login import FalhaLogin
+from app.models.maquina import Maquina
 from app.models.perfil import Perfil
 from app.models.produto import Produto
 from app.models.sessao import Sessao
@@ -11,6 +12,7 @@ __all__ = [
     "Family",
     "ControleTentativasLogin",
     "FalhaLogin",
+    "Maquina",
     "Perfil",
     "Produto",
     "Sessao",

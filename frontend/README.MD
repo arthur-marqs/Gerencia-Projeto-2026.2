@@ -4,11 +4,11 @@ Aplicação em desenvolvimento para planejamento e acompanhamento da produção.
 
 ## Estado atual
 
-- **Frontend:** tela de login em React, TypeScript, Vite e Tailwind CSS.
+- **Frontend:** tela de login e áreas autenticadas de produtos e máquinas em React, TypeScript, Vite e Tailwind CSS.
 - **Validação:** verifica e-mail e senha no navegador e mostra mensagens para campos inválidos ou vazios.
 - **Senha:** botão de olho para mostrar ou ocultar o conteúdo digitado.
 - **Marca:** símbolo SetupFlow na coluna esquerda e wordmark no cartão de login.
-- **Backend:** API FastAPI com documentação interativa, endpoint `GET /api/health` e rotas de autenticação.
+- **Backend:** API FastAPI com documentação interativa, endpoint `GET /api/health`, rotas de autenticação e cadastro/listagem de produtos e máquinas restritos ao perfil Planejador de Produção.
 - **Autenticação e banco:** o formulário envia credenciais para a API; o backend verifica a senha e mantém sessões no PostgreSQL.
 
 ## Requisitos

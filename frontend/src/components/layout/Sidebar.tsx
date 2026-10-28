@@ -1,4 +1,4 @@
-type Pagina = 'dashboard' | 'produtos' | 'familias'
+type Pagina = 'dashboard' | 'produtos' | 'familias' | 'maquinas'
 
 type SidebarProps = {
   perfis: string[]
@@ -6,11 +6,7 @@ type SidebarProps = {
   onNavigate: (pagina: Pagina) => void
 }
 
-function Sidebar({
-  perfis,
-  paginaAtual,
-  onNavigate,
-}: SidebarProps) {
+function Sidebar({ perfis, paginaAtual, onNavigate }: SidebarProps) {
   const ehPlanejador = perfis.includes('PLANEJADOR')
 
   function classeItem(pagina: Pagina) {
@@ -56,7 +52,6 @@ function Sidebar({
             >
               Produtos
             </button>
-
             <button
               type="button"
               aria-current={paginaAtual === 'familias' ? 'page' : undefined}
@@ -64,6 +59,15 @@ function Sidebar({
               className={classeItem('familias')}
             >
               Famílias de produtos
+            </button>
+            <button
+              type="button"
+              data-cy="menu-maquinas"
+              aria-current={paginaAtual === 'maquinas' ? 'page' : undefined}
+              onClick={() => onNavigate('maquinas')}
+              className={classeItem('maquinas')}
+            >
+              Máquinas
             </button>
           </>
         )}
