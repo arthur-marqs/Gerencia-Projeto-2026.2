@@ -1,9 +1,10 @@
 import { useState } from 'react'
 import Header from '../../../components/layout/Header'
 import Sidebar from '../../../components/layout/Sidebar'
+import MaquinasPage from '../../maquinas/pages/MaquinasPage'
 import ProdutosPage from '../../produtos/pages/ProdutosPage'
 
-type Pagina = 'dashboard' | 'produtos'
+type Pagina = 'dashboard' | 'produtos' | 'maquinas'
 
 type AuthenticatedPageProps = {
   nome: string
@@ -35,6 +36,8 @@ function AuthenticatedPage({
 
         {paginaAtiva === 'produtos' ? (
           <ProdutosPage />
+        ) : paginaAtiva === 'maquinas' ? (
+          <MaquinasPage />
         ) : (
           <main className="px-4 py-5 pt-[100px] sm:px-6 lg:px-7 xl:px-8">
             <div className="mx-auto max-w-[1500px]">

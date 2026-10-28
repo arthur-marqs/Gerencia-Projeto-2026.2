@@ -125,7 +125,13 @@ No `psql`, liste as tabelas:
 \dt
 ```
 
-**Observação:** nesta etapa da US01, as migrations criam `controle_tentativas_login`, `falhas_login`, `perfis`, `usuarios`, `usuario_perfil` e `sessoes`. As tabelas de outras funcionalidades ainda não foram implementadas.
+As migrations também criam `produtos` e `maquinas`. O perfil `PLANEJADOR` pode cadastrar e consultar produtos em `/api/produtos` e máquinas em `/api/maquinas`; o perfil `OPERADOR` não tem acesso a essas rotas. Máquinas são cadastradas com código e nome obrigatórios, descrição opcional e status ativo por padrão.
+
+Os testes de cadastro e controle de acesso das máquinas ficam em `testes/integration/test_us03_maquinas.py`. Configure `TEST_DATABASE_URL` como descrito acima e execute:
+
+```powershell
+.\.venv\Scripts\python.exe -m pytest -v testes\integration\test_us03_maquinas.py
+```
 ## 4. Criar um usuário local de teste
 
 O banco começa sem usuários. Crie um usuário pelo script da aplicação:

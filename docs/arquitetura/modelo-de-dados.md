@@ -172,14 +172,16 @@ O `SELECT ... FOR UPDATE` serializa atualizações para a mesma combinação e o
 |---|---|
 | `8c4926160d84` | Cria `controle_tentativas_login`, `perfis`, `usuarios`, `falhas_login`, `sessoes` e `usuario_perfil`, com constraints e índices efetivamente executados pela migration. |
 | `4ba7b334799a` | Insere os perfis `PLANEJADOR` e `OPERADOR`. |
+| `5ccce81c5c27` | Cria a tabela `produtos`. |
+| `7a2c9f1d4e6b` | Cria a tabela `maquinas`. |
 
 As migrations são aplicadas com `alembic upgrade head`, a partir de `backend/`. Para alterar o esquema, atualize o modelo e crie uma nova migration revisada; não edite uma migration já aplicada em ambientes compartilhados. A suíte de integração também aplica `head` automaticamente, sempre no PostgreSQL selecionado por `TEST_DATABASE_URL` validada com sufixo `_test`.
 
 ### O que ainda não está implementado
 
-O PostgreSQL atual contém apenas as seis tabelas de autenticação desta seção. Não há tabelas de família, produto, máquina, compatibilidade, ordem, idempotência, planejamento, cenário, aprovação, execução, pausa ou auditoria. As entidades, atributos e regras restantes deste documento são propostas, até existirem modelos e migrations correspondentes.
+O PostgreSQL atual contém as seis tabelas de autenticação desta seção, além de `produtos` e `maquinas`. Ainda não há tabelas de família, compatibilidade, ordem, idempotência, planejamento, cenário, aprovação, execução, pausa ou auditoria. As entidades, atributos e regras restantes deste documento são propostas, até existirem modelos e migrations correspondentes.
 
-## 3. DER conceitual proposto — cadastros e ordens (não implementado)
+## 3. DER conceitual proposto — cadastros e ordens (parcialmente implementado)
 
 ![DER de cadastros em Peter Chen](diagramas/chen-cadastros.png)
 

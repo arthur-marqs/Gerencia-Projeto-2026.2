@@ -1,7 +1,7 @@
 type SidebarProps = {
   perfis: string[]
-  paginaAtiva: 'dashboard' | 'produtos'
-  onNavegar: (pagina: 'dashboard' | 'produtos') => void
+  paginaAtiva: 'dashboard' | 'produtos' | 'maquinas'
+  onNavegar: (pagina: 'dashboard' | 'produtos' | 'maquinas') => void
 }
 
 function Sidebar({
@@ -9,7 +9,7 @@ function Sidebar({
   paginaAtiva,
   onNavegar,
 }: SidebarProps) {
-  const podeGerenciarProdutos = perfis.includes('PLANEJADOR')
+  const podeGerenciarCadastros = perfis.includes('PLANEJADOR')
 
   function classeItem(ativo: boolean) {
     return [
@@ -39,15 +39,25 @@ function Sidebar({
           Dashboard
         </button>
 
-        {podeGerenciarProdutos && (
-          <button
-            type="button"
-            data-cy="menu-produtos"
-            onClick={() => onNavegar('produtos')}
-            className={classeItem(paginaAtiva === 'produtos')}
-          >
-            Produtos
-          </button>
+        {podeGerenciarCadastros && (
+          <>
+            <button
+              type="button"
+              data-cy="menu-produtos"
+              onClick={() => onNavegar('produtos')}
+              className={classeItem(paginaAtiva === 'produtos')}
+            >
+              Produtos
+            </button>
+            <button
+              type="button"
+              data-cy="menu-maquinas"
+              onClick={() => onNavegar('maquinas')}
+              className={classeItem(paginaAtiva === 'maquinas')}
+            >
+              Máquinas
+            </button>
+          </>
         )}
       </nav>
     </aside>
