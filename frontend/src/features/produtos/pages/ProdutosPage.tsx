@@ -12,8 +12,20 @@ type Produto = {
   codigo: string
   nome: string
   unidade: string
+  family_id: string | null
   ativo: boolean
   criado_em: string
+}
+
+type Family = {
+  id: string
+  code: string
+  name: string
+  description: string | null
+  is_active: boolean
+  created_at: string
+  updated_at: string
+  version: number
 }
 
 function ProdutosPage() {
@@ -23,11 +35,18 @@ function ProdutosPage() {
   const [erros, setErros] = useState<ErrosFormulario>({})
   const [mensagemErro, setMensagemErro] = useState('')
   const [mensagemSucesso, setMensagemSucesso] = useState('')
+
+  const [mensagemAssociacaoErro, setMensagemAssociacaoErro] = useState('')
+  const [mensagemAssociacaoSucesso, setMensagemAssociacaoSucesso] = useState('')
   const [salvando, setSalvando] = useState(false)
 
   const [produtos, setProdutos] = useState<Produto[]>([])
+  const [familias, setFamilias] = useState<Family[]>([])
   const [carregandoProdutos, setCarregandoProdutos] = useState(true)
   const [erroListagem, setErroListagem] = useState('')
+  const [produtoAtualizando, setProdutoAtualizando] = useState<string | null>(
+    null,
+  )
 
   async function carregarProdutos() {
     setCarregandoProdutos(true)
@@ -53,19 +72,32 @@ function ProdutosPage() {
   }
 
   useEffect(() => {
-    async function carregarProdutosIniciais() {
+    async function carregarDadosIniciais() {
       try {
-        const response = await fetch('http://localhost:8000/api/produtos', {
-          credentials: 'include',
-        })
+        const [responseProdutos, responseFamilias] = await Promise.all([
+          fetch('http://localhost:8000/api/produtos', {
+            credentials: 'include',
+          }),
+          fetch('http://localhost:8000/api/families', {
+            credentials: 'include',
+          }),
+        ])
 
-        if (!response.ok) {
+        if (!responseProdutos.ok) {
           setErroListagem('Não foi possível carregar os produtos.')
           return
         }
 
-        const data: Produto[] = await response.json()
-        setProdutos(data)
+        if (!responseFamilias.ok) {
+          setErroListagem('Não foi possível carregar as famílias.')
+          return
+        }
+
+        const produtosData: Produto[] = await responseProdutos.json()
+        const familiasData: Family[] = await responseFamilias.json()
+
+        setProdutos(produtosData)
+        setFamilias(familiasData)
       } catch {
         setErroListagem('Não foi possível conectar ao servidor.')
       } finally {
@@ -73,7 +105,7 @@ function ProdutosPage() {
       }
     }
 
-    void carregarProdutosIniciais()
+    void carregarDadosIniciais()
   }, [])
 
   function validarFormulario() {
@@ -147,6 +179,63 @@ function ProdutosPage() {
     }
   }
 
+  async function associarFamilia(
+    produtoId: string,
+    familyId: string,
+  ) {
+    setMensagemAssociacaoErro('')
+    setMensagemAssociacaoSucesso('')
+    setProdutoAtualizando(produtoId)
+
+    try {
+      const response = await fetch(
+        `http://localhost:8000/api/produtos/${produtoId}/familia`,
+        {
+          method: 'PATCH',
+          credentials: 'include',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            family_id: familyId || null,
+          }),
+        },
+      )
+
+      if (!response.ok) {
+        const data = await response.json()
+
+        setMensagemAssociacaoErro(
+          typeof data.detail === 'string'
+            ? data.detail
+            : 'Não foi possível associar a família.',
+        )
+
+        return
+      }
+
+      const produtoAtualizado: Produto = await response.json()
+
+      setProdutos((produtosAtuais) =>
+        produtosAtuais.map((produto) =>
+          produto.id_produto === produtoId
+            ? produtoAtualizado
+            : produto,
+        ),
+      )
+
+      setMensagemAssociacaoSucesso(
+        familyId
+          ? 'Família associada ao produto com sucesso.'
+          : 'Associação de família removida com sucesso.',
+      )
+    } catch {
+      setMensagemAssociacaoErro('Não foi possível conectar ao servidor.')
+    } finally {
+      setProdutoAtualizando(null)
+    }
+  }
+
   return (
     <main className="px-4 py-5 pt-[100px] sm:px-6 lg:px-7 xl:px-8">
       <div className="mx-auto max-w-[1500px]">
@@ -156,7 +245,7 @@ function ProdutosPage() {
           </h1>
 
           <p className="mt-1 text-sm text-slate-500">
-            Cadastre e consulte os produtos utilizados na produção.
+            Cadastre produtos e associe cada um a uma família.
           </p>
         </div>
 
@@ -288,9 +377,31 @@ function ProdutosPage() {
               </h2>
 
               <p className="mt-1 text-sm text-slate-500">
-                Produtos disponíveis para utilização no planejamento.
+                Associe os produtos às famílias disponíveis.
               </p>
             </div>
+
+            {mensagemAssociacaoErro && (
+              <div className="px-6 pt-4">
+                <div
+                  data-cy="produto-associacao-erro"
+                  className="rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700"
+                >
+                  {mensagemAssociacaoErro}
+                </div>
+              </div>
+            )}
+
+            {mensagemAssociacaoSucesso && (
+              <div className="px-6 pt-4">
+                <div
+                  data-cy="produto-associacao-sucesso"
+                  className="rounded-xl border border-green-200 bg-green-50 px-4 py-3 text-sm text-green-700"
+                >
+                  {mensagemAssociacaoSucesso}
+                </div>
+              </div>
+            )}
 
             {carregandoProdutos ? (
               <div className="p-8 text-center text-sm text-slate-500">
@@ -333,6 +444,10 @@ function ProdutosPage() {
                       </th>
 
                       <th className="px-6 py-4 font-semibold">
+                        Família
+                      </th>
+
+                      <th className="px-6 py-4 font-semibold">
                         Status
                       </th>
                     </tr>
@@ -355,6 +470,45 @@ function ProdutosPage() {
 
                         <td className="px-6 py-4">
                           {produto.unidade}
+                        </td>
+
+                        <td className="min-w-[220px] px-6 py-4">
+                          <select
+                            data-cy={`produto-familia-${produto.id_produto}`}
+                            value={produto.family_id ?? ''}
+                            disabled={
+                              produtoAtualizando === produto.id_produto
+                            }
+                            onChange={(event) =>
+                              void associarFamilia(
+                                produto.id_produto,
+                                event.target.value,
+                              )
+                            }
+                            className="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm text-slate-700 outline-none transition focus:border-blue-500 focus:ring-2 focus:ring-blue-100 disabled:cursor-not-allowed disabled:opacity-60"
+                          >
+
+                            <option value="">
+                              Sem família
+                            </option>
+
+                            {familias.filter((familia) => familia.is_active).length === 0 ? (
+                              <option disabled>
+                                Nenhuma família disponível
+                              </option>
+                            ) : (
+                              familias
+                                .filter((familia) => familia.is_active)
+                                .map((familia) => (
+                                  <option
+                                    key={familia.id}
+                                    value={familia.id}
+                                  >
+                                    {familia.code} - {familia.name}
+                                  </option>
+                                ))
+                            )}
+                          </select>
                         </td>
 
                         <td className="px-6 py-4">
