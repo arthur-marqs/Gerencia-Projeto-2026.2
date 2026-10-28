@@ -67,6 +67,21 @@ O sistema permitirá organizar ordens de produção considerando fatores como te
 - **Banco de dados**: PostgreSQL
 - **Ferramentas**: Git e GitHub
 
+## Funcionalidades implementadas
+
+### Gerenciamento de máquinas (US03)
+
+O perfil **Planejador de Produção** pode cadastrar, consultar, editar, ativar, inativar e excluir máquinas. Máquinas novas começam ativas; máquinas inativas permanecem cadastradas, mas não devem ser usadas em novos planejamentos. A exclusão definitiva é bloqueada quando há registros vinculados por chave estrangeira, preservando esses dados; nesses casos, a máquina pode ser inativada.
+
+As operações estão disponíveis na tela de máquinas e na API:
+
+- `GET /api/maquinas`: listar máquinas;
+- `POST /api/maquinas`: cadastrar máquina;
+- `PUT /api/maquinas/{id}`: editar código, nome e descrição;
+- `PATCH /api/maquinas/{id}/status`: ativar ou inativar;
+- `DELETE /api/maquinas/{id}`: excluir quando não houver vínculos.
+
+O perfil **Operador** não pode acessar essas operações. Os testes de integração da US03 ficam em `backend/testes/integration/test_us03_maquinas.py`. Ordens, planejamentos e o histórico de alterações da US30 ainda não estão implementados.
 
 ## Outros 
 
