@@ -1,12 +1,24 @@
 type SidebarProps = {
   perfis: string[]
+  paginaAtiva: 'dashboard' | 'produtos'
+  onNavegar: (pagina: 'dashboard' | 'produtos') => void
 }
 
 function Sidebar({
   perfis,
+  paginaAtiva,
+  onNavegar,
 }: SidebarProps) {
-  const ehPlanejador = perfis.includes('PLANEJADOR')
-  const ehOperador = perfis.includes('OPERADOR')
+  const podeGerenciarProdutos = perfis.includes('PLANEJADOR')
+
+  function classeItem(ativo: boolean) {
+    return [
+      'flex w-full items-center rounded-lg px-4 py-2.5 text-left text-sm font-semibold transition-colors duration-200',
+      ativo
+        ? 'bg-blue-600 text-white hover:bg-blue-700'
+        : 'text-slate-300 hover:bg-slate-800 hover:text-white',
+    ].join(' ')
+  }
 
   return (
     <aside className="fixed inset-y-0 left-0 hidden w-64 flex-col bg-slate-950 text-white lg:flex">
@@ -18,36 +30,25 @@ function Sidebar({
         />
       </div>
 
-      <nav className="flex-1 px-3 pt-2">
+      <nav className="flex-1 space-y-1 px-3 pt-2">
         <button
           type="button"
-          className="flex w-full items-center rounded-lg bg-blue-600 px-4 py-2.5 text-left text-sm font-semibold text-white transition-colors duration-200 hover:bg-blue-700"
+          onClick={() => onNavegar('dashboard')}
+          className={classeItem(paginaAtiva === 'dashboard')}
         >
           Dashboard
         </button>
 
-        {/*
-          FUTURAMENTE:
-
-          {ehPlanejador && (
-            <>
-              Máquinas
-              Produtos
-              Famílias
-              Ordens
-              Sequenciamento
-            </>
-          )}
-
-          {ehOperador && (
-            <>
-              Funcionalidades do operador
-            </>
-          )}
-        */}
-
-        {ehPlanejador && null}
-        {ehOperador && null}
+        {podeGerenciarProdutos && (
+          <button
+            type="button"
+            data-cy="menu-produtos"
+            onClick={() => onNavegar('produtos')}
+            className={classeItem(paginaAtiva === 'produtos')}
+          >
+            Produtos
+          </button>
+        )}
       </nav>
     </aside>
   )
