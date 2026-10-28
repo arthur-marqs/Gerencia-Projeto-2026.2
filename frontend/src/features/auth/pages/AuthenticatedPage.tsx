@@ -1,15 +1,10 @@
 import { useState } from 'react'
 import Header from '../../../components/layout/Header'
 import Sidebar from '../../../components/layout/Sidebar'
-<<<<<<< Updated upstream
+import FamiliesPage from '../../families/pages/FamiliesPage'
 import ProdutosPage from '../../produtos/pages/ProdutosPage'
 
-type Pagina = 'dashboard' | 'produtos'
-=======
-import FamiliesPage from '../../families/pages/FamiliesPage'
-
-type Pagina = 'dashboard' | 'familias'
->>>>>>> Stashed changes
+type Pagina = 'dashboard' | 'produtos' | 'familias'
 
 type AuthenticatedPageProps = {
   nome: string
@@ -17,29 +12,24 @@ type AuthenticatedPageProps = {
   onLogout: () => void
 }
 
-<<<<<<< Updated upstream
+
 function AuthenticatedPage({
   nome,
   perfis,
   onLogout,
 }: AuthenticatedPageProps) {
-  const [paginaAtiva, setPaginaAtiva] = useState<Pagina>('dashboard')
-=======
-function AuthenticatedPage({ nome, perfis, onLogout }: AuthenticatedPageProps) {
+
   const [paginaAtual, setPaginaAtual] = useState<Pagina>('dashboard')
->>>>>>> Stashed changes
+  const ehPlanejador = perfis.includes('PLANEJADOR')
 
   return (
     <div className="min-h-screen bg-slate-100">
       <Sidebar
         perfis={perfis}
-<<<<<<< Updated upstream
-        paginaAtiva={paginaAtiva}
-        onNavegar={setPaginaAtiva}
-=======
+
         paginaAtual={paginaAtual}
         onNavigate={setPaginaAtual}
->>>>>>> Stashed changes
+
       />
 
       <div className="lg:pl-64">
@@ -49,19 +39,18 @@ function AuthenticatedPage({ nome, perfis, onLogout }: AuthenticatedPageProps) {
           onLogout={onLogout}
         />
 
-<<<<<<< Updated upstream
-        {paginaAtiva === 'produtos' ? (
+        {paginaAtual === 'produtos' && ehPlanejador ? (
           <ProdutosPage />
+        ) : paginaAtual === 'familias' && ehPlanejador ? (
+          <main className="px-4 py-5 pt-[100px] sm:px-6 lg:px-7 xl:px-8">
+            <div className="mx-auto max-w-[1500px]">
+              <FamiliesPage />
+            </div>
+          </main>
         ) : (
           <main className="px-4 py-5 pt-[100px] sm:px-6 lg:px-7 xl:px-8">
             <div className="mx-auto max-w-[1500px]">
-=======
-        <main className="px-4 py-5 pt-[100px] sm:px-6 lg:px-7 xl:px-8">
-          <div className="mx-auto max-w-[1500px]">
-            {paginaAtual === 'familias' && perfis.includes('PLANEJADOR') ? (
-              <FamiliesPage />
-            ) : (
->>>>>>> Stashed changes
+
               <section className="relative overflow-hidden rounded-2xl border border-slate-200 bg-white px-6 py-6 shadow-sm sm:px-8 lg:px-9">
                 <div className="relative z-10 max-w-2xl">
                   <div className="mb-3 flex flex-wrap gap-2">
@@ -84,15 +73,11 @@ function AuthenticatedPage({ nome, perfis, onLogout }: AuthenticatedPageProps) {
                   </p>
                 </div>
               </section>
-<<<<<<< Updated upstream
+
             </div>
           </main>
         )}
-=======
-            )}
-          </div>
-        </main>
->>>>>>> Stashed changes
+
       </div>
     </div>
   )

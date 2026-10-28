@@ -60,23 +60,51 @@ function FamiliesPage() {
 
   const loadFamilies = useCallback(async () => {
     setLoading(true)
+
     try {
       const response = await fetch(API_URL, { credentials: 'include' })
+
       if (!response.ok) {
         throw new Error(await readError(response))
       }
+
       setFamilies(await response.json() as Family[])
       setError('')
     } catch (cause) {
-      setError(cause instanceof Error ? cause.message : 'Não foi possível carregar as famílias.')
+      setError(
+        cause instanceof Error
+          ? cause.message
+          : 'Não foi possível carregar as famílias.',
+      )
     } finally {
       setLoading(false)
     }
   }, [])
 
   useEffect(() => {
-    void loadFamilies()
-  }, [loadFamilies])
+    async function loadInitialFamilies() {
+      try {
+        const response = await fetch(API_URL, { credentials: 'include' })
+
+        if (!response.ok) {
+          throw new Error(await readError(response))
+        }
+
+        setFamilies(await response.json() as Family[])
+        setError('')
+      } catch (cause) {
+        setError(
+          cause instanceof Error
+            ? cause.message
+            : 'Não foi possível carregar as famílias.',
+        )
+      } finally {
+        setLoading(false)
+      }
+    }
+
+    void loadInitialFamilies()
+  }, [])
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault()
