@@ -1,14 +1,12 @@
 # SetupFlow
 
-Sistema web para otimização do sequenciamento de produção.
+Sistema web para apoiar o planejamento e o acompanhamento da produção em pequenas e médias indústrias.
 
 ## Sobre o projeto
 
 O SetupFlow busca auxiliar pequenas e médias indústrias no planejamento da sequência de produção.
 
-Uma sequência inadequada das ordens pode aumentar o tempo de setup das máquinas, gerar atrasos e dificultar o atendimento de pedidos prioritários.
-
-O sistema permitirá organizar ordens de produção considerando fatores como tempos de setup, prioridades e prazos, buscando sugerir uma sequência de produção mais eficiente.
+O projeto está em desenvolvimento. A versão atual implementa autenticação, controle de acesso e funcionalidades de cadastro; a geração automática de sequências de produção ainda não está disponível.
 
 ## Equipe
 
@@ -62,31 +60,88 @@ O sistema permitirá organizar ordens de produção considerando fatores como te
 
 ## Tecnologias
 
-- **Frontend**: React, TypeScript
-- **Backend**: Python, FastAPI
-- **Banco de dados**: PostgreSQL
-- **Ferramentas**: Git e GitHub
+- **Frontend:** React, TypeScript, Vite e Tailwind CSS
+- **Backend:** Python 3.11, FastAPI e SQLAlchemy
+- **Banco de dados:** PostgreSQL 18
+- **Migrações:** Alembic
+- **Testes:** Pytest, TestClient e PostgreSQL
+- **CI:** GitHub Actions
+
+## Como executar localmente
+
+Pré-requisitos: Windows com PowerShell, Python 3.11, Node.js 22 e PostgreSQL 18. O frontend usa Vite 8; consulte os requisitos atuais de Node.js no [guia do frontend](frontend/README.md).
+
+Configure o PostgreSQL, crie o banco local, configure `backend/.env` e aplique as migrations seguindo o [guia de configuração do backend](backend/README.md). Não versione o `.env` nem compartilhe suas credenciais.
+
+Instale as dependências do frontend na primeira execução:
+
+```powershell
+Set-Location .\frontend
+npm ci
+```
+
+Inicie o backend em um terminal PowerShell:
+
+```powershell
+Set-Location .\backend
+.\.venv\Scripts\python.exe -m uvicorn app.main:app --reload
+```
+
+Em outro terminal, inicie o frontend:
+
+```powershell
+Set-Location .\frontend
+npm run dev
+```
+
+Abra o endereço exibido pelo Vite, normalmente <http://localhost:5173>. A API e sua documentação interativa ficam em <http://127.0.0.1:8000> e <http://127.0.0.1:8000/docs>; a verificação de saúde está em <http://127.0.0.1:8000/api/health>.
+
+## Como testar
+
+### Backend
+
+Os testes de integração usam PostgreSQL real. Crie e use um banco exclusivo para testes, com nome terminado em `_test` (por exemplo, `setupflow_test`), seguindo o [guia de testes do backend](backend/README.md). Na pasta `backend`, configure `TEST_DATABASE_URL` para esse banco e execute a suíte:
+
+```powershell
+Set-Location .\backend
+$env:TEST_DATABASE_URL = "postgresql+psycopg://setupflow_dev:<SENHA>@localhost:5432/setupflow_test"
+.\.venv\Scripts\python.exe -m pytest -v --junitxml=junit.xml testes
+```
+
+Não execute a suíte usando o banco de desenvolvimento. O fixture valida que `TEST_DATABASE_URL` aponta para PostgreSQL e que o nome termina em `_test`. O comando grava o relatório JUnit em `backend/junit.xml`.
+
+Para executar apenas uma suíte, informe o arquivo de teste, por exemplo:
+
+```powershell
+.\.venv\Scripts\python.exe -m pytest -v testes\integration\test_us03_maquinas.py
+```
+
+### Frontend
+
+Na pasta `frontend`, execute as verificações de lint e compilação de produção:
+
+```powershell
+Set-Location .\frontend
+npm run lint
+npm run build
+```
+
+O GitHub Actions executa os testes do backend e as verificações de lint e build do frontend em pushes e pull requests.
 
 ## Funcionalidades implementadas
 
-### Gerenciamento de máquinas (US03)
+- **Autenticação e sessão (US01):** login integrado à API, senha armazenada como hash, sessão persistida no PostgreSQL, consulta da identidade autenticada e logout.
+- **Proteção contra tentativas repetidas (Driver05):** registro de falhas de login e bloqueio temporário após tentativas inválidas consecutivas.
+- **Controle de acesso por perfil (US02):** operações de cadastro são restritas ao perfil Planejador de Produção; o perfil Operador não acessa recursos exclusivos do Planejador.
+- **Gerenciamento de máquinas (US03):** cadastro, consulta, edição, ativação, inativação e exclusão quando não há registros vinculados. A tela e a API aplicam as permissões por perfil.
+- **Produtos e famílias (US04–US06):** cadastro e consulta de produtos e famílias, com associação e remoção da associação entre produto e família.
+- **Ordens de produção (US07–US08):** cadastro e consulta de ordens, além da definição e atualização de prazo e prioridade.
+- **Interface web:** telas de login, máquinas, produtos, famílias e ordens de produção conectadas à API.
 
-O perfil **Planejador de Produção** pode cadastrar, consultar, editar, ativar, inativar e excluir máquinas. Máquinas novas começam ativas; máquinas inativas permanecem cadastradas, mas não devem ser usadas em novos planejamentos. A exclusão definitiva é bloqueada quando há registros vinculados por chave estrangeira, preservando esses dados; nesses casos, a máquina pode ser inativada.
 
-As operações estão disponíveis na tela de máquinas e na API:
+## Documentação
 
-- `GET /api/maquinas`: listar máquinas;
-- `POST /api/maquinas`: cadastrar máquina;
-- `PUT /api/maquinas/{id}`: editar código, nome e descrição;
-- `PATCH /api/maquinas/{id}/status`: ativar ou inativar;
-- `DELETE /api/maquinas/{id}`: excluir quando não houver vínculos.
-
-O perfil **Operador** não pode acessar essas operações. Os testes de integração da US03 ficam em `backend/testes/integration/test_us03_maquinas.py`. Ordens, planejamentos e o histórico de alterações da US30 ainda não estão implementados.
-
-## Outros 
-
-Consulte as [instruções do backend](backend/README.md) para configurar o PostgreSQL e executar a API.
-Consulte também o [mapa visual do projeto](docs/estrutura-projeto.md) para ver a árvore real do repositório, a responsabilidade de cada arquivo e o fluxo de login.
+Consulte o [guia do backend](backend/README.md) para detalhes de configuração do PostgreSQL e execução da API, o [guia do frontend](frontend/README.md) para requisitos e execução da interface e o [mapa visual do projeto](docs/estrutura-projeto.md) para conhecer a estrutura atual do repositório.
 ---
 ## Organização arquitetural planejada (referência futura)
 
