@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import type { FormEvent } from 'react'
 
 const API_URL = 'http://localhost:8000/api/ordens-producao'
@@ -36,6 +36,7 @@ function formatarData(data: string) {
 }
 
 function OrdensProducaoPage() {
+  const operacaoPendente = useRef<{ conteudo: string, chave: string } | null>(null)
   const [codigo, setCodigo] = useState('')
   const [produtoId, setProdutoId] = useState('')
   const [quantidade, setQuantidade] = useState('')
@@ -128,11 +129,26 @@ function OrdensProducaoPage() {
 
     setSalvando(true)
     try {
+      const dados = {
+        codigo: codigo.trim(),
+        produto_id: produtoId,
+        quantidade: Number(quantidade),
+      }
+      const conteudo = JSON.stringify(dados)
+      if (operacaoPendente.current?.conteudo !== conteudo) {
+        operacaoPendente.current = {
+          conteudo,
+          chave: crypto.randomUUID(),
+        }
+      }
       const response = await fetch(API_URL, {
         method: 'POST',
         credentials: 'include',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ codigo: codigo.trim(), produto_id: produtoId, quantidade: Number(quantidade) }),
+        headers: {
+          'Content-Type': 'application/json',
+          'Idempotency-Key': operacaoPendente.current.chave,
+        },
+        body: conteudo,
       })
       if (response.status === 409 || response.status === 404) {
         const data = await response.json() as { detail?: string }
@@ -155,6 +171,7 @@ function OrdensProducaoPage() {
         return
       }
       const criada = await response.json() as OrdemProducao
+      operacaoPendente.current = null
       setCodigo('')
       setProdutoId('')
       setQuantidade('')

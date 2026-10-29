@@ -207,6 +207,14 @@ Execute separadamente a suíte quantitativa do Driver05, que inclui 20 ciclos (2
 .\.venv\Scripts\python.exe -m pytest -v --junitxml=junit-driver05.xml testes\integration\drivers\test_driver05_rate_limiting.py
 ```
 
+O cadastro de ordens (`POST /api/ordens-producao`) exige o cabeçalho `Idempotency-Key` com um UUID. A chave é única por usuário e fica registrada junto com a ordem; seu reconhecimento não expira, portanto permanece válido por pelo menos 24 horas. Reenvios com a mesma chave e conteúdo retornam a ordem original com HTTP 200; reutilizar a chave com conteúdo diferente retorna HTTP 409. Use uma nova chave para uma operação distinta e um novo `codigo` de ordem, que continua único.
+
+Execute a suíte do Driver02, que verifica reenvios, conflito de conteúdo, operações distintas, concorrência, retenção e recuperação após falha antes da confirmação:
+
+```powershell
+.\.venv\Scripts\python.exe -m pytest -v testes\integration\drivers\test_driver02_idempotency_ordens.py
+```
+
 As duas suítes também podem ser executadas juntas com `.\.venv\Scripts\python.exe -m pytest -v --junitxml=junit.xml testes`.
 
 ## Desenvolvimento em equipe
