@@ -19,6 +19,8 @@ type OrdemProducao = {
   quantidade: string | number
   status: string
   criado_em: string
+  prazo: string | null
+  prioridade: 'Baixa' | 'Média' | 'Alta' | null
 }
 
 type ErrosFormulario = {
@@ -27,12 +29,27 @@ type ErrosFormulario = {
   quantidade?: string
 }
 
+type ErrosEdicao = {
+  prazo?: string
+  prioridade?: string
+}
+
 function formatarQuantidade(quantidade: string | number) {
   return new Intl.NumberFormat('pt-BR', { maximumFractionDigits: 3 }).format(Number(quantidade))
 }
 
 function formatarData(data: string) {
   return new Intl.DateTimeFormat('pt-BR', { dateStyle: 'short', timeStyle: 'short' }).format(new Date(data))
+}
+
+function formatarPrazo(prazo: string) {
+  return new Intl.DateTimeFormat('pt-BR', { dateStyle: 'short', timeZone: 'UTC' }).format(new Date(`${prazo}T00:00:00Z`))
+}
+
+function dataAtualLocal() {
+  return new Date(Date.now() - new Date().getTimezoneOffset() * 60_000)
+    .toISOString()
+    .slice(0, 10)
 }
 
 function OrdensProducaoPage() {
@@ -46,6 +63,83 @@ function OrdensProducaoPage() {
   const [mensagemSucesso, setMensagemSucesso] = useState('')
   const [carregando, setCarregando] = useState(true)
   const [salvando, setSalvando] = useState(false)
+  const [ordemEmEdicao, setOrdemEmEdicao] = useState<OrdemProducao | null>(null)
+  const [prazo, setPrazo] = useState('')
+  const [prioridade, setPrioridade] = useState('')
+  const [errosEdicao, setErrosEdicao] = useState<ErrosEdicao>({})
+
+  function iniciarEdicao(ordem: OrdemProducao) {
+    setOrdemEmEdicao(ordem)
+    setPrazo(ordem.prazo ?? '')
+    setPrioridade(ordem.prioridade ?? '')
+    setErrosEdicao({})
+    setMensagemErro('')
+    setMensagemSucesso('')
+  }
+
+  function cancelarEdicao() {
+    setOrdemEmEdicao(null)
+    setPrazo('')
+    setPrioridade('')
+    setErrosEdicao({})
+  }
+
+  async function atualizarPrazoPrioridade(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault()
+    setMensagemErro('')
+    setMensagemSucesso('')
+
+    const novosErros: ErrosEdicao = {}
+    const hoje = dataAtualLocal()
+    if (!prazo) novosErros.prazo = 'O prazo é obrigatório.'
+    else if (prazo < hoje) novosErros.prazo = 'O prazo não pode estar no passado.'
+    if (!['Baixa', 'Média', 'Alta'].includes(prioridade)) {
+      novosErros.prioridade = 'Uma prioridade válida é obrigatória.'
+    }
+    setErrosEdicao(novosErros)
+    if (Object.keys(novosErros).length > 0) {
+      setMensagemErro('Revise o prazo e a prioridade antes de confirmar.')
+      return
+    }
+    if (!ordemEmEdicao) return
+
+    setSalvando(true)
+    try {
+      const response = await fetch(`${API_URL}/${ordemEmEdicao.id_ordem}`, {
+        method: 'PUT',
+        credentials: 'include',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ prazo, prioridade }),
+      })
+      if (response.status === 404) {
+        const data = await response.json() as { detail?: string }
+        setMensagemErro(data.detail ?? 'Ordem de produção não encontrada.')
+        return
+      }
+      if (response.status === 422) {
+        const data = await response.json() as { detail?: Array<{ loc?: (string | number)[] }> }
+        const campos = new Set((data.detail ?? []).map((erro) => String(erro.loc?.at(-1) ?? '')))
+        const errosServidor: ErrosEdicao = {}
+        if (campos.has('prazo')) errosServidor.prazo = 'Informe um prazo válido, igual ou posterior à data atual.'
+        if (campos.has('prioridade')) errosServidor.prioridade = 'Selecione uma prioridade válida.'
+        setErrosEdicao(errosServidor)
+        setMensagemErro('Revise o prazo e a prioridade antes de confirmar.')
+        return
+      }
+      if (!response.ok) {
+        setMensagemErro('Não foi possível atualizar a ordem. Tente novamente.')
+        return
+      }
+      const atualizada = await response.json() as OrdemProducao
+      cancelarEdicao()
+      setMensagemSucesso(`Prazo e prioridade da ordem ${atualizada.codigo} atualizados.`)
+      await carregarDados()
+    } catch {
+      setMensagemErro('Não foi possível conectar ao servidor.')
+    } finally {
+      setSalvando(false)
+    }
+  }
 
   async function carregarDados() {
     setCarregando(true)
@@ -181,6 +275,9 @@ function OrdensProducaoPage() {
           <p className="mt-2 max-w-2xl text-sm leading-6 text-slate-500">Cadastre ordens vinculadas a produtos ativos para disponibilizá-las ao planejamento da produção.</p>
         </section>
 
+        {mensagemErro && <p role="alert" className="rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">{mensagemErro}</p>}
+        {mensagemSucesso && <p role="status" className="rounded-xl border border-emerald-200 bg-emerald-50 px-4 py-3 text-sm text-emerald-800">{mensagemSucesso}</p>}
+
         <section className="grid gap-6 xl:grid-cols-[minmax(0,0.85fr)_minmax(0,1.15fr)]">
           <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm sm:p-7">
             <h2 className="text-lg font-semibold text-slate-900">Cadastrar ordem</h2>
@@ -205,8 +302,6 @@ function OrdensProducaoPage() {
                 <input id="ordem-quantidade" name="quantidade" type="number" min="0.001" step="0.001" value={quantidade} onChange={(event) => setQuantidade(event.target.value)} aria-invalid={Boolean(erros.quantidade)} aria-describedby={erros.quantidade ? 'ordem-quantidade-erro' : undefined} placeholder="Ex.: 120" className="w-full rounded-xl border border-slate-300 px-3.5 py-2.5 text-sm text-slate-900 outline-none transition focus:border-blue-500 focus:ring-4 focus:ring-blue-100" />
                 {erros.quantidade && <p id="ordem-quantidade-erro" className="mt-1 text-sm text-red-700">{erros.quantidade}</p>}
               </div>
-              {mensagemErro && <p role="alert" className="rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">{mensagemErro}</p>}
-              {mensagemSucesso && <p role="status" className="rounded-xl border border-emerald-200 bg-emerald-50 px-4 py-3 text-sm text-emerald-800">{mensagemSucesso}</p>}
               <button type="submit" disabled={salvando || produtos.length === 0} className="inline-flex w-full items-center justify-center rounded-xl bg-blue-600 px-4 py-3 text-sm font-semibold text-white transition hover:bg-blue-700 disabled:cursor-not-allowed disabled:opacity-60">{salvando ? 'Cadastrando...' : 'Cadastrar ordem'}</button>
             </form>
           </div>
@@ -223,13 +318,39 @@ function OrdensProducaoPage() {
             ) : (
               <div className="mt-5 overflow-x-auto">
                 <table className="w-full min-w-[500px] text-left text-sm">
-                  <thead><tr className="border-b border-slate-200 text-xs uppercase tracking-wide text-slate-500"><th className="px-3 py-3 font-semibold">Ordem</th><th className="px-3 py-3 font-semibold">Produto</th><th className="px-3 py-3 font-semibold">Quantidade</th><th className="px-3 py-3 font-semibold">Status</th><th className="px-3 py-3 font-semibold">Criada em</th></tr></thead>
+                  <thead><tr className="border-b border-slate-200 text-xs uppercase tracking-wide text-slate-500"><th className="px-3 py-3 font-semibold">Ordem</th><th className="px-3 py-3 font-semibold">Produto</th><th className="px-3 py-3 font-semibold">Quantidade</th><th className="px-3 py-3 font-semibold">Prazo</th><th className="px-3 py-3 font-semibold">Prioridade</th><th className="px-3 py-3 font-semibold">Status</th><th className="px-3 py-3 font-semibold">Criada em</th><th className="px-3 py-3 font-semibold">Ações</th></tr></thead>
                   <tbody>{ordens.map((ordem) => {
                     const produto = produtoPorId.get(ordem.produto_id)
-                    return <tr key={ordem.id_ordem} className="border-b border-slate-100 last:border-0"><td className="px-3 py-4 font-semibold text-slate-900">{ordem.codigo}</td><td className="px-3 py-4 text-slate-600">{produto ? `${produto.codigo} — ${produto.nome}` : 'Produto indisponível'}</td><td className="px-3 py-4 text-slate-600">{formatarQuantidade(ordem.quantidade)}{produto ? ` ${produto.unidade}` : ''}</td><td className="px-3 py-4"><span className="inline-flex rounded-full bg-blue-50 px-2.5 py-1 text-xs font-semibold text-blue-700">{ordem.status}</span></td><td className="px-3 py-4 text-slate-600">{formatarData(ordem.criado_em)}</td></tr>
+                    return <tr key={ordem.id_ordem} className="border-b border-slate-100 last:border-0"><td className="px-3 py-4 font-semibold text-slate-900">{ordem.codigo}</td><td className="px-3 py-4 text-slate-600">{produto ? `${produto.codigo} — ${produto.nome}` : 'Produto indisponível'}</td><td className="px-3 py-4 text-slate-600">{formatarQuantidade(ordem.quantidade)}{produto ? ` ${produto.unidade}` : ''}</td><td className="px-3 py-4 text-slate-600">{ordem.prazo ? formatarPrazo(ordem.prazo) : 'Não definido'}</td><td className="px-3 py-4 text-slate-600">{ordem.prioridade ?? 'Não definida'}</td><td className="px-3 py-4"><span className="inline-flex rounded-full bg-blue-50 px-2.5 py-1 text-xs font-semibold text-blue-700">{ordem.status}</span></td><td className="px-3 py-4 text-slate-600">{formatarData(ordem.criado_em)}</td><td className="px-3 py-4"><button type="button" onClick={() => iniciarEdicao(ordem)} className="font-semibold text-blue-700 hover:text-blue-900">Editar</button></td></tr>
                   })}</tbody>
                 </table>
               </div>
+            )}
+            {ordemEmEdicao && (
+              <form className="mt-6 space-y-4 rounded-xl border border-blue-200 bg-blue-50/50 p-4" onSubmit={atualizarPrazoPrioridade} noValidate>
+                <h3 className="font-semibold text-slate-900">Editar prazo e prioridade — {ordemEmEdicao.codigo}</h3>
+                <div className="grid gap-4 sm:grid-cols-2">
+                  <div>
+                    <label htmlFor="ordem-prazo" className="mb-1.5 block text-sm font-medium text-slate-700">Prazo *</label>
+                    <input id="ordem-prazo" name="prazo" type="date" min={dataAtualLocal()} value={prazo} onChange={(event) => setPrazo(event.target.value)} aria-invalid={Boolean(errosEdicao.prazo)} aria-describedby={errosEdicao.prazo ? 'ordem-prazo-erro' : undefined} className="w-full rounded-xl border border-slate-300 bg-white px-3.5 py-2.5 text-sm text-slate-900 outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-100" />
+                    {errosEdicao.prazo && <p id="ordem-prazo-erro" className="mt-1 text-sm text-red-700">{errosEdicao.prazo}</p>}
+                  </div>
+                  <div>
+                    <label htmlFor="ordem-prioridade" className="mb-1.5 block text-sm font-medium text-slate-700">Prioridade *</label>
+                    <select id="ordem-prioridade" name="prioridade" value={prioridade} onChange={(event) => setPrioridade(event.target.value)} aria-invalid={Boolean(errosEdicao.prioridade)} aria-describedby={errosEdicao.prioridade ? 'ordem-prioridade-erro' : undefined} className="w-full rounded-xl border border-slate-300 bg-white px-3.5 py-2.5 text-sm text-slate-900 outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-100">
+                      <option value="">Selecione uma prioridade</option>
+                      <option value="Baixa">Baixa</option>
+                      <option value="Média">Média</option>
+                      <option value="Alta">Alta</option>
+                    </select>
+                    {errosEdicao.prioridade && <p id="ordem-prioridade-erro" className="mt-1 text-sm text-red-700">{errosEdicao.prioridade}</p>}
+                  </div>
+                </div>
+                <div className="flex flex-wrap gap-3">
+                  <button type="submit" disabled={salvando} className="rounded-xl bg-blue-600 px-4 py-2.5 text-sm font-semibold text-white hover:bg-blue-700 disabled:cursor-not-allowed disabled:opacity-60">{salvando ? 'Salvando...' : 'Confirmar alteração'}</button>
+                  <button type="button" onClick={cancelarEdicao} disabled={salvando} className="rounded-xl border border-slate-300 bg-white px-4 py-2.5 text-sm font-semibold text-slate-700 hover:bg-slate-50 disabled:opacity-60">Cancelar</button>
+                </div>
+              </form>
             )}
           </div>
         </section>
