@@ -6,6 +6,7 @@ from app.models.perfil import Perfil
 from app.models.produto import Produto
 from app.models.sessao import Sessao
 from app.models.usuario import Usuario
+from app.models.ordem_producao import OrdemProducao
 from app.models.usuario_perfil import usuario_perfil
 
 __all__ = [
@@ -13,6 +14,7 @@ __all__ = [
     "ControleTentativasLogin",
     "FalhaLogin",
     "Maquina",
+    "OrdemProducao",
     "Perfil",
     "Produto",
     "Sessao",
