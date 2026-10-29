@@ -1,5 +1,6 @@
-from datetime import datetime
+from datetime import date, datetime
 from decimal import Decimal
+from typing import Literal
 from uuid import UUID
 
 from pydantic import BaseModel, ConfigDict, Field, field_validator
@@ -27,3 +28,33 @@ class OrdemProducaoResponse(BaseModel):
     quantidade: Decimal
     status: str
     criado_em: datetime
+    prazo: date | None
+    prioridade: str | None
+
+
+class OrdemProducaoUpdate(BaseModel):
+    prazo: date
+    prioridade: Literal["Baixa", "Média", "Alta"]
+
+    @field_validator("prazo", mode="before")
+    @classmethod
+    def validar_prazo_obrigatorio(cls, valor: object) -> object:
+        if valor is None or valor == "":
+            raise ValueError("O prazo é obrigatório.")
+        return valor
+
+    @field_validator("prazo")
+    @classmethod
+    def validar_prazo_nao_passado(cls, valor: date) -> date:
+        if valor < date.today():
+            raise ValueError("O prazo não pode estar no passado.")
+        return valor
+
+    @field_validator("prioridade", mode="before")
+    @classmethod
+    def validar_prioridade(cls, valor: object) -> object:
+        if not isinstance(valor, str) or valor not in {"Baixa", "Média", "Alta"}:
+            raise ValueError(
+                "Uma prioridade válida entre Baixa, Média e Alta é obrigatória."
+            )
+        return valor

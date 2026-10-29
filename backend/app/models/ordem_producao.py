@@ -1,4 +1,5 @@
 from decimal import Decimal
+from datetime import date
 from typing import TYPE_CHECKING
 from uuid import UUID
 
@@ -40,6 +41,8 @@ class OrdemProducao(Base):
         nullable=False,
         server_default=func.current_timestamp(),
     )
+    prazo: Mapped[date | None] = mapped_column(nullable=True)
+    prioridade: Mapped[str | None] = mapped_column(String(10), nullable=True)
 
     produto: Mapped["Produto"] = relationship()
 
@@ -56,5 +59,9 @@ class OrdemProducao(Base):
         CheckConstraint(
             "length(trim(status)) > 0",
             name="ck_ordens_producao_status",
+        ),
+        CheckConstraint(
+            "prioridade IS NULL OR prioridade IN ('Baixa', 'Média', 'Alta')",
+            name="ck_ordens_producao_prioridade",
         ),
     )

@@ -9,7 +9,11 @@ from app.api.deps import get_db, require_profiles
 from app.models.ordem_producao import OrdemProducao
 from app.models.produto import Produto
 from app.models.usuario import Usuario
-from app.schemas.ordem_producao import OrdemProducaoCreate, OrdemProducaoResponse
+from app.schemas.ordem_producao import (
+    OrdemProducaoCreate,
+    OrdemProducaoResponse,
+    OrdemProducaoUpdate,
+)
 
 
 router = APIRouter()
@@ -25,6 +29,21 @@ def listar_ordens_producao(
         .options(joinedload(OrdemProducao.produto))
         .order_by(OrdemProducao.criado_em.desc(), OrdemProducao.codigo)
     ).all()
+
+
+@router.get("/{id_ordem}", response_model=OrdemProducaoResponse)
+def consultar_ordem_producao(
+    id_ordem: UUID,
+    db: Session = Depends(get_db),
+    _usuario: Usuario = Depends(require_profiles("PLANEJADOR")),
+):
+    ordem = db.get(OrdemProducao, id_ordem)
+    if ordem is None:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="Ordem de produção não encontrada.",
+        )
+    return ordem
 
 
 @router.post(
@@ -76,5 +95,26 @@ def cadastrar_ordem_producao(
             detail="Não foi possível cadastrar a ordem de produção.",
         ) from erro
 
+    db.refresh(ordem)
+    return ordem
+
+
+@router.put("/{id_ordem}", response_model=OrdemProducaoResponse)
+def atualizar_prazo_prioridade_ordem(
+    id_ordem: UUID,
+    dados: OrdemProducaoUpdate,
+    db: Session = Depends(get_db),
+    _usuario: Usuario = Depends(require_profiles("PLANEJADOR")),
+):
+    ordem = db.get(OrdemProducao, id_ordem)
+    if ordem is None:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="Ordem de produção não encontrada.",
+        )
+
+    ordem.prazo = dados.prazo
+    ordem.prioridade = dados.prioridade
+    db.commit()
     db.refresh(ordem)
     return ordem
