@@ -1,4 +1,4 @@
-# Sprint Review — Sprint 1
+# Sprint Review das US - Feita pelo PO — Sprint 1
 
 ## Sprint Goal definido na Planning
 Permitir que o usuário entre no sistema, cadastre os dados essenciais e registre ordens prontas para serem planejadas.
