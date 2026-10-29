@@ -1,1 +1,2818 @@
-<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="0" skipped="0" tests="9" time="4.289" timestamp="2026-10-25T19:36:55.557071-03:00" hostname="DESKTOP-PHDJQ09"><testcase classname="testes.integration.test_us01_auth" name="test_login_com_credenciais_validas_cria_sessao_e_retorna_perfil" time="1.510" /><testcase classname="testes.integration.test_us01_auth" name="test_senha_incorreta_e_rejeitada_sem_criar_sessao" time="0.253" /><testcase classname="testes.integration.test_us01_auth" name="test_email_nao_cadastrado_retorna_mensagem_generica" time="0.199" /><testcase classname="testes.integration.test_us01_auth" name="test_payload_invalido_nao_repete_a_senha_na_resposta" time="0.204" /><testcase classname="testes.integration.test_us01_auth" name="test_me_sem_cookie_retorna_401" time="0.277" /><testcase classname="testes.integration.test_us01_auth" name="test_me_com_sessao_valida_retorna_identidade_e_perfis" time="0.422" /><testcase classname="testes.integration.test_us01_auth" name="test_me_retorna_perfil_de_operador" time="0.331" /><testcase classname="testes.integration.test_us01_auth" name="test_me_rejeita_sessao_expirada" time="0.281" /><testcase classname="testes.integration.test_us01_auth" name="test_logout_invalida_a_sessao" time="0.313" /></testsuite></testsuites>
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="9" failures="0" skipped="0" tests="9" time="10.530" timestamp="2026-10-29T18:58:30.731605-03:00" hostname="DESKTOP-PHDJQ09"><testcase classname="testes.integration.test_us01_auth" name="test_login_com_credenciais_validas_cria_sessao_e_retorna_perfil" time="3.723"><error message="failed on setup with &quot;sqlalchemy.exc.OperationalError: (psycopg.OperationalError) connection failed: connection to server at &quot;127.0.0.1&quot;, port 5432 failed: FATAL:  o sistema de banco de dados est� em modo de recupera��o&#10;Multiple connection attempts failed. All failures were:&#10;- host: 'localhost', port: 5432, hostaddr: '::1': connection failed: connection to server at &quot;::1&quot;, port 5432 failed: FATAL:  o sistema de banco de dados est� em modo de recupera��o&#10;- host: 'localhost', port: 5432, hostaddr: '127.0.0.1': connection failed: connection to server at &quot;127.0.0.1&quot;, port 5432 failed: FATAL:  o sistema de banco de dados est� em modo de recupera��o&#10;(Background on this error at: https://sqlalche.me/e/21/e3q8)&quot;">self = &lt;sqlalchemy.engine.base.Connection object at 0x000002B7B5F47710&gt;
+engine = Engine(postgresql+psycopg://setupflow_dev:***@localhost:5432/setupflow_test)
+connection = None, _has_events = None, _allow_revalidate = True
+_allow_autobegin = True
+
+    def __init__(
+        self,
+        engine: Engine,
+        connection: Optional[PoolProxiedConnection] = None,
+        _has_events: Optional[bool] = None,
+        _allow_revalidate: bool = True,
+        _allow_autobegin: bool = True,
+    ):
+        """Construct a new Connection."""
+        self.engine = engine
+        self.dialect = dialect = engine.dialect
+    
+        if connection is None:
+            try:
+&gt;               self._dbapi_connection = engine.raw_connection()
+                                         ^^^^^^^^^^^^^^^^^^^^^^^
+
+.venv\Lib\site-packages\sqlalchemy\engine\base.py:149: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+.venv\Lib\site-packages\sqlalchemy\engine\base.py:3299: in raw_connection
+    return self.pool.connect()
+           ^^^^^^^^^^^^^^^^^^^
+.venv\Lib\site-packages\sqlalchemy\pool\base.py:445: in connect
+    return _ConnectionFairy._checkout(self)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv\Lib\site-packages\sqlalchemy\pool\base.py:1324: in _checkout
+    fairy = _ConnectionRecord.checkout(pool)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv\Lib\site-packages\sqlalchemy\pool\base.py:709: in checkout
+    rec = pool._do_get()
+          ^^^^^^^^^^^^^^
+.venv\Lib\site-packages\sqlalchemy\pool\impl.py:301: in _do_get
+    return self._create_connection()
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv\Lib\site-packages\sqlalchemy\pool\base.py:386: in _create_connection
+    return _ConnectionRecord(self)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+.venv\Lib\site-packages\sqlalchemy\pool\base.py:671: in __init__
+    self.__connect()
+.venv\Lib\site-packages\sqlalchemy\pool\base.py:916: in __connect
+    with util.safe_reraise():
+.venv\Lib\site-packages\sqlalchemy\util\langhelpers.py:166: in __exit__
+    raise exc_value.with_traceback(exc_tb)
+.venv\Lib\site-packages\sqlalchemy\pool\base.py:912: in __connect
+    self.dbapi_connection = connection = pool._invoke_creator(self)
+                                         ^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv\Lib\site-packages\sqlalchemy\engine\create.py:645: in connect
+    return dialect.connect(*cargs_tup, **cparams)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv\Lib\site-packages\sqlalchemy\engine\default.py:869: in connect
+    return self.loaded_dbapi.connect(*cargs, **cparams)  # type: ignore[no-any-return]  # NOQA: E501
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+cls = &lt;class 'psycopg.Connection'&gt;
+conninfo = 'host=localhost dbname=setupflow_test user=setupflow_dev password=Setup123 port=5432 hostaddr=127.0.0.1'
+autocommit = False, prepare_threshold = 5
+context = &lt;psycopg.adapt.AdaptersMap object at 0x000002B7B5F5C710&gt;
+row_factory = None, cursor_factory = None
+kwargs = {'dbname': 'setupflow_test', 'host': 'localhost', 'password': 'Setup123', 'port': 5432, ...}
+params = {'dbname': 'setupflow_test', 'host': 'localhost', 'password': 'Setup123', 'port': 5432, ...}
+timeout = 130
+
+    @classmethod
+    def connect(
+        cls,
+        conninfo: str = "",
+        *,
+        autocommit: bool = False,
+        prepare_threshold: int | None = 5,
+        context: AdaptContext | None = None,
+        row_factory: RowFactory[Row] | None = None,
+        cursor_factory: type[Cursor[Row]] | None = None,
+        **kwargs: ConnParam,
+    ) -&gt; Self:
+        """
+        Connect to a database server and return a new `Connection` instance.
+        """
+    
+        params = cls._get_connection_params(conninfo, **kwargs)
+        timeout = timeout_from_conninfo(params)
+        rv = None
+        attempts = conninfo_attempts(params)
+        conn_errors: list[tuple[e.Error, str]] = []
+        for attempt in attempts:
+            tdescr = (attempt.get("host"), attempt.get("port"), attempt.get("hostaddr"))
+            descr = "host: %r, port: %r, hostaddr: %r" % tdescr
+            logger.debug("connection attempt: %s", descr)
+            try:
+                conninfo = make_conninfo("", **attempt)
+                gen = cls._connect_gen(conninfo)
+                rv = waiting.wait_conn(gen, interval=_WAIT_INTERVAL, timeout=timeout)
+            except e._WaitTimeout:
+                tex = e.ConnectionTimeout("connection timeout expired")
+                logger.debug("connection failed: %s: %s", descr, str(tex))
+                conn_errors.append((tex, descr))
+            except e.Error as ex:
+                logger.debug("connection failed: %s: %s", descr, str(ex))
+                conn_errors.append((ex, descr))
+            except e._NO_TRACEBACK as ex:
+                raise ex.with_traceback(None)
+            else:
+                logger.debug("connection succeeded: %s", descr)
+                break
+    
+        if not rv:
+            last_ex = conn_errors[-1][0]
+            if len(conn_errors) == 1:
+                raise last_ex.with_traceback(None)
+    
+            # Create a new exception with the same type as the last one, containing
+            # all attempt errors while preserving backward compatibility.
+            lines = [str(last_ex)]
+            lines.append("Multiple connection attempts failed. All failures were:")
+            lines.extend((f"- {descr}: {error}" for error, descr in conn_errors))
+            new_ex = type(last_ex)("\n".join(lines), pgconn=last_ex.pgconn)
+&gt;           raise new_ex.with_traceback(None)
+E           psycopg.OperationalError: connection failed: connection to server at "127.0.0.1", port 5432 failed: FATAL:  o sistema de banco de dados est� em modo de recupera��o
+E           Multiple connection attempts failed. All failures were:
+E           - host: 'localhost', port: 5432, hostaddr: '::1': connection failed: connection to server at "::1", port 5432 failed: FATAL:  o sistema de banco de dados est� em modo de recupera��o
+E           - host: 'localhost', port: 5432, hostaddr: '127.0.0.1': connection failed: connection to server at "127.0.0.1", port 5432 failed: FATAL:  o sistema de banco de dados est� em modo de recupera��o
+
+.venv\Lib\site-packages\psycopg\connection.py:134: OperationalError
+
+The above exception was the direct cause of the following exception:
+
+    @pytest.fixture(scope="session")
+    def auth_test_context():
+        test_database_url = os.getenv("TEST_DATABASE_URL")
+        if not test_database_url:
+            pytest.fail(
+                "Defina TEST_DATABASE_URL para um banco PostgreSQL de teste terminado em _test."
+            )
+    
+        try:
+            parsed_url = make_url(test_database_url)
+        except ArgumentError:
+            pytest.fail("TEST_DATABASE_URL deve ser uma URL SQLAlchemy válida.")
+    
+        if parsed_url.get_backend_name() != "postgresql":
+            pytest.fail("TEST_DATABASE_URL deve apontar para um banco PostgreSQL.")
+    
+        if (
+            not parsed_url.database
+            or not parsed_url.database.endswith("_test")
+            or parsed_url.database == "setupflow_dev"
+        ):
+            pytest.fail("Testes recusados: o nome do banco deve terminar em _test.")
+    
+        if not parsed_url.username:
+            pytest.fail("TEST_DATABASE_URL deve informar o usuário PostgreSQL.")
+    
+        test_url = parsed_url.set(drivername="postgresql+psycopg")
+    
+        for name, value in {
+            "DB_USER": parsed_url.username or "",
+            "DB_PASSWORD": parsed_url.password or "",
+            "DB_HOST": parsed_url.host or "localhost",
+            "DB_PORT": str(parsed_url.port or 5432),
+            "DB_NAME": parsed_url.database,
+        }.items():
+            os.environ[name] = value
+    
+        backend_dir = Path(__file__).resolve().parents[2]
+        config = Config(str(backend_dir / "alembic.ini"))
+        config.set_main_option("script_location", str(backend_dir / "migrations"))
+        config.set_main_option(
+            "sqlalchemy.url",
+            test_url.render_as_string(hide_password=False).replace("%", "%%"),
+        )
+    
+        engine = create_engine(test_url)
+        app = None
+    
+        try:
+&gt;           command.upgrade(config, "head")
+
+testes\integration\conftest.py:68: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+.venv\Lib\site-packages\alembic\command.py:487: in upgrade
+    script.run_env()
+.venv\Lib\site-packages\alembic\script\base.py:550: in run_env
+    util.load_python_file(self.dir, "env.py")
+.venv\Lib\site-packages\alembic\util\pyfiles.py:114: in load_python_file
+    module = load_module_py(module_id, path)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv\Lib\site-packages\alembic\util\pyfiles.py:132: in load_module_py
+    spec.loader.exec_module(module)  # type: ignore
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+migrations\env.py:64: in &lt;module&gt;
+    run_migrations_online()
+migrations\env.py:48: in run_migrations_online
+    with connectable.connect() as connection:
+         ^^^^^^^^^^^^^^^^^^^^^
+.venv\Lib\site-packages\sqlalchemy\engine\base.py:3275: in connect
+    return self._connection_cls(self)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv\Lib\site-packages\sqlalchemy\engine\base.py:151: in __init__
+    Connection._handle_dbapi_exception_noconnection(
+.venv\Lib\site-packages\sqlalchemy\engine\base.py:2432: in _handle_dbapi_exception_noconnection
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+.venv\Lib\site-packages\sqlalchemy\engine\base.py:149: in __init__
+    self._dbapi_connection = engine.raw_connection()
+                             ^^^^^^^^^^^^^^^^^^^^^^^
+.venv\Lib\site-packages\sqlalchemy\engine\base.py:3299: in raw_connection
+    return self.pool.connect()
+           ^^^^^^^^^^^^^^^^^^^
+.venv\Lib\site-packages\sqlalchemy\pool\base.py:445: in connect
+    return _ConnectionFairy._checkout(self)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv\Lib\site-packages\sqlalchemy\pool\base.py:1324: in _checkout
+    fairy = _ConnectionRecord.checkout(pool)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv\Lib\site-packages\sqlalchemy\pool\base.py:709: in checkout
+    rec = pool._do_get()
+          ^^^^^^^^^^^^^^
+.venv\Lib\site-packages\sqlalchemy\pool\impl.py:301: in _do_get
+    return self._create_connection()
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv\Lib\site-packages\sqlalchemy\pool\base.py:386: in _create_connection
+    return _ConnectionRecord(self)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+.venv\Lib\site-packages\sqlalchemy\pool\base.py:671: in __init__
+    self.__connect()
+.venv\Lib\site-packages\sqlalchemy\pool\base.py:916: in __connect
+    with util.safe_reraise():
+.venv\Lib\site-packages\sqlalchemy\util\langhelpers.py:166: in __exit__
+    raise exc_value.with_traceback(exc_tb)
+.venv\Lib\site-packages\sqlalchemy\pool\base.py:912: in __connect
+    self.dbapi_connection = connection = pool._invoke_creator(self)
+                                         ^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv\Lib\site-packages\sqlalchemy\engine\create.py:645: in connect
+    return dialect.connect(*cargs_tup, **cparams)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv\Lib\site-packages\sqlalchemy\engine\default.py:869: in connect
+    return self.loaded_dbapi.connect(*cargs, **cparams)  # type: ignore[no-any-return]  # NOQA: E501
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+cls = &lt;class 'psycopg.Connection'&gt;
+conninfo = 'host=localhost dbname=setupflow_test user=setupflow_dev password=Setup123 port=5432 hostaddr=127.0.0.1'
+autocommit = False, prepare_threshold = 5
+context = &lt;psycopg.adapt.AdaptersMap object at 0x000002B7B5F5C710&gt;
+row_factory = None, cursor_factory = None
+kwargs = {'dbname': 'setupflow_test', 'host': 'localhost', 'password': 'Setup123', 'port': 5432, ...}
+params = {'dbname': 'setupflow_test', 'host': 'localhost', 'password': 'Setup123', 'port': 5432, ...}
+timeout = 130
+
+    @classmethod
+    def connect(
+        cls,
+        conninfo: str = "",
+        *,
+        autocommit: bool = False,
+        prepare_threshold: int | None = 5,
+        context: AdaptContext | None = None,
+        row_factory: RowFactory[Row] | None = None,
+        cursor_factory: type[Cursor[Row]] | None = None,
+        **kwargs: ConnParam,
+    ) -&gt; Self:
+        """
+        Connect to a database server and return a new `Connection` instance.
+        """
+    
+        params = cls._get_connection_params(conninfo, **kwargs)
+        timeout = timeout_from_conninfo(params)
+        rv = None
+        attempts = conninfo_attempts(params)
+        conn_errors: list[tuple[e.Error, str]] = []
+        for attempt in attempts:
+            tdescr = (attempt.get("host"), attempt.get("port"), attempt.get("hostaddr"))
+            descr = "host: %r, port: %r, hostaddr: %r" % tdescr
+            logger.debug("connection attempt: %s", descr)
+            try:
+                conninfo = make_conninfo("", **attempt)
+                gen = cls._connect_gen(conninfo)
+                rv = waiting.wait_conn(gen, interval=_WAIT_INTERVAL, timeout=timeout)
+            except e._WaitTimeout:
+                tex = e.ConnectionTimeout("connection timeout expired")
+                logger.debug("connection failed: %s: %s", descr, str(tex))
+                conn_errors.append((tex, descr))
+            except e.Error as ex:
+                logger.debug("connection failed: %s: %s", descr, str(ex))
+                conn_errors.append((ex, descr))
+            except e._NO_TRACEBACK as ex:
+                raise ex.with_traceback(None)
+            else:
+                logger.debug("connection succeeded: %s", descr)
+                break
+    
+        if not rv:
+            last_ex = conn_errors[-1][0]
+            if len(conn_errors) == 1:
+                raise last_ex.with_traceback(None)
+    
+            # Create a new exception with the same type as the last one, containing
+            # all attempt errors while preserving backward compatibility.
+            lines = [str(last_ex)]
+            lines.append("Multiple connection attempts failed. All failures were:")
+            lines.extend((f"- {descr}: {error}" for error, descr in conn_errors))
+            new_ex = type(last_ex)("\n".join(lines), pgconn=last_ex.pgconn)
+&gt;           raise new_ex.with_traceback(None)
+E           sqlalchemy.exc.OperationalError: (psycopg.OperationalError) connection failed: connection to server at "127.0.0.1", port 5432 failed: FATAL:  o sistema de banco de dados est� em modo de recupera��o
+E           Multiple connection attempts failed. All failures were:
+E           - host: 'localhost', port: 5432, hostaddr: '::1': connection failed: connection to server at "::1", port 5432 failed: FATAL:  o sistema de banco de dados est� em modo de recupera��o
+E           - host: 'localhost', port: 5432, hostaddr: '127.0.0.1': connection failed: connection to server at "127.0.0.1", port 5432 failed: FATAL:  o sistema de banco de dados est� em modo de recupera��o
+E           (Background on this error at: https://sqlalche.me/e/21/e3q8)
+
+.venv\Lib\site-packages\psycopg\connection.py:134: OperationalError</error></testcase><testcase classname="testes.integration.test_us01_auth" name="test_senha_incorreta_e_rejeitada_sem_criar_sessao" time="0.001"><error message="failed on setup with &quot;sqlalchemy.exc.OperationalError: (psycopg.OperationalError) connection failed: connection to server at &quot;127.0.0.1&quot;, port 5432 failed: FATAL:  o sistema de banco de dados est� em modo de recupera��o&#10;Multiple connection attempts failed. All failures were:&#10;- host: 'localhost', port: 5432, hostaddr: '::1': connection failed: connection to server at &quot;::1&quot;, port 5432 failed: FATAL:  o sistema de banco de dados est� em modo de recupera��o&#10;- host: 'localhost', port: 5432, hostaddr: '127.0.0.1': connection failed: connection to server at &quot;127.0.0.1&quot;, port 5432 failed: FATAL:  o sistema de banco de dados est� em modo de recupera��o&#10;(Background on this error at: https://sqlalche.me/e/21/e3q8)&quot;">self = &lt;sqlalchemy.engine.base.Connection object at 0x000002B7B5F47710&gt;
+engine = Engine(postgresql+psycopg://setupflow_dev:***@localhost:5432/setupflow_test)
+connection = None, _has_events = None, _allow_revalidate = True
+_allow_autobegin = True
+
+    def __init__(
+        self,
+        engine: Engine,
+        connection: Optional[PoolProxiedConnection] = None,
+        _has_events: Optional[bool] = None,
+        _allow_revalidate: bool = True,
+        _allow_autobegin: bool = True,
+    ):
+        """Construct a new Connection."""
+        self.engine = engine
+        self.dialect = dialect = engine.dialect
+    
+        if connection is None:
+            try:
+&gt;               self._dbapi_connection = engine.raw_connection()
+                                         ^^^^^^^^^^^^^^^^^^^^^^^
+
+.venv\Lib\site-packages\sqlalchemy\engine\base.py:149: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+.venv\Lib\site-packages\sqlalchemy\engine\base.py:3299: in raw_connection
+    return self.pool.connect()
+           ^^^^^^^^^^^^^^^^^^^
+.venv\Lib\site-packages\sqlalchemy\pool\base.py:445: in connect
+    return _ConnectionFairy._checkout(self)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv\Lib\site-packages\sqlalchemy\pool\base.py:1324: in _checkout
+    fairy = _ConnectionRecord.checkout(pool)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv\Lib\site-packages\sqlalchemy\pool\base.py:709: in checkout
+    rec = pool._do_get()
+          ^^^^^^^^^^^^^^
+.venv\Lib\site-packages\sqlalchemy\pool\impl.py:301: in _do_get
+    return self._create_connection()
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv\Lib\site-packages\sqlalchemy\pool\base.py:386: in _create_connection
+    return _ConnectionRecord(self)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+.venv\Lib\site-packages\sqlalchemy\pool\base.py:671: in __init__
+    self.__connect()
+.venv\Lib\site-packages\sqlalchemy\pool\base.py:916: in __connect
+    with util.safe_reraise():
+.venv\Lib\site-packages\sqlalchemy\util\langhelpers.py:166: in __exit__
+    raise exc_value.with_traceback(exc_tb)
+.venv\Lib\site-packages\sqlalchemy\pool\base.py:912: in __connect
+    self.dbapi_connection = connection = pool._invoke_creator(self)
+                                         ^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv\Lib\site-packages\sqlalchemy\engine\create.py:645: in connect
+    return dialect.connect(*cargs_tup, **cparams)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv\Lib\site-packages\sqlalchemy\engine\default.py:869: in connect
+    return self.loaded_dbapi.connect(*cargs, **cparams)  # type: ignore[no-any-return]  # NOQA: E501
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+cls = &lt;class 'psycopg.Connection'&gt;
+conninfo = 'host=localhost dbname=setupflow_test user=setupflow_dev password=Setup123 port=5432 hostaddr=127.0.0.1'
+autocommit = False, prepare_threshold = 5
+context = &lt;psycopg.adapt.AdaptersMap object at 0x000002B7B5F5C710&gt;
+row_factory = None, cursor_factory = None
+kwargs = {'dbname': 'setupflow_test', 'host': 'localhost', 'password': 'Setup123', 'port': 5432, ...}
+params = {'dbname': 'setupflow_test', 'host': 'localhost', 'password': 'Setup123', 'port': 5432, ...}
+timeout = 130
+
+    @classmethod
+    def connect(
+        cls,
+        conninfo: str = "",
+        *,
+        autocommit: bool = False,
+        prepare_threshold: int | None = 5,
+        context: AdaptContext | None = None,
+        row_factory: RowFactory[Row] | None = None,
+        cursor_factory: type[Cursor[Row]] | None = None,
+        **kwargs: ConnParam,
+    ) -&gt; Self:
+        """
+        Connect to a database server and return a new `Connection` instance.
+        """
+    
+        params = cls._get_connection_params(conninfo, **kwargs)
+        timeout = timeout_from_conninfo(params)
+        rv = None
+        attempts = conninfo_attempts(params)
+        conn_errors: list[tuple[e.Error, str]] = []
+        for attempt in attempts:
+            tdescr = (attempt.get("host"), attempt.get("port"), attempt.get("hostaddr"))
+            descr = "host: %r, port: %r, hostaddr: %r" % tdescr
+            logger.debug("connection attempt: %s", descr)
+            try:
+                conninfo = make_conninfo("", **attempt)
+                gen = cls._connect_gen(conninfo)
+                rv = waiting.wait_conn(gen, interval=_WAIT_INTERVAL, timeout=timeout)
+            except e._WaitTimeout:
+                tex = e.ConnectionTimeout("connection timeout expired")
+                logger.debug("connection failed: %s: %s", descr, str(tex))
+                conn_errors.append((tex, descr))
+            except e.Error as ex:
+                logger.debug("connection failed: %s: %s", descr, str(ex))
+                conn_errors.append((ex, descr))
+            except e._NO_TRACEBACK as ex:
+                raise ex.with_traceback(None)
+            else:
+                logger.debug("connection succeeded: %s", descr)
+                break
+    
+        if not rv:
+            last_ex = conn_errors[-1][0]
+            if len(conn_errors) == 1:
+                raise last_ex.with_traceback(None)
+    
+            # Create a new exception with the same type as the last one, containing
+            # all attempt errors while preserving backward compatibility.
+            lines = [str(last_ex)]
+            lines.append("Multiple connection attempts failed. All failures were:")
+            lines.extend((f"- {descr}: {error}" for error, descr in conn_errors))
+            new_ex = type(last_ex)("\n".join(lines), pgconn=last_ex.pgconn)
+&gt;           raise new_ex.with_traceback(None)
+E           psycopg.OperationalError: connection failed: connection to server at "127.0.0.1", port 5432 failed: FATAL:  o sistema de banco de dados est� em modo de recupera��o
+E           Multiple connection attempts failed. All failures were:
+E           - host: 'localhost', port: 5432, hostaddr: '::1': connection failed: connection to server at "::1", port 5432 failed: FATAL:  o sistema de banco de dados est� em modo de recupera��o
+E           - host: 'localhost', port: 5432, hostaddr: '127.0.0.1': connection failed: connection to server at "127.0.0.1", port 5432 failed: FATAL:  o sistema de banco de dados est� em modo de recupera��o
+
+.venv\Lib\site-packages\psycopg\connection.py:134: OperationalError
+
+The above exception was the direct cause of the following exception:
+
+    @pytest.fixture(scope="session")
+    def auth_test_context():
+        test_database_url = os.getenv("TEST_DATABASE_URL")
+        if not test_database_url:
+            pytest.fail(
+                "Defina TEST_DATABASE_URL para um banco PostgreSQL de teste terminado em _test."
+            )
+    
+        try:
+            parsed_url = make_url(test_database_url)
+        except ArgumentError:
+            pytest.fail("TEST_DATABASE_URL deve ser uma URL SQLAlchemy válida.")
+    
+        if parsed_url.get_backend_name() != "postgresql":
+            pytest.fail("TEST_DATABASE_URL deve apontar para um banco PostgreSQL.")
+    
+        if (
+            not parsed_url.database
+            or not parsed_url.database.endswith("_test")
+            or parsed_url.database == "setupflow_dev"
+        ):
+            pytest.fail("Testes recusados: o nome do banco deve terminar em _test.")
+    
+        if not parsed_url.username:
+            pytest.fail("TEST_DATABASE_URL deve informar o usuário PostgreSQL.")
+    
+        test_url = parsed_url.set(drivername="postgresql+psycopg")
+    
+        for name, value in {
+            "DB_USER": parsed_url.username or "",
+            "DB_PASSWORD": parsed_url.password or "",
+            "DB_HOST": parsed_url.host or "localhost",
+            "DB_PORT": str(parsed_url.port or 5432),
+            "DB_NAME": parsed_url.database,
+        }.items():
+            os.environ[name] = value
+    
+        backend_dir = Path(__file__).resolve().parents[2]
+        config = Config(str(backend_dir / "alembic.ini"))
+        config.set_main_option("script_location", str(backend_dir / "migrations"))
+        config.set_main_option(
+            "sqlalchemy.url",
+            test_url.render_as_string(hide_password=False).replace("%", "%%"),
+        )
+    
+        engine = create_engine(test_url)
+        app = None
+    
+        try:
+&gt;           command.upgrade(config, "head")
+
+testes\integration\conftest.py:68: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+.venv\Lib\site-packages\alembic\command.py:487: in upgrade
+    script.run_env()
+.venv\Lib\site-packages\alembic\script\base.py:550: in run_env
+    util.load_python_file(self.dir, "env.py")
+.venv\Lib\site-packages\alembic\util\pyfiles.py:114: in load_python_file
+    module = load_module_py(module_id, path)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv\Lib\site-packages\alembic\util\pyfiles.py:132: in load_module_py
+    spec.loader.exec_module(module)  # type: ignore
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+migrations\env.py:64: in &lt;module&gt;
+    run_migrations_online()
+migrations\env.py:48: in run_migrations_online
+    with connectable.connect() as connection:
+         ^^^^^^^^^^^^^^^^^^^^^
+.venv\Lib\site-packages\sqlalchemy\engine\base.py:3275: in connect
+    return self._connection_cls(self)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv\Lib\site-packages\sqlalchemy\engine\base.py:151: in __init__
+    Connection._handle_dbapi_exception_noconnection(
+.venv\Lib\site-packages\sqlalchemy\engine\base.py:2432: in _handle_dbapi_exception_noconnection
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+.venv\Lib\site-packages\sqlalchemy\engine\base.py:149: in __init__
+    self._dbapi_connection = engine.raw_connection()
+                             ^^^^^^^^^^^^^^^^^^^^^^^
+.venv\Lib\site-packages\sqlalchemy\engine\base.py:3299: in raw_connection
+    return self.pool.connect()
+           ^^^^^^^^^^^^^^^^^^^
+.venv\Lib\site-packages\sqlalchemy\pool\base.py:445: in connect
+    return _ConnectionFairy._checkout(self)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv\Lib\site-packages\sqlalchemy\pool\base.py:1324: in _checkout
+    fairy = _ConnectionRecord.checkout(pool)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv\Lib\site-packages\sqlalchemy\pool\base.py:709: in checkout
+    rec = pool._do_get()
+          ^^^^^^^^^^^^^^
+.venv\Lib\site-packages\sqlalchemy\pool\impl.py:301: in _do_get
+    return self._create_connection()
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv\Lib\site-packages\sqlalchemy\pool\base.py:386: in _create_connection
+    return _ConnectionRecord(self)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+.venv\Lib\site-packages\sqlalchemy\pool\base.py:671: in __init__
+    self.__connect()
+.venv\Lib\site-packages\sqlalchemy\pool\base.py:916: in __connect
+    with util.safe_reraise():
+.venv\Lib\site-packages\sqlalchemy\util\langhelpers.py:166: in __exit__
+    raise exc_value.with_traceback(exc_tb)
+.venv\Lib\site-packages\sqlalchemy\pool\base.py:912: in __connect
+    self.dbapi_connection = connection = pool._invoke_creator(self)
+                                         ^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv\Lib\site-packages\sqlalchemy\engine\create.py:645: in connect
+    return dialect.connect(*cargs_tup, **cparams)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv\Lib\site-packages\sqlalchemy\engine\default.py:869: in connect
+    return self.loaded_dbapi.connect(*cargs, **cparams)  # type: ignore[no-any-return]  # NOQA: E501
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+cls = &lt;class 'psycopg.Connection'&gt;
+conninfo = 'host=localhost dbname=setupflow_test user=setupflow_dev password=Setup123 port=5432 hostaddr=127.0.0.1'
+autocommit = False, prepare_threshold = 5
+context = &lt;psycopg.adapt.AdaptersMap object at 0x000002B7B5F5C710&gt;
+row_factory = None, cursor_factory = None
+kwargs = {'dbname': 'setupflow_test', 'host': 'localhost', 'password': 'Setup123', 'port': 5432, ...}
+params = {'dbname': 'setupflow_test', 'host': 'localhost', 'password': 'Setup123', 'port': 5432, ...}
+timeout = 130
+
+    @classmethod
+    def connect(
+        cls,
+        conninfo: str = "",
+        *,
+        autocommit: bool = False,
+        prepare_threshold: int | None = 5,
+        context: AdaptContext | None = None,
+        row_factory: RowFactory[Row] | None = None,
+        cursor_factory: type[Cursor[Row]] | None = None,
+        **kwargs: ConnParam,
+    ) -&gt; Self:
+        """
+        Connect to a database server and return a new `Connection` instance.
+        """
+    
+        params = cls._get_connection_params(conninfo, **kwargs)
+        timeout = timeout_from_conninfo(params)
+        rv = None
+        attempts = conninfo_attempts(params)
+        conn_errors: list[tuple[e.Error, str]] = []
+        for attempt in attempts:
+            tdescr = (attempt.get("host"), attempt.get("port"), attempt.get("hostaddr"))
+            descr = "host: %r, port: %r, hostaddr: %r" % tdescr
+            logger.debug("connection attempt: %s", descr)
+            try:
+                conninfo = make_conninfo("", **attempt)
+                gen = cls._connect_gen(conninfo)
+                rv = waiting.wait_conn(gen, interval=_WAIT_INTERVAL, timeout=timeout)
+            except e._WaitTimeout:
+                tex = e.ConnectionTimeout("connection timeout expired")
+                logger.debug("connection failed: %s: %s", descr, str(tex))
+                conn_errors.append((tex, descr))
+            except e.Error as ex:
+                logger.debug("connection failed: %s: %s", descr, str(ex))
+                conn_errors.append((ex, descr))
+            except e._NO_TRACEBACK as ex:
+                raise ex.with_traceback(None)
+            else:
+                logger.debug("connection succeeded: %s", descr)
+                break
+    
+        if not rv:
+            last_ex = conn_errors[-1][0]
+            if len(conn_errors) == 1:
+                raise last_ex.with_traceback(None)
+    
+            # Create a new exception with the same type as the last one, containing
+            # all attempt errors while preserving backward compatibility.
+            lines = [str(last_ex)]
+            lines.append("Multiple connection attempts failed. All failures were:")
+            lines.extend((f"- {descr}: {error}" for error, descr in conn_errors))
+            new_ex = type(last_ex)("\n".join(lines), pgconn=last_ex.pgconn)
+&gt;           raise new_ex.with_traceback(None)
+E           sqlalchemy.exc.OperationalError: (psycopg.OperationalError) connection failed: connection to server at "127.0.0.1", port 5432 failed: FATAL:  o sistema de banco de dados est� em modo de recupera��o
+E           Multiple connection attempts failed. All failures were:
+E           - host: 'localhost', port: 5432, hostaddr: '::1': connection failed: connection to server at "::1", port 5432 failed: FATAL:  o sistema de banco de dados est� em modo de recupera��o
+E           - host: 'localhost', port: 5432, hostaddr: '127.0.0.1': connection failed: connection to server at "127.0.0.1", port 5432 failed: FATAL:  o sistema de banco de dados est� em modo de recupera��o
+E           (Background on this error at: https://sqlalche.me/e/21/e3q8)
+
+.venv\Lib\site-packages\psycopg\connection.py:134: OperationalError</error></testcase><testcase classname="testes.integration.test_us01_auth" name="test_email_nao_cadastrado_retorna_mensagem_generica" time="0.001"><error message="failed on setup with &quot;sqlalchemy.exc.OperationalError: (psycopg.OperationalError) connection failed: connection to server at &quot;127.0.0.1&quot;, port 5432 failed: FATAL:  o sistema de banco de dados est� em modo de recupera��o&#10;Multiple connection attempts failed. All failures were:&#10;- host: 'localhost', port: 5432, hostaddr: '::1': connection failed: connection to server at &quot;::1&quot;, port 5432 failed: FATAL:  o sistema de banco de dados est� em modo de recupera��o&#10;- host: 'localhost', port: 5432, hostaddr: '127.0.0.1': connection failed: connection to server at &quot;127.0.0.1&quot;, port 5432 failed: FATAL:  o sistema de banco de dados est� em modo de recupera��o&#10;(Background on this error at: https://sqlalche.me/e/21/e3q8)&quot;">self = &lt;sqlalchemy.engine.base.Connection object at 0x000002B7B5F47710&gt;
+engine = Engine(postgresql+psycopg://setupflow_dev:***@localhost:5432/setupflow_test)
+connection = None, _has_events = None, _allow_revalidate = True
+_allow_autobegin = True
+
+    def __init__(
+        self,
+        engine: Engine,
+        connection: Optional[PoolProxiedConnection] = None,
+        _has_events: Optional[bool] = None,
+        _allow_revalidate: bool = True,
+        _allow_autobegin: bool = True,
+    ):
+        """Construct a new Connection."""
+        self.engine = engine
+        self.dialect = dialect = engine.dialect
+    
+        if connection is None:
+            try:
+&gt;               self._dbapi_connection = engine.raw_connection()
+                                         ^^^^^^^^^^^^^^^^^^^^^^^
+
+.venv\Lib\site-packages\sqlalchemy\engine\base.py:149: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+.venv\Lib\site-packages\sqlalchemy\engine\base.py:3299: in raw_connection
+    return self.pool.connect()
+           ^^^^^^^^^^^^^^^^^^^
+.venv\Lib\site-packages\sqlalchemy\pool\base.py:445: in connect
+    return _ConnectionFairy._checkout(self)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv\Lib\site-packages\sqlalchemy\pool\base.py:1324: in _checkout
+    fairy = _ConnectionRecord.checkout(pool)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv\Lib\site-packages\sqlalchemy\pool\base.py:709: in checkout
+    rec = pool._do_get()
+          ^^^^^^^^^^^^^^
+.venv\Lib\site-packages\sqlalchemy\pool\impl.py:301: in _do_get
+    return self._create_connection()
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv\Lib\site-packages\sqlalchemy\pool\base.py:386: in _create_connection
+    return _ConnectionRecord(self)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+.venv\Lib\site-packages\sqlalchemy\pool\base.py:671: in __init__
+    self.__connect()
+.venv\Lib\site-packages\sqlalchemy\pool\base.py:916: in __connect
+    with util.safe_reraise():
+.venv\Lib\site-packages\sqlalchemy\util\langhelpers.py:166: in __exit__
+    raise exc_value.with_traceback(exc_tb)
+.venv\Lib\site-packages\sqlalchemy\pool\base.py:912: in __connect
+    self.dbapi_connection = connection = pool._invoke_creator(self)
+                                         ^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv\Lib\site-packages\sqlalchemy\engine\create.py:645: in connect
+    return dialect.connect(*cargs_tup, **cparams)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv\Lib\site-packages\sqlalchemy\engine\default.py:869: in connect
+    return self.loaded_dbapi.connect(*cargs, **cparams)  # type: ignore[no-any-return]  # NOQA: E501
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+cls = &lt;class 'psycopg.Connection'&gt;
+conninfo = 'host=localhost dbname=setupflow_test user=setupflow_dev password=Setup123 port=5432 hostaddr=127.0.0.1'
+autocommit = False, prepare_threshold = 5
+context = &lt;psycopg.adapt.AdaptersMap object at 0x000002B7B5F5C710&gt;
+row_factory = None, cursor_factory = None
+kwargs = {'dbname': 'setupflow_test', 'host': 'localhost', 'password': 'Setup123', 'port': 5432, ...}
+params = {'dbname': 'setupflow_test', 'host': 'localhost', 'password': 'Setup123', 'port': 5432, ...}
+timeout = 130
+
+    @classmethod
+    def connect(
+        cls,
+        conninfo: str = "",
+        *,
+        autocommit: bool = False,
+        prepare_threshold: int | None = 5,
+        context: AdaptContext | None = None,
+        row_factory: RowFactory[Row] | None = None,
+        cursor_factory: type[Cursor[Row]] | None = None,
+        **kwargs: ConnParam,
+    ) -&gt; Self:
+        """
+        Connect to a database server and return a new `Connection` instance.
+        """
+    
+        params = cls._get_connection_params(conninfo, **kwargs)
+        timeout = timeout_from_conninfo(params)
+        rv = None
+        attempts = conninfo_attempts(params)
+        conn_errors: list[tuple[e.Error, str]] = []
+        for attempt in attempts:
+            tdescr = (attempt.get("host"), attempt.get("port"), attempt.get("hostaddr"))
+            descr = "host: %r, port: %r, hostaddr: %r" % tdescr
+            logger.debug("connection attempt: %s", descr)
+            try:
+                conninfo = make_conninfo("", **attempt)
+                gen = cls._connect_gen(conninfo)
+                rv = waiting.wait_conn(gen, interval=_WAIT_INTERVAL, timeout=timeout)
+            except e._WaitTimeout:
+                tex = e.ConnectionTimeout("connection timeout expired")
+                logger.debug("connection failed: %s: %s", descr, str(tex))
+                conn_errors.append((tex, descr))
+            except e.Error as ex:
+                logger.debug("connection failed: %s: %s", descr, str(ex))
+                conn_errors.append((ex, descr))
+            except e._NO_TRACEBACK as ex:
+                raise ex.with_traceback(None)
+            else:
+                logger.debug("connection succeeded: %s", descr)
+                break
+    
+        if not rv:
+            last_ex = conn_errors[-1][0]
+            if len(conn_errors) == 1:
+                raise last_ex.with_traceback(None)
+    
+            # Create a new exception with the same type as the last one, containing
+            # all attempt errors while preserving backward compatibility.
+            lines = [str(last_ex)]
+            lines.append("Multiple connection attempts failed. All failures were:")
+            lines.extend((f"- {descr}: {error}" for error, descr in conn_errors))
+            new_ex = type(last_ex)("\n".join(lines), pgconn=last_ex.pgconn)
+&gt;           raise new_ex.with_traceback(None)
+E           psycopg.OperationalError: connection failed: connection to server at "127.0.0.1", port 5432 failed: FATAL:  o sistema de banco de dados est� em modo de recupera��o
+E           Multiple connection attempts failed. All failures were:
+E           - host: 'localhost', port: 5432, hostaddr: '::1': connection failed: connection to server at "::1", port 5432 failed: FATAL:  o sistema de banco de dados est� em modo de recupera��o
+E           - host: 'localhost', port: 5432, hostaddr: '127.0.0.1': connection failed: connection to server at "127.0.0.1", port 5432 failed: FATAL:  o sistema de banco de dados est� em modo de recupera��o
+
+.venv\Lib\site-packages\psycopg\connection.py:134: OperationalError
+
+The above exception was the direct cause of the following exception:
+
+    @pytest.fixture(scope="session")
+    def auth_test_context():
+        test_database_url = os.getenv("TEST_DATABASE_URL")
+        if not test_database_url:
+            pytest.fail(
+                "Defina TEST_DATABASE_URL para um banco PostgreSQL de teste terminado em _test."
+            )
+    
+        try:
+            parsed_url = make_url(test_database_url)
+        except ArgumentError:
+            pytest.fail("TEST_DATABASE_URL deve ser uma URL SQLAlchemy válida.")
+    
+        if parsed_url.get_backend_name() != "postgresql":
+            pytest.fail("TEST_DATABASE_URL deve apontar para um banco PostgreSQL.")
+    
+        if (
+            not parsed_url.database
+            or not parsed_url.database.endswith("_test")
+            or parsed_url.database == "setupflow_dev"
+        ):
+            pytest.fail("Testes recusados: o nome do banco deve terminar em _test.")
+    
+        if not parsed_url.username:
+            pytest.fail("TEST_DATABASE_URL deve informar o usuário PostgreSQL.")
+    
+        test_url = parsed_url.set(drivername="postgresql+psycopg")
+    
+        for name, value in {
+            "DB_USER": parsed_url.username or "",
+            "DB_PASSWORD": parsed_url.password or "",
+            "DB_HOST": parsed_url.host or "localhost",
+            "DB_PORT": str(parsed_url.port or 5432),
+            "DB_NAME": parsed_url.database,
+        }.items():
+            os.environ[name] = value
+    
+        backend_dir = Path(__file__).resolve().parents[2]
+        config = Config(str(backend_dir / "alembic.ini"))
+        config.set_main_option("script_location", str(backend_dir / "migrations"))
+        config.set_main_option(
+            "sqlalchemy.url",
+            test_url.render_as_string(hide_password=False).replace("%", "%%"),
+        )
+    
+        engine = create_engine(test_url)
+        app = None
+    
+        try:
+&gt;           command.upgrade(config, "head")
+
+testes\integration\conftest.py:68: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+.venv\Lib\site-packages\alembic\command.py:487: in upgrade
+    script.run_env()
+.venv\Lib\site-packages\alembic\script\base.py:550: in run_env
+    util.load_python_file(self.dir, "env.py")
+.venv\Lib\site-packages\alembic\util\pyfiles.py:114: in load_python_file
+    module = load_module_py(module_id, path)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv\Lib\site-packages\alembic\util\pyfiles.py:132: in load_module_py
+    spec.loader.exec_module(module)  # type: ignore
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+migrations\env.py:64: in &lt;module&gt;
+    run_migrations_online()
+migrations\env.py:48: in run_migrations_online
+    with connectable.connect() as connection:
+         ^^^^^^^^^^^^^^^^^^^^^
+.venv\Lib\site-packages\sqlalchemy\engine\base.py:3275: in connect
+    return self._connection_cls(self)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv\Lib\site-packages\sqlalchemy\engine\base.py:151: in __init__
+    Connection._handle_dbapi_exception_noconnection(
+.venv\Lib\site-packages\sqlalchemy\engine\base.py:2432: in _handle_dbapi_exception_noconnection
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+.venv\Lib\site-packages\sqlalchemy\engine\base.py:149: in __init__
+    self._dbapi_connection = engine.raw_connection()
+                             ^^^^^^^^^^^^^^^^^^^^^^^
+.venv\Lib\site-packages\sqlalchemy\engine\base.py:3299: in raw_connection
+    return self.pool.connect()
+           ^^^^^^^^^^^^^^^^^^^
+.venv\Lib\site-packages\sqlalchemy\pool\base.py:445: in connect
+    return _ConnectionFairy._checkout(self)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv\Lib\site-packages\sqlalchemy\pool\base.py:1324: in _checkout
+    fairy = _ConnectionRecord.checkout(pool)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv\Lib\site-packages\sqlalchemy\pool\base.py:709: in checkout
+    rec = pool._do_get()
+          ^^^^^^^^^^^^^^
+.venv\Lib\site-packages\sqlalchemy\pool\impl.py:301: in _do_get
+    return self._create_connection()
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv\Lib\site-packages\sqlalchemy\pool\base.py:386: in _create_connection
+    return _ConnectionRecord(self)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+.venv\Lib\site-packages\sqlalchemy\pool\base.py:671: in __init__
+    self.__connect()
+.venv\Lib\site-packages\sqlalchemy\pool\base.py:916: in __connect
+    with util.safe_reraise():
+.venv\Lib\site-packages\sqlalchemy\util\langhelpers.py:166: in __exit__
+    raise exc_value.with_traceback(exc_tb)
+.venv\Lib\site-packages\sqlalchemy\pool\base.py:912: in __connect
+    self.dbapi_connection = connection = pool._invoke_creator(self)
+                                         ^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv\Lib\site-packages\sqlalchemy\engine\create.py:645: in connect
+    return dialect.connect(*cargs_tup, **cparams)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv\Lib\site-packages\sqlalchemy\engine\default.py:869: in connect
+    return self.loaded_dbapi.connect(*cargs, **cparams)  # type: ignore[no-any-return]  # NOQA: E501
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+cls = &lt;class 'psycopg.Connection'&gt;
+conninfo = 'host=localhost dbname=setupflow_test user=setupflow_dev password=Setup123 port=5432 hostaddr=127.0.0.1'
+autocommit = False, prepare_threshold = 5
+context = &lt;psycopg.adapt.AdaptersMap object at 0x000002B7B5F5C710&gt;
+row_factory = None, cursor_factory = None
+kwargs = {'dbname': 'setupflow_test', 'host': 'localhost', 'password': 'Setup123', 'port': 5432, ...}
+params = {'dbname': 'setupflow_test', 'host': 'localhost', 'password': 'Setup123', 'port': 5432, ...}
+timeout = 130
+
+    @classmethod
+    def connect(
+        cls,
+        conninfo: str = "",
+        *,
+        autocommit: bool = False,
+        prepare_threshold: int | None = 5,
+        context: AdaptContext | None = None,
+        row_factory: RowFactory[Row] | None = None,
+        cursor_factory: type[Cursor[Row]] | None = None,
+        **kwargs: ConnParam,
+    ) -&gt; Self:
+        """
+        Connect to a database server and return a new `Connection` instance.
+        """
+    
+        params = cls._get_connection_params(conninfo, **kwargs)
+        timeout = timeout_from_conninfo(params)
+        rv = None
+        attempts = conninfo_attempts(params)
+        conn_errors: list[tuple[e.Error, str]] = []
+        for attempt in attempts:
+            tdescr = (attempt.get("host"), attempt.get("port"), attempt.get("hostaddr"))
+            descr = "host: %r, port: %r, hostaddr: %r" % tdescr
+            logger.debug("connection attempt: %s", descr)
+            try:
+                conninfo = make_conninfo("", **attempt)
+                gen = cls._connect_gen(conninfo)
+                rv = waiting.wait_conn(gen, interval=_WAIT_INTERVAL, timeout=timeout)
+            except e._WaitTimeout:
+                tex = e.ConnectionTimeout("connection timeout expired")
+                logger.debug("connection failed: %s: %s", descr, str(tex))
+                conn_errors.append((tex, descr))
+            except e.Error as ex:
+                logger.debug("connection failed: %s: %s", descr, str(ex))
+                conn_errors.append((ex, descr))
+            except e._NO_TRACEBACK as ex:
+                raise ex.with_traceback(None)
+            else:
+                logger.debug("connection succeeded: %s", descr)
+                break
+    
+        if not rv:
+            last_ex = conn_errors[-1][0]
+            if len(conn_errors) == 1:
+                raise last_ex.with_traceback(None)
+    
+            # Create a new exception with the same type as the last one, containing
+            # all attempt errors while preserving backward compatibility.
+            lines = [str(last_ex)]
+            lines.append("Multiple connection attempts failed. All failures were:")
+            lines.extend((f"- {descr}: {error}" for error, descr in conn_errors))
+            new_ex = type(last_ex)("\n".join(lines), pgconn=last_ex.pgconn)
+&gt;           raise new_ex.with_traceback(None)
+E           sqlalchemy.exc.OperationalError: (psycopg.OperationalError) connection failed: connection to server at "127.0.0.1", port 5432 failed: FATAL:  o sistema de banco de dados est� em modo de recupera��o
+E           Multiple connection attempts failed. All failures were:
+E           - host: 'localhost', port: 5432, hostaddr: '::1': connection failed: connection to server at "::1", port 5432 failed: FATAL:  o sistema de banco de dados est� em modo de recupera��o
+E           - host: 'localhost', port: 5432, hostaddr: '127.0.0.1': connection failed: connection to server at "127.0.0.1", port 5432 failed: FATAL:  o sistema de banco de dados est� em modo de recupera��o
+E           (Background on this error at: https://sqlalche.me/e/21/e3q8)
+
+.venv\Lib\site-packages\psycopg\connection.py:134: OperationalError</error></testcase><testcase classname="testes.integration.test_us01_auth" name="test_payload_invalido_nao_repete_a_senha_na_resposta" time="0.001"><error message="failed on setup with &quot;sqlalchemy.exc.OperationalError: (psycopg.OperationalError) connection failed: connection to server at &quot;127.0.0.1&quot;, port 5432 failed: FATAL:  o sistema de banco de dados est� em modo de recupera��o&#10;Multiple connection attempts failed. All failures were:&#10;- host: 'localhost', port: 5432, hostaddr: '::1': connection failed: connection to server at &quot;::1&quot;, port 5432 failed: FATAL:  o sistema de banco de dados est� em modo de recupera��o&#10;- host: 'localhost', port: 5432, hostaddr: '127.0.0.1': connection failed: connection to server at &quot;127.0.0.1&quot;, port 5432 failed: FATAL:  o sistema de banco de dados est� em modo de recupera��o&#10;(Background on this error at: https://sqlalche.me/e/21/e3q8)&quot;">self = &lt;sqlalchemy.engine.base.Connection object at 0x000002B7B5F47710&gt;
+engine = Engine(postgresql+psycopg://setupflow_dev:***@localhost:5432/setupflow_test)
+connection = None, _has_events = None, _allow_revalidate = True
+_allow_autobegin = True
+
+    def __init__(
+        self,
+        engine: Engine,
+        connection: Optional[PoolProxiedConnection] = None,
+        _has_events: Optional[bool] = None,
+        _allow_revalidate: bool = True,
+        _allow_autobegin: bool = True,
+    ):
+        """Construct a new Connection."""
+        self.engine = engine
+        self.dialect = dialect = engine.dialect
+    
+        if connection is None:
+            try:
+&gt;               self._dbapi_connection = engine.raw_connection()
+                                         ^^^^^^^^^^^^^^^^^^^^^^^
+
+.venv\Lib\site-packages\sqlalchemy\engine\base.py:149: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+.venv\Lib\site-packages\sqlalchemy\engine\base.py:3299: in raw_connection
+    return self.pool.connect()
+           ^^^^^^^^^^^^^^^^^^^
+.venv\Lib\site-packages\sqlalchemy\pool\base.py:445: in connect
+    return _ConnectionFairy._checkout(self)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv\Lib\site-packages\sqlalchemy\pool\base.py:1324: in _checkout
+    fairy = _ConnectionRecord.checkout(pool)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv\Lib\site-packages\sqlalchemy\pool\base.py:709: in checkout
+    rec = pool._do_get()
+          ^^^^^^^^^^^^^^
+.venv\Lib\site-packages\sqlalchemy\pool\impl.py:301: in _do_get
+    return self._create_connection()
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv\Lib\site-packages\sqlalchemy\pool\base.py:386: in _create_connection
+    return _ConnectionRecord(self)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+.venv\Lib\site-packages\sqlalchemy\pool\base.py:671: in __init__
+    self.__connect()
+.venv\Lib\site-packages\sqlalchemy\pool\base.py:916: in __connect
+    with util.safe_reraise():
+.venv\Lib\site-packages\sqlalchemy\util\langhelpers.py:166: in __exit__
+    raise exc_value.with_traceback(exc_tb)
+.venv\Lib\site-packages\sqlalchemy\pool\base.py:912: in __connect
+    self.dbapi_connection = connection = pool._invoke_creator(self)
+                                         ^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv\Lib\site-packages\sqlalchemy\engine\create.py:645: in connect
+    return dialect.connect(*cargs_tup, **cparams)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv\Lib\site-packages\sqlalchemy\engine\default.py:869: in connect
+    return self.loaded_dbapi.connect(*cargs, **cparams)  # type: ignore[no-any-return]  # NOQA: E501
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+cls = &lt;class 'psycopg.Connection'&gt;
+conninfo = 'host=localhost dbname=setupflow_test user=setupflow_dev password=Setup123 port=5432 hostaddr=127.0.0.1'
+autocommit = False, prepare_threshold = 5
+context = &lt;psycopg.adapt.AdaptersMap object at 0x000002B7B5F5C710&gt;
+row_factory = None, cursor_factory = None
+kwargs = {'dbname': 'setupflow_test', 'host': 'localhost', 'password': 'Setup123', 'port': 5432, ...}
+params = {'dbname': 'setupflow_test', 'host': 'localhost', 'password': 'Setup123', 'port': 5432, ...}
+timeout = 130
+
+    @classmethod
+    def connect(
+        cls,
+        conninfo: str = "",
+        *,
+        autocommit: bool = False,
+        prepare_threshold: int | None = 5,
+        context: AdaptContext | None = None,
+        row_factory: RowFactory[Row] | None = None,
+        cursor_factory: type[Cursor[Row]] | None = None,
+        **kwargs: ConnParam,
+    ) -&gt; Self:
+        """
+        Connect to a database server and return a new `Connection` instance.
+        """
+    
+        params = cls._get_connection_params(conninfo, **kwargs)
+        timeout = timeout_from_conninfo(params)
+        rv = None
+        attempts = conninfo_attempts(params)
+        conn_errors: list[tuple[e.Error, str]] = []
+        for attempt in attempts:
+            tdescr = (attempt.get("host"), attempt.get("port"), attempt.get("hostaddr"))
+            descr = "host: %r, port: %r, hostaddr: %r" % tdescr
+            logger.debug("connection attempt: %s", descr)
+            try:
+                conninfo = make_conninfo("", **attempt)
+                gen = cls._connect_gen(conninfo)
+                rv = waiting.wait_conn(gen, interval=_WAIT_INTERVAL, timeout=timeout)
+            except e._WaitTimeout:
+                tex = e.ConnectionTimeout("connection timeout expired")
+                logger.debug("connection failed: %s: %s", descr, str(tex))
+                conn_errors.append((tex, descr))
+            except e.Error as ex:
+                logger.debug("connection failed: %s: %s", descr, str(ex))
+                conn_errors.append((ex, descr))
+            except e._NO_TRACEBACK as ex:
+                raise ex.with_traceback(None)
+            else:
+                logger.debug("connection succeeded: %s", descr)
+                break
+    
+        if not rv:
+            last_ex = conn_errors[-1][0]
+            if len(conn_errors) == 1:
+                raise last_ex.with_traceback(None)
+    
+            # Create a new exception with the same type as the last one, containing
+            # all attempt errors while preserving backward compatibility.
+            lines = [str(last_ex)]
+            lines.append("Multiple connection attempts failed. All failures were:")
+            lines.extend((f"- {descr}: {error}" for error, descr in conn_errors))
+            new_ex = type(last_ex)("\n".join(lines), pgconn=last_ex.pgconn)
+&gt;           raise new_ex.with_traceback(None)
+E           psycopg.OperationalError: connection failed: connection to server at "127.0.0.1", port 5432 failed: FATAL:  o sistema de banco de dados est� em modo de recupera��o
+E           Multiple connection attempts failed. All failures were:
+E           - host: 'localhost', port: 5432, hostaddr: '::1': connection failed: connection to server at "::1", port 5432 failed: FATAL:  o sistema de banco de dados est� em modo de recupera��o
+E           - host: 'localhost', port: 5432, hostaddr: '127.0.0.1': connection failed: connection to server at "127.0.0.1", port 5432 failed: FATAL:  o sistema de banco de dados est� em modo de recupera��o
+
+.venv\Lib\site-packages\psycopg\connection.py:134: OperationalError
+
+The above exception was the direct cause of the following exception:
+
+    @pytest.fixture(scope="session")
+    def auth_test_context():
+        test_database_url = os.getenv("TEST_DATABASE_URL")
+        if not test_database_url:
+            pytest.fail(
+                "Defina TEST_DATABASE_URL para um banco PostgreSQL de teste terminado em _test."
+            )
+    
+        try:
+            parsed_url = make_url(test_database_url)
+        except ArgumentError:
+            pytest.fail("TEST_DATABASE_URL deve ser uma URL SQLAlchemy válida.")
+    
+        if parsed_url.get_backend_name() != "postgresql":
+            pytest.fail("TEST_DATABASE_URL deve apontar para um banco PostgreSQL.")
+    
+        if (
+            not parsed_url.database
+            or not parsed_url.database.endswith("_test")
+            or parsed_url.database == "setupflow_dev"
+        ):
+            pytest.fail("Testes recusados: o nome do banco deve terminar em _test.")
+    
+        if not parsed_url.username:
+            pytest.fail("TEST_DATABASE_URL deve informar o usuário PostgreSQL.")
+    
+        test_url = parsed_url.set(drivername="postgresql+psycopg")
+    
+        for name, value in {
+            "DB_USER": parsed_url.username or "",
+            "DB_PASSWORD": parsed_url.password or "",
+            "DB_HOST": parsed_url.host or "localhost",
+            "DB_PORT": str(parsed_url.port or 5432),
+            "DB_NAME": parsed_url.database,
+        }.items():
+            os.environ[name] = value
+    
+        backend_dir = Path(__file__).resolve().parents[2]
+        config = Config(str(backend_dir / "alembic.ini"))
+        config.set_main_option("script_location", str(backend_dir / "migrations"))
+        config.set_main_option(
+            "sqlalchemy.url",
+            test_url.render_as_string(hide_password=False).replace("%", "%%"),
+        )
+    
+        engine = create_engine(test_url)
+        app = None
+    
+        try:
+&gt;           command.upgrade(config, "head")
+
+testes\integration\conftest.py:68: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+.venv\Lib\site-packages\alembic\command.py:487: in upgrade
+    script.run_env()
+.venv\Lib\site-packages\alembic\script\base.py:550: in run_env
+    util.load_python_file(self.dir, "env.py")
+.venv\Lib\site-packages\alembic\util\pyfiles.py:114: in load_python_file
+    module = load_module_py(module_id, path)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv\Lib\site-packages\alembic\util\pyfiles.py:132: in load_module_py
+    spec.loader.exec_module(module)  # type: ignore
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+migrations\env.py:64: in &lt;module&gt;
+    run_migrations_online()
+migrations\env.py:48: in run_migrations_online
+    with connectable.connect() as connection:
+         ^^^^^^^^^^^^^^^^^^^^^
+.venv\Lib\site-packages\sqlalchemy\engine\base.py:3275: in connect
+    return self._connection_cls(self)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv\Lib\site-packages\sqlalchemy\engine\base.py:151: in __init__
+    Connection._handle_dbapi_exception_noconnection(
+.venv\Lib\site-packages\sqlalchemy\engine\base.py:2432: in _handle_dbapi_exception_noconnection
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+.venv\Lib\site-packages\sqlalchemy\engine\base.py:149: in __init__
+    self._dbapi_connection = engine.raw_connection()
+                             ^^^^^^^^^^^^^^^^^^^^^^^
+.venv\Lib\site-packages\sqlalchemy\engine\base.py:3299: in raw_connection
+    return self.pool.connect()
+           ^^^^^^^^^^^^^^^^^^^
+.venv\Lib\site-packages\sqlalchemy\pool\base.py:445: in connect
+    return _ConnectionFairy._checkout(self)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv\Lib\site-packages\sqlalchemy\pool\base.py:1324: in _checkout
+    fairy = _ConnectionRecord.checkout(pool)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv\Lib\site-packages\sqlalchemy\pool\base.py:709: in checkout
+    rec = pool._do_get()
+          ^^^^^^^^^^^^^^
+.venv\Lib\site-packages\sqlalchemy\pool\impl.py:301: in _do_get
+    return self._create_connection()
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv\Lib\site-packages\sqlalchemy\pool\base.py:386: in _create_connection
+    return _ConnectionRecord(self)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+.venv\Lib\site-packages\sqlalchemy\pool\base.py:671: in __init__
+    self.__connect()
+.venv\Lib\site-packages\sqlalchemy\pool\base.py:916: in __connect
+    with util.safe_reraise():
+.venv\Lib\site-packages\sqlalchemy\util\langhelpers.py:166: in __exit__
+    raise exc_value.with_traceback(exc_tb)
+.venv\Lib\site-packages\sqlalchemy\pool\base.py:912: in __connect
+    self.dbapi_connection = connection = pool._invoke_creator(self)
+                                         ^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv\Lib\site-packages\sqlalchemy\engine\create.py:645: in connect
+    return dialect.connect(*cargs_tup, **cparams)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv\Lib\site-packages\sqlalchemy\engine\default.py:869: in connect
+    return self.loaded_dbapi.connect(*cargs, **cparams)  # type: ignore[no-any-return]  # NOQA: E501
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+cls = &lt;class 'psycopg.Connection'&gt;
+conninfo = 'host=localhost dbname=setupflow_test user=setupflow_dev password=Setup123 port=5432 hostaddr=127.0.0.1'
+autocommit = False, prepare_threshold = 5
+context = &lt;psycopg.adapt.AdaptersMap object at 0x000002B7B5F5C710&gt;
+row_factory = None, cursor_factory = None
+kwargs = {'dbname': 'setupflow_test', 'host': 'localhost', 'password': 'Setup123', 'port': 5432, ...}
+params = {'dbname': 'setupflow_test', 'host': 'localhost', 'password': 'Setup123', 'port': 5432, ...}
+timeout = 130
+
+    @classmethod
+    def connect(
+        cls,
+        conninfo: str = "",
+        *,
+        autocommit: bool = False,
+        prepare_threshold: int | None = 5,
+        context: AdaptContext | None = None,
+        row_factory: RowFactory[Row] | None = None,
+        cursor_factory: type[Cursor[Row]] | None = None,
+        **kwargs: ConnParam,
+    ) -&gt; Self:
+        """
+        Connect to a database server and return a new `Connection` instance.
+        """
+    
+        params = cls._get_connection_params(conninfo, **kwargs)
+        timeout = timeout_from_conninfo(params)
+        rv = None
+        attempts = conninfo_attempts(params)
+        conn_errors: list[tuple[e.Error, str]] = []
+        for attempt in attempts:
+            tdescr = (attempt.get("host"), attempt.get("port"), attempt.get("hostaddr"))
+            descr = "host: %r, port: %r, hostaddr: %r" % tdescr
+            logger.debug("connection attempt: %s", descr)
+            try:
+                conninfo = make_conninfo("", **attempt)
+                gen = cls._connect_gen(conninfo)
+                rv = waiting.wait_conn(gen, interval=_WAIT_INTERVAL, timeout=timeout)
+            except e._WaitTimeout:
+                tex = e.ConnectionTimeout("connection timeout expired")
+                logger.debug("connection failed: %s: %s", descr, str(tex))
+                conn_errors.append((tex, descr))
+            except e.Error as ex:
+                logger.debug("connection failed: %s: %s", descr, str(ex))
+                conn_errors.append((ex, descr))
+            except e._NO_TRACEBACK as ex:
+                raise ex.with_traceback(None)
+            else:
+                logger.debug("connection succeeded: %s", descr)
+                break
+    
+        if not rv:
+            last_ex = conn_errors[-1][0]
+            if len(conn_errors) == 1:
+                raise last_ex.with_traceback(None)
+    
+            # Create a new exception with the same type as the last one, containing
+            # all attempt errors while preserving backward compatibility.
+            lines = [str(last_ex)]
+            lines.append("Multiple connection attempts failed. All failures were:")
+            lines.extend((f"- {descr}: {error}" for error, descr in conn_errors))
+            new_ex = type(last_ex)("\n".join(lines), pgconn=last_ex.pgconn)
+&gt;           raise new_ex.with_traceback(None)
+E           sqlalchemy.exc.OperationalError: (psycopg.OperationalError) connection failed: connection to server at "127.0.0.1", port 5432 failed: FATAL:  o sistema de banco de dados est� em modo de recupera��o
+E           Multiple connection attempts failed. All failures were:
+E           - host: 'localhost', port: 5432, hostaddr: '::1': connection failed: connection to server at "::1", port 5432 failed: FATAL:  o sistema de banco de dados est� em modo de recupera��o
+E           - host: 'localhost', port: 5432, hostaddr: '127.0.0.1': connection failed: connection to server at "127.0.0.1", port 5432 failed: FATAL:  o sistema de banco de dados est� em modo de recupera��o
+E           (Background on this error at: https://sqlalche.me/e/21/e3q8)
+
+.venv\Lib\site-packages\psycopg\connection.py:134: OperationalError</error></testcase><testcase classname="testes.integration.test_us01_auth" name="test_me_sem_cookie_retorna_401" time="0.001"><error message="failed on setup with &quot;sqlalchemy.exc.OperationalError: (psycopg.OperationalError) connection failed: connection to server at &quot;127.0.0.1&quot;, port 5432 failed: FATAL:  o sistema de banco de dados est� em modo de recupera��o&#10;Multiple connection attempts failed. All failures were:&#10;- host: 'localhost', port: 5432, hostaddr: '::1': connection failed: connection to server at &quot;::1&quot;, port 5432 failed: FATAL:  o sistema de banco de dados est� em modo de recupera��o&#10;- host: 'localhost', port: 5432, hostaddr: '127.0.0.1': connection failed: connection to server at &quot;127.0.0.1&quot;, port 5432 failed: FATAL:  o sistema de banco de dados est� em modo de recupera��o&#10;(Background on this error at: https://sqlalche.me/e/21/e3q8)&quot;">self = &lt;sqlalchemy.engine.base.Connection object at 0x000002B7B5F47710&gt;
+engine = Engine(postgresql+psycopg://setupflow_dev:***@localhost:5432/setupflow_test)
+connection = None, _has_events = None, _allow_revalidate = True
+_allow_autobegin = True
+
+    def __init__(
+        self,
+        engine: Engine,
+        connection: Optional[PoolProxiedConnection] = None,
+        _has_events: Optional[bool] = None,
+        _allow_revalidate: bool = True,
+        _allow_autobegin: bool = True,
+    ):
+        """Construct a new Connection."""
+        self.engine = engine
+        self.dialect = dialect = engine.dialect
+    
+        if connection is None:
+            try:
+&gt;               self._dbapi_connection = engine.raw_connection()
+                                         ^^^^^^^^^^^^^^^^^^^^^^^
+
+.venv\Lib\site-packages\sqlalchemy\engine\base.py:149: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+.venv\Lib\site-packages\sqlalchemy\engine\base.py:3299: in raw_connection
+    return self.pool.connect()
+           ^^^^^^^^^^^^^^^^^^^
+.venv\Lib\site-packages\sqlalchemy\pool\base.py:445: in connect
+    return _ConnectionFairy._checkout(self)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv\Lib\site-packages\sqlalchemy\pool\base.py:1324: in _checkout
+    fairy = _ConnectionRecord.checkout(pool)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv\Lib\site-packages\sqlalchemy\pool\base.py:709: in checkout
+    rec = pool._do_get()
+          ^^^^^^^^^^^^^^
+.venv\Lib\site-packages\sqlalchemy\pool\impl.py:301: in _do_get
+    return self._create_connection()
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv\Lib\site-packages\sqlalchemy\pool\base.py:386: in _create_connection
+    return _ConnectionRecord(self)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+.venv\Lib\site-packages\sqlalchemy\pool\base.py:671: in __init__
+    self.__connect()
+.venv\Lib\site-packages\sqlalchemy\pool\base.py:916: in __connect
+    with util.safe_reraise():
+.venv\Lib\site-packages\sqlalchemy\util\langhelpers.py:166: in __exit__
+    raise exc_value.with_traceback(exc_tb)
+.venv\Lib\site-packages\sqlalchemy\pool\base.py:912: in __connect
+    self.dbapi_connection = connection = pool._invoke_creator(self)
+                                         ^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv\Lib\site-packages\sqlalchemy\engine\create.py:645: in connect
+    return dialect.connect(*cargs_tup, **cparams)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv\Lib\site-packages\sqlalchemy\engine\default.py:869: in connect
+    return self.loaded_dbapi.connect(*cargs, **cparams)  # type: ignore[no-any-return]  # NOQA: E501
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+cls = &lt;class 'psycopg.Connection'&gt;
+conninfo = 'host=localhost dbname=setupflow_test user=setupflow_dev password=Setup123 port=5432 hostaddr=127.0.0.1'
+autocommit = False, prepare_threshold = 5
+context = &lt;psycopg.adapt.AdaptersMap object at 0x000002B7B5F5C710&gt;
+row_factory = None, cursor_factory = None
+kwargs = {'dbname': 'setupflow_test', 'host': 'localhost', 'password': 'Setup123', 'port': 5432, ...}
+params = {'dbname': 'setupflow_test', 'host': 'localhost', 'password': 'Setup123', 'port': 5432, ...}
+timeout = 130
+
+    @classmethod
+    def connect(
+        cls,
+        conninfo: str = "",
+        *,
+        autocommit: bool = False,
+        prepare_threshold: int | None = 5,
+        context: AdaptContext | None = None,
+        row_factory: RowFactory[Row] | None = None,
+        cursor_factory: type[Cursor[Row]] | None = None,
+        **kwargs: ConnParam,
+    ) -&gt; Self:
+        """
+        Connect to a database server and return a new `Connection` instance.
+        """
+    
+        params = cls._get_connection_params(conninfo, **kwargs)
+        timeout = timeout_from_conninfo(params)
+        rv = None
+        attempts = conninfo_attempts(params)
+        conn_errors: list[tuple[e.Error, str]] = []
+        for attempt in attempts:
+            tdescr = (attempt.get("host"), attempt.get("port"), attempt.get("hostaddr"))
+            descr = "host: %r, port: %r, hostaddr: %r" % tdescr
+            logger.debug("connection attempt: %s", descr)
+            try:
+                conninfo = make_conninfo("", **attempt)
+                gen = cls._connect_gen(conninfo)
+                rv = waiting.wait_conn(gen, interval=_WAIT_INTERVAL, timeout=timeout)
+            except e._WaitTimeout:
+                tex = e.ConnectionTimeout("connection timeout expired")
+                logger.debug("connection failed: %s: %s", descr, str(tex))
+                conn_errors.append((tex, descr))
+            except e.Error as ex:
+                logger.debug("connection failed: %s: %s", descr, str(ex))
+                conn_errors.append((ex, descr))
+            except e._NO_TRACEBACK as ex:
+                raise ex.with_traceback(None)
+            else:
+                logger.debug("connection succeeded: %s", descr)
+                break
+    
+        if not rv:
+            last_ex = conn_errors[-1][0]
+            if len(conn_errors) == 1:
+                raise last_ex.with_traceback(None)
+    
+            # Create a new exception with the same type as the last one, containing
+            # all attempt errors while preserving backward compatibility.
+            lines = [str(last_ex)]
+            lines.append("Multiple connection attempts failed. All failures were:")
+            lines.extend((f"- {descr}: {error}" for error, descr in conn_errors))
+            new_ex = type(last_ex)("\n".join(lines), pgconn=last_ex.pgconn)
+&gt;           raise new_ex.with_traceback(None)
+E           psycopg.OperationalError: connection failed: connection to server at "127.0.0.1", port 5432 failed: FATAL:  o sistema de banco de dados est� em modo de recupera��o
+E           Multiple connection attempts failed. All failures were:
+E           - host: 'localhost', port: 5432, hostaddr: '::1': connection failed: connection to server at "::1", port 5432 failed: FATAL:  o sistema de banco de dados est� em modo de recupera��o
+E           - host: 'localhost', port: 5432, hostaddr: '127.0.0.1': connection failed: connection to server at "127.0.0.1", port 5432 failed: FATAL:  o sistema de banco de dados est� em modo de recupera��o
+
+.venv\Lib\site-packages\psycopg\connection.py:134: OperationalError
+
+The above exception was the direct cause of the following exception:
+
+    @pytest.fixture(scope="session")
+    def auth_test_context():
+        test_database_url = os.getenv("TEST_DATABASE_URL")
+        if not test_database_url:
+            pytest.fail(
+                "Defina TEST_DATABASE_URL para um banco PostgreSQL de teste terminado em _test."
+            )
+    
+        try:
+            parsed_url = make_url(test_database_url)
+        except ArgumentError:
+            pytest.fail("TEST_DATABASE_URL deve ser uma URL SQLAlchemy válida.")
+    
+        if parsed_url.get_backend_name() != "postgresql":
+            pytest.fail("TEST_DATABASE_URL deve apontar para um banco PostgreSQL.")
+    
+        if (
+            not parsed_url.database
+            or not parsed_url.database.endswith("_test")
+            or parsed_url.database == "setupflow_dev"
+        ):
+            pytest.fail("Testes recusados: o nome do banco deve terminar em _test.")
+    
+        if not parsed_url.username:
+            pytest.fail("TEST_DATABASE_URL deve informar o usuário PostgreSQL.")
+    
+        test_url = parsed_url.set(drivername="postgresql+psycopg")
+    
+        for name, value in {
+            "DB_USER": parsed_url.username or "",
+            "DB_PASSWORD": parsed_url.password or "",
+            "DB_HOST": parsed_url.host or "localhost",
+            "DB_PORT": str(parsed_url.port or 5432),
+            "DB_NAME": parsed_url.database,
+        }.items():
+            os.environ[name] = value
+    
+        backend_dir = Path(__file__).resolve().parents[2]
+        config = Config(str(backend_dir / "alembic.ini"))
+        config.set_main_option("script_location", str(backend_dir / "migrations"))
+        config.set_main_option(
+            "sqlalchemy.url",
+            test_url.render_as_string(hide_password=False).replace("%", "%%"),
+        )
+    
+        engine = create_engine(test_url)
+        app = None
+    
+        try:
+&gt;           command.upgrade(config, "head")
+
+testes\integration\conftest.py:68: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+.venv\Lib\site-packages\alembic\command.py:487: in upgrade
+    script.run_env()
+.venv\Lib\site-packages\alembic\script\base.py:550: in run_env
+    util.load_python_file(self.dir, "env.py")
+.venv\Lib\site-packages\alembic\util\pyfiles.py:114: in load_python_file
+    module = load_module_py(module_id, path)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv\Lib\site-packages\alembic\util\pyfiles.py:132: in load_module_py
+    spec.loader.exec_module(module)  # type: ignore
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+migrations\env.py:64: in &lt;module&gt;
+    run_migrations_online()
+migrations\env.py:48: in run_migrations_online
+    with connectable.connect() as connection:
+         ^^^^^^^^^^^^^^^^^^^^^
+.venv\Lib\site-packages\sqlalchemy\engine\base.py:3275: in connect
+    return self._connection_cls(self)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv\Lib\site-packages\sqlalchemy\engine\base.py:151: in __init__
+    Connection._handle_dbapi_exception_noconnection(
+.venv\Lib\site-packages\sqlalchemy\engine\base.py:2432: in _handle_dbapi_exception_noconnection
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+.venv\Lib\site-packages\sqlalchemy\engine\base.py:149: in __init__
+    self._dbapi_connection = engine.raw_connection()
+                             ^^^^^^^^^^^^^^^^^^^^^^^
+.venv\Lib\site-packages\sqlalchemy\engine\base.py:3299: in raw_connection
+    return self.pool.connect()
+           ^^^^^^^^^^^^^^^^^^^
+.venv\Lib\site-packages\sqlalchemy\pool\base.py:445: in connect
+    return _ConnectionFairy._checkout(self)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv\Lib\site-packages\sqlalchemy\pool\base.py:1324: in _checkout
+    fairy = _ConnectionRecord.checkout(pool)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv\Lib\site-packages\sqlalchemy\pool\base.py:709: in checkout
+    rec = pool._do_get()
+          ^^^^^^^^^^^^^^
+.venv\Lib\site-packages\sqlalchemy\pool\impl.py:301: in _do_get
+    return self._create_connection()
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv\Lib\site-packages\sqlalchemy\pool\base.py:386: in _create_connection
+    return _ConnectionRecord(self)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+.venv\Lib\site-packages\sqlalchemy\pool\base.py:671: in __init__
+    self.__connect()
+.venv\Lib\site-packages\sqlalchemy\pool\base.py:916: in __connect
+    with util.safe_reraise():
+.venv\Lib\site-packages\sqlalchemy\util\langhelpers.py:166: in __exit__
+    raise exc_value.with_traceback(exc_tb)
+.venv\Lib\site-packages\sqlalchemy\pool\base.py:912: in __connect
+    self.dbapi_connection = connection = pool._invoke_creator(self)
+                                         ^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv\Lib\site-packages\sqlalchemy\engine\create.py:645: in connect
+    return dialect.connect(*cargs_tup, **cparams)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv\Lib\site-packages\sqlalchemy\engine\default.py:869: in connect
+    return self.loaded_dbapi.connect(*cargs, **cparams)  # type: ignore[no-any-return]  # NOQA: E501
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+cls = &lt;class 'psycopg.Connection'&gt;
+conninfo = 'host=localhost dbname=setupflow_test user=setupflow_dev password=Setup123 port=5432 hostaddr=127.0.0.1'
+autocommit = False, prepare_threshold = 5
+context = &lt;psycopg.adapt.AdaptersMap object at 0x000002B7B5F5C710&gt;
+row_factory = None, cursor_factory = None
+kwargs = {'dbname': 'setupflow_test', 'host': 'localhost', 'password': 'Setup123', 'port': 5432, ...}
+params = {'dbname': 'setupflow_test', 'host': 'localhost', 'password': 'Setup123', 'port': 5432, ...}
+timeout = 130
+
+    @classmethod
+    def connect(
+        cls,
+        conninfo: str = "",
+        *,
+        autocommit: bool = False,
+        prepare_threshold: int | None = 5,
+        context: AdaptContext | None = None,
+        row_factory: RowFactory[Row] | None = None,
+        cursor_factory: type[Cursor[Row]] | None = None,
+        **kwargs: ConnParam,
+    ) -&gt; Self:
+        """
+        Connect to a database server and return a new `Connection` instance.
+        """
+    
+        params = cls._get_connection_params(conninfo, **kwargs)
+        timeout = timeout_from_conninfo(params)
+        rv = None
+        attempts = conninfo_attempts(params)
+        conn_errors: list[tuple[e.Error, str]] = []
+        for attempt in attempts:
+            tdescr = (attempt.get("host"), attempt.get("port"), attempt.get("hostaddr"))
+            descr = "host: %r, port: %r, hostaddr: %r" % tdescr
+            logger.debug("connection attempt: %s", descr)
+            try:
+                conninfo = make_conninfo("", **attempt)
+                gen = cls._connect_gen(conninfo)
+                rv = waiting.wait_conn(gen, interval=_WAIT_INTERVAL, timeout=timeout)
+            except e._WaitTimeout:
+                tex = e.ConnectionTimeout("connection timeout expired")
+                logger.debug("connection failed: %s: %s", descr, str(tex))
+                conn_errors.append((tex, descr))
+            except e.Error as ex:
+                logger.debug("connection failed: %s: %s", descr, str(ex))
+                conn_errors.append((ex, descr))
+            except e._NO_TRACEBACK as ex:
+                raise ex.with_traceback(None)
+            else:
+                logger.debug("connection succeeded: %s", descr)
+                break
+    
+        if not rv:
+            last_ex = conn_errors[-1][0]
+            if len(conn_errors) == 1:
+                raise last_ex.with_traceback(None)
+    
+            # Create a new exception with the same type as the last one, containing
+            # all attempt errors while preserving backward compatibility.
+            lines = [str(last_ex)]
+            lines.append("Multiple connection attempts failed. All failures were:")
+            lines.extend((f"- {descr}: {error}" for error, descr in conn_errors))
+            new_ex = type(last_ex)("\n".join(lines), pgconn=last_ex.pgconn)
+&gt;           raise new_ex.with_traceback(None)
+E           sqlalchemy.exc.OperationalError: (psycopg.OperationalError) connection failed: connection to server at "127.0.0.1", port 5432 failed: FATAL:  o sistema de banco de dados est� em modo de recupera��o
+E           Multiple connection attempts failed. All failures were:
+E           - host: 'localhost', port: 5432, hostaddr: '::1': connection failed: connection to server at "::1", port 5432 failed: FATAL:  o sistema de banco de dados est� em modo de recupera��o
+E           - host: 'localhost', port: 5432, hostaddr: '127.0.0.1': connection failed: connection to server at "127.0.0.1", port 5432 failed: FATAL:  o sistema de banco de dados est� em modo de recupera��o
+E           (Background on this error at: https://sqlalche.me/e/21/e3q8)
+
+.venv\Lib\site-packages\psycopg\connection.py:134: OperationalError</error></testcase><testcase classname="testes.integration.test_us01_auth" name="test_me_com_sessao_valida_retorna_identidade_e_perfis" time="0.001"><error message="failed on setup with &quot;sqlalchemy.exc.OperationalError: (psycopg.OperationalError) connection failed: connection to server at &quot;127.0.0.1&quot;, port 5432 failed: FATAL:  o sistema de banco de dados est� em modo de recupera��o&#10;Multiple connection attempts failed. All failures were:&#10;- host: 'localhost', port: 5432, hostaddr: '::1': connection failed: connection to server at &quot;::1&quot;, port 5432 failed: FATAL:  o sistema de banco de dados est� em modo de recupera��o&#10;- host: 'localhost', port: 5432, hostaddr: '127.0.0.1': connection failed: connection to server at &quot;127.0.0.1&quot;, port 5432 failed: FATAL:  o sistema de banco de dados est� em modo de recupera��o&#10;(Background on this error at: https://sqlalche.me/e/21/e3q8)&quot;">self = &lt;sqlalchemy.engine.base.Connection object at 0x000002B7B5F47710&gt;
+engine = Engine(postgresql+psycopg://setupflow_dev:***@localhost:5432/setupflow_test)
+connection = None, _has_events = None, _allow_revalidate = True
+_allow_autobegin = True
+
+    def __init__(
+        self,
+        engine: Engine,
+        connection: Optional[PoolProxiedConnection] = None,
+        _has_events: Optional[bool] = None,
+        _allow_revalidate: bool = True,
+        _allow_autobegin: bool = True,
+    ):
+        """Construct a new Connection."""
+        self.engine = engine
+        self.dialect = dialect = engine.dialect
+    
+        if connection is None:
+            try:
+&gt;               self._dbapi_connection = engine.raw_connection()
+                                         ^^^^^^^^^^^^^^^^^^^^^^^
+
+.venv\Lib\site-packages\sqlalchemy\engine\base.py:149: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+.venv\Lib\site-packages\sqlalchemy\engine\base.py:3299: in raw_connection
+    return self.pool.connect()
+           ^^^^^^^^^^^^^^^^^^^
+.venv\Lib\site-packages\sqlalchemy\pool\base.py:445: in connect
+    return _ConnectionFairy._checkout(self)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv\Lib\site-packages\sqlalchemy\pool\base.py:1324: in _checkout
+    fairy = _ConnectionRecord.checkout(pool)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv\Lib\site-packages\sqlalchemy\pool\base.py:709: in checkout
+    rec = pool._do_get()
+          ^^^^^^^^^^^^^^
+.venv\Lib\site-packages\sqlalchemy\pool\impl.py:301: in _do_get
+    return self._create_connection()
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv\Lib\site-packages\sqlalchemy\pool\base.py:386: in _create_connection
+    return _ConnectionRecord(self)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+.venv\Lib\site-packages\sqlalchemy\pool\base.py:671: in __init__
+    self.__connect()
+.venv\Lib\site-packages\sqlalchemy\pool\base.py:916: in __connect
+    with util.safe_reraise():
+.venv\Lib\site-packages\sqlalchemy\util\langhelpers.py:166: in __exit__
+    raise exc_value.with_traceback(exc_tb)
+.venv\Lib\site-packages\sqlalchemy\pool\base.py:912: in __connect
+    self.dbapi_connection = connection = pool._invoke_creator(self)
+                                         ^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv\Lib\site-packages\sqlalchemy\engine\create.py:645: in connect
+    return dialect.connect(*cargs_tup, **cparams)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv\Lib\site-packages\sqlalchemy\engine\default.py:869: in connect
+    return self.loaded_dbapi.connect(*cargs, **cparams)  # type: ignore[no-any-return]  # NOQA: E501
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+cls = &lt;class 'psycopg.Connection'&gt;
+conninfo = 'host=localhost dbname=setupflow_test user=setupflow_dev password=Setup123 port=5432 hostaddr=127.0.0.1'
+autocommit = False, prepare_threshold = 5
+context = &lt;psycopg.adapt.AdaptersMap object at 0x000002B7B5F5C710&gt;
+row_factory = None, cursor_factory = None
+kwargs = {'dbname': 'setupflow_test', 'host': 'localhost', 'password': 'Setup123', 'port': 5432, ...}
+params = {'dbname': 'setupflow_test', 'host': 'localhost', 'password': 'Setup123', 'port': 5432, ...}
+timeout = 130
+
+    @classmethod
+    def connect(
+        cls,
+        conninfo: str = "",
+        *,
+        autocommit: bool = False,
+        prepare_threshold: int | None = 5,
+        context: AdaptContext | None = None,
+        row_factory: RowFactory[Row] | None = None,
+        cursor_factory: type[Cursor[Row]] | None = None,
+        **kwargs: ConnParam,
+    ) -&gt; Self:
+        """
+        Connect to a database server and return a new `Connection` instance.
+        """
+    
+        params = cls._get_connection_params(conninfo, **kwargs)
+        timeout = timeout_from_conninfo(params)
+        rv = None
+        attempts = conninfo_attempts(params)
+        conn_errors: list[tuple[e.Error, str]] = []
+        for attempt in attempts:
+            tdescr = (attempt.get("host"), attempt.get("port"), attempt.get("hostaddr"))
+            descr = "host: %r, port: %r, hostaddr: %r" % tdescr
+            logger.debug("connection attempt: %s", descr)
+            try:
+                conninfo = make_conninfo("", **attempt)
+                gen = cls._connect_gen(conninfo)
+                rv = waiting.wait_conn(gen, interval=_WAIT_INTERVAL, timeout=timeout)
+            except e._WaitTimeout:
+                tex = e.ConnectionTimeout("connection timeout expired")
+                logger.debug("connection failed: %s: %s", descr, str(tex))
+                conn_errors.append((tex, descr))
+            except e.Error as ex:
+                logger.debug("connection failed: %s: %s", descr, str(ex))
+                conn_errors.append((ex, descr))
+            except e._NO_TRACEBACK as ex:
+                raise ex.with_traceback(None)
+            else:
+                logger.debug("connection succeeded: %s", descr)
+                break
+    
+        if not rv:
+            last_ex = conn_errors[-1][0]
+            if len(conn_errors) == 1:
+                raise last_ex.with_traceback(None)
+    
+            # Create a new exception with the same type as the last one, containing
+            # all attempt errors while preserving backward compatibility.
+            lines = [str(last_ex)]
+            lines.append("Multiple connection attempts failed. All failures were:")
+            lines.extend((f"- {descr}: {error}" for error, descr in conn_errors))
+            new_ex = type(last_ex)("\n".join(lines), pgconn=last_ex.pgconn)
+&gt;           raise new_ex.with_traceback(None)
+E           psycopg.OperationalError: connection failed: connection to server at "127.0.0.1", port 5432 failed: FATAL:  o sistema de banco de dados est� em modo de recupera��o
+E           Multiple connection attempts failed. All failures were:
+E           - host: 'localhost', port: 5432, hostaddr: '::1': connection failed: connection to server at "::1", port 5432 failed: FATAL:  o sistema de banco de dados est� em modo de recupera��o
+E           - host: 'localhost', port: 5432, hostaddr: '127.0.0.1': connection failed: connection to server at "127.0.0.1", port 5432 failed: FATAL:  o sistema de banco de dados est� em modo de recupera��o
+
+.venv\Lib\site-packages\psycopg\connection.py:134: OperationalError
+
+The above exception was the direct cause of the following exception:
+
+    @pytest.fixture(scope="session")
+    def auth_test_context():
+        test_database_url = os.getenv("TEST_DATABASE_URL")
+        if not test_database_url:
+            pytest.fail(
+                "Defina TEST_DATABASE_URL para um banco PostgreSQL de teste terminado em _test."
+            )
+    
+        try:
+            parsed_url = make_url(test_database_url)
+        except ArgumentError:
+            pytest.fail("TEST_DATABASE_URL deve ser uma URL SQLAlchemy válida.")
+    
+        if parsed_url.get_backend_name() != "postgresql":
+            pytest.fail("TEST_DATABASE_URL deve apontar para um banco PostgreSQL.")
+    
+        if (
+            not parsed_url.database
+            or not parsed_url.database.endswith("_test")
+            or parsed_url.database == "setupflow_dev"
+        ):
+            pytest.fail("Testes recusados: o nome do banco deve terminar em _test.")
+    
+        if not parsed_url.username:
+            pytest.fail("TEST_DATABASE_URL deve informar o usuário PostgreSQL.")
+    
+        test_url = parsed_url.set(drivername="postgresql+psycopg")
+    
+        for name, value in {
+            "DB_USER": parsed_url.username or "",
+            "DB_PASSWORD": parsed_url.password or "",
+            "DB_HOST": parsed_url.host or "localhost",
+            "DB_PORT": str(parsed_url.port or 5432),
+            "DB_NAME": parsed_url.database,
+        }.items():
+            os.environ[name] = value
+    
+        backend_dir = Path(__file__).resolve().parents[2]
+        config = Config(str(backend_dir / "alembic.ini"))
+        config.set_main_option("script_location", str(backend_dir / "migrations"))
+        config.set_main_option(
+            "sqlalchemy.url",
+            test_url.render_as_string(hide_password=False).replace("%", "%%"),
+        )
+    
+        engine = create_engine(test_url)
+        app = None
+    
+        try:
+&gt;           command.upgrade(config, "head")
+
+testes\integration\conftest.py:68: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+.venv\Lib\site-packages\alembic\command.py:487: in upgrade
+    script.run_env()
+.venv\Lib\site-packages\alembic\script\base.py:550: in run_env
+    util.load_python_file(self.dir, "env.py")
+.venv\Lib\site-packages\alembic\util\pyfiles.py:114: in load_python_file
+    module = load_module_py(module_id, path)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv\Lib\site-packages\alembic\util\pyfiles.py:132: in load_module_py
+    spec.loader.exec_module(module)  # type: ignore
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+migrations\env.py:64: in &lt;module&gt;
+    run_migrations_online()
+migrations\env.py:48: in run_migrations_online
+    with connectable.connect() as connection:
+         ^^^^^^^^^^^^^^^^^^^^^
+.venv\Lib\site-packages\sqlalchemy\engine\base.py:3275: in connect
+    return self._connection_cls(self)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv\Lib\site-packages\sqlalchemy\engine\base.py:151: in __init__
+    Connection._handle_dbapi_exception_noconnection(
+.venv\Lib\site-packages\sqlalchemy\engine\base.py:2432: in _handle_dbapi_exception_noconnection
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+.venv\Lib\site-packages\sqlalchemy\engine\base.py:149: in __init__
+    self._dbapi_connection = engine.raw_connection()
+                             ^^^^^^^^^^^^^^^^^^^^^^^
+.venv\Lib\site-packages\sqlalchemy\engine\base.py:3299: in raw_connection
+    return self.pool.connect()
+           ^^^^^^^^^^^^^^^^^^^
+.venv\Lib\site-packages\sqlalchemy\pool\base.py:445: in connect
+    return _ConnectionFairy._checkout(self)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv\Lib\site-packages\sqlalchemy\pool\base.py:1324: in _checkout
+    fairy = _ConnectionRecord.checkout(pool)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv\Lib\site-packages\sqlalchemy\pool\base.py:709: in checkout
+    rec = pool._do_get()
+          ^^^^^^^^^^^^^^
+.venv\Lib\site-packages\sqlalchemy\pool\impl.py:301: in _do_get
+    return self._create_connection()
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv\Lib\site-packages\sqlalchemy\pool\base.py:386: in _create_connection
+    return _ConnectionRecord(self)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+.venv\Lib\site-packages\sqlalchemy\pool\base.py:671: in __init__
+    self.__connect()
+.venv\Lib\site-packages\sqlalchemy\pool\base.py:916: in __connect
+    with util.safe_reraise():
+.venv\Lib\site-packages\sqlalchemy\util\langhelpers.py:166: in __exit__
+    raise exc_value.with_traceback(exc_tb)
+.venv\Lib\site-packages\sqlalchemy\pool\base.py:912: in __connect
+    self.dbapi_connection = connection = pool._invoke_creator(self)
+                                         ^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv\Lib\site-packages\sqlalchemy\engine\create.py:645: in connect
+    return dialect.connect(*cargs_tup, **cparams)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv\Lib\site-packages\sqlalchemy\engine\default.py:869: in connect
+    return self.loaded_dbapi.connect(*cargs, **cparams)  # type: ignore[no-any-return]  # NOQA: E501
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+cls = &lt;class 'psycopg.Connection'&gt;
+conninfo = 'host=localhost dbname=setupflow_test user=setupflow_dev password=Setup123 port=5432 hostaddr=127.0.0.1'
+autocommit = False, prepare_threshold = 5
+context = &lt;psycopg.adapt.AdaptersMap object at 0x000002B7B5F5C710&gt;
+row_factory = None, cursor_factory = None
+kwargs = {'dbname': 'setupflow_test', 'host': 'localhost', 'password': 'Setup123', 'port': 5432, ...}
+params = {'dbname': 'setupflow_test', 'host': 'localhost', 'password': 'Setup123', 'port': 5432, ...}
+timeout = 130
+
+    @classmethod
+    def connect(
+        cls,
+        conninfo: str = "",
+        *,
+        autocommit: bool = False,
+        prepare_threshold: int | None = 5,
+        context: AdaptContext | None = None,
+        row_factory: RowFactory[Row] | None = None,
+        cursor_factory: type[Cursor[Row]] | None = None,
+        **kwargs: ConnParam,
+    ) -&gt; Self:
+        """
+        Connect to a database server and return a new `Connection` instance.
+        """
+    
+        params = cls._get_connection_params(conninfo, **kwargs)
+        timeout = timeout_from_conninfo(params)
+        rv = None
+        attempts = conninfo_attempts(params)
+        conn_errors: list[tuple[e.Error, str]] = []
+        for attempt in attempts:
+            tdescr = (attempt.get("host"), attempt.get("port"), attempt.get("hostaddr"))
+            descr = "host: %r, port: %r, hostaddr: %r" % tdescr
+            logger.debug("connection attempt: %s", descr)
+            try:
+                conninfo = make_conninfo("", **attempt)
+                gen = cls._connect_gen(conninfo)
+                rv = waiting.wait_conn(gen, interval=_WAIT_INTERVAL, timeout=timeout)
+            except e._WaitTimeout:
+                tex = e.ConnectionTimeout("connection timeout expired")
+                logger.debug("connection failed: %s: %s", descr, str(tex))
+                conn_errors.append((tex, descr))
+            except e.Error as ex:
+                logger.debug("connection failed: %s: %s", descr, str(ex))
+                conn_errors.append((ex, descr))
+            except e._NO_TRACEBACK as ex:
+                raise ex.with_traceback(None)
+            else:
+                logger.debug("connection succeeded: %s", descr)
+                break
+    
+        if not rv:
+            last_ex = conn_errors[-1][0]
+            if len(conn_errors) == 1:
+                raise last_ex.with_traceback(None)
+    
+            # Create a new exception with the same type as the last one, containing
+            # all attempt errors while preserving backward compatibility.
+            lines = [str(last_ex)]
+            lines.append("Multiple connection attempts failed. All failures were:")
+            lines.extend((f"- {descr}: {error}" for error, descr in conn_errors))
+            new_ex = type(last_ex)("\n".join(lines), pgconn=last_ex.pgconn)
+&gt;           raise new_ex.with_traceback(None)
+E           sqlalchemy.exc.OperationalError: (psycopg.OperationalError) connection failed: connection to server at "127.0.0.1", port 5432 failed: FATAL:  o sistema de banco de dados est� em modo de recupera��o
+E           Multiple connection attempts failed. All failures were:
+E           - host: 'localhost', port: 5432, hostaddr: '::1': connection failed: connection to server at "::1", port 5432 failed: FATAL:  o sistema de banco de dados est� em modo de recupera��o
+E           - host: 'localhost', port: 5432, hostaddr: '127.0.0.1': connection failed: connection to server at "127.0.0.1", port 5432 failed: FATAL:  o sistema de banco de dados est� em modo de recupera��o
+E           (Background on this error at: https://sqlalche.me/e/21/e3q8)
+
+.venv\Lib\site-packages\psycopg\connection.py:134: OperationalError</error></testcase><testcase classname="testes.integration.test_us01_auth" name="test_me_retorna_perfil_de_operador" time="0.002"><error message="failed on setup with &quot;sqlalchemy.exc.OperationalError: (psycopg.OperationalError) connection failed: connection to server at &quot;127.0.0.1&quot;, port 5432 failed: FATAL:  o sistema de banco de dados est� em modo de recupera��o&#10;Multiple connection attempts failed. All failures were:&#10;- host: 'localhost', port: 5432, hostaddr: '::1': connection failed: connection to server at &quot;::1&quot;, port 5432 failed: FATAL:  o sistema de banco de dados est� em modo de recupera��o&#10;- host: 'localhost', port: 5432, hostaddr: '127.0.0.1': connection failed: connection to server at &quot;127.0.0.1&quot;, port 5432 failed: FATAL:  o sistema de banco de dados est� em modo de recupera��o&#10;(Background on this error at: https://sqlalche.me/e/21/e3q8)&quot;">self = &lt;sqlalchemy.engine.base.Connection object at 0x000002B7B5F47710&gt;
+engine = Engine(postgresql+psycopg://setupflow_dev:***@localhost:5432/setupflow_test)
+connection = None, _has_events = None, _allow_revalidate = True
+_allow_autobegin = True
+
+    def __init__(
+        self,
+        engine: Engine,
+        connection: Optional[PoolProxiedConnection] = None,
+        _has_events: Optional[bool] = None,
+        _allow_revalidate: bool = True,
+        _allow_autobegin: bool = True,
+    ):
+        """Construct a new Connection."""
+        self.engine = engine
+        self.dialect = dialect = engine.dialect
+    
+        if connection is None:
+            try:
+&gt;               self._dbapi_connection = engine.raw_connection()
+                                         ^^^^^^^^^^^^^^^^^^^^^^^
+
+.venv\Lib\site-packages\sqlalchemy\engine\base.py:149: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+.venv\Lib\site-packages\sqlalchemy\engine\base.py:3299: in raw_connection
+    return self.pool.connect()
+           ^^^^^^^^^^^^^^^^^^^
+.venv\Lib\site-packages\sqlalchemy\pool\base.py:445: in connect
+    return _ConnectionFairy._checkout(self)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv\Lib\site-packages\sqlalchemy\pool\base.py:1324: in _checkout
+    fairy = _ConnectionRecord.checkout(pool)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv\Lib\site-packages\sqlalchemy\pool\base.py:709: in checkout
+    rec = pool._do_get()
+          ^^^^^^^^^^^^^^
+.venv\Lib\site-packages\sqlalchemy\pool\impl.py:301: in _do_get
+    return self._create_connection()
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv\Lib\site-packages\sqlalchemy\pool\base.py:386: in _create_connection
+    return _ConnectionRecord(self)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+.venv\Lib\site-packages\sqlalchemy\pool\base.py:671: in __init__
+    self.__connect()
+.venv\Lib\site-packages\sqlalchemy\pool\base.py:916: in __connect
+    with util.safe_reraise():
+.venv\Lib\site-packages\sqlalchemy\util\langhelpers.py:166: in __exit__
+    raise exc_value.with_traceback(exc_tb)
+.venv\Lib\site-packages\sqlalchemy\pool\base.py:912: in __connect
+    self.dbapi_connection = connection = pool._invoke_creator(self)
+                                         ^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv\Lib\site-packages\sqlalchemy\engine\create.py:645: in connect
+    return dialect.connect(*cargs_tup, **cparams)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv\Lib\site-packages\sqlalchemy\engine\default.py:869: in connect
+    return self.loaded_dbapi.connect(*cargs, **cparams)  # type: ignore[no-any-return]  # NOQA: E501
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+cls = &lt;class 'psycopg.Connection'&gt;
+conninfo = 'host=localhost dbname=setupflow_test user=setupflow_dev password=Setup123 port=5432 hostaddr=127.0.0.1'
+autocommit = False, prepare_threshold = 5
+context = &lt;psycopg.adapt.AdaptersMap object at 0x000002B7B5F5C710&gt;
+row_factory = None, cursor_factory = None
+kwargs = {'dbname': 'setupflow_test', 'host': 'localhost', 'password': 'Setup123', 'port': 5432, ...}
+params = {'dbname': 'setupflow_test', 'host': 'localhost', 'password': 'Setup123', 'port': 5432, ...}
+timeout = 130
+
+    @classmethod
+    def connect(
+        cls,
+        conninfo: str = "",
+        *,
+        autocommit: bool = False,
+        prepare_threshold: int | None = 5,
+        context: AdaptContext | None = None,
+        row_factory: RowFactory[Row] | None = None,
+        cursor_factory: type[Cursor[Row]] | None = None,
+        **kwargs: ConnParam,
+    ) -&gt; Self:
+        """
+        Connect to a database server and return a new `Connection` instance.
+        """
+    
+        params = cls._get_connection_params(conninfo, **kwargs)
+        timeout = timeout_from_conninfo(params)
+        rv = None
+        attempts = conninfo_attempts(params)
+        conn_errors: list[tuple[e.Error, str]] = []
+        for attempt in attempts:
+            tdescr = (attempt.get("host"), attempt.get("port"), attempt.get("hostaddr"))
+            descr = "host: %r, port: %r, hostaddr: %r" % tdescr
+            logger.debug("connection attempt: %s", descr)
+            try:
+                conninfo = make_conninfo("", **attempt)
+                gen = cls._connect_gen(conninfo)
+                rv = waiting.wait_conn(gen, interval=_WAIT_INTERVAL, timeout=timeout)
+            except e._WaitTimeout:
+                tex = e.ConnectionTimeout("connection timeout expired")
+                logger.debug("connection failed: %s: %s", descr, str(tex))
+                conn_errors.append((tex, descr))
+            except e.Error as ex:
+                logger.debug("connection failed: %s: %s", descr, str(ex))
+                conn_errors.append((ex, descr))
+            except e._NO_TRACEBACK as ex:
+                raise ex.with_traceback(None)
+            else:
+                logger.debug("connection succeeded: %s", descr)
+                break
+    
+        if not rv:
+            last_ex = conn_errors[-1][0]
+            if len(conn_errors) == 1:
+                raise last_ex.with_traceback(None)
+    
+            # Create a new exception with the same type as the last one, containing
+            # all attempt errors while preserving backward compatibility.
+            lines = [str(last_ex)]
+            lines.append("Multiple connection attempts failed. All failures were:")
+            lines.extend((f"- {descr}: {error}" for error, descr in conn_errors))
+            new_ex = type(last_ex)("\n".join(lines), pgconn=last_ex.pgconn)
+&gt;           raise new_ex.with_traceback(None)
+E           psycopg.OperationalError: connection failed: connection to server at "127.0.0.1", port 5432 failed: FATAL:  o sistema de banco de dados est� em modo de recupera��o
+E           Multiple connection attempts failed. All failures were:
+E           - host: 'localhost', port: 5432, hostaddr: '::1': connection failed: connection to server at "::1", port 5432 failed: FATAL:  o sistema de banco de dados est� em modo de recupera��o
+E           - host: 'localhost', port: 5432, hostaddr: '127.0.0.1': connection failed: connection to server at "127.0.0.1", port 5432 failed: FATAL:  o sistema de banco de dados est� em modo de recupera��o
+
+.venv\Lib\site-packages\psycopg\connection.py:134: OperationalError
+
+The above exception was the direct cause of the following exception:
+
+    @pytest.fixture(scope="session")
+    def auth_test_context():
+        test_database_url = os.getenv("TEST_DATABASE_URL")
+        if not test_database_url:
+            pytest.fail(
+                "Defina TEST_DATABASE_URL para um banco PostgreSQL de teste terminado em _test."
+            )
+    
+        try:
+            parsed_url = make_url(test_database_url)
+        except ArgumentError:
+            pytest.fail("TEST_DATABASE_URL deve ser uma URL SQLAlchemy válida.")
+    
+        if parsed_url.get_backend_name() != "postgresql":
+            pytest.fail("TEST_DATABASE_URL deve apontar para um banco PostgreSQL.")
+    
+        if (
+            not parsed_url.database
+            or not parsed_url.database.endswith("_test")
+            or parsed_url.database == "setupflow_dev"
+        ):
+            pytest.fail("Testes recusados: o nome do banco deve terminar em _test.")
+    
+        if not parsed_url.username:
+            pytest.fail("TEST_DATABASE_URL deve informar o usuário PostgreSQL.")
+    
+        test_url = parsed_url.set(drivername="postgresql+psycopg")
+    
+        for name, value in {
+            "DB_USER": parsed_url.username or "",
+            "DB_PASSWORD": parsed_url.password or "",
+            "DB_HOST": parsed_url.host or "localhost",
+            "DB_PORT": str(parsed_url.port or 5432),
+            "DB_NAME": parsed_url.database,
+        }.items():
+            os.environ[name] = value
+    
+        backend_dir = Path(__file__).resolve().parents[2]
+        config = Config(str(backend_dir / "alembic.ini"))
+        config.set_main_option("script_location", str(backend_dir / "migrations"))
+        config.set_main_option(
+            "sqlalchemy.url",
+            test_url.render_as_string(hide_password=False).replace("%", "%%"),
+        )
+    
+        engine = create_engine(test_url)
+        app = None
+    
+        try:
+&gt;           command.upgrade(config, "head")
+
+testes\integration\conftest.py:68: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+.venv\Lib\site-packages\alembic\command.py:487: in upgrade
+    script.run_env()
+.venv\Lib\site-packages\alembic\script\base.py:550: in run_env
+    util.load_python_file(self.dir, "env.py")
+.venv\Lib\site-packages\alembic\util\pyfiles.py:114: in load_python_file
+    module = load_module_py(module_id, path)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv\Lib\site-packages\alembic\util\pyfiles.py:132: in load_module_py
+    spec.loader.exec_module(module)  # type: ignore
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+migrations\env.py:64: in &lt;module&gt;
+    run_migrations_online()
+migrations\env.py:48: in run_migrations_online
+    with connectable.connect() as connection:
+         ^^^^^^^^^^^^^^^^^^^^^
+.venv\Lib\site-packages\sqlalchemy\engine\base.py:3275: in connect
+    return self._connection_cls(self)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv\Lib\site-packages\sqlalchemy\engine\base.py:151: in __init__
+    Connection._handle_dbapi_exception_noconnection(
+.venv\Lib\site-packages\sqlalchemy\engine\base.py:2432: in _handle_dbapi_exception_noconnection
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+.venv\Lib\site-packages\sqlalchemy\engine\base.py:149: in __init__
+    self._dbapi_connection = engine.raw_connection()
+                             ^^^^^^^^^^^^^^^^^^^^^^^
+.venv\Lib\site-packages\sqlalchemy\engine\base.py:3299: in raw_connection
+    return self.pool.connect()
+           ^^^^^^^^^^^^^^^^^^^
+.venv\Lib\site-packages\sqlalchemy\pool\base.py:445: in connect
+    return _ConnectionFairy._checkout(self)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv\Lib\site-packages\sqlalchemy\pool\base.py:1324: in _checkout
+    fairy = _ConnectionRecord.checkout(pool)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv\Lib\site-packages\sqlalchemy\pool\base.py:709: in checkout
+    rec = pool._do_get()
+          ^^^^^^^^^^^^^^
+.venv\Lib\site-packages\sqlalchemy\pool\impl.py:301: in _do_get
+    return self._create_connection()
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv\Lib\site-packages\sqlalchemy\pool\base.py:386: in _create_connection
+    return _ConnectionRecord(self)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+.venv\Lib\site-packages\sqlalchemy\pool\base.py:671: in __init__
+    self.__connect()
+.venv\Lib\site-packages\sqlalchemy\pool\base.py:916: in __connect
+    with util.safe_reraise():
+.venv\Lib\site-packages\sqlalchemy\util\langhelpers.py:166: in __exit__
+    raise exc_value.with_traceback(exc_tb)
+.venv\Lib\site-packages\sqlalchemy\pool\base.py:912: in __connect
+    self.dbapi_connection = connection = pool._invoke_creator(self)
+                                         ^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv\Lib\site-packages\sqlalchemy\engine\create.py:645: in connect
+    return dialect.connect(*cargs_tup, **cparams)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv\Lib\site-packages\sqlalchemy\engine\default.py:869: in connect
+    return self.loaded_dbapi.connect(*cargs, **cparams)  # type: ignore[no-any-return]  # NOQA: E501
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+cls = &lt;class 'psycopg.Connection'&gt;
+conninfo = 'host=localhost dbname=setupflow_test user=setupflow_dev password=Setup123 port=5432 hostaddr=127.0.0.1'
+autocommit = False, prepare_threshold = 5
+context = &lt;psycopg.adapt.AdaptersMap object at 0x000002B7B5F5C710&gt;
+row_factory = None, cursor_factory = None
+kwargs = {'dbname': 'setupflow_test', 'host': 'localhost', 'password': 'Setup123', 'port': 5432, ...}
+params = {'dbname': 'setupflow_test', 'host': 'localhost', 'password': 'Setup123', 'port': 5432, ...}
+timeout = 130
+
+    @classmethod
+    def connect(
+        cls,
+        conninfo: str = "",
+        *,
+        autocommit: bool = False,
+        prepare_threshold: int | None = 5,
+        context: AdaptContext | None = None,
+        row_factory: RowFactory[Row] | None = None,
+        cursor_factory: type[Cursor[Row]] | None = None,
+        **kwargs: ConnParam,
+    ) -&gt; Self:
+        """
+        Connect to a database server and return a new `Connection` instance.
+        """
+    
+        params = cls._get_connection_params(conninfo, **kwargs)
+        timeout = timeout_from_conninfo(params)
+        rv = None
+        attempts = conninfo_attempts(params)
+        conn_errors: list[tuple[e.Error, str]] = []
+        for attempt in attempts:
+            tdescr = (attempt.get("host"), attempt.get("port"), attempt.get("hostaddr"))
+            descr = "host: %r, port: %r, hostaddr: %r" % tdescr
+            logger.debug("connection attempt: %s", descr)
+            try:
+                conninfo = make_conninfo("", **attempt)
+                gen = cls._connect_gen(conninfo)
+                rv = waiting.wait_conn(gen, interval=_WAIT_INTERVAL, timeout=timeout)
+            except e._WaitTimeout:
+                tex = e.ConnectionTimeout("connection timeout expired")
+                logger.debug("connection failed: %s: %s", descr, str(tex))
+                conn_errors.append((tex, descr))
+            except e.Error as ex:
+                logger.debug("connection failed: %s: %s", descr, str(ex))
+                conn_errors.append((ex, descr))
+            except e._NO_TRACEBACK as ex:
+                raise ex.with_traceback(None)
+            else:
+                logger.debug("connection succeeded: %s", descr)
+                break
+    
+        if not rv:
+            last_ex = conn_errors[-1][0]
+            if len(conn_errors) == 1:
+                raise last_ex.with_traceback(None)
+    
+            # Create a new exception with the same type as the last one, containing
+            # all attempt errors while preserving backward compatibility.
+            lines = [str(last_ex)]
+            lines.append("Multiple connection attempts failed. All failures were:")
+            lines.extend((f"- {descr}: {error}" for error, descr in conn_errors))
+            new_ex = type(last_ex)("\n".join(lines), pgconn=last_ex.pgconn)
+&gt;           raise new_ex.with_traceback(None)
+E           sqlalchemy.exc.OperationalError: (psycopg.OperationalError) connection failed: connection to server at "127.0.0.1", port 5432 failed: FATAL:  o sistema de banco de dados est� em modo de recupera��o
+E           Multiple connection attempts failed. All failures were:
+E           - host: 'localhost', port: 5432, hostaddr: '::1': connection failed: connection to server at "::1", port 5432 failed: FATAL:  o sistema de banco de dados est� em modo de recupera��o
+E           - host: 'localhost', port: 5432, hostaddr: '127.0.0.1': connection failed: connection to server at "127.0.0.1", port 5432 failed: FATAL:  o sistema de banco de dados est� em modo de recupera��o
+E           (Background on this error at: https://sqlalche.me/e/21/e3q8)
+
+.venv\Lib\site-packages\psycopg\connection.py:134: OperationalError</error></testcase><testcase classname="testes.integration.test_us01_auth" name="test_me_rejeita_sessao_expirada" time="0.001"><error message="failed on setup with &quot;sqlalchemy.exc.OperationalError: (psycopg.OperationalError) connection failed: connection to server at &quot;127.0.0.1&quot;, port 5432 failed: FATAL:  o sistema de banco de dados est� em modo de recupera��o&#10;Multiple connection attempts failed. All failures were:&#10;- host: 'localhost', port: 5432, hostaddr: '::1': connection failed: connection to server at &quot;::1&quot;, port 5432 failed: FATAL:  o sistema de banco de dados est� em modo de recupera��o&#10;- host: 'localhost', port: 5432, hostaddr: '127.0.0.1': connection failed: connection to server at &quot;127.0.0.1&quot;, port 5432 failed: FATAL:  o sistema de banco de dados est� em modo de recupera��o&#10;(Background on this error at: https://sqlalche.me/e/21/e3q8)&quot;">self = &lt;sqlalchemy.engine.base.Connection object at 0x000002B7B5F47710&gt;
+engine = Engine(postgresql+psycopg://setupflow_dev:***@localhost:5432/setupflow_test)
+connection = None, _has_events = None, _allow_revalidate = True
+_allow_autobegin = True
+
+    def __init__(
+        self,
+        engine: Engine,
+        connection: Optional[PoolProxiedConnection] = None,
+        _has_events: Optional[bool] = None,
+        _allow_revalidate: bool = True,
+        _allow_autobegin: bool = True,
+    ):
+        """Construct a new Connection."""
+        self.engine = engine
+        self.dialect = dialect = engine.dialect
+    
+        if connection is None:
+            try:
+&gt;               self._dbapi_connection = engine.raw_connection()
+                                         ^^^^^^^^^^^^^^^^^^^^^^^
+
+.venv\Lib\site-packages\sqlalchemy\engine\base.py:149: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+.venv\Lib\site-packages\sqlalchemy\engine\base.py:3299: in raw_connection
+    return self.pool.connect()
+           ^^^^^^^^^^^^^^^^^^^
+.venv\Lib\site-packages\sqlalchemy\pool\base.py:445: in connect
+    return _ConnectionFairy._checkout(self)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv\Lib\site-packages\sqlalchemy\pool\base.py:1324: in _checkout
+    fairy = _ConnectionRecord.checkout(pool)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv\Lib\site-packages\sqlalchemy\pool\base.py:709: in checkout
+    rec = pool._do_get()
+          ^^^^^^^^^^^^^^
+.venv\Lib\site-packages\sqlalchemy\pool\impl.py:301: in _do_get
+    return self._create_connection()
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv\Lib\site-packages\sqlalchemy\pool\base.py:386: in _create_connection
+    return _ConnectionRecord(self)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+.venv\Lib\site-packages\sqlalchemy\pool\base.py:671: in __init__
+    self.__connect()
+.venv\Lib\site-packages\sqlalchemy\pool\base.py:916: in __connect
+    with util.safe_reraise():
+.venv\Lib\site-packages\sqlalchemy\util\langhelpers.py:166: in __exit__
+    raise exc_value.with_traceback(exc_tb)
+.venv\Lib\site-packages\sqlalchemy\pool\base.py:912: in __connect
+    self.dbapi_connection = connection = pool._invoke_creator(self)
+                                         ^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv\Lib\site-packages\sqlalchemy\engine\create.py:645: in connect
+    return dialect.connect(*cargs_tup, **cparams)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv\Lib\site-packages\sqlalchemy\engine\default.py:869: in connect
+    return self.loaded_dbapi.connect(*cargs, **cparams)  # type: ignore[no-any-return]  # NOQA: E501
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+cls = &lt;class 'psycopg.Connection'&gt;
+conninfo = 'host=localhost dbname=setupflow_test user=setupflow_dev password=Setup123 port=5432 hostaddr=127.0.0.1'
+autocommit = False, prepare_threshold = 5
+context = &lt;psycopg.adapt.AdaptersMap object at 0x000002B7B5F5C710&gt;
+row_factory = None, cursor_factory = None
+kwargs = {'dbname': 'setupflow_test', 'host': 'localhost', 'password': 'Setup123', 'port': 5432, ...}
+params = {'dbname': 'setupflow_test', 'host': 'localhost', 'password': 'Setup123', 'port': 5432, ...}
+timeout = 130
+
+    @classmethod
+    def connect(
+        cls,
+        conninfo: str = "",
+        *,
+        autocommit: bool = False,
+        prepare_threshold: int | None = 5,
+        context: AdaptContext | None = None,
+        row_factory: RowFactory[Row] | None = None,
+        cursor_factory: type[Cursor[Row]] | None = None,
+        **kwargs: ConnParam,
+    ) -&gt; Self:
+        """
+        Connect to a database server and return a new `Connection` instance.
+        """
+    
+        params = cls._get_connection_params(conninfo, **kwargs)
+        timeout = timeout_from_conninfo(params)
+        rv = None
+        attempts = conninfo_attempts(params)
+        conn_errors: list[tuple[e.Error, str]] = []
+        for attempt in attempts:
+            tdescr = (attempt.get("host"), attempt.get("port"), attempt.get("hostaddr"))
+            descr = "host: %r, port: %r, hostaddr: %r" % tdescr
+            logger.debug("connection attempt: %s", descr)
+            try:
+                conninfo = make_conninfo("", **attempt)
+                gen = cls._connect_gen(conninfo)
+                rv = waiting.wait_conn(gen, interval=_WAIT_INTERVAL, timeout=timeout)
+            except e._WaitTimeout:
+                tex = e.ConnectionTimeout("connection timeout expired")
+                logger.debug("connection failed: %s: %s", descr, str(tex))
+                conn_errors.append((tex, descr))
+            except e.Error as ex:
+                logger.debug("connection failed: %s: %s", descr, str(ex))
+                conn_errors.append((ex, descr))
+            except e._NO_TRACEBACK as ex:
+                raise ex.with_traceback(None)
+            else:
+                logger.debug("connection succeeded: %s", descr)
+                break
+    
+        if not rv:
+            last_ex = conn_errors[-1][0]
+            if len(conn_errors) == 1:
+                raise last_ex.with_traceback(None)
+    
+            # Create a new exception with the same type as the last one, containing
+            # all attempt errors while preserving backward compatibility.
+            lines = [str(last_ex)]
+            lines.append("Multiple connection attempts failed. All failures were:")
+            lines.extend((f"- {descr}: {error}" for error, descr in conn_errors))
+            new_ex = type(last_ex)("\n".join(lines), pgconn=last_ex.pgconn)
+&gt;           raise new_ex.with_traceback(None)
+E           psycopg.OperationalError: connection failed: connection to server at "127.0.0.1", port 5432 failed: FATAL:  o sistema de banco de dados est� em modo de recupera��o
+E           Multiple connection attempts failed. All failures were:
+E           - host: 'localhost', port: 5432, hostaddr: '::1': connection failed: connection to server at "::1", port 5432 failed: FATAL:  o sistema de banco de dados est� em modo de recupera��o
+E           - host: 'localhost', port: 5432, hostaddr: '127.0.0.1': connection failed: connection to server at "127.0.0.1", port 5432 failed: FATAL:  o sistema de banco de dados est� em modo de recupera��o
+
+.venv\Lib\site-packages\psycopg\connection.py:134: OperationalError
+
+The above exception was the direct cause of the following exception:
+
+    @pytest.fixture(scope="session")
+    def auth_test_context():
+        test_database_url = os.getenv("TEST_DATABASE_URL")
+        if not test_database_url:
+            pytest.fail(
+                "Defina TEST_DATABASE_URL para um banco PostgreSQL de teste terminado em _test."
+            )
+    
+        try:
+            parsed_url = make_url(test_database_url)
+        except ArgumentError:
+            pytest.fail("TEST_DATABASE_URL deve ser uma URL SQLAlchemy válida.")
+    
+        if parsed_url.get_backend_name() != "postgresql":
+            pytest.fail("TEST_DATABASE_URL deve apontar para um banco PostgreSQL.")
+    
+        if (
+            not parsed_url.database
+            or not parsed_url.database.endswith("_test")
+            or parsed_url.database == "setupflow_dev"
+        ):
+            pytest.fail("Testes recusados: o nome do banco deve terminar em _test.")
+    
+        if not parsed_url.username:
+            pytest.fail("TEST_DATABASE_URL deve informar o usuário PostgreSQL.")
+    
+        test_url = parsed_url.set(drivername="postgresql+psycopg")
+    
+        for name, value in {
+            "DB_USER": parsed_url.username or "",
+            "DB_PASSWORD": parsed_url.password or "",
+            "DB_HOST": parsed_url.host or "localhost",
+            "DB_PORT": str(parsed_url.port or 5432),
+            "DB_NAME": parsed_url.database,
+        }.items():
+            os.environ[name] = value
+    
+        backend_dir = Path(__file__).resolve().parents[2]
+        config = Config(str(backend_dir / "alembic.ini"))
+        config.set_main_option("script_location", str(backend_dir / "migrations"))
+        config.set_main_option(
+            "sqlalchemy.url",
+            test_url.render_as_string(hide_password=False).replace("%", "%%"),
+        )
+    
+        engine = create_engine(test_url)
+        app = None
+    
+        try:
+&gt;           command.upgrade(config, "head")
+
+testes\integration\conftest.py:68: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+.venv\Lib\site-packages\alembic\command.py:487: in upgrade
+    script.run_env()
+.venv\Lib\site-packages\alembic\script\base.py:550: in run_env
+    util.load_python_file(self.dir, "env.py")
+.venv\Lib\site-packages\alembic\util\pyfiles.py:114: in load_python_file
+    module = load_module_py(module_id, path)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv\Lib\site-packages\alembic\util\pyfiles.py:132: in load_module_py
+    spec.loader.exec_module(module)  # type: ignore
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+migrations\env.py:64: in &lt;module&gt;
+    run_migrations_online()
+migrations\env.py:48: in run_migrations_online
+    with connectable.connect() as connection:
+         ^^^^^^^^^^^^^^^^^^^^^
+.venv\Lib\site-packages\sqlalchemy\engine\base.py:3275: in connect
+    return self._connection_cls(self)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv\Lib\site-packages\sqlalchemy\engine\base.py:151: in __init__
+    Connection._handle_dbapi_exception_noconnection(
+.venv\Lib\site-packages\sqlalchemy\engine\base.py:2432: in _handle_dbapi_exception_noconnection
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+.venv\Lib\site-packages\sqlalchemy\engine\base.py:149: in __init__
+    self._dbapi_connection = engine.raw_connection()
+                             ^^^^^^^^^^^^^^^^^^^^^^^
+.venv\Lib\site-packages\sqlalchemy\engine\base.py:3299: in raw_connection
+    return self.pool.connect()
+           ^^^^^^^^^^^^^^^^^^^
+.venv\Lib\site-packages\sqlalchemy\pool\base.py:445: in connect
+    return _ConnectionFairy._checkout(self)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv\Lib\site-packages\sqlalchemy\pool\base.py:1324: in _checkout
+    fairy = _ConnectionRecord.checkout(pool)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv\Lib\site-packages\sqlalchemy\pool\base.py:709: in checkout
+    rec = pool._do_get()
+          ^^^^^^^^^^^^^^
+.venv\Lib\site-packages\sqlalchemy\pool\impl.py:301: in _do_get
+    return self._create_connection()
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv\Lib\site-packages\sqlalchemy\pool\base.py:386: in _create_connection
+    return _ConnectionRecord(self)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+.venv\Lib\site-packages\sqlalchemy\pool\base.py:671: in __init__
+    self.__connect()
+.venv\Lib\site-packages\sqlalchemy\pool\base.py:916: in __connect
+    with util.safe_reraise():
+.venv\Lib\site-packages\sqlalchemy\util\langhelpers.py:166: in __exit__
+    raise exc_value.with_traceback(exc_tb)
+.venv\Lib\site-packages\sqlalchemy\pool\base.py:912: in __connect
+    self.dbapi_connection = connection = pool._invoke_creator(self)
+                                         ^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv\Lib\site-packages\sqlalchemy\engine\create.py:645: in connect
+    return dialect.connect(*cargs_tup, **cparams)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv\Lib\site-packages\sqlalchemy\engine\default.py:869: in connect
+    return self.loaded_dbapi.connect(*cargs, **cparams)  # type: ignore[no-any-return]  # NOQA: E501
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+cls = &lt;class 'psycopg.Connection'&gt;
+conninfo = 'host=localhost dbname=setupflow_test user=setupflow_dev password=Setup123 port=5432 hostaddr=127.0.0.1'
+autocommit = False, prepare_threshold = 5
+context = &lt;psycopg.adapt.AdaptersMap object at 0x000002B7B5F5C710&gt;
+row_factory = None, cursor_factory = None
+kwargs = {'dbname': 'setupflow_test', 'host': 'localhost', 'password': 'Setup123', 'port': 5432, ...}
+params = {'dbname': 'setupflow_test', 'host': 'localhost', 'password': 'Setup123', 'port': 5432, ...}
+timeout = 130
+
+    @classmethod
+    def connect(
+        cls,
+        conninfo: str = "",
+        *,
+        autocommit: bool = False,
+        prepare_threshold: int | None = 5,
+        context: AdaptContext | None = None,
+        row_factory: RowFactory[Row] | None = None,
+        cursor_factory: type[Cursor[Row]] | None = None,
+        **kwargs: ConnParam,
+    ) -&gt; Self:
+        """
+        Connect to a database server and return a new `Connection` instance.
+        """
+    
+        params = cls._get_connection_params(conninfo, **kwargs)
+        timeout = timeout_from_conninfo(params)
+        rv = None
+        attempts = conninfo_attempts(params)
+        conn_errors: list[tuple[e.Error, str]] = []
+        for attempt in attempts:
+            tdescr = (attempt.get("host"), attempt.get("port"), attempt.get("hostaddr"))
+            descr = "host: %r, port: %r, hostaddr: %r" % tdescr
+            logger.debug("connection attempt: %s", descr)
+            try:
+                conninfo = make_conninfo("", **attempt)
+                gen = cls._connect_gen(conninfo)
+                rv = waiting.wait_conn(gen, interval=_WAIT_INTERVAL, timeout=timeout)
+            except e._WaitTimeout:
+                tex = e.ConnectionTimeout("connection timeout expired")
+                logger.debug("connection failed: %s: %s", descr, str(tex))
+                conn_errors.append((tex, descr))
+            except e.Error as ex:
+                logger.debug("connection failed: %s: %s", descr, str(ex))
+                conn_errors.append((ex, descr))
+            except e._NO_TRACEBACK as ex:
+                raise ex.with_traceback(None)
+            else:
+                logger.debug("connection succeeded: %s", descr)
+                break
+    
+        if not rv:
+            last_ex = conn_errors[-1][0]
+            if len(conn_errors) == 1:
+                raise last_ex.with_traceback(None)
+    
+            # Create a new exception with the same type as the last one, containing
+            # all attempt errors while preserving backward compatibility.
+            lines = [str(last_ex)]
+            lines.append("Multiple connection attempts failed. All failures were:")
+            lines.extend((f"- {descr}: {error}" for error, descr in conn_errors))
+            new_ex = type(last_ex)("\n".join(lines), pgconn=last_ex.pgconn)
+&gt;           raise new_ex.with_traceback(None)
+E           sqlalchemy.exc.OperationalError: (psycopg.OperationalError) connection failed: connection to server at "127.0.0.1", port 5432 failed: FATAL:  o sistema de banco de dados est� em modo de recupera��o
+E           Multiple connection attempts failed. All failures were:
+E           - host: 'localhost', port: 5432, hostaddr: '::1': connection failed: connection to server at "::1", port 5432 failed: FATAL:  o sistema de banco de dados est� em modo de recupera��o
+E           - host: 'localhost', port: 5432, hostaddr: '127.0.0.1': connection failed: connection to server at "127.0.0.1", port 5432 failed: FATAL:  o sistema de banco de dados est� em modo de recupera��o
+E           (Background on this error at: https://sqlalche.me/e/21/e3q8)
+
+.venv\Lib\site-packages\psycopg\connection.py:134: OperationalError</error></testcase><testcase classname="testes.integration.test_us01_auth" name="test_logout_invalida_a_sessao" time="0.001"><error message="failed on setup with &quot;sqlalchemy.exc.OperationalError: (psycopg.OperationalError) connection failed: connection to server at &quot;127.0.0.1&quot;, port 5432 failed: FATAL:  o sistema de banco de dados est� em modo de recupera��o&#10;Multiple connection attempts failed. All failures were:&#10;- host: 'localhost', port: 5432, hostaddr: '::1': connection failed: connection to server at &quot;::1&quot;, port 5432 failed: FATAL:  o sistema de banco de dados est� em modo de recupera��o&#10;- host: 'localhost', port: 5432, hostaddr: '127.0.0.1': connection failed: connection to server at &quot;127.0.0.1&quot;, port 5432 failed: FATAL:  o sistema de banco de dados est� em modo de recupera��o&#10;(Background on this error at: https://sqlalche.me/e/21/e3q8)&quot;">self = &lt;sqlalchemy.engine.base.Connection object at 0x000002B7B5F47710&gt;
+engine = Engine(postgresql+psycopg://setupflow_dev:***@localhost:5432/setupflow_test)
+connection = None, _has_events = None, _allow_revalidate = True
+_allow_autobegin = True
+
+    def __init__(
+        self,
+        engine: Engine,
+        connection: Optional[PoolProxiedConnection] = None,
+        _has_events: Optional[bool] = None,
+        _allow_revalidate: bool = True,
+        _allow_autobegin: bool = True,
+    ):
+        """Construct a new Connection."""
+        self.engine = engine
+        self.dialect = dialect = engine.dialect
+    
+        if connection is None:
+            try:
+&gt;               self._dbapi_connection = engine.raw_connection()
+                                         ^^^^^^^^^^^^^^^^^^^^^^^
+
+.venv\Lib\site-packages\sqlalchemy\engine\base.py:149: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+.venv\Lib\site-packages\sqlalchemy\engine\base.py:3299: in raw_connection
+    return self.pool.connect()
+           ^^^^^^^^^^^^^^^^^^^
+.venv\Lib\site-packages\sqlalchemy\pool\base.py:445: in connect
+    return _ConnectionFairy._checkout(self)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv\Lib\site-packages\sqlalchemy\pool\base.py:1324: in _checkout
+    fairy = _ConnectionRecord.checkout(pool)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv\Lib\site-packages\sqlalchemy\pool\base.py:709: in checkout
+    rec = pool._do_get()
+          ^^^^^^^^^^^^^^
+.venv\Lib\site-packages\sqlalchemy\pool\impl.py:301: in _do_get
+    return self._create_connection()
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv\Lib\site-packages\sqlalchemy\pool\base.py:386: in _create_connection
+    return _ConnectionRecord(self)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+.venv\Lib\site-packages\sqlalchemy\pool\base.py:671: in __init__
+    self.__connect()
+.venv\Lib\site-packages\sqlalchemy\pool\base.py:916: in __connect
+    with util.safe_reraise():
+.venv\Lib\site-packages\sqlalchemy\util\langhelpers.py:166: in __exit__
+    raise exc_value.with_traceback(exc_tb)
+.venv\Lib\site-packages\sqlalchemy\pool\base.py:912: in __connect
+    self.dbapi_connection = connection = pool._invoke_creator(self)
+                                         ^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv\Lib\site-packages\sqlalchemy\engine\create.py:645: in connect
+    return dialect.connect(*cargs_tup, **cparams)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv\Lib\site-packages\sqlalchemy\engine\default.py:869: in connect
+    return self.loaded_dbapi.connect(*cargs, **cparams)  # type: ignore[no-any-return]  # NOQA: E501
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+cls = &lt;class 'psycopg.Connection'&gt;
+conninfo = 'host=localhost dbname=setupflow_test user=setupflow_dev password=Setup123 port=5432 hostaddr=127.0.0.1'
+autocommit = False, prepare_threshold = 5
+context = &lt;psycopg.adapt.AdaptersMap object at 0x000002B7B5F5C710&gt;
+row_factory = None, cursor_factory = None
+kwargs = {'dbname': 'setupflow_test', 'host': 'localhost', 'password': 'Setup123', 'port': 5432, ...}
+params = {'dbname': 'setupflow_test', 'host': 'localhost', 'password': 'Setup123', 'port': 5432, ...}
+timeout = 130
+
+    @classmethod
+    def connect(
+        cls,
+        conninfo: str = "",
+        *,
+        autocommit: bool = False,
+        prepare_threshold: int | None = 5,
+        context: AdaptContext | None = None,
+        row_factory: RowFactory[Row] | None = None,
+        cursor_factory: type[Cursor[Row]] | None = None,
+        **kwargs: ConnParam,
+    ) -&gt; Self:
+        """
+        Connect to a database server and return a new `Connection` instance.
+        """
+    
+        params = cls._get_connection_params(conninfo, **kwargs)
+        timeout = timeout_from_conninfo(params)
+        rv = None
+        attempts = conninfo_attempts(params)
+        conn_errors: list[tuple[e.Error, str]] = []
+        for attempt in attempts:
+            tdescr = (attempt.get("host"), attempt.get("port"), attempt.get("hostaddr"))
+            descr = "host: %r, port: %r, hostaddr: %r" % tdescr
+            logger.debug("connection attempt: %s", descr)
+            try:
+                conninfo = make_conninfo("", **attempt)
+                gen = cls._connect_gen(conninfo)
+                rv = waiting.wait_conn(gen, interval=_WAIT_INTERVAL, timeout=timeout)
+            except e._WaitTimeout:
+                tex = e.ConnectionTimeout("connection timeout expired")
+                logger.debug("connection failed: %s: %s", descr, str(tex))
+                conn_errors.append((tex, descr))
+            except e.Error as ex:
+                logger.debug("connection failed: %s: %s", descr, str(ex))
+                conn_errors.append((ex, descr))
+            except e._NO_TRACEBACK as ex:
+                raise ex.with_traceback(None)
+            else:
+                logger.debug("connection succeeded: %s", descr)
+                break
+    
+        if not rv:
+            last_ex = conn_errors[-1][0]
+            if len(conn_errors) == 1:
+                raise last_ex.with_traceback(None)
+    
+            # Create a new exception with the same type as the last one, containing
+            # all attempt errors while preserving backward compatibility.
+            lines = [str(last_ex)]
+            lines.append("Multiple connection attempts failed. All failures were:")
+            lines.extend((f"- {descr}: {error}" for error, descr in conn_errors))
+            new_ex = type(last_ex)("\n".join(lines), pgconn=last_ex.pgconn)
+&gt;           raise new_ex.with_traceback(None)
+E           psycopg.OperationalError: connection failed: connection to server at "127.0.0.1", port 5432 failed: FATAL:  o sistema de banco de dados est� em modo de recupera��o
+E           Multiple connection attempts failed. All failures were:
+E           - host: 'localhost', port: 5432, hostaddr: '::1': connection failed: connection to server at "::1", port 5432 failed: FATAL:  o sistema de banco de dados est� em modo de recupera��o
+E           - host: 'localhost', port: 5432, hostaddr: '127.0.0.1': connection failed: connection to server at "127.0.0.1", port 5432 failed: FATAL:  o sistema de banco de dados est� em modo de recupera��o
+
+.venv\Lib\site-packages\psycopg\connection.py:134: OperationalError
+
+The above exception was the direct cause of the following exception:
+
+    @pytest.fixture(scope="session")
+    def auth_test_context():
+        test_database_url = os.getenv("TEST_DATABASE_URL")
+        if not test_database_url:
+            pytest.fail(
+                "Defina TEST_DATABASE_URL para um banco PostgreSQL de teste terminado em _test."
+            )
+    
+        try:
+            parsed_url = make_url(test_database_url)
+        except ArgumentError:
+            pytest.fail("TEST_DATABASE_URL deve ser uma URL SQLAlchemy válida.")
+    
+        if parsed_url.get_backend_name() != "postgresql":
+            pytest.fail("TEST_DATABASE_URL deve apontar para um banco PostgreSQL.")
+    
+        if (
+            not parsed_url.database
+            or not parsed_url.database.endswith("_test")
+            or parsed_url.database == "setupflow_dev"
+        ):
+            pytest.fail("Testes recusados: o nome do banco deve terminar em _test.")
+    
+        if not parsed_url.username:
+            pytest.fail("TEST_DATABASE_URL deve informar o usuário PostgreSQL.")
+    
+        test_url = parsed_url.set(drivername="postgresql+psycopg")
+    
+        for name, value in {
+            "DB_USER": parsed_url.username or "",
+            "DB_PASSWORD": parsed_url.password or "",
+            "DB_HOST": parsed_url.host or "localhost",
+            "DB_PORT": str(parsed_url.port or 5432),
+            "DB_NAME": parsed_url.database,
+        }.items():
+            os.environ[name] = value
+    
+        backend_dir = Path(__file__).resolve().parents[2]
+        config = Config(str(backend_dir / "alembic.ini"))
+        config.set_main_option("script_location", str(backend_dir / "migrations"))
+        config.set_main_option(
+            "sqlalchemy.url",
+            test_url.render_as_string(hide_password=False).replace("%", "%%"),
+        )
+    
+        engine = create_engine(test_url)
+        app = None
+    
+        try:
+&gt;           command.upgrade(config, "head")
+
+testes\integration\conftest.py:68: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+.venv\Lib\site-packages\alembic\command.py:487: in upgrade
+    script.run_env()
+.venv\Lib\site-packages\alembic\script\base.py:550: in run_env
+    util.load_python_file(self.dir, "env.py")
+.venv\Lib\site-packages\alembic\util\pyfiles.py:114: in load_python_file
+    module = load_module_py(module_id, path)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv\Lib\site-packages\alembic\util\pyfiles.py:132: in load_module_py
+    spec.loader.exec_module(module)  # type: ignore
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+migrations\env.py:64: in &lt;module&gt;
+    run_migrations_online()
+migrations\env.py:48: in run_migrations_online
+    with connectable.connect() as connection:
+         ^^^^^^^^^^^^^^^^^^^^^
+.venv\Lib\site-packages\sqlalchemy\engine\base.py:3275: in connect
+    return self._connection_cls(self)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv\Lib\site-packages\sqlalchemy\engine\base.py:151: in __init__
+    Connection._handle_dbapi_exception_noconnection(
+.venv\Lib\site-packages\sqlalchemy\engine\base.py:2432: in _handle_dbapi_exception_noconnection
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+.venv\Lib\site-packages\sqlalchemy\engine\base.py:149: in __init__
+    self._dbapi_connection = engine.raw_connection()
+                             ^^^^^^^^^^^^^^^^^^^^^^^
+.venv\Lib\site-packages\sqlalchemy\engine\base.py:3299: in raw_connection
+    return self.pool.connect()
+           ^^^^^^^^^^^^^^^^^^^
+.venv\Lib\site-packages\sqlalchemy\pool\base.py:445: in connect
+    return _ConnectionFairy._checkout(self)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv\Lib\site-packages\sqlalchemy\pool\base.py:1324: in _checkout
+    fairy = _ConnectionRecord.checkout(pool)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv\Lib\site-packages\sqlalchemy\pool\base.py:709: in checkout
+    rec = pool._do_get()
+          ^^^^^^^^^^^^^^
+.venv\Lib\site-packages\sqlalchemy\pool\impl.py:301: in _do_get
+    return self._create_connection()
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv\Lib\site-packages\sqlalchemy\pool\base.py:386: in _create_connection
+    return _ConnectionRecord(self)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+.venv\Lib\site-packages\sqlalchemy\pool\base.py:671: in __init__
+    self.__connect()
+.venv\Lib\site-packages\sqlalchemy\pool\base.py:916: in __connect
+    with util.safe_reraise():
+.venv\Lib\site-packages\sqlalchemy\util\langhelpers.py:166: in __exit__
+    raise exc_value.with_traceback(exc_tb)
+.venv\Lib\site-packages\sqlalchemy\pool\base.py:912: in __connect
+    self.dbapi_connection = connection = pool._invoke_creator(self)
+                                         ^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv\Lib\site-packages\sqlalchemy\engine\create.py:645: in connect
+    return dialect.connect(*cargs_tup, **cparams)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv\Lib\site-packages\sqlalchemy\engine\default.py:869: in connect
+    return self.loaded_dbapi.connect(*cargs, **cparams)  # type: ignore[no-any-return]  # NOQA: E501
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+cls = &lt;class 'psycopg.Connection'&gt;
+conninfo = 'host=localhost dbname=setupflow_test user=setupflow_dev password=Setup123 port=5432 hostaddr=127.0.0.1'
+autocommit = False, prepare_threshold = 5
+context = &lt;psycopg.adapt.AdaptersMap object at 0x000002B7B5F5C710&gt;
+row_factory = None, cursor_factory = None
+kwargs = {'dbname': 'setupflow_test', 'host': 'localhost', 'password': 'Setup123', 'port': 5432, ...}
+params = {'dbname': 'setupflow_test', 'host': 'localhost', 'password': 'Setup123', 'port': 5432, ...}
+timeout = 130
+
+    @classmethod
+    def connect(
+        cls,
+        conninfo: str = "",
+        *,
+        autocommit: bool = False,
+        prepare_threshold: int | None = 5,
+        context: AdaptContext | None = None,
+        row_factory: RowFactory[Row] | None = None,
+        cursor_factory: type[Cursor[Row]] | None = None,
+        **kwargs: ConnParam,
+    ) -&gt; Self:
+        """
+        Connect to a database server and return a new `Connection` instance.
+        """
+    
+        params = cls._get_connection_params(conninfo, **kwargs)
+        timeout = timeout_from_conninfo(params)
+        rv = None
+        attempts = conninfo_attempts(params)
+        conn_errors: list[tuple[e.Error, str]] = []
+        for attempt in attempts:
+            tdescr = (attempt.get("host"), attempt.get("port"), attempt.get("hostaddr"))
+            descr = "host: %r, port: %r, hostaddr: %r" % tdescr
+            logger.debug("connection attempt: %s", descr)
+            try:
+                conninfo = make_conninfo("", **attempt)
+                gen = cls._connect_gen(conninfo)
+                rv = waiting.wait_conn(gen, interval=_WAIT_INTERVAL, timeout=timeout)
+            except e._WaitTimeout:
+                tex = e.ConnectionTimeout("connection timeout expired")
+                logger.debug("connection failed: %s: %s", descr, str(tex))
+                conn_errors.append((tex, descr))
+            except e.Error as ex:
+                logger.debug("connection failed: %s: %s", descr, str(ex))
+                conn_errors.append((ex, descr))
+            except e._NO_TRACEBACK as ex:
+                raise ex.with_traceback(None)
+            else:
+                logger.debug("connection succeeded: %s", descr)
+                break
+    
+        if not rv:
+            last_ex = conn_errors[-1][0]
+            if len(conn_errors) == 1:
+                raise last_ex.with_traceback(None)
+    
+            # Create a new exception with the same type as the last one, containing
+            # all attempt errors while preserving backward compatibility.
+            lines = [str(last_ex)]
+            lines.append("Multiple connection attempts failed. All failures were:")
+            lines.extend((f"- {descr}: {error}" for error, descr in conn_errors))
+            new_ex = type(last_ex)("\n".join(lines), pgconn=last_ex.pgconn)
+&gt;           raise new_ex.with_traceback(None)
+E           sqlalchemy.exc.OperationalError: (psycopg.OperationalError) connection failed: connection to server at "127.0.0.1", port 5432 failed: FATAL:  o sistema de banco de dados est� em modo de recupera��o
+E           Multiple connection attempts failed. All failures were:
+E           - host: 'localhost', port: 5432, hostaddr: '::1': connection failed: connection to server at "::1", port 5432 failed: FATAL:  o sistema de banco de dados est� em modo de recupera��o
+E           - host: 'localhost', port: 5432, hostaddr: '127.0.0.1': connection failed: connection to server at "127.0.0.1", port 5432 failed: FATAL:  o sistema de banco de dados est� em modo de recupera��o
+E           (Background on this error at: https://sqlalche.me/e/21/e3q8)
+
+.venv\Lib\site-packages\psycopg\connection.py:134: OperationalError</error></testcase></testsuite></testsuites>
