@@ -16,10 +16,16 @@ O projeto está em desenvolvimento. A versão atual implementa autenticação, c
 
 ## Papéis — Release 1
 
-- **Product Owner (PO):** Leonardo
+- **Product Owner (PO):** Leonardo Istamilo
 - **Scrum Master (SM):** Arthur Marques
 - **Quality Assurance (QA):** Luiz Inácio Moura da Costa
-- **DevOps:** Leonardo
+- **DevOps:** Leonardo Istamilo
+
+## Papéis — Release 1
+- **Product Owner (PO):** Arthur Marques
+- **Scrum Master (SM):** Luiz Inácio Moura da Costa
+- **Quality Assurance (QA):** Leonardo Istamilo
+- **DevOps:** Leonardo Istamilo
 
 ## Responsabilidades
 
