@@ -21,7 +21,7 @@ O projeto está em desenvolvimento. A versão atual implementa autenticação, c
 - **Quality Assurance (QA):** Luiz Inácio Moura da Costa
 - **DevOps:** Leonardo Istamilo
 
-## Papéis — Release 1
+## Papéis — Release 2
 - **Product Owner (PO):** Arthur Marques
 - **Scrum Master (SM):** Luiz Inácio Moura da Costa
 - **Quality Assurance (QA):** Leonardo Istamilo
