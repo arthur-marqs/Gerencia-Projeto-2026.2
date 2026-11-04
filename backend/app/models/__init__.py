@@ -8,6 +8,7 @@ from app.models.sessao import Sessao
 from app.models.usuario import Usuario
 from app.models.ordem_producao import OrdemProducao
 from app.models.usuario_perfil import usuario_perfil
+from app.models.produto_maquina import produto_maquina
 
 __all__ = [
     "Family",
@@ -20,4 +21,5 @@ __all__ = [
     "Sessao",
     "Usuario",
     "usuario_perfil",
+    "produto_maquina",
 ]
