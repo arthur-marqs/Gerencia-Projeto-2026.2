@@ -9,10 +9,13 @@ from sqlalchemy import (
     text,
 )
 from sqlalchemy.dialects.postgresql import UUID
-from sqlalchemy.orm import Mapped, mapped_column
+from sqlalchemy.orm import Mapped, mapped_column, relationship
+from typing import TYPE_CHECKING
 
 from app.db.base import Base
 
+if TYPE_CHECKING:
+    from app.models.produto import Produto
 
 class Maquina(Base):
     __tablename__ = "maquinas"
@@ -34,6 +37,11 @@ class Maquina(Base):
         DateTime(timezone=True),
         nullable=False,
         server_default=func.current_timestamp(),
+    )
+
+    produtos_compativeis: Mapped[list["Produto"]] = relationship(
+        secondary="produto_maquina",
+        back_populates="maquinas_compativeis",
     )
 
     __table_args__ = (

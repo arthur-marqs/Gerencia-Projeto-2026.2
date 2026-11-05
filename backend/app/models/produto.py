@@ -19,7 +19,7 @@ from app.db.base import Base
 
 if TYPE_CHECKING:
     from app.models.family import Family
-
+    from app.models.maquina import Maquina
 
 class Produto(Base):
     __tablename__ = "produtos"
@@ -55,6 +55,11 @@ class Produto(Base):
 
     family: Mapped["Family | None"] = relationship(
         back_populates="produtos",
+    )
+
+    maquinas_compativeis: Mapped[list["Maquina"]] = relationship(
+        secondary="produto_maquina",
+        back_populates="produtos_compativeis",
     )
 
     __table_args__ = (

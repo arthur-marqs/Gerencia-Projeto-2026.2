@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import type { FormEvent } from 'react'
+import CompatibilidadeMaquinas from '../components/CompatibilidadeMaquinas'
 
 type ErrosFormulario = {
   codigo?: string
@@ -41,6 +42,7 @@ function ProdutosPage() {
   const [salvando, setSalvando] = useState(false)
 
   const [produtos, setProdutos] = useState<Produto[]>([])
+  const [produtoCompatibilidade, setProdutoCompatibilidade] = useState<Produto | null>(null)
   const [familias, setFamilias] = useState<Family[]>([])
   const [carregandoProdutos, setCarregandoProdutos] = useState(true)
   const [erroListagem, setErroListagem] = useState('')
@@ -450,6 +452,9 @@ function ProdutosPage() {
                       <th className="px-6 py-4 font-semibold">
                         Status
                       </th>
+                      <th className="px-6 py-4 font-semibold">
+                        Compatibilidade
+                      </th>
                     </tr>
                   </thead>
 
@@ -522,6 +527,16 @@ function ProdutosPage() {
                             {produto.ativo ? 'Ativo' : 'Inativo'}
                           </span>
                         </td>
+                        <td className="px-6 py-4">
+                          <button
+                            type="button"
+                            data-cy={`produto-compatibilidade-${produto.id_produto}`}
+                            onClick={() => setProdutoCompatibilidade(produto)}
+                            className="cursor-pointer whitespace-nowrap rounded-lg border border-blue-200 px-3 py-2 text-xs font-semibold text-blue-700 transition hover:bg-blue-50"
+                          >
+                            Máquinas compatíveis
+                          </button>
+                        </td>
                       </tr>
                     ))}
                   </tbody>
@@ -530,6 +545,15 @@ function ProdutosPage() {
             )}
           </section>
         </div>
+        {produtoCompatibilidade && (
+          <CompatibilidadeMaquinas
+            key={produtoCompatibilidade.id_produto}
+            produtoId={produtoCompatibilidade.id_produto}
+            produtoNome={produtoCompatibilidade.nome}
+            produtoCodigo={produtoCompatibilidade.codigo}
+            onClose={() => setProdutoCompatibilidade(null)}
+          />
+        )}
       </div>
     </main>
   )
