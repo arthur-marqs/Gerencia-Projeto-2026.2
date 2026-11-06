@@ -10,6 +10,7 @@ from app.models.ordem_producao import OrdemProducao
 from app.models.produto import Produto
 from app.models.usuario import Usuario
 from app.schemas.ordem_producao import (
+    DuracaoEstimadaUpdate,
     OrdemProducaoCreate,
     OrdemProducaoResponse,
     OrdemProducaoUpdate,
@@ -93,6 +94,38 @@ def cadastrar_ordem_producao(
         raise HTTPException(
             status_code=status.HTTP_409_CONFLICT,
             detail="Não foi possível cadastrar a ordem de produção.",
+        ) from erro
+
+    db.refresh(ordem)
+    return ordem
+
+@router.patch(
+    "/{ordem_id}/duracao-estimada",
+    response_model=OrdemProducaoResponse,
+)
+def atualizar_duracao_estimada(
+    ordem_id: UUID,
+    dados: DuracaoEstimadaUpdate,
+    db: Session = Depends(get_db),
+    _usuario: Usuario = Depends(require_profiles("PLANEJADOR")),
+):
+    ordem = db.get(OrdemProducao, ordem_id)
+    if ordem is None:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="Ordem de produção não encontrada.",
+        )
+
+    ordem.duracao_estimada_minutos = dados.duracao_estimada_minutos
+    try:
+        db.commit()
+    except IntegrityError as erro:
+        db.rollback()
+        raise HTTPException(
+            status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
+            detail=(
+                "A duração estimada é inválida. Informe um número inteiro de minutos maior que zero."
+            ),
         ) from erro
 
     db.refresh(ordem)

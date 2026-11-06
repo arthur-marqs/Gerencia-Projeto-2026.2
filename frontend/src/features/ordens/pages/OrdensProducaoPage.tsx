@@ -17,6 +17,7 @@ type OrdemProducao = {
   codigo: string
   produto_id: string
   quantidade: string | number
+  duracao_estimada_minutos: number | null
   status: string
   criado_em: string
   prazo: string | null
@@ -63,6 +64,11 @@ function OrdensProducaoPage() {
   const [mensagemSucesso, setMensagemSucesso] = useState('')
   const [carregando, setCarregando] = useState(true)
   const [salvando, setSalvando] = useState(false)
+  const [duracoesEditadas, setDuracoesEditadas] = useState<Record<string, string>>({})
+  const [mensagensDuracao, setMensagensDuracao] = useState<
+    Record<string, { tipo: 'erro' | 'sucesso'; texto: string }>
+  >({})
+  const [salvandoDuracaoId, setSalvandoDuracaoId] = useState<string | null>(null)
   const [ordemEmEdicao, setOrdemEmEdicao] = useState<OrdemProducao | null>(null)
   const [prazo, setPrazo] = useState('')
   const [prioridade, setPrioridade] = useState('')
@@ -262,6 +268,106 @@ function OrdensProducaoPage() {
     }
   }
 
+  async function salvarDuracaoEstimada(ordem: OrdemProducao) {
+    const valor = (
+      duracoesEditadas[ordem.id_ordem] ??
+      (ordem.duracao_estimada_minutos === null
+        ? ''
+        : String(ordem.duracao_estimada_minutos))
+    ).trim()
+
+    if (!/^[1-9]\d*$/.test(valor) || !Number.isSafeInteger(Number(valor))) {
+      setMensagensDuracao((atuais) => ({
+        ...atuais,
+        [ordem.id_ordem]: {
+          tipo: 'erro',
+          texto: 'A duração estimada é inválida. Informe um número inteiro de minutos maior que zero.',
+        },
+      }))
+      return
+    }
+
+    setSalvandoDuracaoId(ordem.id_ordem)
+    setMensagensDuracao((atuais) => {
+      const novas = { ...atuais }
+      delete novas[ordem.id_ordem]
+      return novas
+    })
+
+    try {
+      const response = await fetch(`${API_URL}/${ordem.id_ordem}/duracao-estimada`, {
+        method: 'PATCH',
+        credentials: 'include',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ duracao_estimada_minutos: Number(valor) }),
+      })
+
+      if (response.status === 422) {
+        setMensagensDuracao((atuais) => ({
+          ...atuais,
+          [ordem.id_ordem]: {
+            tipo: 'erro',
+            texto: 'A duração estimada é inválida. Informe um número inteiro de minutos maior que zero.',
+          },
+        }))
+        return
+      }
+
+      if (response.status === 404) {
+        setMensagensDuracao((atuais) => ({
+          ...atuais,
+          [ordem.id_ordem]: {
+            tipo: 'erro',
+            texto: 'Ordem de produção não encontrada.',
+          },
+        }))
+        return
+      }
+
+      if (!response.ok) {
+        setMensagensDuracao((atuais) => ({
+          ...atuais,
+          [ordem.id_ordem]: {
+            tipo: 'erro',
+            texto: 'Não foi possível salvar a duração estimada.',
+          },
+        }))
+        return
+      }
+
+      const atualizada = await response.json() as OrdemProducao
+
+      setOrdens((atuais) =>
+        atuais.map((item) =>
+          item.id_ordem === atualizada.id_ordem ? atualizada : item
+        )
+      )
+
+      setDuracoesEditadas((atuais) => ({
+        ...atuais,
+        [ordem.id_ordem]: String(atualizada.duracao_estimada_minutos),
+      }))
+
+      setMensagensDuracao((atuais) => ({
+        ...atuais,
+        [ordem.id_ordem]: {
+          tipo: 'sucesso',
+          texto: 'Duração estimada salva.',
+        },
+      }))
+    } catch {
+      setMensagensDuracao((atuais) => ({
+        ...atuais,
+        [ordem.id_ordem]: {
+          tipo: 'erro',
+          texto: 'Não foi possível conectar ao servidor.',
+        },
+      }))
+    } finally {
+      setSalvandoDuracaoId(null)
+    }
+  }
+
   const produtoPorId = new Map<string, Produto>(
     produtos.map((produto): [string, Produto] => [produto.id_produto, produto]),
   )
@@ -318,11 +424,114 @@ function OrdensProducaoPage() {
             ) : (
               <div className="mt-5 overflow-x-auto">
                 <table className="w-full min-w-[500px] text-left text-sm">
-                  <thead><tr className="border-b border-slate-200 text-xs uppercase tracking-wide text-slate-500"><th className="px-3 py-3 font-semibold">Ordem</th><th className="px-3 py-3 font-semibold">Produto</th><th className="px-3 py-3 font-semibold">Quantidade</th><th className="px-3 py-3 font-semibold">Prazo</th><th className="px-3 py-3 font-semibold">Prioridade</th><th className="px-3 py-3 font-semibold">Status</th><th className="px-3 py-3 font-semibold">Criada em</th><th className="px-3 py-3 font-semibold">Ações</th></tr></thead>
-                  <tbody>{ordens.map((ordem) => {
-                    const produto = produtoPorId.get(ordem.produto_id)
-                    return <tr key={ordem.id_ordem} className="border-b border-slate-100 last:border-0"><td className="px-3 py-4 font-semibold text-slate-900">{ordem.codigo}</td><td className="px-3 py-4 text-slate-600">{produto ? `${produto.codigo} — ${produto.nome}` : 'Produto indisponível'}</td><td className="px-3 py-4 text-slate-600">{formatarQuantidade(ordem.quantidade)}{produto ? ` ${produto.unidade}` : ''}</td><td className="px-3 py-4 text-slate-600">{ordem.prazo ? formatarPrazo(ordem.prazo) : 'Não definido'}</td><td className="px-3 py-4 text-slate-600">{ordem.prioridade ?? 'Não definida'}</td><td className="px-3 py-4"><span className="inline-flex rounded-full bg-blue-50 px-2.5 py-1 text-xs font-semibold text-blue-700">{ordem.status}</span></td><td className="px-3 py-4 text-slate-600">{formatarData(ordem.criado_em)}</td><td className="px-3 py-4"><button type="button" onClick={() => iniciarEdicao(ordem)} className="font-semibold text-blue-700 hover:text-blue-900">Editar</button></td></tr>
-                  })}</tbody>
+                  <thead><tr className="border-b border-slate-200 text-xs uppercase tracking-wide text-slate-500"><th className="px-3 py-3 font-semibold">Ordem</th><th className="px-3 py-3 font-semibold">Produto</th><th className="px-3 py-3 font-semibold">Quantidade</th><th className="px-3 py-3 font-semibold">Duração estimada (min)</th><th className="px-3 py-3 font-semibold">Prazo</th><th className="px-3 py-3 font-semibold">Prioridade</th><th className="px-3 py-3 font-semibold">Status</th><th className="px-3 py-3 font-semibold">Criada em</th><th className="px-3 py-3 font-semibold">Ações</th></tr></thead>
+                  <tbody>
+                    {ordens.map((ordem) => {
+                      const produto = produtoPorId.get(ordem.produto_id)
+                      const mensagemDuracao = mensagensDuracao[ordem.id_ordem]
+
+                      const valorDuracao =
+                        duracoesEditadas[ordem.id_ordem] ??
+                        (ordem.duracao_estimada_minutos === null
+                          ? ''
+                          : String(ordem.duracao_estimada_minutos))
+
+                      return (
+                        <tr
+                          key={ordem.id_ordem}
+                          className="border-b border-slate-100 last:border-0"
+                        >
+                          <td className="px-3 py-4 font-semibold text-slate-900">
+                            {ordem.codigo}
+                          </td>
+
+                          <td className="px-3 py-4 text-slate-600">
+                            {produto
+                              ? `${produto.codigo} — ${produto.nome}`
+                              : 'Produto indisponível'}
+                          </td>
+
+                          <td className="px-3 py-4 text-slate-600">
+                            {formatarQuantidade(ordem.quantidade)}
+                            {produto ? ` ${produto.unidade}` : ''}
+                          </td>
+
+                          <td className="px-3 py-4">
+                            <div className="flex min-w-[210px] items-center gap-2">
+                              <input
+                                id={`duracao-${ordem.id_ordem}`}
+                                aria-label={`Duração estimada da ordem ${ordem.codigo} em minutos`}
+                                type="number"
+                                min="1"
+                                step="1"
+                                value={valorDuracao}
+                                onChange={(event) =>
+                                  setDuracoesEditadas((atuais) => ({
+                                    ...atuais,
+                                    [ordem.id_ordem]: event.target.value,
+                                  }))
+                                }
+                                aria-invalid={mensagemDuracao?.tipo === 'erro'}
+                                className="w-24 rounded-lg border border-slate-300 px-2.5 py-2 text-sm text-slate-900 outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-100"
+                              />
+
+                              <button
+                                type="button"
+                                disabled={salvandoDuracaoId === ordem.id_ordem}
+                                onClick={() => void salvarDuracaoEstimada(ordem)}
+                                className="rounded-lg bg-blue-600 px-3 py-2 text-xs font-semibold text-white hover:bg-blue-700 disabled:cursor-not-allowed disabled:opacity-60"
+                              >
+                                {salvandoDuracaoId === ordem.id_ordem
+                                  ? 'Salvando...'
+                                  : 'Salvar'}
+                              </button>
+                            </div>
+
+                            {mensagemDuracao && (
+                              <p
+                                role={mensagemDuracao.tipo === 'erro' ? 'alert' : 'status'}
+                                className={`mt-1 max-w-[260px] text-xs ${
+                                  mensagemDuracao.tipo === 'erro'
+                                    ? 'text-red-700'
+                                    : 'text-emerald-700'
+                                }`}
+                              >
+                                {mensagemDuracao.texto}
+                              </p>
+                            )}
+                          </td>
+
+                          <td className="px-3 py-4 text-slate-600">
+                            {ordem.prazo ? formatarPrazo(ordem.prazo) : 'Não definido'}
+                          </td>
+
+                          <td className="px-3 py-4 text-slate-600">
+                            {ordem.prioridade ?? 'Não definida'}
+                          </td>
+
+                          <td className="px-3 py-4">
+                            <span className="inline-flex rounded-full bg-blue-50 px-2.5 py-1 text-xs font-semibold text-blue-700">
+                              {ordem.status}
+                            </span>
+                          </td>
+
+                          <td className="px-3 py-4 text-slate-600">
+                            {formatarData(ordem.criado_em)}
+                          </td>
+
+                          <td className="px-3 py-4">
+                            <button
+                              type="button"
+                              onClick={() => iniciarEdicao(ordem)}
+                              className="font-semibold text-blue-700 hover:text-blue-900"
+                            >
+                              Editar
+                            </button>
+                          </td>
+                        </tr>
+                      )
+                    })}
+                  </tbody>
                 </table>
               </div>
             )}

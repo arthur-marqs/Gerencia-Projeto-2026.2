@@ -3,7 +3,17 @@ from datetime import date
 from typing import TYPE_CHECKING
 from uuid import UUID
 
-from sqlalchemy import CheckConstraint, DateTime, ForeignKey, Numeric, String, UniqueConstraint, func, text
+from sqlalchemy import (
+    CheckConstraint,
+    DateTime,
+    ForeignKey,
+    Integer,
+    Numeric,
+    String,
+    UniqueConstraint,
+    func,
+    text,
+)
 from sqlalchemy.dialects.postgresql import UUID as PG_UUID
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
@@ -28,6 +38,10 @@ class OrdemProducao(Base):
         nullable=False,
     )
     quantidade: Mapped[Decimal] = mapped_column(Numeric(14, 3), nullable=False)
+    duracao_estimada_minutos: Mapped[int | None] = mapped_column(
+        Integer,
+        nullable=True,
+    )
     status: Mapped[str] = mapped_column(
         String(20), nullable=False, server_default=text("'PENDENTE'")
     )
@@ -55,6 +69,10 @@ class OrdemProducao(Base):
         CheckConstraint(
             "quantidade > 0",
             name="ck_ordens_producao_quantidade_positiva",
+        ),
+        CheckConstraint(
+            "duracao_estimada_minutos IS NULL OR duracao_estimada_minutos > 0",
+            name="ck_ordens_producao_duracao_estimada_positiva",
         ),
         CheckConstraint(
             "length(trim(status)) > 0",
