@@ -9,6 +9,8 @@ from app.models.usuario import Usuario
 from app.models.ordem_producao import OrdemProducao
 from app.models.usuario_perfil import usuario_perfil
 from app.models.produto_maquina import produto_maquina
+from app.models.planejamento import Planejamento
+from app.models.item_planejamento import ItemPlanejamento
 
 __all__ = [
     "Family",
@@ -22,4 +24,6 @@ __all__ = [
     "Usuario",
     "usuario_perfil",
     "produto_maquina",
+    "Planejamento",
+    "ItemPlanejamento",
 ]
