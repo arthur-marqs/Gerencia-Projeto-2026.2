@@ -8,7 +8,7 @@ from app.api.routes.health import router as health_router
 from app.api.routes.maquinas import router as maquinas_router
 from app.api.routes.ordens_producao import router as ordens_producao_router
 from app.api.routes.produtos import router as produtos_router
-
+from app.api.routes.planejamentos import router as planejamentos_router
 
 app = FastAPI(
     title="SetupFlow API",
@@ -48,4 +48,10 @@ app.include_router(
     ordens_producao_router,
     prefix="/api/ordens-producao",
     tags=["Ordens de produção"],
+)
+
+app.include_router(
+    planejamentos_router,
+    prefix="/api/planejamentos",
+    tags=["Planejamentos"],
 )

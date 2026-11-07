@@ -69,4 +69,8 @@ class ItemPlanejamento(Base):
             "posicao > 0",
             name="ck_item_planejamento_posicao_positiva",
         ),
+        UniqueConstraint(
+            "ordem_id",
+            name="uq_item_planejamento_ordem_global",
+        ),
     )
