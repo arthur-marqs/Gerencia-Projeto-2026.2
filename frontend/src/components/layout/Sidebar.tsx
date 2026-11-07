@@ -1,4 +1,4 @@
-type Pagina = 'dashboard' | 'produtos' | 'familias' | 'maquinas' | 'ordens'
+type Pagina = 'dashboard' | 'produtos' | 'familias' | 'maquinas' | 'ordens' | 'planejamentos'
 
 type SidebarProps = {
   perfis: string[]
@@ -67,6 +67,15 @@ function Sidebar({ perfis, paginaAtual, onNavigate }: SidebarProps) {
               className={classeItem('ordens')}
             >
               Ordens de produção
+            </button>
+            <button
+              type="button"
+              data-cy="menu-planejamentos"
+              aria-current={paginaAtual === 'planejamentos' ? 'page' : undefined}
+              onClick={() => onNavigate('planejamentos')}
+              className={classeItem('planejamentos')}
+            >
+              Planejamento manual
             </button>
             <button
               type="button"

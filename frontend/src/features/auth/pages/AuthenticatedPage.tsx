@@ -5,8 +5,9 @@ import FamiliesPage from '../../families/pages/FamiliesPage'
 import MaquinasPage from '../../maquinas/pages/MaquinasPage'
 import OrdensProducaoPage from '../../ordens/pages/OrdensProducaoPage'
 import ProdutosPage from '../../produtos/pages/ProdutosPage'
+import PlanejamentosPage from '../../planejamentos/pages/PlanejamentosPage'
 
-type Pagina = 'dashboard' | 'produtos' | 'familias' | 'maquinas' | 'ordens'
+type Pagina = 'dashboard' | 'produtos' | 'familias' | 'maquinas' | 'ordens' | 'planejamentos'
 
 type AuthenticatedPageProps = {
   nome: string
@@ -45,6 +46,8 @@ function AuthenticatedPage({
           <MaquinasPage />
         ) : paginaAtual === 'ordens' && ehPlanejador ? (
           <OrdensProducaoPage />
+        ) : paginaAtual === 'planejamentos' && ehPlanejador ? (
+          <PlanejamentosPage />
         ) : (
           <main className="px-4 py-5 pt-[100px] sm:px-6 lg:px-7 xl:px-8">
             <div className="mx-auto max-w-[1500px]">
