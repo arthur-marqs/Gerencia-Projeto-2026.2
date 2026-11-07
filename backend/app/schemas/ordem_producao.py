@@ -19,6 +19,19 @@ class OrdemProducaoCreate(BaseModel):
         return valor
 
 
+class DuracaoEstimadaUpdate(BaseModel):
+    duracao_estimada_minutos: int = Field(gt=0, strict=True)
+
+    @field_validator("duracao_estimada_minutos", mode="before")
+    @classmethod
+    def validar_duracao_estimada(cls, valor: object) -> int:
+        if isinstance(valor, bool) or not isinstance(valor, int) or valor <= 0:
+            raise ValueError(
+                "A duração estimada é inválida. Informe um número inteiro de minutos maior que zero."
+            )
+        return valor
+
+
 class OrdemProducaoResponse(BaseModel):
     model_config = ConfigDict(from_attributes=True)
 
@@ -26,6 +39,7 @@ class OrdemProducaoResponse(BaseModel):
     codigo: str
     produto_id: UUID
     quantidade: Decimal
+    duracao_estimada_minutos: int | None
     status: str
     criado_em: datetime
     prazo: date | None
