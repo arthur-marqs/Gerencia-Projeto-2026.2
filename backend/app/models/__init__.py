@@ -9,6 +9,7 @@ from app.models.usuario import Usuario
 from app.models.ordem_producao import OrdemProducao
 from app.models.usuario_perfil import usuario_perfil
 from app.models.produto_maquina import produto_maquina
+from app.models.tempo_setup_familia import TempoSetupFamilia
 
 __all__ = [
     "Family",
@@ -16,6 +17,7 @@ __all__ = [
     "FalhaLogin",
     "Maquina",
     "OrdemProducao",
+    "TempoSetupFamilia",
     "Perfil",
     "Produto",
     "Sessao",

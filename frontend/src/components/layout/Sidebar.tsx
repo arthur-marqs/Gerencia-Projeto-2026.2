@@ -1,4 +1,4 @@
-type Pagina = 'dashboard' | 'produtos' | 'familias' | 'maquinas' | 'ordens'
+type Pagina = 'dashboard' | 'produtos' | 'familias' | 'tempos-setup' | 'maquinas' | 'ordens'
 
 type SidebarProps = {
   perfis: string[]
@@ -67,6 +67,14 @@ function Sidebar({ perfis, paginaAtual, onNavigate }: SidebarProps) {
               className={classeItem('ordens')}
             >
               Ordens de produção
+            </button>
+            <button
+              type="button"
+              aria-current={paginaAtual === 'tempos-setup' ? 'page' : undefined}
+              onClick={() => onNavigate('tempos-setup')}
+              className={classeItem('tempos-setup')}
+            >
+              Tempos de setup
             </button>
             <button
               type="button"
