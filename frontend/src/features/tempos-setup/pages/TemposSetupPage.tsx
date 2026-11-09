@@ -62,8 +62,6 @@ function TemposSetupPage() {
   const [sucesso, setSucesso] = useState('')
 
   const carregarDados = useCallback(async () => {
-    setCarregando(true)
-
     try {
       const [familiasResponse, temposResponse] = await Promise.all([
         fetch(FAMILIAS_API_URL, { credentials: 'include' }),
@@ -94,7 +92,7 @@ function TemposSetupPage() {
   }, [])
 
   useEffect(() => {
-    void carregarDados()
+    void Promise.resolve().then(carregarDados)
   }, [carregarDados])
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
@@ -322,7 +320,10 @@ function TemposSetupPage() {
 
             <button
               type="button"
-              onClick={() => void carregarDados()}
+              onClick={() => {
+                setCarregando(true)
+                void carregarDados()
+              }}
               disabled={carregando}
               className="mt-4 rounded-lg px-3 py-2 text-sm font-semibold text-blue-700 transition hover:bg-blue-50 disabled:opacity-50"
             >

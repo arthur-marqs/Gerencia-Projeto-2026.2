@@ -184,3 +184,34 @@ def test_operador_nao_pode_cadastrar_tempo_setup(seeded_auth):
     )
 
     assert response.status_code == 403
+
+
+def test_consulta_tempos_setup_exige_autenticacao(seeded_auth):
+    response = seeded_auth.client.get("/api/tempos-setup")
+
+    assert response.status_code == 401
+
+
+def test_operador_nao_pode_consultar_tempos_setup(seeded_auth):
+    client, state = seeded_auth.client, seeded_auth.state
+    assert _login(client, state.operator_email, state.password).status_code == 200
+
+    response = client.get("/api/tempos-setup")
+
+    assert response.status_code == 403
+
+
+def test_familia_destino_inexistente_retorna_404(seeded_auth):
+    client, state = seeded_auth.client, seeded_auth.state
+    assert _login(client, state.email, state.password).status_code == 200
+    origem = _criar_familia(client, "FAM-US10-E", "Família US10 E")
+
+    response = _cadastrar_tempo_setup(
+        client,
+        origem["id"],
+        str(uuid4()),
+        30,
+    )
+
+    assert response.status_code == 404
+    assert response.json()["detail"] == "Família de destino não encontrada."
