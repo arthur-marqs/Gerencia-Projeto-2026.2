@@ -1,13 +1,22 @@
+
 import { useState } from 'react'
 import Header from '../../../components/layout/Header'
 import Sidebar from '../../../components/layout/Sidebar'
 import FamiliesPage from '../../families/pages/FamiliesPage'
 import MaquinasPage from '../../maquinas/pages/MaquinasPage'
 import OrdensProducaoPage from '../../ordens/pages/OrdensProducaoPage'
-import ProdutosPage from '../../produtos/pages/ProdutosPage'
 import PlanejamentosPage from '../../planejamentos/pages/PlanejamentosPage'
+import ProdutosPage from '../../produtos/pages/ProdutosPage'
+import TemposSetupPage from '../../tempos-setup/pages/TemposSetupPage'
 
-type Pagina = 'dashboard' | 'produtos' | 'familias' | 'maquinas' | 'ordens' | 'planejamentos'
+type Pagina =
+  | 'dashboard'
+  | 'produtos'
+  | 'familias'
+  | 'maquinas'
+  | 'ordens'
+  | 'tempos-setup'
+  | 'planejamentos'
 
 type AuthenticatedPageProps = {
   nome: string
@@ -46,6 +55,8 @@ function AuthenticatedPage({
           <MaquinasPage />
         ) : paginaAtual === 'ordens' && ehPlanejador ? (
           <OrdensProducaoPage />
+        ) : paginaAtual === 'tempos-setup' && ehPlanejador ? (
+          <TemposSetupPage />
         ) : paginaAtual === 'planejamentos' && ehPlanejador ? (
           <PlanejamentosPage />
         ) : (
