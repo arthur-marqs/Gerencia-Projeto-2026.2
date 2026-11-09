@@ -8,6 +8,7 @@ from app.models.produto import Produto
 from app.models.sessao import Sessao
 from app.models.usuario import Usuario
 from app.models.ordem_producao import OrdemProducao
+from app.models.ordem_producao_operacao import OrdemProducaoOperacao
 from app.models.usuario_perfil import usuario_perfil
 from app.models.produto_maquina import produto_maquina
 from app.models.planejamento import Planejamento
@@ -20,6 +21,7 @@ __all__ = [
     "FalhaLogin",
     "Maquina",
     "OrdemProducao",
+    "OrdemProducaoOperacao",
     "TempoSetupFamilia",
     "Perfil",
     "Produto",
