@@ -1,3 +1,4 @@
+
 from app.models.family import Family
 from app.models.controle_tentativas_login import ControleTentativasLogin
 from app.models.falha_login import FalhaLogin
@@ -9,6 +10,8 @@ from app.models.usuario import Usuario
 from app.models.ordem_producao import OrdemProducao
 from app.models.usuario_perfil import usuario_perfil
 from app.models.produto_maquina import produto_maquina
+from app.models.planejamento import Planejamento
+from app.models.item_planejamento import ItemPlanejamento
 from app.models.tempo_setup_familia import TempoSetupFamilia
 
 __all__ = [
@@ -24,4 +27,6 @@ __all__ = [
     "Usuario",
     "usuario_perfil",
     "produto_maquina",
+    "Planejamento",
+    "ItemPlanejamento",
 ]

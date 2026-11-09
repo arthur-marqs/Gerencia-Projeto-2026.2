@@ -1,4 +1,12 @@
-type Pagina = 'dashboard' | 'produtos' | 'familias' | 'tempos-setup' | 'maquinas' | 'ordens'
+
+type Pagina =
+  | 'dashboard'
+  | 'produtos'
+  | 'familias'
+  | 'maquinas'
+  | 'ordens'
+  | 'tempos-setup'
+  | 'planejamentos'
 
 type SidebarProps = {
   perfis: string[]
@@ -52,6 +60,7 @@ function Sidebar({ perfis, paginaAtual, onNavigate }: SidebarProps) {
             >
               Produtos
             </button>
+
             <button
               type="button"
               aria-current={paginaAtual === 'familias' ? 'page' : undefined}
@@ -60,6 +69,7 @@ function Sidebar({ perfis, paginaAtual, onNavigate }: SidebarProps) {
             >
               Famílias de produtos
             </button>
+
             <button
               type="button"
               aria-current={paginaAtual === 'ordens' ? 'page' : undefined}
@@ -68,6 +78,7 @@ function Sidebar({ perfis, paginaAtual, onNavigate }: SidebarProps) {
             >
               Ordens de produção
             </button>
+
             <button
               type="button"
               aria-current={paginaAtual === 'tempos-setup' ? 'page' : undefined}
@@ -76,6 +87,17 @@ function Sidebar({ perfis, paginaAtual, onNavigate }: SidebarProps) {
             >
               Tempos de setup
             </button>
+
+            <button
+              type="button"
+              data-cy="menu-planejamentos"
+              aria-current={paginaAtual === 'planejamentos' ? 'page' : undefined}
+              onClick={() => onNavigate('planejamentos')}
+              className={classeItem('planejamentos')}
+            >
+              Planejamento manual
+            </button>
+
             <button
               type="button"
               data-cy="menu-maquinas"

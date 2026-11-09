@@ -1,13 +1,22 @@
+
 import { useState } from 'react'
 import Header from '../../../components/layout/Header'
 import Sidebar from '../../../components/layout/Sidebar'
 import FamiliesPage from '../../families/pages/FamiliesPage'
 import MaquinasPage from '../../maquinas/pages/MaquinasPage'
 import OrdensProducaoPage from '../../ordens/pages/OrdensProducaoPage'
+import PlanejamentosPage from '../../planejamentos/pages/PlanejamentosPage'
 import ProdutosPage from '../../produtos/pages/ProdutosPage'
 import TemposSetupPage from '../../tempos-setup/pages/TemposSetupPage'
 
-type Pagina = 'dashboard' | 'produtos' | 'familias' | 'tempos-setup' | 'maquinas' | 'ordens'
+type Pagina =
+  | 'dashboard'
+  | 'produtos'
+  | 'familias'
+  | 'maquinas'
+  | 'ordens'
+  | 'tempos-setup'
+  | 'planejamentos'
 
 type AuthenticatedPageProps = {
   nome: string
@@ -48,6 +57,8 @@ function AuthenticatedPage({
           <OrdensProducaoPage />
         ) : paginaAtual === 'tempos-setup' && ehPlanejador ? (
           <TemposSetupPage />
+        ) : paginaAtual === 'planejamentos' && ehPlanejador ? (
+          <PlanejamentosPage />
         ) : (
           <main className="px-4 py-5 pt-[100px] sm:px-6 lg:px-7 xl:px-8">
             <div className="mx-auto max-w-[1500px]">
