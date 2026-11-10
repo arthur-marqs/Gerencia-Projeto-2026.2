@@ -1,35 +1,41 @@
 from getpass import getpass
 
-from sqlalchemy import select
+from pydantic import ValidationError
+from sqlalchemy import select, text
+from sqlalchemy.exc import IntegrityError
 
 from app.core.security import hash_password
 from app.db.session import SessionLocal
 from app.models.perfil import Perfil
 from app.models.usuario import Usuario
 from app.models.usuario_perfil import usuario_perfil
+from app.schemas.usuario import UsuarioCreate
 
 
 def main() -> None:
     nome = input("Nome: ").strip()
     email = input("E-mail: ").strip().lower()
-    perfil_codigo = input("Perfil (PLANEJADOR ou OPERADOR): ").strip().upper()
+    perfil_codigo = input("Perfis (ADMINISTRADOR, PLANEJADOR, OPERADOR; separe por vírgula): ")
 
     senha = getpass("Senha: ")
     confirmacao = getpass("Confirme a senha: ")
 
-    if not nome or not email:
-        raise SystemExit("Nome e e-mail são obrigatórios.")
-
-    if perfil_codigo not in {"PLANEJADOR", "OPERADOR"}:
-        raise SystemExit("Perfil inválido.")
-
-    if not senha:
-        raise SystemExit("A senha não pode ficar vazia.")
-
     if senha != confirmacao:
         raise SystemExit("As senhas não coincidem.")
 
+    try:
+        dados = UsuarioCreate(nome=nome, email=email, senha=senha,
+                              perfis=[codigo.strip().upper() for codigo in perfil_codigo.split(",")])
+    except ValidationError as exc:
+        # Não imprime os valores de entrada, em especial a senha.
+        raise SystemExit("Dados inválidos: " + "; ".join(
+            f"{erro['loc'][0]}: {erro['msg']}" for erro in exc.errors(include_input=False)
+        )) from None
+
+    nome, email = dados.nome, dados.email
+
     with SessionLocal() as session:
+        session.execute(text("SELECT pg_advisory_xact_lock(320066)"))
         usuario_existente = session.scalar(
             select(Usuario).where(Usuario.email == email)
         )
@@ -37,12 +43,10 @@ def main() -> None:
         if usuario_existente:
             raise SystemExit("Já existe um usuário com esse e-mail.")
 
-        perfil = session.scalar(
-            select(Perfil).where(Perfil.codigo == perfil_codigo)
-        )
+        perfis = session.scalars(select(Perfil).where(Perfil.codigo.in_(dados.perfis))).all()
 
-        if not perfil:
-            raise SystemExit(f"O perfil {perfil_codigo} não existe no banco.")
+        if len(perfis) != len(dados.perfis):
+            raise SystemExit("Perfil indisponível. Execute alembic upgrade head primeiro.")
 
         usuario = Usuario(
             nome=nome,
@@ -52,18 +56,18 @@ def main() -> None:
         )
 
         session.add(usuario)
-        session.flush()
+        try:
+            session.flush()
+            session.execute(usuario_perfil.insert(), [
+                {"id_usuario": usuario.id_usuario, "id_perfil": perfil.id_perfil}
+                for perfil in perfis
+            ])
+            session.commit()
+        except IntegrityError:
+            session.rollback()
+            raise SystemExit("Não foi possível cadastrar: e-mail já em uso ou perfil indisponível.") from None
 
-        session.execute(
-            usuario_perfil.insert().values(
-                id_usuario=usuario.id_usuario,
-                id_perfil=perfil.id_perfil,
-            )
-        )
-
-        session.commit()
-
-    print(f"Usuário {email} criado com o perfil {perfil_codigo}.")
+    print(f"Usuário {email} criado com os perfis {', '.join(dados.perfis)}.")
 
 
 if __name__ == "__main__":
