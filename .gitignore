@@ -7,7 +7,9 @@ __pycache__/
 .pytest_cache/
 .ruff_cache/
 .coverage
+.coverage.*
 htmlcov/
+coverage.xml
 
 # Configurações locais e segredos
 .env

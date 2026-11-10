@@ -217,6 +217,34 @@ Execute a suíte do Driver02, que verifica 20 operações cujo commit é confirm
 
 As duas suítes também podem ser executadas juntas com `.\.venv\Scripts\python.exe -m pytest -v --junitxml=junit.xml testes`.
 
+
+## Cobertura dos testes do backend
+
+O projeto utiliza `pytest-cov` para medir a cobertura dos testes de integração do backend.
+
+Antes de executar, instale as dependências e configure a variável `TEST_DATABASE_URL` com um banco PostgreSQL exclusivo para testes, conforme explicado anteriormente.
+
+Na pasta `backend`, execute:
+
+```powershell
+.\.venv\Scripts\python.exe -m pytest testes/integration -q --cov=app --cov-report=term-missing
+```
+
+O comando executa os testes de integração e apresenta no terminal o percentual de cobertura de cada arquivo e a cobertura total.
+
+Para gerar o relatório HTML após a execução:
+
+```powershell
+.\.venv\Scripts\python.exe -m coverage html
+```
+
+Abra o arquivo `backend/htmlcov/index.html` no navegador para visualizar os resultados e identificar as linhas que não foram executadas.
+
+Na medição realizada em 10/11/2026, foram aprovados 149 testes de integração, com 94% de cobertura do backend.
+
+Os arquivos `.coverage` e a pasta `htmlcov/` são gerados localmente e não devem ser enviados ao repositório.
+
+
 ## Desenvolvimento em equipe
 
 Cada colega deve:
