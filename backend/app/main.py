@@ -10,6 +10,7 @@ from app.api.routes.ordens_producao import router as ordens_producao_router
 from app.api.routes.tempos_setup import router as tempos_setup_router
 from app.api.routes.produtos import router as produtos_router
 from app.api.routes.planejamentos import router as planejamentos_router
+from app.api.routes.usuarios import router as usuarios_router
 
 app = FastAPI(
     title="SetupFlow API",
@@ -29,6 +30,7 @@ app.add_middleware(
 )
 
 app.include_router(health_router, prefix="/api")
+app.include_router(usuarios_router, prefix="/api/usuarios", tags=["Usuários"])
 app.include_router(
     auth_router,
     prefix="/api/auth",
