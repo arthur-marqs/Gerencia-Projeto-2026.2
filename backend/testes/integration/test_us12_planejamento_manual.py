@@ -32,6 +32,7 @@ def _criar_ordens(client):
                 "produto_id": produto.json()["id_produto"],
                 "quantidade": 10,
             },
+            headers={"Idempotency-Key": str(uuid4())},
         )
         assert resposta.status_code == 201, resposta.text
         ordens_ids.append(resposta.json()["id_ordem"])

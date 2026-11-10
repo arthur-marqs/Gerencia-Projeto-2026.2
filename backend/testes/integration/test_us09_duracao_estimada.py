@@ -24,6 +24,7 @@ def _criar_ordem(client, produto_id: str, codigo: str = "OP-US09"):
     response = client.post(
         "/api/ordens-producao",
         json={"codigo": codigo, "produto_id": produto_id, "quantidade": 5},
+        headers={"Idempotency-Key": str(uuid4())},
     )
     assert response.status_code == 201, response.text
     return response.json()

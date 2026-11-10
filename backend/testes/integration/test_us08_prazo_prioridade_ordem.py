@@ -23,6 +23,7 @@ def _criar_ordem(client, codigo: str):
             "produto_id": produto["id_produto"],
             "quantidade": 2,
         },
+        headers={"Idempotency-Key": str(uuid4())},
     ).json()
 
 

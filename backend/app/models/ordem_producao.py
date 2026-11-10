@@ -7,6 +7,7 @@ from sqlalchemy import (
     CheckConstraint,
     DateTime,
     ForeignKey,
+    ForeignKeyConstraint,
     Integer,
     Numeric,
     String,
@@ -21,6 +22,7 @@ from app.db.base import Base
 
 if TYPE_CHECKING:
     from app.models.produto import Produto
+    from app.models.ordem_producao_operacao import OrdemProducaoOperacao
 
 
 class OrdemProducao(Base):
@@ -50,6 +52,10 @@ class OrdemProducao(Base):
         ForeignKey("usuarios.id_usuario", name="fk_ordens_producao_criado_por"),
         nullable=False,
     )
+    operacao_id: Mapped[UUID | None] = mapped_column(
+        PG_UUID(as_uuid=True),
+        nullable=True,
+    )
     criado_em: Mapped[DateTime] = mapped_column(
         DateTime(timezone=True),
         nullable=False,
@@ -59,9 +65,19 @@ class OrdemProducao(Base):
     prioridade: Mapped[str | None] = mapped_column(String(10), nullable=True)
 
     produto: Mapped["Produto"] = relationship()
+    operacao: Mapped["OrdemProducaoOperacao | None"] = relationship(
+        back_populates="ordem",
+        uselist=False,
+    )
 
     __table_args__ = (
         UniqueConstraint("codigo", name="uq_ordens_producao_codigo"),
+        UniqueConstraint("operacao_id", name="uq_ordens_producao_operacao_id"),
+        ForeignKeyConstraint(
+            ["operacao_id"],
+            ["ordens_producao_operacoes.id_operacao"],
+            name="fk_ordens_producao_operacao_id",
+        ),
         CheckConstraint(
             "codigo = upper(trim(codigo)) AND length(codigo) > 0",
             name="ck_ordens_producao_codigo",

@@ -19,7 +19,11 @@ def _criar_produto(client, codigo: str = "PRD-US07"):
 
 
 def _cadastrar_ordem(client, dados):
-    return client.post("/api/ordens-producao", json=dados)
+    return client.post(
+        "/api/ordens-producao",
+        json=dados,
+        headers={"Idempotency-Key": str(uuid4())},
+    )
 
 
 def test_planejador_cadastra_ordem_com_dados_validos(seeded_auth):

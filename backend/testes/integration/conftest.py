@@ -94,8 +94,8 @@ def auth_state(auth_test_context):
         connection.execute(
             text(
                 """
-                TRUNCATE TABLE tempos_setup_familias, ordens_producao, families,
-                    maquinas, produtos, falhas_login,
+                TRUNCATE TABLE ordens_producao, ordens_producao_operacoes, families,
+                    tempos_setup_familias, maquinas, produtos, falhas_login,
                     sessoes, usuario_perfil,
                     usuarios, controle_tentativas_login CASCADE
                 """
