@@ -26,6 +26,30 @@ async function buscarUsuarioAutenticado(): Promise<UsuarioAutenticado | null> {
 function App() {
   const [usuario, setUsuario] = useState<UsuarioAutenticado | null>(null)
   const [carregandoSessao, setCarregandoSessao] = useState(true)
+  const autenticado = usuario !== null
+
+  useEffect(() => {
+    if (!autenticado) return
+    let ativo = true
+    async function sincronizarSessao() {
+      if (document.visibilityState === 'hidden') return
+      try {
+        const atual = await buscarUsuarioAutenticado()
+        if (ativo) setUsuario(atual)
+      } catch {
+        // Uma falha de rede não equivale a uma sessão revogada.
+      }
+    }
+    const intervalo = window.setInterval(() => void sincronizarSessao(), 30_000)
+    window.addEventListener('focus', sincronizarSessao)
+    document.addEventListener('visibilitychange', sincronizarSessao)
+    return () => {
+      ativo = false
+      window.clearInterval(intervalo)
+      window.removeEventListener('focus', sincronizarSessao)
+      document.removeEventListener('visibilitychange', sincronizarSessao)
+    }
+  }, [autenticado])
 
   useEffect(() => {
     let ativo = true
@@ -89,6 +113,7 @@ function App() {
         nome={usuario.nome}
         perfis={usuario.perfis}
         onLogout={sair}
+        onSessionChange={carregarUsuarioAposLogin}
       />
     )
   }
