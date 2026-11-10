@@ -140,7 +140,72 @@ O banco começa sem usuários. Crie um usuário pelo script da aplicação:
 .\.venv\Scripts\python.exe -m scripts.create_initial_user
 ```
 
-Siga as solicitações do script. A senha será armazenada como hash.
+Siga as solicitações do script. Para a primeira conta administrativa, selecione
+`ADMINISTRADOR`. É possível acumular perfis informando, por exemplo,
+`ADMINISTRADOR, PLANEJADOR`. O perfil administrativo permite gerenciar usuários;
+as funcionalidades de produção continuam exigindo `PLANEJADOR` ou `OPERADOR`
+conforme as permissões de cada recurso. A senha deve ter pelo menos oito
+caracteres e será armazenada como hash. A migration da US-32 disponibiliza
+`ADMINISTRADOR`, sem inserção manual no PostgreSQL.
+
+## US-32 — Gerenciamento de usuários
+
+Após executar `alembic upgrade head` e criar a primeira conta com o script acima,
+faça login e abra **Usuários**. Esse menu aparece apenas para administradores.
+A tela lista contas ativas e inativas, consulta detalhes, cadastra e edita nome,
+e-mail e múltiplos perfis, e permite desativar, reativar ou excluir com confirmação.
+Deixar **Nova senha** em branco preserva a senha atual. A consulta nunca carrega
+a senha ou seu hash.
+
+As rotas usam o cookie de sessão da US01 e exigem `ADMINISTRADOR`:
+
+| Método | Rota | Operação |
+| --- | --- | --- |
+| GET | `/api/usuarios` | Listar contas ativas e inativas |
+| GET | `/api/usuarios/{id}` | Consultar uma conta |
+| POST | `/api/usuarios` | Criar conta ativa (201) |
+| PUT | `/api/usuarios/{id}` | Substituir dados e perfis |
+| PATCH | `/api/usuarios/{id}/status` | Alterar situação com `{"ativo": false}` ou `true` |
+| DELETE | `/api/usuarios/{id}` | Excluir conta sem vínculos (204) |
+
+POST e PUT recebem `nome`, `email`, `perfis` (lista de códigos) e `senha`.
+No PUT, `senha` pode ser omitida, `null` ou `""` para manter a atual.
+POST exige senha de pelo menos oito caracteres. Nome e e-mail são aparados;
+o nome aceita 1–150 caracteres e o e-mail válido aceita até 254 caracteres,
+é armazenado em minúsculas e é único inclusive para contas inativas.
+
+As regras propostas na história foram adotadas conforme seus critérios de aceite:
+trocar a senha ou desativar invalida todas as sessões; reativar exige novo login;
+alterar perfis tem efeito na próxima requisição mesmo com sessão aberta.
+A interface também atualiza a sessão ao recuperar o foco e a cada 30 segundos.
+Excluir, desativar ou remover o perfil administrativo do último administrador
+ativo retorna 409. Alterações administrativas usam um bloqueio transacional
+compartilhado no PostgreSQL, com nova conferência de autorização após a espera,
+para preservar essa regra entre solicitações simultâneas. A unicidade do e-mail
+também é garantida por constraint do banco. O login bloqueia a conta durante a
+criação da sessão para coordená-la com trocas de senha e desativações.
+
+Contas criadoras de ordens, planejamentos ou operações de cadastro de ordens não
+podem ser excluídas. A API retorna 409 com os tipos de vínculo e a indicação
+`pode_desativar`; a interface oferece a desativação quando permitida. As chaves
+estrangeiras e os registros de autoria são preservados.
+Dados inválidos retornam 422, e-mail em uso retorna 409, conta inexistente retorna
+404, sessão ausente/inválida retorna 401 e perfil insuficiente retorna 403.
+Nenhuma resposta de gerenciamento, incluindo erros de validação, retorna a senha
+informada ou seu hash.
+
+Com `TEST_DATABASE_URL` apontando para um PostgreSQL isolado terminado em `_test`,
+execute na pasta `backend`:
+
+```powershell
+.\.venv\Scripts\python.exe -m pytest -v testes\integration\test_us32_usuarios.py
+```
+
+Os testes cobrem os critérios de API, o script inicial e a concorrência entre
+cadastros e entre os dois últimos administradores. A confirmação e o cancelamento
+na interface podem ser verificados selecionando uma conta sem vínculos,
+solicitando **Excluir**, conferindo nome/e-mail e escolhendo **Cancelar** (a conta
+deve permanecer); repetir e confirmar deve remover a conta.
 
 ## 5. Iniciar o backend
 
