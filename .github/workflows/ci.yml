@@ -147,3 +147,35 @@ jobs:
             frontend/artifacts/
             /tmp/setupflow-api.log
           if-no-files-found: warn
+
+  frontend-bdd:
+    name: Frontend Cypress BDD
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
+      - name: Run Cypress BDD tests
+        uses: cypress-io/github-action@v7
+        with:
+          working-directory: frontend
+          browser: chrome
+          start: npm run dev -- --host 127.0.0.1
+          wait-on: 'http://127.0.0.1:5173'
+          spec: cypress/e2e/autenticacao/login.feature
+          config-file: cypress.config.ts
+          command: npm run test:e2e:login -- --browser chrome
+
+      - name: Publish Cypress screenshots on failure
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: cypress-screenshots
+          path: frontend/cypress/screenshots/
+          if-no-files-found: ignore

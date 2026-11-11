@@ -90,12 +90,19 @@ as variáveis `DB_*`/`E2E_DATABASE_URL` corretas. Não é necessário para execu
 
 ## Tags e comandos
 
+O projeto mantém duas configurações Cypress: `cypress.config.cjs` executa a
+US-32 com API e banco reais; `cypress.config.ts` executa os cinco cenários de
+validação da interface de login, com as interceptações de API dessa suíte.
+Os scripts selecionam o arquivo de configuração explicitamente. Os hooks de
+preparação do banco são restritos à tag `@US32`.
+
 | Comando | Seleção |
 | --- | --- |
 | `npm run test:e2e:smoke -- --browser chrome` | `@smoke and not @wip` |
 | `npm run test:e2e:regressao -- --browser electron` | `@regressao and not @wip` |
 | `npm run test:e2e -- --browser chrome --tags "@CT39"` | Somente bloqueios por vínculos |
 | `npm run test:e2e:open` | Interface interativa do Cypress |
+| `npm run test:e2e:login -- --browser chrome` | Validação de login, sem preparação do banco E2E |
 
 O runner passa as tags para `config.expose`, usado pelo preprocessor no Cypress 16.
 Credenciais e URL do banco não são copiadas para `expose`.

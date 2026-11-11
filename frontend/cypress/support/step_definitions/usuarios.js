@@ -48,7 +48,7 @@ function sucesso(mensagem) {
   campo('editar').should('be.enabled')
 }
 
-Before(({ pickle }) => {
+Before({ tags: '@US32' }, ({ pickle }) => {
   estado = undefined
   tokenAna = undefined
   tokenExclusao = undefined
@@ -59,7 +59,7 @@ Before(({ pickle }) => {
   cy.task('e2e:reset', modo, { log: false }).then(dados => { estado = dados })
 })
 
-After(({ pickle }) => {
+After({ tags: '@US32' }, ({ pickle }) => {
   // Captura de cada cenário aprovado; falhas também são capturadas pelo Cypress.
   const nome = pickle.name.normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[^a-zA-Z0-9 -]/g, '').slice(0, 150)
   cy.screenshot(nome, { capture: 'viewport' })

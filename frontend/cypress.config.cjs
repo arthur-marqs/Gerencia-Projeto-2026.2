@@ -41,7 +41,7 @@ module.exports = defineConfig({
   reporterOptions: { mochaFile: `${artifacts}/junit/results-[hash].xml`, toConsole: true },
   e2e: {
     baseUrl: 'http://localhost:5173',
-    specPattern: 'cypress/e2e/**/*.feature',
+    specPattern: 'cypress/e2e/usuarios.feature',
     supportFile: 'cypress/support/e2e.js',
     testIsolation: true,
     async setupNodeEvents(on, config) {
