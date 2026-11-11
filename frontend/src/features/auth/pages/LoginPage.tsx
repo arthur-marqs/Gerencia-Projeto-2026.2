@@ -89,6 +89,7 @@ const response = await fetch('http://localhost:8000/api/auth/login', {
                 E-mail
               </label>
               <input
+                data-cy="login-email"
                 autoComplete="username"
                 aria-describedby={errors.email ? 'email-error' : undefined}
                 aria-invalid={Boolean(errors.email)}
@@ -128,6 +129,7 @@ const response = await fetch('http://localhost:8000/api/auth/login', {
 
               <div className="relative mt-2">
                 <input
+                  data-cy="login-senha"
                   id="password"
                   autoComplete="current-password"
                   aria-describedby={errors.password ? 'password-error' : undefined}
@@ -194,6 +196,7 @@ const response = await fetch('http://localhost:8000/api/auth/login', {
             </div>
 
             <button
+              data-cy="login-entrar"
               className="w-full rounded-xl bg-blue-700 px-4 py-3 font-semibold text-white transition hover:bg-blue-800 focus-visible:outline-4 focus-visible:outline-offset-2 focus-visible:outline-blue-500"
               type="submit"
             >

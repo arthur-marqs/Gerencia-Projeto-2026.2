@@ -152,13 +152,13 @@ export default function UsuariosPage({ onSessionChange }: { onSessionChange: () 
       <div className="flex flex-wrap items-center justify-between gap-4">
         <div><h1 className="text-3xl font-bold text-slate-950">Usuários</h1>
           <p className="mt-2 text-sm text-slate-500">Gerencie contas, situações e perfis de acesso ao SetupFlow.</p></div>
-        <button className={buttonClass} disabled={ocupado} onClick={() => {
+        <button data-cy="usuario-novo" className={buttonClass} disabled={ocupado} onClick={() => {
           limparAvisos(); setSelecionado(null); setForm(vazio()); setModo('novo')
         }}>Novo usuário</button>
       </div>
-      {erro && <p role="alert" className="rounded-xl bg-red-50 p-4 text-red-700">{erro}</p>}
-      {sucesso && <p role="status" className="rounded-xl bg-emerald-50 p-4 text-emerald-800">{sucesso}</p>}
-      {oferecerDesativacao && selecionado && <button disabled={ocupado} className={buttonClass}
+      {erro && <p data-cy="usuario-erro" role="alert" className="rounded-xl bg-red-50 p-4 text-red-700">{erro}</p>}
+      {sucesso && <p data-cy="usuario-sucesso" role="status" className="rounded-xl bg-emerald-50 p-4 text-emerald-800">{sucesso}</p>}
+      {oferecerDesativacao && selecionado && <button data-cy="usuario-oferecer-desativacao" disabled={ocupado} className={buttonClass}
         onClick={() => setConfirmacao('desativar')}>Desativar usuário</button>}
       <div className="grid items-start gap-6 xl:grid-cols-2">
         <section className="overflow-x-auto rounded-2xl border border-slate-200 bg-white p-6 shadow-sm" aria-label="Lista de usuários">
@@ -166,7 +166,7 @@ export default function UsuariosPage({ onSessionChange }: { onSessionChange: () 
           {carregando ? <p>Carregando usuários...</p> : usuarios.length === 0 ? <p>Nenhum usuário cadastrado.</p> : (
             <table className="w-full text-left text-sm">
               <thead><tr className="border-b text-slate-500"><th className="py-3">Nome / E-mail</th><th>Perfis</th><th>Situação</th></tr></thead>
-              <tbody>{usuarios.map((usuario) => <tr key={usuario.id} className={`border-b border-slate-100 ${selecionado?.id === usuario.id ? 'bg-blue-50' : ''}`}>
+              <tbody>{usuarios.map((usuario) => <tr data-cy="usuario-linha" data-usuario-id={usuario.id} key={usuario.id} className={`border-b border-slate-100 ${selecionado?.id === usuario.id ? 'bg-blue-50' : ''}`}>
                 <td className="py-4 pr-3"><button disabled={ocupado} className="text-left font-semibold text-blue-700 hover:underline" onClick={() => void consultar(usuario)}>{usuario.nome}</button>
                   <p className="mt-1 break-all text-xs text-slate-500">{usuario.email}</p></td>
                 <td className="pr-3 text-xs">{usuario.perfis.join(', ')}</td>
@@ -175,28 +175,28 @@ export default function UsuariosPage({ onSessionChange }: { onSessionChange: () 
             </table>
           )}
         </section>
-        <section className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
+        <section data-cy="usuario-detalhes" className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
           <h2 className="text-lg font-semibold">{modo === 'novo' ? 'Cadastrar usuário' : consulta ? 'Dados do usuário' : 'Editar usuário'}</h2>
           {selecionado && <p className="mt-2 text-sm text-slate-500">Situação: {selecionado.ativo ? 'Ativo' : 'Inativo'}</p>}
           <form className="mt-5 space-y-5" noValidate onSubmit={(event) => void salvar(event)}>
             <fieldset disabled={ocupado || consulta} className="space-y-5 disabled:opacity-80">
               {(['nome', 'email'] as const).map((campo) => <div key={campo}>
                 <label htmlFor={`usuario-${campo}`} className="text-sm font-medium">{campo === 'nome' ? 'Nome' : 'E-mail'} *</label>
-                <input id={`usuario-${campo}`} name={campo} type={campo === 'email' ? 'email' : 'text'} autoComplete={campo === 'email' ? 'off' : 'name'}
+                <input data-cy={`usuario-${campo}`} id={`usuario-${campo}`} name={campo} type={campo === 'email' ? 'email' : 'text'} autoComplete={campo === 'email' ? 'off' : 'name'}
                   value={form[campo]} maxLength={campo === 'nome' ? 150 : 254} required className={inputClass}
                   aria-invalid={Boolean(campos[campo])} aria-describedby={campos[campo] ? `erro-${campo}` : undefined}
                   onChange={(event) => setForm({ ...form, [campo]: event.target.value })} />
                 {campos[campo] && <p id={`erro-${campo}`} className="mt-1 text-sm text-red-700">{campos[campo]}</p>}
               </div>)}
               {!consulta && <div><label htmlFor="usuario-senha" className="text-sm font-medium">{modo === 'novo' ? 'Senha inicial *' : 'Nova senha'}</label>
-                <input id="usuario-senha" name="senha" type="password" autoComplete="new-password" value={form.senha} minLength={8} required={modo === 'novo'} className={inputClass}
+                <input data-cy="usuario-senha" id="usuario-senha" name="senha" type="password" autoComplete="new-password" value={form.senha} minLength={8} required={modo === 'novo'} className={inputClass}
                   aria-invalid={Boolean(campos.senha)} aria-describedby="ajuda-senha erro-senha" onChange={(event) => setForm({ ...form, senha: event.target.value })} />
                 <p id="ajuda-senha" className="mt-1 text-xs text-slate-500">Mínimo de 8 caracteres.{modo === 'edicao' && ' Deixe em branco para manter a senha atual. Ao substituir, as sessões abertas serão encerradas.'}</p>
                 {campos.senha && <p id="erro-senha" className="mt-1 text-sm text-red-700">{campos.senha}</p>}</div>}
               <fieldset aria-describedby={campos.perfis ? 'erro-perfis' : undefined}>
                 <legend className="mb-2 text-sm font-medium">Perfis de acesso *</legend>
                 {PERFIS.map((perfil) => <label key={perfil} className="mb-2 flex items-center gap-2 text-sm">
-                  <input type="checkbox" checked={form.perfis.includes(perfil)} onChange={(event) => setForm({ ...form,
+                  <input data-cy={`usuario-perfil-${perfil}`} type="checkbox" checked={form.perfis.includes(perfil)} onChange={(event) => setForm({ ...form,
                     perfis: event.target.checked ? [...form.perfis, perfil] : form.perfis.filter((p) => p !== perfil),
                   })} />{perfil === 'ADMINISTRADOR' ? 'Administrador' : perfil === 'PLANEJADOR' ? 'Planejador' : 'Operador'}
                 </label>)}
@@ -204,25 +204,25 @@ export default function UsuariosPage({ onSessionChange }: { onSessionChange: () 
               </fieldset>
             </fieldset>
             <div className="flex flex-wrap gap-2">
-              {!consulta && <button disabled={ocupado} type="submit" className="rounded-xl bg-blue-600 px-4 py-2 text-sm font-semibold text-white hover:bg-blue-700 disabled:opacity-50">{ocupado ? 'Salvando...' : 'Salvar usuário'}</button>}
-              {consulta && <button disabled={ocupado} type="button" className={buttonClass} onClick={() => { limparAvisos(); setModo('edicao') }}>Editar</button>}
-              {modo === 'edicao' && <button disabled={ocupado} type="button" className={buttonClass} onClick={() => { limparAvisos(); preencher(selecionado!) }}>Cancelar edição</button>}
+              {!consulta && <button data-cy="usuario-salvar" disabled={ocupado} type="submit" className="rounded-xl bg-blue-600 px-4 py-2 text-sm font-semibold text-white hover:bg-blue-700 disabled:opacity-50">{ocupado ? 'Salvando...' : 'Salvar usuário'}</button>}
+              {consulta && <button data-cy="usuario-editar" disabled={ocupado} type="button" className={buttonClass} onClick={() => { limparAvisos(); setModo('edicao') }}>Editar</button>}
+              {modo === 'edicao' && <button data-cy="usuario-cancelar-edicao" disabled={ocupado} type="button" className={buttonClass} onClick={() => { limparAvisos(); preencher(selecionado!) }}>Cancelar edição</button>}
               {consulta && selecionado && <>
-                <button disabled={ocupado} type="button" className={buttonClass} onClick={() => setConfirmacao(selecionado.ativo ? 'desativar' : 'reativar')}>{selecionado.ativo ? 'Desativar' : 'Reativar'}</button>
-                <button disabled={ocupado} type="button" className={`${buttonClass} text-red-700`} onClick={() => setConfirmacao('excluir')}>Excluir</button>
+                <button data-cy="usuario-status" disabled={ocupado} type="button" className={buttonClass} onClick={() => setConfirmacao(selecionado.ativo ? 'desativar' : 'reativar')}>{selecionado.ativo ? 'Desativar' : 'Reativar'}</button>
+                <button data-cy="usuario-excluir" disabled={ocupado} type="button" className={`${buttonClass} text-red-700`} onClick={() => setConfirmacao('excluir')}>Excluir</button>
               </>}
             </div>
           </form>
         </section>
       </div>
       {confirmacao && selecionado && <div className="fixed inset-0 z-50 grid place-items-center bg-slate-950/50 p-4">
-        <section role="dialog" aria-modal="true" aria-labelledby="confirmacao-titulo" aria-describedby="confirmacao-descricao" className="w-full max-w-md rounded-2xl bg-white p-6 shadow-xl">
+        <section data-cy="usuario-confirmacao" role="dialog" aria-modal="true" aria-labelledby="confirmacao-titulo" aria-describedby="confirmacao-descricao" className="w-full max-w-md rounded-2xl bg-white p-6 shadow-xl">
           <h2 id="confirmacao-titulo" className="text-xl font-semibold">{confirmacao === 'excluir' ? 'Excluir' : confirmacao === 'desativar' ? 'Desativar' : 'Reativar'} usuário?</h2>
           <p className="mt-4 font-semibold">{selecionado.nome}</p><p className="break-all text-slate-600">{selecionado.email}</p>
           <p id="confirmacao-descricao" className="mt-4 text-sm text-slate-600">{confirmacao === 'excluir' ? 'A conta será removida permanentemente. Contas com vínculos de produção devem ser desativadas.' : confirmacao === 'desativar' ? 'As sessões serão encerradas e novos logins serão bloqueados. O histórico de produção será preservado.' : 'A conta poderá fazer um novo login. As sessões anteriores continuarão inválidas.'}</p>
           <div className="mt-6 flex justify-end gap-3">
-            <button autoFocus disabled={ocupado} className={buttonClass} onClick={() => setConfirmacao(null)}>Cancelar</button>
-            <button disabled={ocupado} className="rounded-xl bg-blue-600 px-4 py-2 text-sm font-semibold text-white disabled:opacity-50" onClick={() => void executarAcao()}>{ocupado ? 'Aguarde...' : 'Confirmar'}</button>
+            <button data-cy="usuario-cancelar" autoFocus disabled={ocupado} className={buttonClass} onClick={() => setConfirmacao(null)}>Cancelar</button>
+            <button data-cy="usuario-confirmar" disabled={ocupado} className="rounded-xl bg-blue-600 px-4 py-2 text-sm font-semibold text-white disabled:opacity-50" onClick={() => void executarAcao()}>{ocupado ? 'Aguarde...' : 'Confirmar'}</button>
           </div>
         </section>
       </div>}

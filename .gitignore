@@ -19,6 +19,10 @@ node_modules/
 dist/
 *.tsbuildinfoP
 
+# Relatórios locais e artefatos gerados pelos testes de aceite
+.tmp/
+frontend/artifacts/
+
 # Arquivos do sistema
 Thumbs.db
 .DS_Store

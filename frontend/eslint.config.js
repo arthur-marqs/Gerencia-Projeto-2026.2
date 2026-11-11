@@ -6,7 +6,17 @@ import tseslint from 'typescript-eslint'
 import { defineConfig, globalIgnores } from 'eslint/config'
 
 export default defineConfig([
-  globalIgnores(['dist']),
+  globalIgnores(['dist', 'artifacts']),
+  {
+    files: ['cypress/**/*.js'],
+    extends: [js.configs.recommended],
+    languageOptions: { globals: { ...globals.browser, cy: 'readonly', Cypress: 'readonly', expect: 'readonly' } },
+  },
+  {
+    files: ['cypress.config.cjs', 'scripts/**/*.mjs'],
+    extends: [js.configs.recommended],
+    languageOptions: { globals: globals.node },
+  },
   {
     files: ['**/*.{ts,tsx}'],
     extends: [
