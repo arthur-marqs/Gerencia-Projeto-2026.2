@@ -81,6 +81,72 @@ jobs:
       - name: Build frontend
         run: npm run build
 
+  acceptance-us32:
+    name: US32 BDD (${{ matrix.browser }})
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    strategy:
+      fail-fast: false
+      matrix:
+        browser: [chrome, electron]
+    services:
+      postgres:
+        image: postgres:18
+        env:
+          POSTGRES_DB: setupflow_e2e_test
+          POSTGRES_USER: setupflow_e2e
+          POSTGRES_PASSWORD: setupflow_e2e
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U setupflow_e2e -d setupflow_e2e_test"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 10
+    env:
+      DB_USER: setupflow_e2e
+      DB_PASSWORD: setupflow_e2e
+      DB_HOST: localhost
+      DB_PORT: 5432
+      DB_NAME: setupflow_e2e_test
+      COOKIE_SECURE: 'false'
+      E2E_DATABASE_URL: postgresql+psycopg://setupflow_e2e:setupflow_e2e@localhost:5432/setupflow_e2e_test
+      E2E_ARTIFACTS_DIR: artifacts/cypress/${{ matrix.browser }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+          cache-dependency-path: frontend/package-lock.json
+      - name: Install backend dependencies and apply migrations
+        working-directory: backend
+        run: |
+          python -m pip install -r requirements.txt
+          alembic upgrade head
+      - name: Start API
+        working-directory: backend
+        run: python -m uvicorn app.main:app --host 0.0.0.0 --port 8000 > /tmp/setupflow-api.log 2>&1 &
+      - name: Cypress smoke and regression
+        uses: cypress-io/github-action@v7
+        with:
+          working-directory: frontend
+          build: npm run build
+          start: npm run preview -- --host 0.0.0.0 --port 5173
+          wait-on: 'http://localhost:8000/api/health, http://localhost:5173'
+          command: npm run test:e2e:regressao -- --browser ${{ matrix.browser }}
+      - name: Publish acceptance reports, screenshots and videos
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: us32-bdd-${{ matrix.browser }}
+          path: |
+            frontend/artifacts/
+            /tmp/setupflow-api.log
+          if-no-files-found: warn
 
   frontend-bdd:
     name: Frontend Cypress BDD
@@ -103,6 +169,8 @@ jobs:
           start: npm run dev -- --host 127.0.0.1
           wait-on: 'http://127.0.0.1:5173'
           spec: cypress/e2e/autenticacao/login.feature
+          config-file: cypress.config.ts
+          command: npm run test:e2e:login -- --browser chrome
 
       - name: Publish Cypress screenshots on failure
         if: failure()

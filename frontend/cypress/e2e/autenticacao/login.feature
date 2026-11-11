@@ -1,5 +1,6 @@
 
 # language: pt
+@US01 @R1 @smoke @regressao
 Funcionalidade: Autenticação no SetupFlow
   Como usuário do sistema
   Quero acessar a tela de login

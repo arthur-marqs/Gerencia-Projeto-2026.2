@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites name="Mocha Tests" time="86.870" tests="32" failures="0">
+  <testsuite name="Root Suite" timestamp="2026-11-11T20:44:33" tests="0" file="cypress\e2e\usuarios.feature" time="0.000" failures="0">
+  </testsuite>
+  <testsuite name="Gerenciar usuários e preservar seus acessos e autoria" timestamp="2026-11-11T20:44:33" tests="32" time="86.868" failures="0">
+    <testcase name="Gerenciar usuários e preservar seus acessos e autoria CT32 - Cadastrar uma conta ativa e permitir login com os perfis atribuídos" time="3.695" classname="CT32 - Cadastrar uma conta ativa e permitir login com os perfis atribuídos">
+    </testcase>
+    <testcase name="Gerenciar usuários e preservar seus acessos e autoria CT33 - Consultar usuários ativos e inativos sem expor senha ou hash" time="1.687" classname="CT33 - Consultar usuários ativos e inativos sem expor senha ou hash">
+    </testcase>
+    <testcase name="Gerenciar usuários e preservar seus acessos e autoria CT34 - Editar dados e substituir perfis mantendo a senha e aplicando novas permissões" time="2.469" classname="CT34 - Editar dados e substituir perfis mantendo a senha e aplicando novas permissões">
+    </testcase>
+    <testcase name="Gerenciar usuários e preservar seus acessos e autoria CT35 - Cancelar a exclusão e depois confirmar a remoção de uma conta sem vínculos" time="2.356" classname="CT35 - Cancelar a exclusão e depois confirmar a remoção de uma conta sem vínculos">
+    </testcase>
+    <testcase name="Gerenciar usuários e preservar seus acessos e autoria CT36 - Identificar todos os campos inválidos e preservar os dados anteriores na edição" time="2.711" classname="CT36 - Identificar todos os campos inválidos e preservar os dados anteriores na edição">
+    </testcase>
+    <testcase name="Gerenciar usuários e preservar seus acessos e autoria CT36 - Rejeitar perfis inexistentes enviados diretamente à API" time="1.549" classname="CT36 - Rejeitar perfis inexistentes enviados diretamente à API">
+    </testcase>
+    <testcase name="Gerenciar usuários e preservar seus acessos e autoria CT37 - Recusar e-mail duplicado de conta ativa durante cadastro (example #1)" time="3.539" classname="CT37 - Recusar e-mail duplicado de conta ativa durante cadastro (example #1)">
+    </testcase>
+    <testcase name="Gerenciar usuários e preservar seus acessos e autoria CT37 - Recusar e-mail duplicado de conta inativa durante cadastro (example #2)" time="3.530" classname="CT37 - Recusar e-mail duplicado de conta inativa durante cadastro (example #2)">
+    </testcase>
+    <testcase name="Gerenciar usuários e preservar seus acessos e autoria CT37 - Recusar e-mail duplicado de conta ativa durante edição (example #3)" time="3.331" classname="CT37 - Recusar e-mail duplicado de conta ativa durante edição (example #3)">
+    </testcase>
+    <testcase name="Gerenciar usuários e preservar seus acessos e autoria CT37 - Recusar e-mail duplicado de conta inativa durante edição (example #4)" time="3.400" classname="CT37 - Recusar e-mail duplicado de conta inativa durante edição (example #4)">
+    </testcase>
+    <testcase name="Gerenciar usuários e preservar seus acessos e autoria CT38 - Desativar e reativar sem recuperar as sessões antigas" time="2.568" classname="CT38 - Desativar e reativar sem recuperar as sessões antigas">
+    </testcase>
+    <testcase name="Gerenciar usuários e preservar seus acessos e autoria CT39 - Preservar autoria ao recusar exclusão por ordens de produção (example #1)" time="3.477" classname="CT39 - Preservar autoria ao recusar exclusão por ordens de produção (example #1)">
+    </testcase>
+    <testcase name="Gerenciar usuários e preservar seus acessos e autoria CT39 - Preservar autoria ao recusar exclusão por planejamentos (example #2)" time="3.501" classname="CT39 - Preservar autoria ao recusar exclusão por planejamentos (example #2)">
+    </testcase>
+    <testcase name="Gerenciar usuários e preservar seus acessos e autoria CT40 - Preservar o último administrador ativo ao tentar excluir (example #1)" time="1.740" classname="CT40 - Preservar o último administrador ativo ao tentar excluir (example #1)">
+    </testcase>
+    <testcase name="Gerenciar usuários e preservar seus acessos e autoria CT40 - Preservar o último administrador ativo ao tentar desativar (example #2)" time="1.750" classname="CT40 - Preservar o último administrador ativo ao tentar desativar (example #2)">
+    </testcase>
+    <testcase name="Gerenciar usuários e preservar seus acessos e autoria CT40 - Preservar o último administrador ativo ao tentar remover o perfil (example #3)" time="1.813" classname="CT40 - Preservar o último administrador ativo ao tentar remover o perfil (example #3)">
+    </testcase>
+    <testcase name="Gerenciar usuários e preservar seus acessos e autoria CT41 - Recusar listar quando o acesso está sem sessão (example #1)" time="2.507" classname="CT41 - Recusar listar quando o acesso está sem sessão (example #1)">
+    </testcase>
+    <testcase name="Gerenciar usuários e preservar seus acessos e autoria CT41 - Recusar consultar quando o acesso está sem sessão (example #2)" time="2.445" classname="CT41 - Recusar consultar quando o acesso está sem sessão (example #2)">
+    </testcase>
+    <testcase name="Gerenciar usuários e preservar seus acessos e autoria CT41 - Recusar cadastrar quando o acesso está sem sessão (example #3)" time="2.455" classname="CT41 - Recusar cadastrar quando o acesso está sem sessão (example #3)">
+    </testcase>
+    <testcase name="Gerenciar usuários e preservar seus acessos e autoria CT41 - Recusar editar quando o acesso está sem sessão (example #4)" time="2.444" classname="CT41 - Recusar editar quando o acesso está sem sessão (example #4)">
+    </testcase>
+    <testcase name="Gerenciar usuários e preservar seus acessos e autoria CT41 - Recusar desativar quando o acesso está sem sessão (example #5)" time="2.488" classname="CT41 - Recusar desativar quando o acesso está sem sessão (example #5)">
+    </testcase>
+    <testcase name="Gerenciar usuários e preservar seus acessos e autoria CT41 - Recusar reativar quando o acesso está sem sessão (example #6)" time="2.437" classname="CT41 - Recusar reativar quando o acesso está sem sessão (example #6)">
+    </testcase>
+    <testcase name="Gerenciar usuários e preservar seus acessos e autoria CT41 - Recusar excluir quando o acesso está sem sessão (example #7)" time="2.434" classname="CT41 - Recusar excluir quando o acesso está sem sessão (example #7)">
+    </testcase>
+    <testcase name="Gerenciar usuários e preservar seus acessos e autoria CT41 - Recusar listar quando o acesso está operador (example #8)" time="2.880" classname="CT41 - Recusar listar quando o acesso está operador (example #8)">
+    </testcase>
+    <testcase name="Gerenciar usuários e preservar seus acessos e autoria CT41 - Recusar consultar quando o acesso está operador (example #9)" time="2.827" classname="CT41 - Recusar consultar quando o acesso está operador (example #9)">
+    </testcase>
+    <testcase name="Gerenciar usuários e preservar seus acessos e autoria CT41 - Recusar cadastrar quando o acesso está operador (example #10)" time="2.831" classname="CT41 - Recusar cadastrar quando o acesso está operador (example #10)">
+    </testcase>
+    <testcase name="Gerenciar usuários e preservar seus acessos e autoria CT41 - Recusar editar quando o acesso está operador (example #11)" time="2.934" classname="CT41 - Recusar editar quando o acesso está operador (example #11)">
+    </testcase>
+    <testcase name="Gerenciar usuários e preservar seus acessos e autoria CT41 - Recusar desativar quando o acesso está operador (example #12)" time="2.865" classname="CT41 - Recusar desativar quando o acesso está operador (example #12)">
+    </testcase>
+    <testcase name="Gerenciar usuários e preservar seus acessos e autoria CT41 - Recusar reativar quando o acesso está operador (example #13)" time="2.802" classname="CT41 - Recusar reativar quando o acesso está operador (example #13)">
+    </testcase>
+    <testcase name="Gerenciar usuários e preservar seus acessos e autoria CT41 - Recusar excluir quando o acesso está operador (example #14)" time="2.831" classname="CT41 - Recusar excluir quando o acesso está operador (example #14)">
+    </testcase>
+    <testcase name="Gerenciar usuários e preservar seus acessos e autoria CT42 - Substituir a senha e encerrar as sessões anteriores" time="2.397" classname="CT42 - Substituir a senha e encerrar as sessões anteriores">
+    </testcase>
+    <testcase name="Gerenciar usuários e preservar seus acessos e autoria CT43 - Criar o primeiro administrador pelo script e cadastrar a segunda conta pela interface" time="3.760" classname="CT43 - Criar o primeiro administrador pelo script e cadastrar a segunda conta pela interface">
+    </testcase>
+  </testsuite>
+</testsuites>

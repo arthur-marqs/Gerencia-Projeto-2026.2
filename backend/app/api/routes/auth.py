@@ -68,7 +68,9 @@ def login(
         )
 
     usuario = db.scalar(
-        select(Usuario).where(Usuario.email == dados.email)
+        # Compartilha o bloqueio da conta com troca de senha/desativação/exclusão.
+        # Assim um login em andamento não cria uma sessão após a invalidação.
+        select(Usuario).where(Usuario.email == dados.email).with_for_update()
     )
 
     if (

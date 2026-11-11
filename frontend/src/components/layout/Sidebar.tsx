@@ -7,6 +7,7 @@ type Pagina =
   | 'ordens'
   | 'tempos-setup'
   | 'planejamentos'
+  | 'usuarios'
 
 type SidebarProps = {
   perfis: string[]
@@ -108,6 +109,13 @@ function Sidebar({ perfis, paginaAtual, onNavigate }: SidebarProps) {
               Máquinas
             </button>
           </>
+        )}
+        {perfis.includes('ADMINISTRADOR') && (
+          <button type="button" data-cy="menu-usuarios"
+            aria-current={paginaAtual === 'usuarios' ? 'page' : undefined}
+            onClick={() => onNavigate('usuarios')} className={classeItem('usuarios')}>
+            Usuários
+          </button>
         )}
       </nav>
     </aside>

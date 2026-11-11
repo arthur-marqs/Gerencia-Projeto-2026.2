@@ -7,7 +7,12 @@
     "dev": "vite",
     "build": "tsc -b && vite build",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "test:e2e": "node scripts/run-e2e.mjs",
+    "test:e2e:smoke": "node scripts/run-e2e.mjs --tags \"@smoke and not @wip\"",
+    "test:e2e:regressao": "node scripts/run-e2e.mjs --tags \"@regressao and not @wip\"",
+    "test:e2e:open": "cypress open --config-file cypress.config.cjs",
+    "test:e2e:login": "node scripts/run-e2e.mjs --config cypress.config.ts --suite login"
   },
   "dependencies": {
     "@tailwindcss/vite": "^4.3.3",
@@ -28,6 +33,7 @@
     "@vitejs/plugin-react": "^6.1.2",
     "babel-plugin-react-compiler": "^1.0.0",
     "cypress": "^16.3.0",
+    "esbuild": "^0.28.2",
     "eslint": "^10.13.0",
     "eslint-plugin-react-hooks": "^7.1.1",
     "eslint-plugin-react-refresh": "^0.5.7",

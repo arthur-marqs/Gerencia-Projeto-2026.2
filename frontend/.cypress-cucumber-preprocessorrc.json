@@ -1,0 +1,10 @@
+{
+  "stepDefinitions": [
+    "cypress/e2e/autenticacao/**/*.ts",
+    "cypress/support/step_definitions/**/*.js"
+  ],
+  "filterSpecs": true,
+  "omitFiltered": true,
+  "json": { "enabled": true, "output": "artifacts/cucumber-report.json" },
+  "html": { "enabled": true, "output": "artifacts/cucumber-report.html" }
+}

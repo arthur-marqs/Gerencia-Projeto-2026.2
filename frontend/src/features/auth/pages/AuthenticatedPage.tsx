@@ -8,6 +8,7 @@ import OrdensProducaoPage from '../../ordens/pages/OrdensProducaoPage'
 import PlanejamentosPage from '../../planejamentos/pages/PlanejamentosPage'
 import ProdutosPage from '../../produtos/pages/ProdutosPage'
 import TemposSetupPage from '../../tempos-setup/pages/TemposSetupPage'
+import UsuariosPage from '../../usuarios/pages/UsuariosPage'
 
 type Pagina =
   | 'dashboard'
@@ -17,17 +18,20 @@ type Pagina =
   | 'ordens'
   | 'tempos-setup'
   | 'planejamentos'
+  | 'usuarios'
 
 type AuthenticatedPageProps = {
   nome: string
   perfis: string[]
   onLogout: () => void
+  onSessionChange: () => Promise<void>
 }
 
 function AuthenticatedPage({
   nome,
   perfis,
   onLogout,
+  onSessionChange,
 }: AuthenticatedPageProps) {
   const [paginaAtual, setPaginaAtual] = useState<Pagina>('dashboard')
   const ehPlanejador = perfis.includes('PLANEJADOR')
@@ -43,7 +47,9 @@ function AuthenticatedPage({
       <div className="lg:pl-64">
         <Header nome={nome} perfis={perfis} onLogout={onLogout} />
 
-        {paginaAtual === 'produtos' && ehPlanejador ? (
+        {paginaAtual === 'usuarios' && perfis.includes('ADMINISTRADOR') ? (
+          <UsuariosPage onSessionChange={onSessionChange} />
+        ) : paginaAtual === 'produtos' && ehPlanejador ? (
           <ProdutosPage />
         ) : paginaAtual === 'familias' && ehPlanejador ? (
           <main className="px-4 py-5 pt-[100px] sm:px-6 lg:px-7 xl:px-8">
