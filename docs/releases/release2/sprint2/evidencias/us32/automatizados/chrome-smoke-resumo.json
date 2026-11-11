@@ -1,0 +1,42 @@
+{
+  "startedAt": "2026-11-11T20:42:43.244Z",
+  "branch": "feature/US32-CRUD-de-usuarios",
+  "commit": "01e045dc4c2579ba8fc93662344de8e253807708",
+  "dirty": true,
+  "sourceSha256": "45722932963670a53469a76420046941deb8620a5d66a8d7d7963378093e44d5",
+  "browser": "chrome",
+  "tags": "@smoke and not @wip",
+  "node": "v26.13.0",
+  "platform": "win32 10.0.26200",
+  "finishedAt": "2026-11-11T20:42:58.006Z",
+  "browserVersion": "157.0.8103.40",
+  "cypressVersion": "16.3.0",
+  "total": 5,
+  "passed": 5,
+  "failed": 0,
+  "pending": 0,
+  "skipped": 0,
+  "durationMs": 9929,
+  "tests": [
+    {
+      "title": "Gerenciar usuários e preservar seus acessos e autoria / CT32 - Cadastrar uma conta ativa e permitir login com os perfis atribuídos",
+      "state": "passed"
+    },
+    {
+      "title": "Gerenciar usuários e preservar seus acessos e autoria / CT33 - Consultar usuários ativos e inativos sem expor senha ou hash",
+      "state": "passed"
+    },
+    {
+      "title": "Gerenciar usuários e preservar seus acessos e autoria / CT40 - Preservar o último administrador ativo ao tentar excluir (example #1)",
+      "state": "passed"
+    },
+    {
+      "title": "Gerenciar usuários e preservar seus acessos e autoria / CT40 - Preservar o último administrador ativo ao tentar desativar (example #2)",
+      "state": "passed"
+    },
+    {
+      "title": "Gerenciar usuários e preservar seus acessos e autoria / CT40 - Preservar o último administrador ativo ao tentar remover o perfil (example #3)",
+      "state": "passed"
+    }
+  ]
+}

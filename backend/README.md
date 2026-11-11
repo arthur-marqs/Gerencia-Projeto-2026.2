@@ -150,6 +150,15 @@ caracteres e será armazenada como hash. A migration da US-32 disponibiliza
 
 ## US-32 — Gerenciamento de usuários
 
+Para testar pela interface e organizar os prints dos critérios de aceite, siga o
+[roteiro de testes e evidências da US-32](../docs/releases/release2/sprint2/roteiro-testes-us32.md).
+
+O aceite automatizado em Gherkin/Cypress, com Chrome e Electron, está descrito
+em [frontend/cypress/README.md](../frontend/cypress/README.md). Ele usa um banco
+exclusivo terminado em `_e2e_test`, diferente do banco Pytest e do banco de
+desenvolvimento. O [relatório de execução da US-32](../docs/releases/release2/sprint2/relatorio-alinhamento-us32.md)
+registra os casos CT32–CT43 e distingue os resultados locais da execução no CI.
+
 Após executar `alembic upgrade head` e criar a primeira conta com o script acima,
 faça login e abra **Usuários**. Esse menu aparece apenas para administradores.
 A tela lista contas ativas e inativas, consulta detalhes, cadastra e edita nome,
@@ -202,10 +211,9 @@ execute na pasta `backend`:
 ```
 
 Os testes cobrem os critérios de API, o script inicial e a concorrência entre
-cadastros e entre os dois últimos administradores. A confirmação e o cancelamento
-na interface podem ser verificados selecionando uma conta sem vínculos,
-solicitando **Excluir**, conferindo nome/e-mail e escolhendo **Cancelar** (a conta
-deve permanecer); repetir e confirmar deve remover a conta.
+cadastros e entre os dois últimos administradores. A suíte Cypress também cobre
+a confirmação e o cancelamento da exclusão pela interface. Os resultados e as
+capturas estão no [registro de evidências da US-32](../docs/releases/release2/sprint2/evidencias/us32/README.md).
 
 ## 5. Iniciar o backend
 

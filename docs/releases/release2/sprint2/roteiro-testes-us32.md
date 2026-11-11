@@ -429,6 +429,13 @@ registram a execução das verificações com PostgreSQL real.
 
 ## 6. Conferência antes de anexar ao ticket
 
+A automação BDD equivalente está em `frontend/cypress/e2e/usuarios.feature`,
+com casos CT32–CT43, tags de US/release/smoke/regressão e 32 execuções por
+navegador. Para executá-la e obter relatórios, capturas e vídeos, siga o
+[guia Cypress](../../../../frontend/cypress/README.md). Os resultados desta
+revisão ficam no [relatório de alinhamento](relatorio-alinhamento-us32.md).
+A execução automatizada não preenche automaticamente os testes manuais abaixo.
+
 - [ ] Data, responsável, ambiente e commit testado preenchidos no registro.
 - [ ] T01 a T12 com resultado real e arquivos correspondentes.
 - [ ] T13 com saída dos testes e relatórios XML gerados nesta execução.

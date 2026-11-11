@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites name="Mocha Tests" time="9.926" tests="5" failures="0">
+  <testsuite name="Root Suite" timestamp="2026-11-11T20:42:46" tests="0" file="cypress\e2e\usuarios.feature" time="0.000" failures="0">
+  </testsuite>
+  <testsuite name="Gerenciar usuários e preservar seus acessos e autoria" timestamp="2026-11-11T20:42:46" tests="5" time="9.924" failures="0">
+    <testcase name="Gerenciar usuários e preservar seus acessos e autoria CT32 - Cadastrar uma conta ativa e permitir login com os perfis atribuídos" time="3.017" classname="CT32 - Cadastrar uma conta ativa e permitir login com os perfis atribuídos">
+    </testcase>
+    <testcase name="Gerenciar usuários e preservar seus acessos e autoria CT33 - Consultar usuários ativos e inativos sem expor senha ou hash" time="1.629" classname="CT33 - Consultar usuários ativos e inativos sem expor senha ou hash">
+    </testcase>
+    <testcase name="Gerenciar usuários e preservar seus acessos e autoria CT40 - Preservar o último administrador ativo ao tentar excluir (example #1)" time="1.700" classname="CT40 - Preservar o último administrador ativo ao tentar excluir (example #1)">
+    </testcase>
+    <testcase name="Gerenciar usuários e preservar seus acessos e autoria CT40 - Preservar o último administrador ativo ao tentar desativar (example #2)" time="1.734" classname="CT40 - Preservar o último administrador ativo ao tentar desativar (example #2)">
+    </testcase>
+    <testcase name="Gerenciar usuários e preservar seus acessos e autoria CT40 - Preservar o último administrador ativo ao tentar remover o perfil (example #3)" time="1.773" classname="CT40 - Preservar o último administrador ativo ao tentar remover o perfil (example #3)">
+    </testcase>
+  </testsuite>
+</testsuites>
