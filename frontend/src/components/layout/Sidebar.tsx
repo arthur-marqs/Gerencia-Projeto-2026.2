@@ -6,6 +6,7 @@ type Pagina =
   | 'maquinas'
   | 'ordens'
   | 'tempos-setup'
+  | 'matriz-setup'
   | 'planejamentos'
   | 'usuarios'
 
@@ -87,6 +88,15 @@ function Sidebar({ perfis, paginaAtual, onNavigate }: SidebarProps) {
               className={classeItem('tempos-setup')}
             >
               Tempos de setup
+            </button>
+
+            <button
+              type="button"
+              aria-current={paginaAtual === 'matriz-setup' ? 'page' : undefined}
+              onClick={() => onNavigate('matriz-setup')}
+              className={classeItem('matriz-setup')}
+            >
+              Matriz de setup
             </button>
 
             <button
