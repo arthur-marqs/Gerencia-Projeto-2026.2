@@ -48,7 +48,11 @@ async function readError(response: Response): Promise<string> {
   return 'Não foi possível concluir a operação. Tente novamente.'
 }
 
-function FamiliesPage() {
+type FamiliesPageProps = {
+  onSessionChange: () => Promise<void>
+}
+
+function FamiliesPage({ onSessionChange }: FamiliesPageProps) {
   const [families, setFamilies] = useState<Family[]>([])
   const [code, setCode] = useState('')
   const [name, setName] = useState('')
@@ -63,6 +67,11 @@ function FamiliesPage() {
 
     try {
       const response = await fetch(API_URL, { credentials: 'include' })
+
+      if (response.status === 401) {
+        await onSessionChange()
+        return
+      }
 
       if (!response.ok) {
         throw new Error(await readError(response))
@@ -79,12 +88,17 @@ function FamiliesPage() {
     } finally {
       setLoading(false)
     }
-  }, [])
+  }, [onSessionChange])
 
   useEffect(() => {
     async function loadInitialFamilies() {
       try {
         const response = await fetch(API_URL, { credentials: 'include' })
+
+        if (response.status === 401) {
+          await onSessionChange()
+          return
+        }
 
         if (!response.ok) {
           throw new Error(await readError(response))
@@ -104,7 +118,7 @@ function FamiliesPage() {
     }
 
     void loadInitialFamilies()
-  }, [])
+  }, [onSessionChange])
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault()
@@ -130,6 +144,11 @@ function FamiliesPage() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload),
       })
+
+      if (response.status === 401) {
+        await onSessionChange()
+        return
+      }
 
       if (!response.ok) {
         throw new Error(await readError(response))
