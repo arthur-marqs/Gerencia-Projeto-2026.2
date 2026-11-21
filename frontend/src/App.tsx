@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useState } from 'react'
 import LoginPage from './features/auth/pages/LoginPage'
 import AuthenticatedPage from './features/auth/pages/AuthenticatedPage'
+import { SESSION_EXPIRED_EVENT } from './lib/apiFetch'
 
 type UsuarioAutenticado = {
   nome: string
@@ -91,6 +92,18 @@ function App() {
       // Uma falha de rede não deve encerrar a sessão.
     }
   }, [])
+
+  useEffect(() => {
+    function tratarSessaoExpirada() {
+      void carregarUsuarioAposLogin()
+    }
+
+    window.addEventListener(SESSION_EXPIRED_EVENT, tratarSessaoExpirada)
+
+    return () => {
+      window.removeEventListener(SESSION_EXPIRED_EVENT, tratarSessaoExpirada)
+    }
+  }, [carregarUsuarioAposLogin])
 
   async function sair() {
     const response = await fetch('http://localhost:8000/api/auth/logout', {

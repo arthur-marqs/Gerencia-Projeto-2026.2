@@ -56,8 +56,26 @@ Then('a listagem de famílias deve ser exibida', () => {
 })
 
 Then('o sistema deve retornar para a tela de login', () => {
-  cy.wait('@consultarFamilias')
-
   cy.contains('h2', 'Acesse sua conta').should('be.visible')
   cy.contains('h2', 'Famílias cadastradas').should('not.exist')
+  cy.get('input[type="email"]').should('be.visible')
+})
+
+Given('a API rejeita a consulta de máquinas por sessão inválida', () => {
+  cy.intercept('GET', '**/api/maquinas', (req) => {
+    sessaoValida = false
+
+    req.reply({
+      statusCode: 401,
+      body: { detail: 'Sessão inválida ou expirada.' },
+    })
+  }).as('consultarMaquinas')
+})
+
+When('ele acessa a página de máquinas', () => {
+  cy.viewport(1280, 800)
+  cy.visit('/')
+
+  cy.contains('nav button', 'Máquinas').click()
+  cy.wait('@consultarMaquinas')
 })

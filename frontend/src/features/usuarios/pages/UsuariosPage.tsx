@@ -1,4 +1,5 @@
 import { useEffect, useState, type FormEvent } from 'react'
+import { apiFetch } from '../../../lib/apiFetch'
 
 type Usuario = { id: string; nome: string; email: string; perfis: string[]; ativo: boolean }
 type Formulario = { nome: string; email: string; senha: string; perfis: string[] }
@@ -53,7 +54,7 @@ export default function UsuariosPage({ onSessionChange }: { onSessionChange: () 
     let ativo = true
     async function carregar() {
       try {
-        const response = await fetch(API, { credentials: 'include' })
+        const response = await apiFetch(API, { credentials: 'include' })
         if (!response.ok) {
           const falha = await lerFalha(response)
           if (ativo) setErro(falha.mensagem)
@@ -84,7 +85,7 @@ export default function UsuariosPage({ onSessionChange }: { onSessionChange: () 
   async function consultar(usuario: Usuario) {
     limparAvisos(); setOcupado(true)
     try {
-      const response = await fetch(`${API}/${usuario.id}`, { credentials: 'include' })
+      const response = await apiFetch(`${API}/${usuario.id}`, { credentials: 'include' })
       if (!response.ok) { setErro((await lerFalha(response)).mensagem); return }
       preencher(await response.json() as Usuario)
     } catch { setErro('Não foi possível consultar o usuário.') }
@@ -107,7 +108,7 @@ export default function UsuariosPage({ onSessionChange }: { onSessionChange: () 
     if (Object.keys(invalidos).length) { setCampos(invalidos); setErro('Confira os campos indicados.'); return }
     setOcupado(true)
     try {
-      const response = await fetch(modo === 'novo' ? API : `${API}/${selecionado!.id}`, {
+      const response = await apiFetch(modo === 'novo' ? API : `${API}/${selecionado!.id}`, {
         method: modo === 'novo' ? 'POST' : 'PUT', credentials: 'include',
         headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(form),
       })
@@ -127,7 +128,7 @@ export default function UsuariosPage({ onSessionChange }: { onSessionChange: () 
     const acao = confirmacao
     limparAvisos(); setOcupado(true)
     try {
-      const response = await fetch(`${API}/${selecionado.id}${acao === 'excluir' ? '' : '/status'}`, {
+      const response = await apiFetch(`${API}/${selecionado.id}${acao === 'excluir' ? '' : '/status'}`, {
         method: acao === 'excluir' ? 'DELETE' : 'PATCH', credentials: 'include',
         headers: { 'Content-Type': 'application/json' },
         ...(acao === 'excluir' ? {} : { body: JSON.stringify({ ativo: acao === 'reativar' }) }),

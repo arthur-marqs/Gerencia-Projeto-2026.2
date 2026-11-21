@@ -16,3 +16,9 @@ Funcionalidade: Expiração e invalidação de sessão
     E a API rejeita a consulta de famílias com sessão expirada
     Quando ele acessa a página de famílias
     Então o sistema deve retornar para a tela de login
+
+  Cenário: Retornar ao login quando a sessão for invalidada em outra funcionalidade
+    Dado que o planejador possui uma sessão válida no Driver06
+    E a API rejeita a consulta de máquinas por sessão inválida
+    Quando ele acessa a página de máquinas
+    Então o sistema deve retornar para a tela de login

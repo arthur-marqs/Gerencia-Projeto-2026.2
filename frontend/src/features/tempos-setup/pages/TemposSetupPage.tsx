@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useState, type FormEvent } from 'react'
+import { apiFetch } from '../../../lib/apiFetch'
 
 type Familia = {
   id: string
@@ -64,8 +65,8 @@ function TemposSetupPage() {
   const carregarDados = useCallback(async () => {
     try {
       const [familiasResponse, temposResponse] = await Promise.all([
-        fetch(FAMILIAS_API_URL, { credentials: 'include' }),
-        fetch(TEMPOS_SETUP_API_URL, { credentials: 'include' }),
+        apiFetch(FAMILIAS_API_URL, { credentials: 'include' }),
+        apiFetch(TEMPOS_SETUP_API_URL, { credentials: 'include' }),
       ])
 
       if (!familiasResponse.ok) {
@@ -117,7 +118,7 @@ function TemposSetupPage() {
     setSalvando(true)
 
     try {
-      const response = await fetch(TEMPOS_SETUP_API_URL, {
+      const response = await apiFetch(TEMPOS_SETUP_API_URL, {
         method: 'POST',
         credentials: 'include',
         headers: { 'Content-Type': 'application/json' },
