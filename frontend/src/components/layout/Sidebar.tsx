@@ -92,6 +92,7 @@ function Sidebar({ perfis, paginaAtual, onNavigate }: SidebarProps) {
 
             <button
               type="button"
+              data-cy="menu-matriz-setup"
               aria-current={paginaAtual === 'matriz-setup' ? 'page' : undefined}
               onClick={() => onNavigate('matriz-setup')}
               className={classeItem('matriz-setup')}
