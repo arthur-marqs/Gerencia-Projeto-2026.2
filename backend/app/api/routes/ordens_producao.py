@@ -122,6 +122,16 @@ def cadastrar_ordem_producao(
         select(OrdemProducao).where(OrdemProducao.codigo == codigo)
     )
     if ordem_existente is not None:
+        # Outra requisicao pode ter concluido a mesma operacao entre as consultas.
+        ordem_reutilizada = _buscar_ordem_reutilizada(
+            db,
+            usuario.id_usuario,
+            idempotency_key,
+            hash_conteudo,
+        )
+        if ordem_reutilizada is not None:
+            response.status_code = status.HTTP_200_OK
+            return ordem_reutilizada
         raise HTTPException(
             status_code=status.HTTP_409_CONFLICT,
             detail="Já existe uma ordem de produção com este código.",

@@ -221,13 +221,55 @@ def test_reenvios_simultaneos_criam_uma_ordem(seeded_auth):
     with ThreadPoolExecutor(max_workers=5) as executor:
         respostas = list(executor.map(lambda _: enviar(), range(5)))
 
-    assert all(resposta.status_code in (200, 201) for resposta in respostas)
+    assert all(resposta.status_code in (200, 201) for resposta in respostas), [
+        (resposta.status_code, resposta.json()) for resposta in respostas
+    ]
     assert len({resposta.json()["id_ordem"] for resposta in respostas}) == 1
     with state.engine.connect() as connection:
         total = connection.scalar(
             text("SELECT count(*) FROM ordens_producao WHERE codigo = 'DR02-SIMULTANEA'")
         )
     assert total == 1
+
+
+def test_reenvio_apos_confirmacao_entre_consultas_retorna_mesma_ordem(
+    seeded_auth, monkeypatch
+):
+    from app.api.routes import ordens_producao as rota_ordens
+
+    client, state = seeded_auth.client, seeded_auth.state
+    assert _login(client, state.email, state.password).status_code == 200
+    produto = _criar_produto(client)
+    chave = uuid4()
+    dados = {
+        "codigo": "DR02-CORRIDA-CONSULTA",
+        "produto_id": produto["id_produto"],
+        "quantidade": "4",
+    }
+
+    primeira = _cadastrar(client, dados, chave)
+    assert primeira.status_code == 201
+
+    consultar_original = rota_ordens._buscar_ordem_reutilizada
+    chamadas = 0
+
+    def consultar_simulando_leitura_anterior(*args, **kwargs):
+        nonlocal chamadas
+        chamadas += 1
+        if chamadas == 1:
+            return None
+        return consultar_original(*args, **kwargs)
+
+    monkeypatch.setattr(
+        rota_ordens,
+        "_buscar_ordem_reutilizada",
+        consultar_simulando_leitura_anterior,
+    )
+
+    repetida = _cadastrar(client, dados, chave)
+    assert repetida.status_code == 200
+    assert repetida.json()["id_ordem"] == primeira.json()["id_ordem"]
+    assert chamadas == 2
 
 
 def test_falha_antes_da_confirmacao_nao_deixa_ordem_parcial(
