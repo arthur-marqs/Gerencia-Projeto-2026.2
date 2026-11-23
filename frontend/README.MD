@@ -2,14 +2,17 @@
 
 Aplicação em desenvolvimento para planejamento e acompanhamento da produção. Esta versão contém a interface inicial de login em React e uma API em FastAPI com endpoint de saúde.
 
+
 ## Estado atual
 
-- **Frontend:** tela de login e áreas autenticadas de produtos e máquinas em React, TypeScript, Vite e Tailwind CSS.
-- **Validação:** verifica e-mail e senha no navegador e mostra mensagens para campos inválidos ou vazios.
-- **Senha:** botão de olho para mostrar ou ocultar o conteúdo digitado.
-- **Marca:** símbolo SetupFlow na coluna esquerda e wordmark no cartão de login.
-- **Backend:** API FastAPI com documentação interativa, endpoint `GET /api/health`, rotas de autenticação e cadastro/listagem de produtos e máquinas restritos ao perfil Planejador de Produção.
-- **Autenticação e banco:** o formulário envia credenciais para a API; o backend verifica a senha e mantém sessões no PostgreSQL.
+- **Frontend:** aplicação React, TypeScript, Vite e Tailwind CSS, com tela de login e áreas autenticadas para produtos, famílias de produtos, máquinas, ordens de produção, tempos de setup, matriz de setup, planejamentos e usuários.
+- **Autenticação:** integração com a API FastAPI, sessões mantidas por cookies e controle de acesso conforme os perfis do usuário.
+- **Planejamento:** consulta dos tempos de setup entre famílias de produtos e visualização da matriz de transições direcionais.
+- **Matriz de setup:** apresenta as famílias nas linhas e colunas, com os tempos de transição em minutos. Transições sem configuração são representadas por um traço. A tela permite atualizar os dados consultados.
+- **Backend:** API FastAPI com documentação interativa, endpoint de saúde, autenticação e rotas para os módulos da aplicação.
+- **Banco de dados:** PostgreSQL para persistência dos dados da aplicação.
+- **Testes:** testes automatizados de backend e testes de aceitação Cypress com Gherkin, incluindo os cenários das US11 e US32.
+
 
 ## Requisitos
 
@@ -121,6 +124,22 @@ A tela permite preencher e-mail e senha. Ao enviar o formulário:
 - com os campos válidos, o frontend envia `POST /api/auth/login` com cookies habilitados;
 - em caso de sucesso, mostra uma saudação com o nome retornado pela API;
 - em caso de erro de autenticação ou conexão, mostra a mensagem correspondente.
+
+## Matriz de setup
+
+A matriz de setup permite consultar os tempos necessários para realizar transições entre famílias de produtos.
+
+- As linhas representam as famílias de origem.
+- As colunas representam as famílias de destino.
+- Os valores são apresentados em minutos.
+- As transições sem configuração são representadas por um traço.
+- As transições são direcionais: o tempo de A para B pode ser diferente do tempo de B para A.
+- Quando não existem configurações cadastradas, a aplicação apresenta uma mensagem informativa e disponibiliza a atualização da matriz.
+
+A consulta utiliza as rotas `GET /api/families` e `GET /api/tempos-setup`, disponíveis para usuários com perfil Planejador de Produção.
+
+Os testes de aceitação da funcionalidade estão documentados em `frontend/cypress/README.md`.
+
 
 ## Banco de dados
 

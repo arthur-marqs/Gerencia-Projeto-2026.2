@@ -1,8 +1,11 @@
-# Aceite BDD da US-32
 
-A suíte utiliza Cypress 16 + Cucumber/Gherkin em português, API FastAPI real e
-PostgreSQL. Os 12 critérios da US-32 são rastreados por `@CT32` a `@CT43`, com
-32 execuções após expandir os Exemplos. O smoke é um subconjunto de 5 execuções.
+# Aceite BDD das US11 e US32
+
+A suíte utiliza Cypress 16 + Cucumber/Gherkin em português, API FastAPI real e PostgreSQL exclusivo para testes.
+
+A US32 cobre o gerenciamento de usuários e seus critérios de aceitação, rastreados por `@CT32` a `@CT43`. A US11 acrescenta dois cenários de aceitação para a matriz de setup: consulta de tempos diferentes em cada direção e consulta sem configurações cadastradas.
+
+O smoke continua sendo um subconjunto dos cenários identificados com `@smoke`. A regressão contempla os cenários marcados com `@regressao`, incluindo US11 e US32.
 
 ## Ambiente local
 
@@ -79,6 +82,10 @@ conta inativa, conta sem vínculos e autores de ordem e planejamento. A senha
 fictícia da suíte é definida em `seed_e2e.py` e nos steps. Senhas são digitadas
 com `log: false`; os tasks de autenticação não registram cookies nos relatórios.
 
+Para a US11, os modos `matriz` e `matriz-vazia` preparam duas famílias fictícias (`FAM-A` e `FAM-B`). O modo `matriz` cadastra tempos direcionais de 30 minutos de A para B e 75 minutos de B para A. O modo `matriz-vazia` mantém as famílias, mas não cadastra tempos de setup.
+
+O hook de preparação da US11 é restrito à tag `@US11`, enquanto o hook original da US32 permanece restrito à tag `@US32`. Cada cenário prepara sua própria massa de dados.
+
 O CT43 começa sem contas e chama o script inicial com entradas controladas;
 depois verifica o login do administrador e o cadastro de outra conta pela tela.
 Os demais cenários também são independentes e podem ser executados isoladamente.
@@ -90,11 +97,8 @@ as variáveis `DB_*`/`E2E_DATABASE_URL` corretas. Não é necessário para execu
 
 ## Tags e comandos
 
-O projeto mantém duas configurações Cypress: `cypress.config.cjs` executa a
-US-32 com API e banco reais; `cypress.config.ts` executa os cinco cenários de
-validação da interface de login, com as interceptações de API dessa suíte.
-Os scripts selecionam o arquivo de configuração explicitamente. Os hooks de
-preparação do banco são restritos à tag `@US32`.
+O projeto mantém duas configurações Cypress. `cypress.config.cjs` executa a suíte de aceite com API e banco reais, descobrindo as features em `cypress/e2e/**/*.feature`. Essa configuração contempla os cenários de US11 e US32 filtrados pelas tags. `cypress.config.ts` permanece dedicada aos cenários de validação da interface de login. Os hooks de preparação de dados são restritos às respectivas tags `@US11` e `@US32`.
+
 
 | Comando | Seleção |
 | --- | --- |
@@ -119,9 +123,7 @@ Os comandos geram `frontend/artifacts/cypress/<navegador>/<smoke|regressao>/`:
   captura automática de falhas.
 - `videos/`: gravação da spec executada, inclusive quando houver falha.
 
-`E2E_ARTIFACTS_DIR` permite definir outra pasta de saída. No GitHub Actions,
-o job publica esses arquivos em `us32-bdd-chrome` e `us32-bdd-electron`, mesmo
-quando os testes falham. A regressão inclui os cinco casos smoke.
+No GitHub Actions, o job publica os artefatos de aceitação nos arquivos `acceptance-bdd-chrome` e `acceptance-bdd-electron`, mesmo quando os testes falham.
 
 O runner retorna erro se o Cypress falhar, houver teste reprovado ou nenhum teste
 for selecionado. Os relatórios locais não afirmam que houve execução remota do CI.

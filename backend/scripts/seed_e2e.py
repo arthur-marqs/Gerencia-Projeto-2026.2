@@ -26,6 +26,9 @@ from app.models.produto import Produto
 from app.models.usuario import Usuario
 from app.models.usuario_perfil import usuario_perfil
 
+from app.models.family import Family
+from app.models.tempo_setup_familia import TempoSetupFamilia
+
 SENHA = 'SenhaE2E!2026'
 CONTAS = {
     'admin': ('Administrador E2E', 'admin.e2e@example.com', ['ADMINISTRADOR', 'PLANEJADOR']),
@@ -103,6 +106,34 @@ def preparar(modo):
             plano = Planejamento(nome='Plano E2E', criado_por=usuarios['autor_plano']['id'])
             db.add_all([ordem, plano])
             db.flush()
+            if modo in {'matriz', 'matriz-vazia'}:
+                familia_a = Family(
+                    code='FAM-A',
+                    name='Família A',
+                    description='Família A para testes da matriz de setup.',
+                )
+                familia_b = Family(
+                    code='FAM-B',
+                    name='Família B',
+                    description='Família B para testes da matriz de setup.',
+                )
+
+                db.add_all([familia_a, familia_b])
+                db.flush()
+
+                if modo == 'matriz':
+                    db.add_all([
+                        TempoSetupFamilia(
+                            familia_origem_id=familia_a.id,
+                            familia_destino_id=familia_b.id,
+                            tempo_setup_minutos=30,
+                        ),
+                        TempoSetupFamilia(
+                            familia_origem_id=familia_b.id,
+                            familia_destino_id=familia_a.id,
+                            tempo_setup_minutos=75,
+                        ),
+                    ])
             db.add(ItemPlanejamento(ordem_id=ordem.id_ordem, planejamento_id=plano.id_planejamento, posicao=1))
             return {'usuarios': usuarios, 'ordem_id': str(ordem.id_ordem),
                     'planejamento_id': str(plano.id_planejamento)}
@@ -112,6 +143,15 @@ def preparar(modo):
 
 if __name__ == '__main__':
     modo = sys.argv[1] if len(sys.argv) > 1 else 'normal'
-    if modo not in {'normal', 'vazio', 'bootstrap', 'inspecionar'}:
-        raise SystemExit('Modo inválido; use normal, vazio, bootstrap ou inspecionar.')
-    print(json.dumps(preparar(modo), ensure_ascii=False))
+    if modo not in {
+        'normal',
+        'vazio',
+        'bootstrap',
+        'inspecionar',
+        'matriz',
+        'matriz-vazia',
+    }:
+        raise SystemExit(
+            'Modo inválido; use normal, vazio, bootstrap, inspecionar, matriz ou matriz-vazia.'
+        )
+    print(json.dumps(preparar(modo), ensure_ascii=True))
