@@ -1,0 +1,51 @@
+============================= test session starts =============================
+platform win32 -- Python 3.11.9, pytest-8.4.2, pluggy-1.7.0 -- C:\Users\Leona\Documents\GitHub\Gerencia-Projeto-2026.2\backend\.venv\Scripts\python.exe
+cachedir: .pytest_cache
+rootdir: C:\Users\Leona\Documents\GitHub\Gerencia-Projeto-2026.2\backend
+plugins: anyio-4.15.1
+collecting ... collected 4 items
+
+.venv/Scripts/python.exe : INFO  [alembic.runtime.migration] Context impl PostgresqlImpl.
+No linha:2 caractere:95
++ ... er06_test'; .venv/Scripts/python.exe -m pytest -v -s --junitxml=../do ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (INFO  [alembic....PostgresqlImpl.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+
+INFO  [alembic.runtime.migration] Will assume transactional DDL.
+INFO  [alembic.runtime.migration] Running upgrade  -> 8c4926160d84, cria esquema de autenticacao
+INFO  [alembic.runtime.migration] Running upgrade 8c4926160d84 -> 4ba7b334799a, Insere perfis de acesso.
+INFO  [alembic.runtime.migration] Running upgrade 4ba7b334799a -> c6f7b921ad03, Cria a tabela de fam�lias de produtos
+para a US05.
+INFO  [alembic.runtime.migration] Running upgrade 4ba7b334799a -> 5ccce81c5c27, cria tabela produtos
+INFO  [alembic.runtime.migration] Running upgrade 5ccce81c5c27 -> 7a2c9f1d4e6b, cria tabela maquinas
+INFO  [alembic.runtime.migration] Running upgrade 5ccce81c5c27, c6f7b921ad03 -> 3e789560b2f5, une migracoes de
+produtos e familias
+INFO  [alembic.runtime.migration] Running upgrade 3e789560b2f5 -> 72269261cc65, adiciona familia aos produtos
+INFO  [alembic.runtime.migration] Running upgrade 72269261cc65, 7a2c9f1d4e6b -> 6ddbcb3397c4, Merge machine and family
+migration branches.
+INFO  [alembic.runtime.migration] Running upgrade 6ddbcb3397c4 -> a7c1f2d9e430, cria tabela ordens_producao para a US07
+INFO  [alembic.runtime.migration] Running upgrade a7c1f2d9e430 -> b3f84d2e90a1, adiciona prazo e prioridade �s ordens
+de produ��o
+INFO  [alembic.runtime.migration] Running upgrade b3f84d2e90a1 -> fc02da88af8f, cria tabela produto_maquina
+INFO  [alembic.runtime.migration] Running upgrade fc02da88af8f -> d4e8f6a2c901, adiciona dura��o estimada �s ordens de
+produ��o (US09)
+INFO  [alembic.runtime.migration] Running upgrade d4e8f6a2c901 -> e1a7c9d4b602, Cria a tabela de tempos de setup entre
+fam�lias (US10).
+INFO  [alembic.runtime.migration] Running upgrade d4e8f6a2c901 -> ee5cc1c682ae, cria tabelas de planejamento manual
+us12
+INFO  [alembic.runtime.migration] Running upgrade ee5cc1c682ae -> 7ba9a321106c, garante ordem unica em planejamentos
+us12
+INFO  [alembic.runtime.migration] Running upgrade 7ba9a321106c, e1a7c9d4b602 -> 9a420823b051, une migracoes us10 e us12
+INFO  [alembic.runtime.migration] Running upgrade 9a420823b051 -> c4e8a1927f30, adiciona idempot�ncia ao cadastro de
+ordens de produ��o
+INFO  [alembic.runtime.migration] Running upgrade c4e8a1927f30 -> f032ad660001, Disponibiliza o perfil ADMINISTRADOR
+para a US-32.
+testes/integration/drivers/test_driver06_session_expiration.py::test_driver06_sessao_invalidada_rejeita_20_tentativas Driver06: 20 acessos rejeitados. Maior tempo: 0.0089s
+PASSED
+testes/integration/drivers/test_driver06_session_expiration.py::test_driver06_rota_protegida_com_sessao_valida_e_invalidada PASSED
+testes/integration/drivers/test_driver06_session_expiration.py::test_driver06_rota_protegida_rejeita_sessao_expirada PASSED
+testes/integration/drivers/test_driver06_session_expiration.py::test_driver06_sessao_valida_sem_permissao_retorna_403 PASSED
+
+- generated xml file: C:\Users\Leona\Documents\GitHub\Gerencia-Projeto-2026.2\docs\qualidade\release-2\evidencias-driver06\pytest-driver06.xml -
+============================== 4 passed in 1.46s ==============================

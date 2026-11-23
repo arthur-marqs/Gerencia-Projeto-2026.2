@@ -1,0 +1,101 @@
+{
+  "consultadoEm": "2026-11-23 (America/Sao_Paulo)",
+  "head": {
+    "url": "https://github.com/arthur-marqs/Gerencia-Projeto-2026.2/pull/17",
+    "number": 17,
+    "state": "open",
+    "merged": false,
+    "mergeable": true,
+    "draft": false,
+    "title": "SC-61 | Driver06 — Expiração e invalidação de sessão",
+    "base": "main",
+    "base_sha": "5cf655eef47a453ca95eaab5818b93d8fc6415d9",
+    "head": "feature/driver06-expiracao-sessao",
+    "head_sha": "16abb603959ceaad3852cf52a50c058fbb3f8454",
+    "head_repo_id": 1409551240,
+    "head_repo_full_name": "arthur-marqs/Gerencia-Projeto-2026.2",
+    "merge_commit_sha": "ae6f77152adf498ac7bad6fd67aef7e1ae437362",
+    "user": {
+      "login": "luizmouradc",
+      "name": "luizmouradc",
+      "email": null,
+      "avatar_url": "https://avatars.githubusercontent.com/u/152985597?v=4",
+      "id": 152985597
+    },
+    "requested_reviewers": [
+      {
+        "login": "arthur-marqs",
+        "name": "arthur-marqs",
+        "email": null,
+        "avatar_url": "https://avatars.githubusercontent.com/u/122844109?v=4",
+        "id": 122844109
+      },
+      {
+        "login": "leonardo-istamilo",
+        "name": "leonardo-istamilo",
+        "email": null,
+        "avatar_url": "https://avatars.githubusercontent.com/u/141760753?v=4",
+        "id": 141760753
+      }
+    ],
+    "requested_team_reviewers": null,
+    "diff": null,
+    "comments": null,
+    "created_at": "2026-11-21T13:23:51Z",
+    "updated_at": "2026-11-21T13:24:06Z",
+    "closed_at": null,
+    "merged_at": null,
+    "commits": 3,
+    "changed_files": 14,
+    "additions": 306,
+    "deletions": 41,
+    "display_url": "https://github.com/arthur-marqs/Gerencia-Projeto-2026.2/pull/17",
+    "display_title": "SC-61 | Driver06 — Expiração e invalidação de sessão"
+  },
+  "ci": {
+    "workflow_runs": [
+      {
+        "id": 44908660042,
+        "name": "CI",
+        "status": "completed",
+        "conclusion": "success",
+        "run_number": 109,
+        "jobs_url": "https://api.github.com/repos/arthur-marqs/Gerencia-Projeto-2026.2/actions/runs/44908660042/jobs",
+        "logs_url": "https://api.github.com/repos/arthur-marqs/Gerencia-Projeto-2026.2/actions/runs/44908660042/logs",
+        "workflow_id": 392989200
+      }
+    ]
+  },
+  "logs": [
+    {
+      "job_id": 136859549152,
+      "url": "https://github.com/arthur-marqs/Gerencia-Projeto-2026.2/actions/runs/44908660042/job/136859549152",
+      "trechos": [
+        "2026-11-21T13:24:23.4443686Z HEAD is now at ae6f771 Merge 16abb603959ceaad3852cf52a50c058fbb3f8454 into 5cf655eef47a453ca95eaab5818b93d8fc6415d9",
+        "2026-11-21T13:24:48.0171679Z testes/integration/drivers/test_driver06_session_expiration.py::test_driver06_sessao_invalidada_rejeita_20_tentativas PASSED [ 14%]",
+        "2026-11-21T13:24:48.1984655Z testes/integration/drivers/test_driver06_session_expiration.py::test_driver06_rota_protegida_com_sessao_valida_e_invalidada PASSED [ 15%]",
+        "2026-11-21T13:24:48.3689160Z testes/integration/drivers/test_driver06_session_expiration.py::test_driver06_rota_protegida_rejeita_sessao_expirada PASSED [ 15%]",
+        "2026-11-21T13:24:48.5381367Z testes/integration/drivers/test_driver06_session_expiration.py::test_driver06_sessao_valida_sem_permissao_retorna_403 PASSED [ 16%]",
+        "2026-11-21T13:25:21.3499217Z ============================= 201 passed in 48.65s ============================="
+      ]
+    },
+    {
+      "job_id": 136859548950,
+      "url": "https://github.com/arthur-marqs/Gerencia-Projeto-2026.2/actions/runs/44908660042/job/136859548950",
+      "trechos": [
+        "2026-11-21T13:24:05.4491466Z HEAD is now at ae6f771 Merge 16abb603959ceaad3852cf52a50c058fbb3f8454 into 5cf655eef47a453ca95eaab5818b93d8fc6415d9",
+        "2026-11-21T13:24:08.0362795Z   spec: cypress/e2e/autenticacao/login.feature",
+        "2026-11-21T13:24:58.2491250Z ##[warning]command parameter is used and the following other parameters are ignored: browser, config-file, spec.",
+        "2026-11-21T13:25:07.9165395Z   │ Specs:          2 found (driver06.feature, login.feature)                                      │",
+        "2026-11-21T13:25:07.9166461Z   │ Searched:       cypress/e2e/autenticacao/driver06.feature, cypress/e2e/autenticacao/login.feat │",
+        "2026-11-21T13:25:07.9213756Z   Running:  driver06.feature                                                                (1 of 2)",
+        "2026-11-21T13:25:15.8853116Z   │ Spec Ran:     driver06.feature                                                                 │",
+        "2026-11-21T13:25:15.9752052Z   Running:  login.feature                                                                   (2 of 2)",
+        "2026-11-21T13:25:19.3033618Z   │ Spec Ran:     login.feature                                                                    │",
+        "2026-11-21T13:25:19.3504258Z   │ ✔  driver06.feature                         00:01        3        3        -        -        - │",
+        "2026-11-21T13:25:19.3509854Z   │ ✔  login.feature                            00:02        5        5        -        -        - │",
+        "2026-11-21T13:25:19.3517019Z     ✔  All specs passed!                        00:03        8        8        -        -        -  "
+      ]
+    }
+  ]
+}

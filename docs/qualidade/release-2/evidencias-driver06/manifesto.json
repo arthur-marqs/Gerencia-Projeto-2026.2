@@ -1,0 +1,132 @@
+{
+  "data": "2026-11-23",
+  "timezone": "America/Sao_Paulo",
+  "commit": "16abb603959ceaad3852cf52a50c058fbb3f8454",
+  "arquivos": [
+    {
+      "arquivo": "adicional/cucumber-report.json",
+      "bytes": 2,
+      "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    {
+      "arquivo": "adicional/resumo.json",
+      "bytes": 1758,
+      "sha256": "7794ed6bd989c55296717148bd062310e41ceffc1e8f061fe2c0dd09b02d3323"
+    },
+    {
+      "arquivo": "bug-familias.png",
+      "bytes": 86969,
+      "sha256": "80d33e3f7575695d780fe4b24190f230aca7f5ce7ac3b5d893eac94d63966607"
+    },
+    {
+      "arquivo": "bug-maquinas.png",
+      "bytes": 87205,
+      "sha256": "eeb9e5272cc8c427ee0beb703463f6c68d356c1c4ca54297952644ecb4782b14"
+    },
+    {
+      "arquivo": "build.txt",
+      "bytes": 396,
+      "sha256": "1b8167fb24f9029101ac11f44070cfe5e9d4c7d8d43c39a25e438a6e793217b2"
+    },
+    {
+      "arquivo": "cypress-adicional.txt",
+      "bytes": 6242,
+      "sha256": "59a98dae5ebe5a65d0af479269728a0f0eaacbda8cd33e2bb1d15ea9dd872a5c"
+    },
+    {
+      "arquivo": "cypress-existente.txt",
+      "bytes": 7254,
+      "sha256": "997d4923410ae7c3eb27acbf15538a295a7371ac42c52673778fb8deb9518058"
+    },
+    {
+      "arquivo": "existente/cucumber-report.json",
+      "bytes": 17687,
+      "sha256": "f993540c44613fabb2fe2db59d96439ff97b3a2415eb415085b231487669916d"
+    },
+    {
+      "arquivo": "existente/resumo.json",
+      "bytes": 1764,
+      "sha256": "82b3b0c1d7794ed4e5219b0cae61e26b2b7270360dad282a266f1d4dc72656fe"
+    },
+    {
+      "arquivo": "github-ci.json",
+      "bytes": 5327,
+      "sha256": "b2ba00b574f27292ab86307c641ec02ab65e669f04f2f54376b3db7c92492165"
+    },
+    {
+      "arquivo": "http-desconhecida.json",
+      "bytes": 2757,
+      "sha256": "311c1c42506a087346ba202fb485640e7ee0be35317430f62bc44d4f94bb8e18"
+    },
+    {
+      "arquivo": "http-expirada.json",
+      "bytes": 2752,
+      "sha256": "2da20befbcd923fe969f972694ab0a4698576cd41a66feccd8bc061efca6fd87"
+    },
+    {
+      "arquivo": "http-invalidada.json",
+      "bytes": 2754,
+      "sha256": "a5e9a063dea858f4be11216132190577eca2234acff25a80c8717b62c734b2e4"
+    },
+    {
+      "arquivo": "lint.txt",
+      "bytes": 34,
+      "sha256": "31298a090b4d326219614a2b109f11bc9be6ea420c4b2fa47c181368d3733a26"
+    },
+    {
+      "arquivo": "pytest-driver06.txt",
+      "bytes": 3862,
+      "sha256": "fd544980a6eeac899ef2df92c9590fb8dd9df63c8b00e1519f62bd269b7fcc6f"
+    },
+    {
+      "arquivo": "pytest-driver06.xml",
+      "bytes": 881,
+      "sha256": "29683a3d12b0b6f4909c34bd49b65cf2f0002b9054e973ea718761039881fc08"
+    },
+    {
+      "arquivo": "pytest-http.txt",
+      "bytes": 1626,
+      "sha256": "29b338e179a60901195c88ae63c53960ca0aa5073e431c097d5a050b3b3b2249"
+    },
+    {
+      "arquivo": "pytest-http.xml",
+      "bytes": 727,
+      "sha256": "c6ead5e0f90e88506ce809afb8f05b3b3964e1fa2fc3d087fc25c11b5cf30b44"
+    },
+    {
+      "arquivo": "pytest-regressao.txt",
+      "bytes": 22888,
+      "sha256": "987760c46d5fd80dca28a3642d1ec967f33dc0d15fd353cfa3b2629fa6412526"
+    },
+    {
+      "arquivo": "pytest-regressao.xml",
+      "bytes": 27641,
+      "sha256": "34c9fab4d2ee4e3f2956b53b5fd7ed5a2338c73988d921020af0659c04b8073c"
+    },
+    {
+      "arquivo": "qa-cypress.cjs",
+      "bytes": 2236,
+      "sha256": "f73d3095cf56fbe6e9cd65fa141adbaa2e7b4c2d46eb68fd1434f01330b325da"
+    },
+    {
+      "arquivo": "qa-driver06.cy.ts",
+      "bytes": 1953,
+      "sha256": "bd760ef820b6588c6afba9b021cbb196d3ea84b4852c2d3ca75fe24ad0709a02"
+    },
+    {
+      "arquivo": "qa-postgres.py",
+      "bytes": 1185,
+      "sha256": "1b12df04b5e72b2861b68ca8b396c13ebab85c96b61485b3daca49c602a88bd6"
+    },
+    {
+      "arquivo": "test_qa_driver06_http.py",
+      "bytes": 4912,
+      "sha256": "284b03810833ed02d9f5c7cd991e6d1aefd8f20fddd0911ae3df3c2601343c93"
+    },
+    {
+      "arquivo": "uvicorn-http.txt",
+      "bytes": 6894,
+      "sha256": "fb5176dc3145c638214cf2ba0cbdf7ccc3f926892bff3c9efc117a8c358f5d1d"
+    }
+  ]
+}
