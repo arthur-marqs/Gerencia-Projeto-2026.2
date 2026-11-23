@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useState, type FormEvent } from 'react'
+import { apiFetch } from '../../../lib/apiFetch'
 
 type Family = {
   id: string
@@ -48,11 +49,7 @@ async function readError(response: Response): Promise<string> {
   return 'Não foi possível concluir a operação. Tente novamente.'
 }
 
-type FamiliesPageProps = {
-  onSessionChange: () => Promise<void>
-}
-
-function FamiliesPage({ onSessionChange }: FamiliesPageProps) {
+function FamiliesPage() {
   const [families, setFamilies] = useState<Family[]>([])
   const [code, setCode] = useState('')
   const [name, setName] = useState('')
@@ -66,10 +63,9 @@ function FamiliesPage({ onSessionChange }: FamiliesPageProps) {
     setLoading(true)
 
     try {
-      const response = await fetch(API_URL, { credentials: 'include' })
+      const response = await apiFetch(API_URL, { credentials: 'include' })
 
       if (response.status === 401) {
-        await onSessionChange()
         return
       }
 
@@ -88,15 +84,14 @@ function FamiliesPage({ onSessionChange }: FamiliesPageProps) {
     } finally {
       setLoading(false)
     }
-  }, [onSessionChange])
+  }, [])
 
   useEffect(() => {
     async function loadInitialFamilies() {
       try {
-        const response = await fetch(API_URL, { credentials: 'include' })
+        const response = await apiFetch(API_URL, { credentials: 'include' })
 
         if (response.status === 401) {
-          await onSessionChange()
           return
         }
 
@@ -118,7 +113,7 @@ function FamiliesPage({ onSessionChange }: FamiliesPageProps) {
     }
 
     void loadInitialFamilies()
-  }, [onSessionChange])
+  }, [])
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault()
@@ -138,7 +133,7 @@ function FamiliesPage({ onSessionChange }: FamiliesPageProps) {
 
     setSaving(true)
     try {
-      const response = await fetch(API_URL, {
+      const response = await apiFetch(API_URL, {
         method: 'POST',
         credentials: 'include',
         headers: { 'Content-Type': 'application/json' },
@@ -146,7 +141,6 @@ function FamiliesPage({ onSessionChange }: FamiliesPageProps) {
       })
 
       if (response.status === 401) {
-        await onSessionChange()
         return
       }
 

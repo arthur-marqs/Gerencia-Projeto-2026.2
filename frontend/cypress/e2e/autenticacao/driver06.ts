@@ -5,13 +5,17 @@ import {
 } from '@badeball/cypress-cucumber-preprocessor'
 
 let sessaoValida = true
+let statusReconsulta: 401 | 503 = 401
 
 Given('que o planejador possui uma sessão válida no Driver06', () => {
   sessaoValida = true
+  statusReconsulta = 401
 
   cy.intercept('GET', '**/api/auth/me', (req) => {
+    const statusCode = sessaoValida ? 200 : statusReconsulta
+
     req.reply({
-      statusCode: sessaoValida ? 200 : 401,
+      statusCode,
       body: sessaoValida
         ? {
             usuario: {
@@ -19,9 +23,17 @@ Given('que o planejador possui uma sessão válida no Driver06', () => {
               perfis: ['PLANEJADOR'],
             },
           }
-        : { detail: 'Sessão inválida ou expirada.' },
+        : {
+            detail: statusCode === 503
+              ? 'Serviço temporariamente indisponível.'
+              : 'Sessão inválida ou expirada.',
+          },
     })
   }).as('verificarSessao')
+})
+
+Given('a reconsulta de identidade está configurada para responder 503 após o 401', () => {
+  statusReconsulta = 503
 })
 
 Given('a API permite consultar as famílias', () => {
@@ -55,8 +67,14 @@ Then('a listagem de famílias deve ser exibida', () => {
   cy.contains('h2', 'Famílias cadastradas').should('be.visible')
 })
 
+Then('a consulta de famílias deve ter sido rejeitada com 401', () => {
+  cy.wait('@consultarFamilias').its('response.statusCode').should('eq', 401)
+})
+
 Then('o sistema deve retornar para a tela de login', () => {
   cy.contains('h2', 'Acesse sua conta').should('be.visible')
+  cy.get('nav[aria-label="Navegação principal"]').should('not.exist')
+  cy.contains('h2', 'Cadastrar família').should('not.exist')
   cy.contains('h2', 'Famílias cadastradas').should('not.exist')
   cy.get('input[type="email"]').should('be.visible')
 })
@@ -77,5 +95,5 @@ When('ele acessa a página de máquinas', () => {
   cy.visit('/')
 
   cy.contains('nav button', 'Máquinas').click()
-  cy.wait('@consultarMaquinas')
+  cy.wait('@consultarMaquinas').its('response.statusCode').should('eq', 401)
 })

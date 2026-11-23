@@ -95,7 +95,7 @@ function App() {
 
   useEffect(() => {
     function tratarSessaoExpirada() {
-      void carregarUsuarioAposLogin()
+      setUsuario(null)
     }
 
     window.addEventListener(SESSION_EXPIRED_EVENT, tratarSessaoExpirada)
@@ -103,7 +103,7 @@ function App() {
     return () => {
       window.removeEventListener(SESSION_EXPIRED_EVENT, tratarSessaoExpirada)
     }
-  }, [carregarUsuarioAposLogin])
+  }, [])
 
   async function sair() {
     const response = await fetch('http://localhost:8000/api/auth/logout', {

@@ -54,7 +54,7 @@ function AuthenticatedPage({
         ) : paginaAtual === 'familias' && ehPlanejador ? (
           <main className="px-4 py-5 pt-[100px] sm:px-6 lg:px-7 xl:px-8">
             <div className="mx-auto max-w-[1500px]">
-              <FamiliesPage onSessionChange={onSessionChange} />
+              <FamiliesPage />
             </div>
           </main>
         ) : paginaAtual === 'maquinas' && ehPlanejador ? (
