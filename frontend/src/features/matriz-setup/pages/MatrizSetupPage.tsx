@@ -129,6 +129,26 @@ function MatrizSetupPage() {
       tempo.tempo_setup_minutos,
     ]),
   )
+  // Reúne as famílias das APIs para evitar ocultar transições
+  // quando uma família não aparece na resposta de /api/families.
+  const familiasPorId = new Map<string, Familia>()
+
+  familias.forEach((familia) => {
+    familiasPorId.set(familia.id, familia)
+  })
+
+  temposSetup.forEach((tempo) => {
+    if (!familiasPorId.has(tempo.familia_origem.id)) {
+      familiasPorId.set(tempo.familia_origem.id, tempo.familia_origem)
+    }
+
+    if (!familiasPorId.has(tempo.familia_destino.id)) {
+      familiasPorId.set(tempo.familia_destino.id, tempo.familia_destino)
+    }
+  })
+
+  const familiasMatriz = Array.from(familiasPorId.values())
+    .sort((a, b) => a.code.localeCompare(b.code))
 
   return (
     <main className="px-4 py-5 pt-[100px] sm:px-6 lg:px-7 xl:px-8">
@@ -199,7 +219,8 @@ function MatrizSetupPage() {
               </div>
 
               <span className="rounded-full bg-blue-50 px-3 py-1 text-sm font-semibold text-blue-700">
-                {temposSetup.length} configurações
+                {temposSetup.length}{' '}
+                {temposSetup.length === 1 ? 'configuração' : 'configurações'}
               </span>
             </div>
 
@@ -211,7 +232,7 @@ function MatrizSetupPage() {
                       Origem / Destino
                     </th>
 
-                    {familias.map((familia) => (
+                    {familiasMatriz.map((familia) => (
                       <th
                         key={familia.id}
                         className="border border-slate-200 bg-slate-100 px-4 py-3 font-semibold text-slate-700"
@@ -227,7 +248,7 @@ function MatrizSetupPage() {
                 </thead>
 
                 <tbody>
-                  {familias.map((origem) => (
+                  {familiasMatriz.map((origem) => (
                     <tr key={origem.id}>
                       <th className="sticky left-0 border border-slate-200 bg-slate-50 px-4 py-3 text-left font-semibold text-slate-800">
                         <span className="block">{origem.code}</span>

@@ -18,3 +18,21 @@ Funcionalidade: Consultar matriz de setup entre famílias de produtos
     E o botão de atualização deve estar disponível
     Quando solicitar a atualização da matriz
     Então a mensagem de ausência de configurações deve continuar visível
+
+  @bug001-destino-ausente
+  Cenário: Exibir família de destino ausente na lista de famílias
+    Dado que a API de famílias retorna somente a família "A" e a transição A para B é de 15 minutos
+    Quando abrir a matriz de setup
+    Então as famílias "A" e "B" devem aparecer nos dois eixos
+    E a transição de "A" para "B" deve apresentar "15 min"
+    E a transição de "B" para "A" deve indicar ausência de configuração
+    E o contador deve indicar uma configuração
+
+  @bug001-origem-ausente
+  Cenário: Exibir família de origem ausente na lista de famílias
+    Dado que a API de famílias retorna somente a família "B" e a transição A para B é de 15 minutos
+    Quando abrir a matriz de setup
+    Então as famílias "A" e "B" devem aparecer nos dois eixos
+    E a transição de "A" para "B" deve apresentar "15 min"
+    E a transição de "B" para "A" deve indicar ausência de configuração
+    E o contador deve indicar uma configuração
