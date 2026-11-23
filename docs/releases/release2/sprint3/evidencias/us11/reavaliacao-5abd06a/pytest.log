@@ -1,0 +1,43 @@
+============================= test session starts =============================
+platform win32 -- Python 3.11.9, pytest-8.4.2, pluggy-1.7.0 -- C:\Users\Leona\Documents\GitHub\Gerencia-Projeto-2026.2\backend\.venv\Scripts\python.exe
+cachedir: .pytest_cache
+rootdir: C:\Users\Leona\Documents\GitHub\Gerencia-Projeto-2026.2\backend
+plugins: anyio-4.15.1
+collecting ... collected 33 items
+
+testes/integration/test_us05_families.py::test_cadastro_valido_cria_familia_para_planejador PASSED [  3%]
+testes/integration/test_us05_families.py::test_cadastro_rejeita_campos_obrigatorios_ausentes PASSED [  6%]
+testes/integration/test_us05_families.py::test_cadastro_rejeita_nome_em_branco PASSED [  9%]
+testes/integration/test_us05_families.py::test_codigo_duplicado_retorna_conflito PASSED [ 12%]
+testes/integration/test_us05_families.py::test_operador_nao_pode_cadastrar_familia PASSED [ 15%]
+testes/integration/test_us05_families.py::test_cadastro_exige_usuario_autenticado PASSED [ 18%]
+testes/integration/test_us05_families.py::test_listagem_retorna_familias_cadastradas PASSED [ 21%]
+testes/integration/test_us10_tempos_setup.py::test_planejador_cadastra_tempo_setup_valido PASSED [ 24%]
+testes/integration/test_us10_tempos_setup.py::test_tempo_setup_invalido_nao_e_salvo[0] PASSED [ 27%]
+testes/integration/test_us10_tempos_setup.py::test_tempo_setup_invalido_nao_e_salvo[-1] PASSED [ 30%]
+testes/integration/test_us10_tempos_setup.py::test_tempo_setup_invalido_nao_e_salvo[1.5] PASSED [ 33%]
+testes/integration/test_us10_tempos_setup.py::test_tempo_setup_invalido_nao_e_salvo[inv\xe1lido] PASSED [ 36%]
+testes/integration/test_us10_tempos_setup.py::test_tempo_setup_invalido_nao_e_salvo[None] PASSED [ 39%]
+testes/integration/test_us10_tempos_setup.py::test_tempo_setup_invalido_nao_e_salvo[True] PASSED [ 42%]
+testes/integration/test_us10_tempos_setup.py::test_familias_de_origem_e_destino_devem_ser_diferentes PASSED [ 45%]
+testes/integration/test_us10_tempos_setup.py::test_familia_inexistente_retorna_404 PASSED [ 48%]
+testes/integration/test_us10_tempos_setup.py::test_combinacao_de_familias_nao_pode_ser_cadastrada_duas_vezes PASSED [ 51%]
+testes/integration/test_us10_tempos_setup.py::test_tempo_setup_e_direcional_por_combinacao_de_familias PASSED [ 54%]
+testes/integration/test_us10_tempos_setup.py::test_cadastro_de_tempo_setup_exige_autenticacao PASSED [ 57%]
+testes/integration/test_us10_tempos_setup.py::test_operador_nao_pode_cadastrar_tempo_setup PASSED [ 60%]
+testes/integration/test_us10_tempos_setup.py::test_consulta_tempos_setup_exige_autenticacao PASSED [ 63%]
+testes/integration/test_us10_tempos_setup.py::test_operador_nao_pode_consultar_tempos_setup PASSED [ 66%]
+testes/integration/test_us10_tempos_setup.py::test_familia_destino_inexistente_retorna_404 PASSED [ 69%]
+testes/integration/test_us02_access_control.py::test_planejador_acessa_recurso_permitido PASSED [ 72%]
+testes/integration/test_us02_access_control.py::test_operador_nao_acessa_recurso_exclusivo_de_planejador PASSED [ 75%]
+testes/integration/test_us02_access_control.py::test_operador_acessa_recurso_permitido PASSED [ 78%]
+testes/integration/test_us02_access_control.py::test_usuario_com_multiplos_perfis_acessa_por_qualquer_perfil PASSED [ 81%]
+testes/unit/test_seed_e2e.py::test_fixture_recusa_banco_antes_de_abrir_conexao[] PASSED [ 84%]
+testes/unit/test_seed_e2e.py::test_fixture_recusa_banco_antes_de_abrir_conexao[URL inv\xe1lida] PASSED [ 87%]
+testes/unit/test_seed_e2e.py::test_fixture_recusa_banco_antes_de_abrir_conexao[sqlite:///setupflow_e2e_test] PASSED [ 90%]
+testes/unit/test_seed_e2e.py::test_fixture_recusa_banco_antes_de_abrir_conexao[postgresql://user:password@localhost/setupflow_dev] PASSED [ 93%]
+testes/unit/test_seed_e2e.py::test_fixture_recusa_banco_antes_de_abrir_conexao[postgresql://user:password@localhost/setupflow_test] PASSED [ 96%]
+testes/unit/test_seed_e2e.py::test_fixture_recusa_banco_antes_de_abrir_conexao[postgresql://user:password@localhost/setupflow_e2e_test_copia] PASSED [100%]
+
+- generated xml file: C:\Users\Leona\Documents\GitHub\Gerencia-Projeto-2026.2\.tmp\qa-us11-5abd06a\pytest.xml -
+============================= 33 passed in 6.22s ==============================

@@ -1,0 +1,77 @@
+{
+  "date": "2026-11-23",
+  "timezone": "America/Sao_Paulo",
+  "recordedAt": "2026-11-23T17:18:49.247959+00:00",
+  "commit": "5abd06aa481e55828e8ce41680ea38aad5c3bc65",
+  "previousCommit": "4a50a6a7d29cb1f31d73d9983ff5f6b4f0fb88b4",
+  "branch": "feature/US11-matriz-setup",
+  "initialGitStatus": "clean",
+  "platform": "Windows-10-10.0.26200-SP0",
+  "python": "3.11.9",
+  "node": "26.13.0",
+  "npm": "11.20.0",
+  "postgresqlServer": "18.6 x86_64-windows msvc-19.44.35229 64-bit (SELECT version())",
+  "cypress": "16.3.0",
+  "chrome": "157.0.8103.79 headless",
+  "databaseHost": "127.0.0.1",
+  "databasePort": 55433,
+  "databases": [
+    "qa_us11_5abd06a_test",
+    "qa_us11_5abd06a_e2e_test"
+  ],
+  "cluster": ".tmp/qa-us11-5abd06a/pgdata",
+  "frontend": "production build, Vite preview, localhost:5173",
+  "api": "FastAPI/Uvicorn localhost:8000",
+  "executions": {
+    "lint": {
+      "exitCode": 0
+    },
+    "buildSandbox": {
+      "exitCode": 1,
+      "infrastructure": "spawn EPERM; loading native dependency failure"
+    },
+    "buildOutsideSandbox": {
+      "exitCode": 0
+    },
+    "postgresSandbox": {
+      "infrastructure": "could not create restricted token: error code 87; could not start server: error code 3"
+    },
+    "postgresOutsideSandbox": {
+      "exitCode": 0
+    },
+    "pytest": {
+      "exitCode": 0,
+      "passed": 33,
+      "integration": 27,
+      "unitMockedSafetyGuards": 6,
+      "durationSeconds": 6.22
+    },
+    "us11": {
+      "exitCode": 0,
+      "passed": 4,
+      "integratedNominalScenarios": 2,
+      "realLoginMockedMatrixApis": 2
+    },
+    "us32": {
+      "exitCode": 0,
+      "passedExamples": 32,
+      "caseIds": "CT32-CT43"
+    },
+    "investigationInitialLaunch": {
+      "exitCode": -1073741795,
+      "classification": "launcher failed before test results; inherited ELECTRON_RUN_AS_NODE; successful retry after removing it from child environment"
+    },
+    "investigationFinal": {
+      "exitCode": 0,
+      "passed": 7,
+      "mockedSessionAndApis": true,
+      "officialPlan": false
+    }
+  },
+  "notes": [
+    "No production source, official test or requirement edited.",
+    "Temporary tests are archived as .txt and do not join official suite.",
+    "The second successful investigation execution adjusted browser window dimensions for complete screenshots; it is not counted as seven new cases.",
+    "CI evaluated synthetic merge 679dedec9e26ef6cd682963cd02afcb1c3e54933; local tests evaluated head directly."
+  ]
+}

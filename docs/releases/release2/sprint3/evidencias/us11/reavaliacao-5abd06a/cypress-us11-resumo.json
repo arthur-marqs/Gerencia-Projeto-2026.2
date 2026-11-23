@@ -1,0 +1,39 @@
+{
+  "startedAt": "2026-11-23T17:14:29.708Z",
+  "branch": "feature/US11-matriz-setup",
+  "commit": "5abd06aa481e55828e8ce41680ea38aad5c3bc65",
+  "dirty": false,
+  "sourceSha256": "7519a14f64b1eb904cb103bc1d397b1e35d4d5f6106e3c15bca5d443ea0138a3",
+  "browser": "chrome",
+  "configFile": "cypress.config.cjs",
+  "tags": "@US11",
+  "node": "v26.13.0",
+  "platform": "win32 10.0.26200",
+  "finishedAt": "2026-11-23T17:14:44.144Z",
+  "browserVersion": "157.0.8103.79",
+  "cypressVersion": "16.3.0",
+  "total": 4,
+  "passed": 4,
+  "failed": 0,
+  "pending": 0,
+  "skipped": 0,
+  "durationMs": 5989,
+  "tests": [
+    {
+      "title": "Consultar matriz de setup entre famílias de produtos / Consultar tempos de setup diferentes em cada direção",
+      "state": "passed"
+    },
+    {
+      "title": "Consultar matriz de setup entre famílias de produtos / Consultar matriz sem configurações de setup",
+      "state": "passed"
+    },
+    {
+      "title": "Consultar matriz de setup entre famílias de produtos / Exibir família de destino ausente na lista de famílias",
+      "state": "passed"
+    },
+    {
+      "title": "Consultar matriz de setup entre famílias de produtos / Exibir família de origem ausente na lista de famílias",
+      "state": "passed"
+    }
+  ]
+}

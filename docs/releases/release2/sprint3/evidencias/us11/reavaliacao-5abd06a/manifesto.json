@@ -1,0 +1,110 @@
+{
+  "recordedAt": "2026-11-23T17:24:24.265996+00:00",
+  "commit": "5abd06aa481e55828e8ce41680ea38aad5c3bc65",
+  "sourceSha256": "7519a14f64b1eb904cb103bc1d397b1e35d4d5f6106e3c15bca5d443ea0138a3",
+  "officialRunnersInitialDirty": false,
+  "productionAndOfficialTestsUnchanged": true,
+  "report": {
+    "path": "docs/releases/release2/sprint3/relatorio-revisao-pr16-us11.md",
+    "sha256": "b033fe22fdabe203f5beb26ad741e28f759a7da3657eb446317f8e0377294682"
+  },
+  "servicesCreatedByQAStopped": true,
+  "files": [
+    {
+      "name": "ambiente.json",
+      "bytes": 2477,
+      "sha256": "8377cb46229f63b4a12e5b8f3e3d82378b24d51d5f35eaf8df7fc19f9839624c"
+    },
+    {
+      "name": "bug001-destino-ausente.png",
+      "bytes": 66360,
+      "sha256": "edfe5bf8898c9b91d514ce1427a96838ed35bf5ce1c7f200d8dd4ba8fb68b70f"
+    },
+    {
+      "name": "bug001-origem-ausente.png",
+      "bytes": 66360,
+      "sha256": "edfe5bf8898c9b91d514ce1427a96838ed35bf5ce1c7f200d8dd4ba8fb68b70f"
+    },
+    {
+      "name": "build-escalated.log",
+      "bytes": 396,
+      "sha256": "a31ba94be6e2524a02902f80dfdc69ba5015797a087a99ae8ce6ce076a097b25"
+    },
+    {
+      "name": "build.log",
+      "bytes": 4414,
+      "sha256": "2f4d175757e30c783bb199b8ddb0586cfafbc3012eb0256c327bb0e8c82613e6"
+    },
+    {
+      "name": "cypress-chrome.log",
+      "bytes": 6013,
+      "sha256": "7fe9aab01dec6c7ebb2c2dbf93d68681c717b0e2bda69b7429e0644a95be7f32"
+    },
+    {
+      "name": "cypress-investigacao.config.cjs.txt",
+      "bytes": 768,
+      "sha256": "edb6ed0f3e07099bbde8c501fd6c6908b36d4740074f435dd06be68d1d838fa5"
+    },
+    {
+      "name": "cypress-us11-junit.xml",
+      "bytes": 1329,
+      "sha256": "62ada8e2afbcd14d182cedd3200dee88e5a1401caae782367a52a7f8a1f56d4a"
+    },
+    {
+      "name": "cypress-us11-resumo.json",
+      "bytes": 1267,
+      "sha256": "36a4e90de78fa008d8399bb02e2a375a1966de89ca5b457f0e8f2dd7140f38be"
+    },
+    {
+      "name": "cypress-us32-junit.xml",
+      "bytes": 8968,
+      "sha256": "36f1d992ab2ceaf3419c128b8a28b6b0c2c4036a205d828c742b547aeebfed97"
+    },
+    {
+      "name": "cypress-us32-resumo.json",
+      "bytes": 6575,
+      "sha256": "e73caf9ac8ec3746efa4faeffda89edb635d07b67745139d47e5a809a7902483"
+    },
+    {
+      "name": "cypress-us32.log",
+      "bytes": 21604,
+      "sha256": "2172d1e8c5a82a8afcdd8b539883282cef65b4881e9db7d8b0798c020eccff0f"
+    },
+    {
+      "name": "github-ci.json",
+      "bytes": 55578,
+      "sha256": "27f17aaafb8d6ac5989d9f4ed5c4445c4e1d5f766a3458120d7593ad91e7f383"
+    },
+    {
+      "name": "investigacao-final.log",
+      "bytes": 7011,
+      "sha256": "453287de4d132dfc2a98ac4eb2299b2f4ea67d664cd07316181bebdf8fc80de2"
+    },
+    {
+      "name": "investigacao-junit.xml",
+      "bytes": 2316,
+      "sha256": "2e48daef807f73b4f816434c41a7663de496706b29cd086d8f4880b92707d484"
+    },
+    {
+      "name": "investigacao.cy.js.txt",
+      "bytes": 4478,
+      "sha256": "666f27aa229f0609f2469791437bcb9a2ff26990299483d4241052ef5c1aff83"
+    },
+    {
+      "name": "lint.log",
+      "bytes": 34,
+      "sha256": "31298a090b4d326219614a2b109f11bc9be6ea420c4b2fa47c181368d3733a26"
+    },
+    {
+      "name": "pytest.log",
+      "bytes": 4204,
+      "sha256": "677ff2bf469c15ad15c2917a5d34837f7b669bdb7219fca9e20a1212f2e1a200"
+    },
+    {
+      "name": "pytest.xml",
+      "bytes": 4728,
+      "sha256": "9acb365c0866b838a81c4221ffd7d5c2cddcc13d4b3acb5c6217159a0caad405"
+    }
+  ],
+  "textNormalization": "UTF-8 LF; duplicated line endings, trailing spaces and extra blank lines at log EOF normalized before commit; results and messages preserved."
+}

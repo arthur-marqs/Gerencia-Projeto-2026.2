@@ -1,0 +1,675 @@
+{
+  "consultedAt": "2026-11-23",
+  "pr": {
+    "url": "https://github.com/arthur-marqs/Gerencia-Projeto-2026.2/pull/16",
+    "state": "open",
+    "merged": false,
+    "head": "feature/US11-matriz-setup",
+    "head_sha": "5abd06aa481e55828e8ce41680ea38aad5c3bc65",
+    "base": "main",
+    "base_sha": "5cf655eef47a453ca95eaab5818b93d8fc6415d9",
+    "merge_commit_sha": "679dedec9e26ef6cd682963cd02afcb1c3e54933",
+    "body": "# [US11] Visualizar matriz de setup entre famílias\n\n### Metadados\n* **Autor:** @arthur-marqs \n* **Revisores:** @leonardo-istamilo  (QA), @luizmouradc \n* **Issue Relacionada:** SC-28 – US11\n* **Fluxo de Branch:** `feature/US11-matriz-setup` ➡️ `main`\n\n---\n\n### O que foi feito\n\nImplementada a página de visualização da matriz de setup, permitindo consultar os tempos configurados entre as famílias de produtos.\n\n- [x] Criada a interface da matriz, organizando as famílias nas linhas e colunas.\n- [ ] Integradas as consultas às APIs existentes de famílias e tempos de setup.\n- [ ] Implementados os estados de carregamento, erro, ausência de configurações e atualização dos dados.\n- [x] Adicionada a opção \"Matriz de setup\" ao menu lateral, restrita ao perfil PLANEJADOR.\n\n---\n\n### Por que foi feito\n\nEsta alteração atende à US11 – Visualizar matriz de setup, permitindo que o Planejador de Produção consulte os tempos necessários para realizar transições entre famílias de produtos.\n\nA visualização facilita a conferência das configurações utilizadas no planejamento da produção, apresentando os tempos em uma matriz direcional. A implementação reutiliza os endpoints disponibilizados pela US10, sem necessidade de novas rotas ou alterações no banco de dados.\n\n---\n\n### Tipo de alteração\n- [x] Nova funcionalidade (US)\n- [x] Correção de bug\n- [ ] Refatoração\n- [ ] Documentação\n- [ ] Configuração / CI / Infraestrutura\n\n---\n\n### Como testar\n1. Iniciar o backend na pasta `backend` com `python -m uvicorn app.main:app --reload`.\n2. Iniciar o frontend na pasta `frontend` com `npm run dev`.\n3. Acessar o sistema e realizar login com um usuário que possua o perfil PLANEJADOR.\n4. Acessar a opção \"Matriz de setup\" no menu lateral.\n5. Verificar a apresentação das famílias nas linhas e colunas e os respectivos tempos configurados.\n6. Verificar se transições sem configuração são representadas por \"—\".\n7. Utilizar o botão \"Atualizar matriz\" e verificar se os dados são carregados novamente.\n\n**Resultado esperado:** a matriz deve apresentar corretamente os tempos de setup cadastrados entre as famílias, respeitando a direção de cada transição. Quando não houver configurações, o sistema deve apresentar a mensagem informativa correspondente.\n\n> 💻 **Comandos úteis:**\n> - `npm run lint`\n> - `npm run build`\n> - `python -m uvicorn app.main:app --reload`\n\n---\n\n### Evidências\n<img width=\"1304\" height=\"487\" alt=\"image\" src=\"https://github.com/user-attachments/assets/a59385ed-bbed-495d-8b63-71d8ccc00e88\" />\n\n---\n\n### Checklist do Autor\n- [ ] A branch está atualizada com a base\n- [ ] O código segue o padrão do projeto\n- [ ] Testes novos ou atualizados, e todos passando\n- [ ] Pipeline de CI sem falhas\n- [ ] Critérios de aceite da US atendidos\n- [ ] Documentação e README atualizados, se necessário\n- [ ] Sem segredos, senhas ou dados sensíveis no código\n\n---\n\n### Checklist do Revisor (QA)\n- [ ] Li o código e não encontrei problemas\n- [ ] Executei os passos de \"Como testar\"\n- [ ] Critérios de aceite validados\n- [ ] Sem regressões visíveis\n\n💬 **Observações para o revisor:** A implementação utiliza os endpoints GET `/api/families` e `/api/tempos-setup`, disponibilizados pela US10. Os tempos são direcionais: uma configuração de A para B não implica a existência da configuração de B para A. Células sem configuração são representadas por \"—\", não por zero. Foram executados `npm run lint` e `npm run build`, ambos sem erros.\n",
+    "comments": [
+      {
+        "url": "https://github.com/arthur-marqs/Gerencia-Projeto-2026.2/pull/16#issuecomment-7010642932",
+        "body": "Revisei a implementação da US11 e comparei com os critérios da SC-28. A matriz está organizada corretamente por origem e destino, respeita a direcionalidade dos tempos de setup e utiliza os endpoints existentes da US10. O acesso também está restrito ao perfil PLANEJADOR.\n\n### Precisa corrigir\n\n- **Testes da US11 (Cypress):** não encontrei testes automatizados específicos para a nova tela. Como a Definition of Done exige testes escritos e passando, é necessário adicionar testes Cypress seguindo o padrão Gherkin do projeto, cobrindo os dois cenários de aceite: a matriz com tempos cadastrados e a mensagem apresentada quando não existem configurações. No primeiro cenário, também vale verificar A → B e B → A com valores diferentes e transições sem configuração.\n\n### Sugestões\n\n- **`MatrizSetupPage.tsx`:** o botão \"Atualizar matriz\" desaparece quando não existem configurações cadastradas. Seria interessante mantê-lo disponível nesse estado, permitindo consultar novos registros sem precisar sair e voltar à página.\n- **Documentação:** atualizar brevemente o README do frontend para incluir a nova funcionalidade, conforme a Definition of Done.\n\nNão identifiquei outros problemas relevantes na lógica da matriz ou na integração com as APIs existentes. ",
+        "created_at": "2026-11-19T13:33:20Z"
+      },
+      {
+        "url": "https://github.com/arthur-marqs/Gerencia-Projeto-2026.2/pull/16#issuecomment-7084144985",
+        "body": "Complementando a revisão da US11, reproduzi no Chrome um caso em que **a matriz conta uma configuração, mas não mostra o tempo correspondente**. Testei o commit `8de6f4a` com respostas simuladas das APIs.\r\n\r\n**Como acontece**\r\n\r\n1. A tela usa a resposta de `GET /api/families` para montar as linhas e colunas. No teste, essa resposta trouxe apenas a família **A**.\r\n2. A tela usa a resposta de `GET /api/tempos-setup` para preencher a matriz e contar as configurações. Essa resposta trouxe **A → B = 15 min**, com os dados das duas famílias.\r\n3. O contador indicou **uma configuração**, mas a coluna **B** ficou ausente. Sem essa coluna, o planejador não consegue ver os **15 min**.\r\n\r\n**O que precisa mudar antes do merge**\r\n\r\nInclua nos eixos as famílias que aparecem nas transições retornadas pela API de setups. No exemplo, a tela deve mostrar **A e B** nas linhas e colunas, **15 min** na linha A e coluna B, **—** na linha B e coluna A e **uma configuração** no contador.\r\n\r\nAdicione ao Cypress um teste para cada caso: quando falta a família de **origem** e quando falta a família de **destino**. Para fechar o DoD, inclua também os dois cenários de aceite da US11 (**com** e **sem** tempos cadastrados) na CI e atualize o README do frontend com o caminho até a matriz.\r\n\r\nA captura, os passos de reprodução e os critérios de correção em Gherkin estão na [[issue #18 — BUG-001](https://github.com/arthur-marqs/Gerencia-Projeto-2026.2/issues/18)](https://github.com/arthur-marqs/Gerencia-Projeto-2026.2/issues/18).",
+        "created_at": "2026-11-22T19:08:50Z"
+      }
+    ]
+  },
+  "issue": {
+    "id": 6546190682,
+    "url": "https://github.com/arthur-marqs/Gerencia-Projeto-2026.2/issues/18",
+    "title": "[BUG-001][US011] Matriz contabiliza tempo de setup, mas não o exibe",
+    "issue_number": 18,
+    "body": "# [BUG-001] [US011] Matriz de setup conta transição sem exibir seu tempo\n\n| Campo | Valor |\n| --- | --- |\n| Release | R2|\n| Sprint | 3 |\n| Severidade | Média |\n| Prioridade | Média |\n| Responsável | @arthur-marqs |\n| Reportado por | @leonardo-istamilo (QA) |\n| US relacionada | SC-28 / US11 — Visualizar matriz de setup. Número da issue no GitHub a confirmar. |\n| PR relacionado | [#16](https://github.com/arthur-marqs/Gerencia-Projeto-2026.2/pull/16) |\n\n## Descrição\n\nQuando a API de tempos de setup retorna uma transição que referencia uma família ausente da resposta da API de famílias, a matriz contabiliza a transição, mas omite seu tempo. O planejador perde uma informação necessária para conferir os tempos cadastrados.\n\nComo pode ocorrer com o backend:\n1. A consulta de famílias lê o banco quando só existe a família A.\n2. Enquanto a consulta de setups ainda está em andamento, outro planejador cadastra a família B e configura A → B = 15 min.\n3. A consulta de setups lê o banco depois do cadastro e devolve essa transição.\n4. A tela mostra 1 configuração, mas monta os eixos apenas com A. \n5. A coluna B fica ausente e os 15 min não aparecem.\n\n## Ambiente\n\n- **Ambiente** — Local, com o frontend do PR e respostas simuladas para a sessão e as APIs.\n- **Navegador / versão** — Google Chrome 157.0.8103.79, em modo headless.\n- **Sistema operacional** — Windows, build 10.0.26300.\n- **Versão / commit / branch** — `8de6f4a` / `feature/US11-matriz-setup`.\n\n## Passos para reproduzir\n\n1. Abra o frontend local com uma sessão de `PLANEJADOR`. Na execução registrada, `GET /api/auth/me` retornou o perfil por simulação.\n2. Antes de abrir a matriz, intercepte `GET /api/families` e retorne somente a família A. Intercepte `GET /api/tempos-setup` e retorne uma transição **A → B = 15 min**, com ID, código e nome de A e B nos objetos de origem e destino. Use os retornos do cenário `bug` no JSON de evidência.\n3. Abra **Matriz de setup** pelo menu lateral. Confira os eixos, a célula A → B e o contador de configurações.\n\n## Resultado esperado\n\nA e B aparecem como origens e destinos. A célula da linha A e da coluna B mostra **15 min**, e o contador indica uma configuração.\n\n## Resultado obtido\n\nO Chrome exibiu **“1 configurações”**, apenas A nos eixos e um traço na única célula. A coluna B e os **15 min** ficaram ausentes, embora a resposta de tempos contivesse a transição.\n\n## Evidências\n\n- [Captura da matriz no Chrome](https://github.com/arthur-marqs/Gerencia-Projeto-2026.2/blob/7c86dd9aa4d9003b2c06e88c629aca99082379bd/docs/releases/release2/sprint2/evidencias/us11/ct03-matriz-setup-chrome.png)\n- [Respostas simuladas e resultados observados no Chrome](https://github.com/arthur-marqs/Gerencia-Projeto-2026.2/blob/7c86dd9aa4d9003b2c06e88c629aca99082379bd/docs/releases/release2/sprint2/evidencias/us11/resultado-chrome.json)\n- [Relatório de revisão e validação da US11](https://github.com/arthur-marqs/Gerencia-Projeto-2026.2/blob/7c86dd9aa4d9003b2c06e88c629aca99082379bd/docs/releases/release2/sprint3/relatorio-revisao-pr16-us11.md)\n\n<img width=\"1440\" height=\"960\" alt=\"image\" src=\"https://github.com/user-attachments/assets/5d9301f2-9626-409c-8c27-a970a58d0933\" />\n\n## Critério de correção sugerido em Gherkin\nFuncionalidade: Visualizar a matriz de setup\n\n  **Cenário 1:** Exibir uma transição cuja família de destino não veio na lista de famílias\n    Dado que o Planejador de Produção está autenticado\n    E que a consulta de famílias retorna somente a família A\n    E que a consulta de tempos retorna somente uma configuração de A para B de 15 minutos\n    E que essa configuração inclui o ID, o código e o nome da família B\n    Quando o planejador acessar a matriz de setup\n    Então as famílias A e B devem aparecer nas linhas e nas colunas\n    E a célula da origem A para o destino B deve exibir \"15 min\"\n    E a célula da origem B para o destino A deve exibir \"—\"\n    E o contador deve indicar uma configuração\n\n  **Cenário 2:** Exibir uma transição cuja família de origem não veio na lista de famílias\n    Dado que o Planejador de Produção está autenticado\n    E que a consulta de famílias retorna somente a família B\n    E que a consulta de tempos retorna somente uma configuração de A para B de 15 minutos\n    E que essa configuração inclui o ID, o código e o nome da família A\n    Quando o planejador acessar a matriz de setup\n    Então as famílias A e B devem aparecer nas linhas e nas colunas\n    E a célula da origem A para o destino B deve exibir \"15 min\"\n    E a célula da origem B para o destino A deve exibir \"—\"\n    E o contador deve indicar uma configuração\n\n## Checklist de encerramento\n\n- [ ] Causa identificada e registrada nos comentários\n- [ ] Correção feita via Pull Request que referencia esta issue\n- [ ] Teste de regressão criado ou atualizado\n- [ ] Correção verificada pelo QA\n",
+    "state": "open",
+    "user": {
+      "login": "leonardo-istamilo",
+      "name": "leonardo-istamilo",
+      "email": null,
+      "avatar_url": "https://avatars.githubusercontent.com/u/141760753?v=4",
+      "id": 141760753
+    },
+    "assignees": [
+      {
+        "login": "arthur-marqs",
+        "name": "arthur-marqs",
+        "email": null,
+        "avatar_url": "https://avatars.githubusercontent.com/u/122844109?v=4",
+        "id": 122844109
+      },
+      {
+        "login": "leonardo-istamilo",
+        "name": "leonardo-istamilo",
+        "email": null,
+        "avatar_url": "https://avatars.githubusercontent.com/u/141760753?v=4",
+        "id": 141760753
+      }
+    ],
+    "labels": [
+      {
+        "name": "bug",
+        "color": "d73a4a",
+        "description": "Something isn't working"
+      }
+    ],
+    "milestone": null,
+    "state_reason": null,
+    "comments": 0,
+    "created_at": "2026-11-22T18:39:20Z",
+    "updated_at": "2026-11-22T19:07:19Z",
+    "closed_at": null,
+    "display_url": "https://github.com/arthur-marqs/Gerencia-Projeto-2026.2/issues/18",
+    "display_title": "[BUG-001][US011] Matriz contabiliza tempo de setup, mas não o exibe"
+  },
+  "run": [
+    {
+      "id": 45116249217,
+      "name": "CI",
+      "status": "completed",
+      "conclusion": "success",
+      "run_number": 125,
+      "jobs_url": "https://api.github.com/repos/arthur-marqs/Gerencia-Projeto-2026.2/actions/runs/45116249217/jobs",
+      "logs_url": "https://api.github.com/repos/arthur-marqs/Gerencia-Projeto-2026.2/actions/runs/45116249217/logs",
+      "workflow_id": 392989200
+    }
+  ],
+  "jobs": [
+    {
+      "id": 137499659188,
+      "name": "Frontend lint and build",
+      "status": "completed",
+      "conclusion": "success",
+      "run_id": 45116249217,
+      "logs_url": null,
+      "steps": [
+        {
+          "name": "Set up job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 1
+        },
+        {
+          "name": "Checkout repository",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 2
+        },
+        {
+          "name": "Set up Node",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 3
+        },
+        {
+          "name": "Install frontend dependencies",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 4
+        },
+        {
+          "name": "Run frontend lint",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 5
+        },
+        {
+          "name": "Build frontend",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 6
+        },
+        {
+          "name": "Post Set up Node",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 11
+        },
+        {
+          "name": "Post Checkout repository",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 12
+        },
+        {
+          "name": "Complete job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 13
+        }
+      ]
+    },
+    {
+      "id": 137499659391,
+      "name": "Backend pytest",
+      "status": "completed",
+      "conclusion": "success",
+      "run_id": 45116249217,
+      "logs_url": null,
+      "steps": [
+        {
+          "name": "Set up job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 1
+        },
+        {
+          "name": "Initialize containers",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 2
+        },
+        {
+          "name": "Checkout repository",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 3
+        },
+        {
+          "name": "Set up Python",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 4
+        },
+        {
+          "name": "Install backend dependencies",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 5
+        },
+        {
+          "name": "Run backend pytest suite",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 6
+        },
+        {
+          "name": "Publish JUnit report",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 7
+        },
+        {
+          "name": "Post Set up Python",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 12
+        },
+        {
+          "name": "Post Checkout repository",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 13
+        },
+        {
+          "name": "Stop containers",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 14
+        },
+        {
+          "name": "Complete job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 15
+        }
+      ]
+    },
+    {
+      "id": 137499659430,
+      "name": "Acceptance BDD - US11 e US32 (chrome)",
+      "status": "completed",
+      "conclusion": "success",
+      "run_id": 45116249217,
+      "logs_url": null,
+      "steps": [
+        {
+          "name": "Set up job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 1
+        },
+        {
+          "name": "Initialize containers",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 2
+        },
+        {
+          "name": "Run actions/checkout@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 3
+        },
+        {
+          "name": "Run actions/setup-python@v5",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 4
+        },
+        {
+          "name": "Run actions/setup-node@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 5
+        },
+        {
+          "name": "Install backend dependencies and apply migrations",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 6
+        },
+        {
+          "name": "Start API",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 7
+        },
+        {
+          "name": "Cypress smoke and regression",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 8
+        },
+        {
+          "name": "Publish acceptance reports, screenshots and videos",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 9
+        },
+        {
+          "name": "Post Run actions/setup-node@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 15
+        },
+        {
+          "name": "Post Run actions/setup-python@v5",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 16
+        },
+        {
+          "name": "Post Run actions/checkout@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 17
+        },
+        {
+          "name": "Stop containers",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 18
+        },
+        {
+          "name": "Complete job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 19
+        }
+      ]
+    },
+    {
+      "id": 137499659484,
+      "name": "Frontend Cypress BDD",
+      "status": "completed",
+      "conclusion": "success",
+      "run_id": 45116249217,
+      "logs_url": null,
+      "steps": [
+        {
+          "name": "Set up job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 1
+        },
+        {
+          "name": "Checkout repository",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 2
+        },
+        {
+          "name": "Set up Node",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 3
+        },
+        {
+          "name": "Run Cypress BDD tests",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 4
+        },
+        {
+          "name": "Publish Cypress screenshots on failure",
+          "status": "completed",
+          "conclusion": "skipped",
+          "number": 5
+        },
+        {
+          "name": "Post Set up Node",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 9
+        },
+        {
+          "name": "Post Checkout repository",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 10
+        },
+        {
+          "name": "Complete job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 11
+        }
+      ]
+    },
+    {
+      "id": 137499659486,
+      "name": "Acceptance BDD - US11 e US32 (electron)",
+      "status": "completed",
+      "conclusion": "success",
+      "run_id": 45116249217,
+      "logs_url": null,
+      "steps": [
+        {
+          "name": "Set up job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 1
+        },
+        {
+          "name": "Initialize containers",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 2
+        },
+        {
+          "name": "Run actions/checkout@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 3
+        },
+        {
+          "name": "Run actions/setup-python@v5",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 4
+        },
+        {
+          "name": "Run actions/setup-node@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 5
+        },
+        {
+          "name": "Install backend dependencies and apply migrations",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 6
+        },
+        {
+          "name": "Start API",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 7
+        },
+        {
+          "name": "Cypress smoke and regression",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 8
+        },
+        {
+          "name": "Publish acceptance reports, screenshots and videos",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 9
+        },
+        {
+          "name": "Post Run actions/setup-node@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 15
+        },
+        {
+          "name": "Post Run actions/setup-python@v5",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 16
+        },
+        {
+          "name": "Post Run actions/checkout@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 17
+        },
+        {
+          "name": "Stop containers",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 18
+        },
+        {
+          "name": "Complete job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 19
+        }
+      ]
+    }
+  ],
+  "checkoutNote": "Logs dos jobs de aceite comprovam checkout do merge sintético 679dedec9e26ef6cd682963cd02afcb1c3e54933: merge do head 5abd06aa481e55828e8ce41680ea38aad5c3bc65 na base 5cf655eef47a453ca95eaab5818b93d8fc6415d9; não é uma execução local do head.",
+  "chromeLogEvidence": [
+    "2026-11-23T05:12:14.3614986Z [command]/usr/bin/git -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --depth=1 origin +679dedec9e26ef6cd682963cd02afcb1c3e54933:refs/remotes/pull/16/merge",
+    "2026-11-23T05:12:15.2656611Z  * [new ref]         679dedec9e26ef6cd682963cd02afcb1c3e54933 -> pull/16/merge",
+    "2026-11-23T05:12:15.3194205Z HEAD is now at 679dede Merge 5abd06aa481e55828e8ce41680ea38aad5c3bc65 into 5cf655eef47a453ca95eaab5818b93d8fc6415d9",
+    "2026-11-23T05:12:15.3267516Z [command]/usr/bin/git log -1 --format=%H",
+    "2026-11-23T05:12:15.3283355Z 679dedec9e26ef6cd682963cd02afcb1c3e54933",
+    "2026-11-23T05:13:08.7126842Z   │ Cypress:        16.3.0                                                                         │",
+    "2026-11-23T05:13:08.7137731Z   │ Browser:        Chrome 157 (headless)                                                          │",
+    "2026-11-23T05:13:08.7139294Z   │ Node Version:   v22.23.5 (/opt/hostedtoolcache/node/22.23.5/x64/bin/node)                      │",
+    "2026-11-23T05:13:22.9701253Z <testsuites name=\"Mocha Tests\" time=\"5.616\" tests=\"4\" failures=\"0\">",
+    "2026-11-23T05:13:22.9712359Z   <testsuite name=\"Root Suite\" timestamp=\"2026-11-23T05:13:17\" tests=\"0\" file=\"cypress/e2e/matriz-setup.feature\" time=\"0.000\" failures=\"0\">",
+    "2026-11-23T05:13:22.9713257Z   </testsuite>",
+    "2026-11-23T05:13:22.9714370Z   <testsuite name=\"Consultar matriz de setup entre famílias de produtos\" timestamp=\"2026-11-23T05:13:17\" tests=\"4\" time=\"5.616\" failures=\"0\">",
+    "2026-11-23T05:13:22.9715836Z     <testcase name=\"Consultar matriz de setup entre famílias de produtos Consultar tempos de setup diferentes em cada direção\" time=\"1.724\" classname=\"Consultar tempos de setup diferentes em cada direção\">",
+    "2026-11-23T05:13:22.9716721Z     </testcase>",
+    "2026-11-23T05:13:22.9717809Z     <testcase name=\"Consultar matriz de setup entre famílias de produtos Consultar matriz sem configurações de setup\" time=\"1.334\" classname=\"Consultar matriz sem configurações de setup\">",
+    "2026-11-23T05:13:22.9718583Z     </testcase>",
+    "2026-11-23T05:13:22.9719658Z     <testcase name=\"Consultar matriz de setup entre famílias de produtos Exibir família de destino ausente na lista de famílias\" time=\"1.263\" classname=\"Exibir família de destino ausente na lista de famílias\">",
+    "2026-11-23T05:13:22.9720791Z     </testcase>",
+    "2026-11-23T05:13:22.9721849Z     <testcase name=\"Consultar matriz de setup entre famílias de produtos Exibir família de origem ausente na lista de famílias\" time=\"1.212\" classname=\"Exibir família de origem ausente na lista de famílias\">",
+    "2026-11-23T05:13:22.9722809Z     </testcase>",
+    "2026-11-23T05:13:22.9723142Z   </testsuite>",
+    "2026-11-23T05:13:22.9723496Z </testsuites>",
+    "2026-11-23T05:13:24.3801960Z   │ Tests:        4                                                                                │",
+    "2026-11-23T05:13:24.3802670Z   │ Passing:      4                                                                                │",
+    "2026-11-23T05:13:24.3803328Z   │ Failing:      0                                                                                │",
+    "2026-11-23T05:14:45.7215963Z <testsuites name=\"Mocha Tests\" time=\"80.083\" tests=\"32\" failures=\"0\">",
+    "2026-11-23T05:14:45.7217807Z   <testsuite name=\"Root Suite\" timestamp=\"2026-11-23T05:13:25\" tests=\"0\" file=\"cypress/e2e/usuarios.feature\" time=\"0.000\" failures=\"0\">",
+    "2026-11-23T05:14:45.7218664Z   </testsuite>",
+    "2026-11-23T05:14:45.7220039Z   <testsuite name=\"Gerenciar usuários e preservar seus acessos e autoria\" timestamp=\"2026-11-23T05:13:25\" tests=\"32\" time=\"80.077\" failures=\"0\">",
+    "2026-11-23T05:14:45.7222453Z     <testcase name=\"Gerenciar usuários e preservar seus acessos e autoria CT32 - Cadastrar uma conta ativa e permitir login com os perfis atribuídos\" time=\"3.409\" classname=\"CT32 - Cadastrar uma conta ativa e permitir login com os perfis atribuídos\">",
+    "2026-11-23T05:14:45.7231722Z     </testcase>",
+    "2026-11-23T05:14:45.7233019Z     <testcase name=\"Gerenciar usuários e preservar seus acessos e autoria CT33 - Consultar usuários ativos e inativos sem expor senha ou hash\" time=\"1.775\" classname=\"CT33 - Consultar usuários ativos e inativos sem expor senha ou hash\">",
+    "2026-11-23T05:14:45.7234022Z     </testcase>",
+    "2026-11-23T05:14:45.7235415Z     <testcase name=\"Gerenciar usuários e preservar seus acessos e autoria CT34 - Editar dados e substituir perfis mantendo a senha e aplicando novas permissões\" time=\"2.676\" classname=\"CT34 - Editar dados e substituir perfis mantendo a senha e aplicando novas permissões\">",
+    "2026-11-23T05:14:45.7236507Z     </testcase>",
+    "2026-11-23T05:14:45.7237419Z     <testcase name=\"Gerenciar usuários e preservar seus acessos e autoria CT35 - Cancelar a exclusão e depois confirmar a remoção de uma conta sem vínculos\" time=\"2.629\" classname=\"CT35 - Cancelar a exclusão e depois confirmar a remoção de uma conta sem vínculos\">",
+    "2026-11-23T05:14:45.7238192Z     </testcase>",
+    "2026-11-23T05:14:45.7239142Z     <testcase name=\"Gerenciar usuários e preservar seus acessos e autoria CT36 - Identificar todos os campos inválidos e preservar os dados anteriores na edição\" time=\"2.807\" classname=\"CT36 - Identificar todos os campos inválidos e preservar os dados anteriores na edição\">",
+    "2026-11-23T05:14:45.7239987Z     </testcase>",
+    "2026-11-23T05:14:45.7241008Z     <testcase name=\"Gerenciar usuários e preservar seus acessos e autoria CT36 - Rejeitar perfis inexistentes enviados diretamente à API\" time=\"1.657\" classname=\"CT36 - Rejeitar perfis inexistentes enviados diretamente à API\">",
+    "2026-11-23T05:14:45.7241841Z     </testcase>",
+    "2026-11-23T05:14:45.7243005Z     <testcase name=\"Gerenciar usuários e preservar seus acessos e autoria CT37 - Recusar e-mail duplicado de conta ativa durante cadastro (example #1)\" time=\"3.340\" classname=\"CT37 - Recusar e-mail duplicado de conta ativa durante cadastro (example #1)\">",
+    "2026-11-23T05:14:45.7243993Z     </testcase>",
+    "2026-11-23T05:14:45.7245232Z     <testcase name=\"Gerenciar usuários e preservar seus acessos e autoria CT37 - Recusar e-mail duplicado de conta inativa durante cadastro (example #2)\" time=\"3.688\" classname=\"CT37 - Recusar e-mail duplicado de conta inativa durante cadastro (example #2)\">",
+    "2026-11-23T05:14:45.7246199Z     </testcase>",
+    "2026-11-23T05:14:45.7247806Z     <testcase name=\"Gerenciar usuários e preservar seus acessos e autoria CT37 - Recusar e-mail duplicado de conta ativa durante edição (example #3)\" time=\"3.377\" classname=\"CT37 - Recusar e-mail duplicado de conta ativa durante edição (example #3)\">",
+    "2026-11-23T05:14:45.7248712Z     </testcase>",
+    "2026-11-23T05:14:45.7249981Z     <testcase name=\"Gerenciar usuários e preservar seus acessos e autoria CT37 - Recusar e-mail duplicado de conta inativa durante edição (example #4)\" time=\"2.946\" classname=\"CT37 - Recusar e-mail duplicado de conta inativa durante edição (example #4)\">",
+    "2026-11-23T05:14:45.7251159Z     </testcase>",
+    "2026-11-23T05:14:45.7252240Z     <testcase name=\"Gerenciar usuários e preservar seus acessos e autoria CT38 - Desativar e reativar sem recuperar as sessões antigas\" time=\"2.988\" classname=\"CT38 - Desativar e reativar sem recuperar as sessões antigas\">",
+    "2026-11-23T05:14:45.7253122Z     </testcase>",
+    "2026-11-23T05:14:45.7254311Z     <testcase name=\"Gerenciar usuários e preservar seus acessos e autoria CT39 - Preservar autoria ao recusar exclusão por ordens de produção (example #1)\" time=\"3.233\" classname=\"CT39 - Preservar autoria ao recusar exclusão por ordens de produção (example #1)\">",
+    "2026-11-23T05:14:45.7255388Z     </testcase>",
+    "2026-11-23T05:14:45.7256521Z     <testcase name=\"Gerenciar usuários e preservar seus acessos e autoria CT39 - Preservar autoria ao recusar exclusão por planejamentos (example #2)\" time=\"3.315\" classname=\"CT39 - Preservar autoria ao recusar exclusão por planejamentos (example #2)\">",
+    "2026-11-23T05:14:45.7257269Z     </testcase>",
+    "2026-11-23T05:14:45.7258328Z     <testcase name=\"Gerenciar usuários e preservar seus acessos e autoria CT40 - Preservar o último administrador ativo ao tentar excluir (example #1)\" time=\"1.784\" classname=\"CT40 - Preservar o último administrador ativo ao tentar excluir (example #1)\">",
+    "2026-11-23T05:14:45.7259021Z     </testcase>",
+    "2026-11-23T05:14:45.7259903Z     <testcase name=\"Gerenciar usuários e preservar seus acessos e autoria CT40 - Preservar o último administrador ativo ao tentar desativar (example #2)\" time=\"1.850\" classname=\"CT40 - Preservar o último administrador ativo ao tentar desativar (example #2)\">",
+    "2026-11-23T05:14:45.7260928Z     </testcase>",
+    "2026-11-23T05:14:45.7261868Z     <testcase name=\"Gerenciar usuários e preservar seus acessos e autoria CT40 - Preservar o último administrador ativo ao tentar remover o perfil (example #3)\" time=\"1.863\" classname=\"CT40 - Preservar o último administrador ativo ao tentar remover o perfil (example #3)\">",
+    "2026-11-23T05:14:45.7262609Z     </testcase>",
+    "2026-11-23T05:14:45.7263411Z     <testcase name=\"Gerenciar usuários e preservar seus acessos e autoria CT41 - Recusar listar quando o acesso está sem sessão (example #1)\" time=\"2.044\" classname=\"CT41 - Recusar listar quando o acesso está sem sessão (example #1)\">",
+    "2026-11-23T05:14:45.7264268Z     </testcase>",
+    "2026-11-23T05:14:45.7265106Z     <testcase name=\"Gerenciar usuários e preservar seus acessos e autoria CT41 - Recusar consultar quando o acesso está sem sessão (example #2)\" time=\"1.908\" classname=\"CT41 - Recusar consultar quando o acesso está sem sessão (example #2)\">",
+    "2026-11-23T05:14:45.7265838Z     </testcase>",
+    "2026-11-23T05:14:45.7266679Z     <testcase name=\"Gerenciar usuários e preservar seus acessos e autoria CT41 - Recusar cadastrar quando o acesso está sem sessão (example #3)\" time=\"2.021\" classname=\"CT41 - Recusar cadastrar quando o acesso está sem sessão (example #3)\">",
+    "2026-11-23T05:14:45.7267355Z     </testcase>",
+    "2026-11-23T05:14:45.7268142Z     <testcase name=\"Gerenciar usuários e preservar seus acessos e autoria CT41 - Recusar editar quando o acesso está sem sessão (example #4)\" time=\"2.025\" classname=\"CT41 - Recusar editar quando o acesso está sem sessão (example #4)\">",
+    "2026-11-23T05:14:45.7268821Z     </testcase>",
+    "2026-11-23T05:14:45.7269644Z     <testcase name=\"Gerenciar usuários e preservar seus acessos e autoria CT41 - Recusar desativar quando o acesso está sem sessão (example #5)\" time=\"2.041\" classname=\"CT41 - Recusar desativar quando o acesso está sem sessão (example #5)\">",
+    "2026-11-23T05:14:45.7270671Z     </testcase>",
+    "2026-11-23T05:14:45.7271584Z     <testcase name=\"Gerenciar usuários e preservar seus acessos e autoria CT41 - Recusar reativar quando o acesso está sem sessão (example #6)\" time=\"1.910\" classname=\"CT41 - Recusar reativar quando o acesso está sem sessão (example #6)\">",
+    "2026-11-23T05:14:45.7272255Z     </testcase>",
+    "2026-11-23T05:14:45.7273169Z     <testcase name=\"Gerenciar usuários e preservar seus acessos e autoria CT41 - Recusar excluir quando o acesso está sem sessão (example #7)\" time=\"1.896\" classname=\"CT41 - Recusar excluir quando o acesso está sem sessão (example #7)\">",
+    "2026-11-23T05:14:45.7273845Z     </testcase>",
+    "2026-11-23T05:14:45.7274664Z     <testcase name=\"Gerenciar usuários e preservar seus acessos e autoria CT41 - Recusar listar quando o acesso está operador (example #8)\" time=\"2.342\" classname=\"CT41 - Recusar listar quando o acesso está operador (example #8)\">",
+    "2026-11-23T05:14:45.7275303Z     </testcase>",
+    "2026-11-23T05:14:45.7276140Z     <testcase name=\"Gerenciar usuários e preservar seus acessos e autoria CT41 - Recusar consultar quando o acesso está operador (example #9)\" time=\"2.423\" classname=\"CT41 - Recusar consultar quando o acesso está operador (example #9)\">",
+    "2026-11-23T05:14:45.7276835Z     </testcase>",
+    "2026-11-23T05:14:45.7277666Z     <testcase name=\"Gerenciar usuários e preservar seus acessos e autoria CT41 - Recusar cadastrar quando o acesso está operador (example #10)\" time=\"2.325\" classname=\"CT41 - Recusar cadastrar quando o acesso está operador (example #10)\">",
+    "2026-11-23T05:14:45.7278323Z     </testcase>",
+    "2026-11-23T05:14:45.7279143Z     <testcase name=\"Gerenciar usuários e preservar seus acessos e autoria CT41 - Recusar editar quando o acesso está operador (example #11)\" time=\"2.298\" classname=\"CT41 - Recusar editar quando o acesso está operador (example #11)\">",
+    "2026-11-23T05:14:45.7279827Z     </testcase>",
+    "2026-11-23T05:14:45.7280770Z     <testcase name=\"Gerenciar usuários e preservar seus acessos e autoria CT41 - Recusar desativar quando o acesso está operador (example #12)\" time=\"2.319\" classname=\"CT41 - Recusar desativar quando o acesso está operador (example #12)\">",
+    "2026-11-23T05:14:45.7281484Z     </testcase>",
+    "2026-11-23T05:14:45.7282318Z     <testcase name=\"Gerenciar usuários e preservar seus acessos e autoria CT41 - Recusar reativar quando o acesso está operador (example #13)\" time=\"2.324\" classname=\"CT41 - Recusar reativar quando o acesso está operador (example #13)\">",
+    "2026-11-23T05:14:45.7283011Z     </testcase>",
+    "2026-11-23T05:14:45.7283804Z     <testcase name=\"Gerenciar usuários e preservar seus acessos e autoria CT41 - Recusar excluir quando o acesso está operador (example #14)\" time=\"2.261\" classname=\"CT41 - Recusar excluir quando o acesso está operador (example #14)\">",
+    "2026-11-23T05:14:45.7284513Z     </testcase>",
+    "2026-11-23T05:14:45.7285303Z     <testcase name=\"Gerenciar usuários e preservar seus acessos e autoria CT42 - Substituir a senha e encerrar as sessões anteriores\" time=\"2.611\" classname=\"CT42 - Substituir a senha e encerrar as sessões anteriores\">",
+    "2026-11-23T05:14:45.7286012Z     </testcase>",
+    "2026-11-23T05:14:45.7286938Z     <testcase name=\"Gerenciar usuários e preservar seus acessos e autoria CT43 - Criar o primeiro administrador pelo script e cadastrar a segunda conta pela interface\" time=\"3.212\" classname=\"CT43 - Criar o primeiro administrador pelo script e cadastrar a segunda conta pela interface\">",
+    "2026-11-23T05:14:45.7287786Z     </testcase>",
+    "2026-11-23T05:14:45.7288038Z   </testsuite>",
+    "2026-11-23T05:14:45.7288282Z </testsuites>",
+    "2026-11-23T05:14:46.7928987Z   │ Tests:        32                                                                               │",
+    "2026-11-23T05:14:46.7930101Z   │ Passing:      32                                                                               │",
+    "2026-11-23T05:14:46.7931630Z   │ Failing:      0                                                                                │",
+    "2026-11-23T05:14:46.9857064Z Evidências Cypress: /home/runner/work/Gerencia-Projeto-2026.2/Gerencia-Projeto-2026.2/frontend/artifacts/cypress/chrome"
+  ],
+  "electronLogEvidence": [
+    "2026-11-23T05:12:10.7458048Z [command]/usr/bin/git -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --depth=1 origin +679dedec9e26ef6cd682963cd02afcb1c3e54933:refs/remotes/pull/16/merge",
+    "2026-11-23T05:12:11.2630032Z  * [new ref]         679dedec9e26ef6cd682963cd02afcb1c3e54933 -> pull/16/merge",
+    "2026-11-23T05:12:11.3131628Z HEAD is now at 679dede Merge 5abd06aa481e55828e8ce41680ea38aad5c3bc65 into 5cf655eef47a453ca95eaab5818b93d8fc6415d9",
+    "2026-11-23T05:12:11.3183173Z [command]/usr/bin/git log -1 --format=%H",
+    "2026-11-23T05:12:11.3201846Z 679dedec9e26ef6cd682963cd02afcb1c3e54933",
+    "2026-11-23T05:13:20.3918307Z   │ Cypress:        16.3.0                                                                         │",
+    "2026-11-23T05:13:20.3919384Z   │ Browser:        Electron 150 (headless) (deprecated)                                           │",
+    "2026-11-23T05:13:20.3920560Z   │ Node Version:   v22.23.5 (/opt/hostedtoolcache/node/22.23.5/x64/bin/node)                      │",
+    "2026-11-23T05:13:26.7561035Z <testsuites name=\"Mocha Tests\" time=\"5.022\" tests=\"4\" failures=\"0\">",
+    "2026-11-23T05:13:26.7562341Z   <testsuite name=\"Root Suite\" timestamp=\"2026-11-23T05:13:21\" tests=\"0\" file=\"cypress/e2e/matriz-setup.feature\" time=\"0.000\" failures=\"0\">",
+    "2026-11-23T05:13:26.7563250Z   </testsuite>",
+    "2026-11-23T05:13:26.7564473Z   <testsuite name=\"Consultar matriz de setup entre famílias de produtos\" timestamp=\"2026-11-23T05:13:21\" tests=\"4\" time=\"5.021\" failures=\"0\">",
+    "2026-11-23T05:13:26.7566502Z     <testcase name=\"Consultar matriz de setup entre famílias de produtos Consultar tempos de setup diferentes em cada direção\" time=\"1.529\" classname=\"Consultar tempos de setup diferentes em cada direção\">",
+    "2026-11-23T05:13:26.7567757Z     </testcase>",
+    "2026-11-23T05:13:26.7568971Z     <testcase name=\"Consultar matriz de setup entre famílias de produtos Consultar matriz sem configurações de setup\" time=\"1.182\" classname=\"Consultar matriz sem configurações de setup\">",
+    "2026-11-23T05:13:26.7570135Z     </testcase>",
+    "2026-11-23T05:13:26.7572094Z     <testcase name=\"Consultar matriz de setup entre famílias de produtos Exibir família de destino ausente na lista de famílias\" time=\"1.113\" classname=\"Exibir família de destino ausente na lista de famílias\">",
+    "2026-11-23T05:13:26.7573244Z     </testcase>",
+    "2026-11-23T05:13:26.7574452Z     <testcase name=\"Consultar matriz de setup entre famílias de produtos Exibir família de origem ausente na lista de famílias\" time=\"1.121\" classname=\"Exibir família de origem ausente na lista de famílias\">",
+    "2026-11-23T05:13:26.7575438Z     </testcase>",
+    "2026-11-23T05:13:26.7575889Z   </testsuite>",
+    "2026-11-23T05:13:26.7577014Z </testsuites>",
+    "2026-11-23T05:13:28.1300262Z   │ Tests:        4                                                                                │",
+    "2026-11-23T05:13:28.1301252Z   │ Passing:      4                                                                                │",
+    "2026-11-23T05:13:28.1302140Z   │ Failing:      0                                                                                │",
+    "2026-11-23T05:14:40.8109691Z <testsuites name=\"Mocha Tests\" time=\"71.577\" tests=\"32\" failures=\"0\">",
+    "2026-11-23T05:14:40.8110788Z   <testsuite name=\"Root Suite\" timestamp=\"2026-11-23T05:13:29\" tests=\"0\" file=\"cypress/e2e/usuarios.feature\" time=\"0.000\" failures=\"0\">",
+    "2026-11-23T05:14:40.8111550Z   </testsuite>",
+    "2026-11-23T05:14:40.8112876Z   <testsuite name=\"Gerenciar usuários e preservar seus acessos e autoria\" timestamp=\"2026-11-23T05:13:29\" tests=\"32\" time=\"71.575\" failures=\"0\">",
+    "2026-11-23T05:14:40.8114749Z     <testcase name=\"Gerenciar usuários e preservar seus acessos e autoria CT32 - Cadastrar uma conta ativa e permitir login com os perfis atribuídos\" time=\"3.091\" classname=\"CT32 - Cadastrar uma conta ativa e permitir login com os perfis atribuídos\">",
+    "2026-11-23T05:14:40.8115946Z     </testcase>",
+    "2026-11-23T05:14:40.8117699Z     <testcase name=\"Gerenciar usuários e preservar seus acessos e autoria CT33 - Consultar usuários ativos e inativos sem expor senha ou hash\" time=\"1.591\" classname=\"CT33 - Consultar usuários ativos e inativos sem expor senha ou hash\">",
+    "2026-11-23T05:14:40.8139465Z     </testcase>",
+    "2026-11-23T05:14:40.8141415Z     <testcase name=\"Gerenciar usuários e preservar seus acessos e autoria CT34 - Editar dados e substituir perfis mantendo a senha e aplicando novas permissões\" time=\"2.499\" classname=\"CT34 - Editar dados e substituir perfis mantendo a senha e aplicando novas permissões\">",
+    "2026-11-23T05:14:40.8142546Z     </testcase>",
+    "2026-11-23T05:14:40.8144059Z     <testcase name=\"Gerenciar usuários e preservar seus acessos e autoria CT35 - Cancelar a exclusão e depois confirmar a remoção de uma conta sem vínculos\" time=\"2.382\" classname=\"CT35 - Cancelar a exclusão e depois confirmar a remoção de uma conta sem vínculos\">",
+    "2026-11-23T05:14:40.8145347Z     </testcase>",
+    "2026-11-23T05:14:40.8147075Z     <testcase name=\"Gerenciar usuários e preservar seus acessos e autoria CT36 - Identificar todos os campos inválidos e preservar os dados anteriores na edição\" time=\"2.523\" classname=\"CT36 - Identificar todos os campos inválidos e preservar os dados anteriores na edição\">",
+    "2026-11-23T05:14:40.8148957Z     </testcase>",
+    "2026-11-23T05:14:40.8150543Z     <testcase name=\"Gerenciar usuários e preservar seus acessos e autoria CT36 - Rejeitar perfis inexistentes enviados diretamente à API\" time=\"1.407\" classname=\"CT36 - Rejeitar perfis inexistentes enviados diretamente à API\">",
+    "2026-11-23T05:14:40.8151406Z     </testcase>",
+    "2026-11-23T05:14:40.8152675Z     <testcase name=\"Gerenciar usuários e preservar seus acessos e autoria CT37 - Recusar e-mail duplicado de conta ativa durante cadastro (example #1)\" time=\"2.768\" classname=\"CT37 - Recusar e-mail duplicado de conta ativa durante cadastro (example #1)\">",
+    "2026-11-23T05:14:40.8153654Z     </testcase>",
+    "2026-11-23T05:14:40.8154577Z     <testcase name=\"Gerenciar usuários e preservar seus acessos e autoria CT37 - Recusar e-mail duplicado de conta inativa durante cadastro (example #2)\" time=\"2.818\" classname=\"CT37 - Recusar e-mail duplicado de conta inativa durante cadastro (example #2)\">",
+    "2026-11-23T05:14:40.8155279Z     </testcase>",
+    "2026-11-23T05:14:40.8156422Z     <testcase name=\"Gerenciar usuários e preservar seus acessos e autoria CT37 - Recusar e-mail duplicado de conta ativa durante edição (example #3)\" time=\"2.654\" classname=\"CT37 - Recusar e-mail duplicado de conta ativa durante edição (example #3)\">",
+    "2026-11-23T05:14:40.8157451Z     </testcase>",
+    "2026-11-23T05:14:40.8158326Z     <testcase name=\"Gerenciar usuários e preservar seus acessos e autoria CT37 - Recusar e-mail duplicado de conta inativa durante edição (example #4)\" time=\"2.605\" classname=\"CT37 - Recusar e-mail duplicado de conta inativa durante edição (example #4)\">",
+    "2026-11-23T05:14:40.8159062Z     </testcase>",
+    "2026-11-23T05:14:40.8159888Z     <testcase name=\"Gerenciar usuários e preservar seus acessos e autoria CT38 - Desativar e reativar sem recuperar as sessões antigas\" time=\"2.583\" classname=\"CT38 - Desativar e reativar sem recuperar as sessões antigas\">",
+    "2026-11-23T05:14:40.8160556Z     </testcase>",
+    "2026-11-23T05:14:40.8161446Z     <testcase name=\"Gerenciar usuários e preservar seus acessos e autoria CT39 - Preservar autoria ao recusar exclusão por ordens de produção (example #1)\" time=\"2.849\" classname=\"CT39 - Preservar autoria ao recusar exclusão por ordens de produção (example #1)\">",
+    "2026-11-23T05:14:40.8162211Z     </testcase>",
+    "2026-11-23T05:14:40.8163119Z     <testcase name=\"Gerenciar usuários e preservar seus acessos e autoria CT39 - Preservar autoria ao recusar exclusão por planejamentos (example #2)\" time=\"2.876\" classname=\"CT39 - Preservar autoria ao recusar exclusão por planejamentos (example #2)\">",
+    "2026-11-23T05:14:40.8163818Z     </testcase>",
+    "2026-11-23T05:14:40.8164699Z     <testcase name=\"Gerenciar usuários e preservar seus acessos e autoria CT40 - Preservar o último administrador ativo ao tentar excluir (example #1)\" time=\"1.598\" classname=\"CT40 - Preservar o último administrador ativo ao tentar excluir (example #1)\">",
+    "2026-11-23T05:14:40.8165437Z     </testcase>",
+    "2026-11-23T05:14:40.8166330Z     <testcase name=\"Gerenciar usuários e preservar seus acessos e autoria CT40 - Preservar o último administrador ativo ao tentar desativar (example #2)\" time=\"1.636\" classname=\"CT40 - Preservar o último administrador ativo ao tentar desativar (example #2)\">",
+    "2026-11-23T05:14:40.8167219Z     </testcase>",
+    "2026-11-23T05:14:40.8168158Z     <testcase name=\"Gerenciar usuários e preservar seus acessos e autoria CT40 - Preservar o último administrador ativo ao tentar remover o perfil (example #3)\" time=\"1.709\" classname=\"CT40 - Preservar o último administrador ativo ao tentar remover o perfil (example #3)\">",
+    "2026-11-23T05:14:40.8168965Z     </testcase>",
+    "2026-11-23T05:14:40.8169773Z     <testcase name=\"Gerenciar usuários e preservar seus acessos e autoria CT41 - Recusar listar quando o acesso está sem sessão (example #1)\" time=\"1.698\" classname=\"CT41 - Recusar listar quando o acesso está sem sessão (example #1)\">",
+    "2026-11-23T05:14:40.8170455Z     </testcase>",
+    "2026-11-23T05:14:40.8171281Z     <testcase name=\"Gerenciar usuários e preservar seus acessos e autoria CT41 - Recusar consultar quando o acesso está sem sessão (example #2)\" time=\"1.707\" classname=\"CT41 - Recusar consultar quando o acesso está sem sessão (example #2)\">",
+    "2026-11-23T05:14:40.8171967Z     </testcase>",
+    "2026-11-23T05:14:40.8172810Z     <testcase name=\"Gerenciar usuários e preservar seus acessos e autoria CT41 - Recusar cadastrar quando o acesso está sem sessão (example #3)\" time=\"1.750\" classname=\"CT41 - Recusar cadastrar quando o acesso está sem sessão (example #3)\">",
+    "2026-11-23T05:14:40.8173526Z     </testcase>",
+    "2026-11-23T05:14:40.8174332Z     <testcase name=\"Gerenciar usuários e preservar seus acessos e autoria CT41 - Recusar editar quando o acesso está sem sessão (example #4)\" time=\"1.688\" classname=\"CT41 - Recusar editar quando o acesso está sem sessão (example #4)\">",
+    "2026-11-23T05:14:40.8174977Z     </testcase>",
+    "2026-11-23T05:14:40.8175873Z     <testcase name=\"Gerenciar usuários e preservar seus acessos e autoria CT41 - Recusar desativar quando o acesso está sem sessão (example #5)\" time=\"1.704\" classname=\"CT41 - Recusar desativar quando o acesso está sem sessão (example #5)\">",
+    "2026-11-23T05:14:40.8176925Z     </testcase>",
+    "2026-11-23T05:14:40.8177850Z     <testcase name=\"Gerenciar usuários e preservar seus acessos e autoria CT41 - Recusar reativar quando o acesso está sem sessão (example #6)\" time=\"1.785\" classname=\"CT41 - Recusar reativar quando o acesso está sem sessão (example #6)\">",
+    "2026-11-23T05:14:40.8178538Z     </testcase>",
+    "2026-11-23T05:14:40.8179400Z     <testcase name=\"Gerenciar usuários e preservar seus acessos e autoria CT41 - Recusar excluir quando o acesso está sem sessão (example #7)\" time=\"1.841\" classname=\"CT41 - Recusar excluir quando o acesso está sem sessão (example #7)\">",
+    "2026-11-23T05:14:40.8180052Z     </testcase>",
+    "2026-11-23T05:14:40.8180865Z     <testcase name=\"Gerenciar usuários e preservar seus acessos e autoria CT41 - Recusar listar quando o acesso está operador (example #8)\" time=\"2.199\" classname=\"CT41 - Recusar listar quando o acesso está operador (example #8)\">",
+    "2026-11-23T05:14:40.8181521Z     </testcase>",
+    "2026-11-23T05:14:40.8182380Z     <testcase name=\"Gerenciar usuários e preservar seus acessos e autoria CT41 - Recusar consultar quando o acesso está operador (example #9)\" time=\"2.250\" classname=\"CT41 - Recusar consultar quando o acesso está operador (example #9)\">",
+    "2026-11-23T05:14:40.8183055Z     </testcase>",
+    "2026-11-23T05:14:40.8184002Z     <testcase name=\"Gerenciar usuários e preservar seus acessos e autoria CT41 - Recusar cadastrar quando o acesso está operador (example #10)\" time=\"2.166\" classname=\"CT41 - Recusar cadastrar quando o acesso está operador (example #10)\">",
+    "2026-11-23T05:14:40.8184716Z     </testcase>",
+    "2026-11-23T05:14:40.8185526Z     <testcase name=\"Gerenciar usuários e preservar seus acessos e autoria CT41 - Recusar editar quando o acesso está operador (example #11)\" time=\"2.212\" classname=\"CT41 - Recusar editar quando o acesso está operador (example #11)\">",
+    "2026-11-23T05:14:40.8186254Z     </testcase>",
+    "2026-11-23T05:14:40.8187250Z     <testcase name=\"Gerenciar usuários e preservar seus acessos e autoria CT41 - Recusar desativar quando o acesso está operador (example #12)\" time=\"2.177\" classname=\"CT41 - Recusar desativar quando o acesso está operador (example #12)\">",
+    "2026-11-23T05:14:40.8187957Z     </testcase>",
+    "2026-11-23T05:14:40.8188743Z     <testcase name=\"Gerenciar usuários e preservar seus acessos e autoria CT41 - Recusar reativar quando o acesso está operador (example #13)\" time=\"2.200\" classname=\"CT41 - Recusar reativar quando o acesso está operador (example #13)\">",
+    "2026-11-23T05:14:40.8189534Z     </testcase>",
+    "2026-11-23T05:14:40.8190634Z     <testcase name=\"Gerenciar usuários e preservar seus acessos e autoria CT41 - Recusar excluir quando o acesso está operador (example #14)\" time=\"2.138\" classname=\"CT41 - Recusar excluir quando o acesso está operador (example #14)\">",
+    "2026-11-23T05:14:40.8191364Z     </testcase>",
+    "2026-11-23T05:14:40.8192198Z     <testcase name=\"Gerenciar usuários e preservar seus acessos e autoria CT42 - Substituir a senha e encerrar as sessões anteriores\" time=\"2.532\" classname=\"CT42 - Substituir a senha e encerrar as sessões anteriores\">",
+    "2026-11-23T05:14:40.8193103Z     </testcase>",
+    "2026-11-23T05:14:40.8194364Z     <testcase name=\"Gerenciar usuários e preservar seus acessos e autoria CT43 - Criar o primeiro administrador pelo script e cadastrar a segunda conta pela interface\" time=\"3.139\" classname=\"CT43 - Criar o primeiro administrador pelo script e cadastrar a segunda conta pela interface\">",
+    "2026-11-23T05:14:40.8195557Z     </testcase>",
+    "2026-11-23T05:14:40.8195872Z   </testsuite>",
+    "2026-11-23T05:14:40.8196213Z </testsuites>",
+    "2026-11-23T05:14:41.8452654Z   │ Tests:        32                                                                               │",
+    "2026-11-23T05:14:41.8453714Z   │ Passing:      32                                                                               │",
+    "2026-11-23T05:14:41.8454579Z   │ Failing:      0                                                                                │",
+    "2026-11-23T05:14:42.0518849Z Evidências Cypress: /home/runner/work/Gerencia-Projeto-2026.2/Gerencia-Projeto-2026.2/frontend/artifacts/cypress/electron"
+  ]
+}

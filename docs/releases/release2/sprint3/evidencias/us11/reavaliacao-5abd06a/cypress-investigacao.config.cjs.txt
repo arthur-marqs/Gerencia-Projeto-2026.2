@@ -1,0 +1,15 @@
+const path = require('node:path')
+const { defineConfig } = require('../../frontend/node_modules/cypress')
+module.exports = defineConfig({
+  viewportWidth: 1440, viewportHeight: 1000, video: false,
+  screenshotsFolder: path.join(__dirname, 'investigacao/screenshots'),
+  reporter: 'junit', reporterOptions: { mochaFile: path.join(__dirname, 'investigacao/junit.xml'), toConsole: true },
+  e2e: { baseUrl: 'http://localhost:5173', supportFile: false,
+    specPattern: path.join(__dirname, 'investigacao.cy.js').replaceAll('\\', '/'), testIsolation: true,
+    setupNodeEvents(on) {
+      on('before:browser:launch', (_browser, options) => {
+        options.args.push('--window-size=1600,1200', '--force-device-scale-factor=1')
+        return options
+      })
+    } },
+})

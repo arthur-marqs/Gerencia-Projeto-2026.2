@@ -1,0 +1,74 @@
+
+
+====================================================================================================
+
+  (Run Starting)
+
+  ┌────────────────────────────────────────────────────────────────────────────────────────────────┐
+  │ Cypress:        16.3.0                                                                         │
+  │ Browser:        Chrome 157 (headless)                                                          │
+  │ Node Version:   v26.13.0 (C:\Program Files\nodejs\node.exe)                                    │
+  │ Specs:          1 found (investigacao.cy.js)                                                   │
+  │ Searched:       C:/Users/Leona/Documents/GitHub/Gerencia-Projeto-2026.2/.tmp/qa-us11-5abd06a/i │
+  │                 nvestigacao.cy.js                                                              │
+  └────────────────────────────────────────────────────────────────────────────────────────────────┘
+
+
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+  Running:  investigacao.cy.js                                                              (1 of 1)
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites name="Mocha Tests" time="3.258" tests="7" failures="0">
+  <testsuite name="Root Suite" timestamp="2026-11-23T17:17:45" tests="0" file="..\.tmp\qa-us11-5abd06a\investigacao.cy.js" time="0.000" failures="0">
+  </testsuite>
+  <testsuite name="US11 investigação complementar de QA com APIs e sessão simuladas" timestamp="2026-11-23T17:17:45" tests="7" time="3.256" failures="0">
+    <testcase name="US11 investigação complementar de QA com APIs e sessão simuladas INV-01 nominal original: direções, eixos, nomes, diagonais e contador exatos" time="0.289" classname="INV-01 nominal original: direções, eixos, nomes, diagonais e contador exatos">
+    </testcase>
+    <testcase name="US11 investigação complementar de QA com APIs e sessão simuladas INV-02 destino ausente: códigos e nomes nos dois eixos, 15 min e inversa vazia" time="0.540" classname="INV-02 destino ausente: códigos e nomes nos dois eixos, 15 min e inversa vazia">
+    </testcase>
+    <testcase name="US11 investigação complementar de QA com APIs e sessão simuladas INV-03 origem ausente: códigos e nomes nos dois eixos, 15 min e inversa vazia" time="0.378" classname="INV-03 origem ausente: códigos e nomes nos dois eixos, 15 min e inversa vazia">
+    </testcase>
+    <testcase name="US11 investigação complementar de QA com APIs e sessão simuladas INV-04 carregamento visível enquanto as duas APIs estão atrasadas" time="1.342" classname="INV-04 carregamento visível enquanto as duas APIs estão atrasadas">
+    </testcase>
+    <testcase name="US11 investigação complementar de QA com APIs e sessão simuladas INV-05 erro HTTP 500 e recuperação por Tentar novamente" time="0.268" classname="INV-05 erro HTTP 500 e recuperação por Tentar novamente">
+    </testcase>
+    <testcase name="US11 investigação complementar de QA com APIs e sessão simuladas INV-06 atualizar estado vazio incorpora novas configurações" time="0.258" classname="INV-06 atualizar estado vazio incorpora novas configurações">
+    </testcase>
+    <testcase name="US11 investigação complementar de QA com APIs e sessão simuladas INV-07 operador não recebe o menu da matriz" time="0.068" classname="INV-07 operador não recebe o menu da matriz">
+    </testcase>
+  </testsuite>
+</testsuites>
+
+  (Results)
+
+  ┌────────────────────────────────────────────────────────────────────────────────────────────────┐
+  │ Tests:        7                                                                                │
+  │ Passing:      7                                                                                │
+  │ Failing:      0                                                                                │
+  │ Pending:      0                                                                                │
+  │ Skipped:      0                                                                                │
+  │ Screenshots:  2                                                                                │
+  │ Video:        false                                                                            │
+  │ Duration:     3 seconds                                                                        │
+  │ Spec Ran:     investigacao.cy.js                                                               │
+  └────────────────────────────────────────────────────────────────────────────────────────────────┘
+
+
+  (Screenshots)
+
+  -  C:\Users\Leona\Documents\GitHub\Gerencia-Projeto-2026.2\.tmp\qa-us11-5abd06a\inv    (1440x1000)
+     estigacao\screenshots\investigacao.cy.js\INV-02 destino ausente.png
+  -  C:\Users\Leona\Documents\GitHub\Gerencia-Projeto-2026.2\.tmp\qa-us11-5abd06a\inv    (1440x1000)
+     estigacao\screenshots\investigacao.cy.js\INV-03 origem ausente.png
+
+
+====================================================================================================
+
+  (Run Finished)
+
+
+       Spec                                              Tests  Passing  Failing  Pending  Skipped
+  ┌────────────────────────────────────────────────────────────────────────────────────────────────┐
+  │ √  investigacao.cy.js                       00:03        7        7        -        -        - │
+  └────────────────────────────────────────────────────────────────────────────────────────────────┘
+    √  All specs passed!                        00:03        7        7        -        -        -

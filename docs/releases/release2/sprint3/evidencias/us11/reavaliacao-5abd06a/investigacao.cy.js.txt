@@ -1,0 +1,84 @@
+// Investigação de QA temporária; não integra o plano oficial nem altera a suíte.
+const A = { id: 'a', code: 'A', name: 'Família A' }
+const B = { id: 'b', code: 'B', name: 'Família B' }
+const tempo = (origem, destino, minutos) => ({
+  id_tempo_setup: `${origem.id}-${destino.id}`,
+  familia_origem: origem, familia_destino: destino, tempo_setup_minutos: minutos,
+})
+const AB = tempo(A, B, 15)
+const cell = (a, b) => cy.get(`[data-cy="matriz-celula-${a}-${b}"]`)
+function sessao(perfis = ['PLANEJADOR']) {
+  cy.intercept('GET', '**/api/auth/me', { usuario: { nome: 'QA isolado', perfis } })
+  cy.visit('/')
+  cy.contains('h1', 'Bem-vindo').should('be.visible')
+}
+function dados(familias, tempos) {
+  cy.intercept('GET', '**/api/families', { body: familias }).as('familias')
+  cy.intercept('GET', '**/api/tempos-setup', { body: tempos }).as('tempos')
+}
+function abrir() {
+  cy.get('[data-cy="menu-matriz-setup"]').click()
+  cy.wait(['@familias', '@tempos'])
+}
+function eixos() {
+  cy.get('thead th').should('have.length', 3).then(($ths) => {
+    expect([...$ths].slice(1).map((th) => th.querySelector('span').textContent)).to.deep.equal(['A', 'B'])
+    expect([...$ths].slice(1).map((th) => th.querySelectorAll('span')[1].textContent)).to.deep.equal(['Família A', 'Família B'])
+  })
+  cy.get('tbody tr > th').should('have.length', 2).then(($ths) => {
+    expect([...$ths].map((th) => th.querySelector('span').textContent)).to.deep.equal(['A', 'B'])
+    expect([...$ths].map((th) => th.querySelectorAll('span')[1].textContent)).to.deep.equal(['Família A', 'Família B'])
+  })
+}
+describe('US11 investigação complementar de QA com APIs e sessão simuladas', () => {
+  it('INV-01 nominal original: direções, eixos, nomes, diagonais e contador exatos', () => {
+    sessao(); dados([B, A], [AB, tempo(B, A, 30)]); abrir(); eixos()
+    cell('A', 'B').should('have.text', '15 min')
+    cell('B', 'A').should('have.text', '30 min')
+    cell('A', 'A').should('have.text', '—'); cell('B', 'B').should('have.text', '—')
+    cy.contains('span', /^2 configurações$/).should('be.visible')
+  })
+  for (const [id, familias] of [['INV-02 destino ausente', [A]], ['INV-03 origem ausente', [B]]]) {
+    it(`${id}: códigos e nomes nos dois eixos, 15 min e inversa vazia`, () => {
+      sessao(); dados(familias, [AB]); abrir(); eixos()
+      cell('A', 'B').should('have.text', '15 min')
+      cell('B', 'A').should('have.text', '—')
+      cy.contains('span', /^1 configuração$/).should('be.visible')
+      cy.screenshot(id, { capture: 'viewport' })
+    })
+  }
+  it('INV-04 carregamento visível enquanto as duas APIs estão atrasadas', () => {
+    sessao()
+    cy.intercept('GET', '**/api/families', { body: [A, B], delay: 1200 }).as('familias')
+    cy.intercept('GET', '**/api/tempos-setup', { body: [AB], delay: 1200 }).as('tempos')
+    cy.get('[data-cy="menu-matriz-setup"]').click()
+    cy.contains('Carregando matriz de setup...').should('be.visible')
+    cy.get('table').should('not.exist'); cy.wait(['@familias', '@tempos'])
+    cell('A', 'B').should('have.text', '15 min')
+  })
+  it('INV-05 erro HTTP 500 e recuperação por Tentar novamente', () => {
+    sessao()
+    cy.intercept('GET', '**/api/families', { body: [A, B] }).as('familias')
+    let chamadas = 0
+    cy.intercept('GET', '**/api/tempos-setup', (req) => {
+      chamadas += 1
+      req.reply(chamadas === 1 ? { statusCode: 500, body: {} } : { body: [AB] })
+    }).as('tempos')
+    abrir()
+    cy.get('[role="alert"]').should('have.text', 'Não foi possível carregar os dados da matriz.')
+    cy.get('table').should('not.exist')
+    cy.contains('button', 'Tentar novamente').click(); cy.wait(['@familias', '@tempos'])
+    cell('A', 'B').should('have.text', '15 min'); cy.get('[role="alert"]').should('not.exist')
+  })
+  it('INV-06 atualizar estado vazio incorpora novas configurações', () => {
+    sessao(); dados([A, B], []); abrir()
+    cy.contains('h2', 'Nenhuma configuração de setup cadastrada').should('be.visible')
+    cy.intercept('GET', '**/api/tempos-setup', { body: [AB] }).as('novosTempos')
+    cy.get('[data-cy="matriz-atualizar"]').click(); cy.wait(['@familias', '@novosTempos'])
+    cell('A', 'B').should('have.text', '15 min'); eixos()
+    cy.contains('h2', 'Nenhuma configuração de setup cadastrada').should('not.exist')
+  })
+  it('INV-07 operador não recebe o menu da matriz', () => {
+    sessao(['OPERADOR']); cy.get('[data-cy="menu-matriz-setup"]').should('not.exist')
+  })
+})
