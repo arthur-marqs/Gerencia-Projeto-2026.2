@@ -258,7 +258,7 @@ function MatrizSetupPage() {
                         </span>
                       </th>
 
-                      {familias.map((destino) => {
+                      {familiasMatriz.map((destino) => {
                         const chave = `${origem.id}:${destino.id}`
                         const tempo = temposPorTransicao.get(chave)
 
