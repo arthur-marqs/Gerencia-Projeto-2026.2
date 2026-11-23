@@ -97,3 +97,27 @@ When('ele acessa a página de máquinas', () => {
   cy.contains('nav button', 'Máquinas').click()
   cy.wait('@consultarMaquinas').its('response.statusCode').should('eq', 401)
 })
+
+Given('a API rejeita a consulta de {string} da matriz por sessão inválida', (recurso: string) => {
+  for (const rota of ['families', 'tempos-setup']) {
+    cy.intercept('GET', `**/api/${rota}`, (req) => {
+      if (rota === recurso) {
+        sessaoValida = false
+        req.alias = 'matrizSessaoRejeitada'
+        req.reply({ statusCode: 401, body: { detail: 'Sessão inválida ou expirada.' } })
+      } else {
+        req.reply({ statusCode: 200, body: [] })
+      }
+    })
+  }
+})
+
+When('ele acessa a matriz de setup no Driver06', () => {
+  cy.viewport(1280, 800)
+  cy.visit('/')
+  cy.get('[data-cy="menu-matriz-setup"]').click()
+})
+
+Then('a consulta da matriz deve ter sido rejeitada com 401', () => {
+  cy.wait('@matrizSessaoRejeitada').its('response.statusCode').should('eq', 401)
+})

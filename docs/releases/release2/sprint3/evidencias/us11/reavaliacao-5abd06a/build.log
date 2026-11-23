@@ -1,0 +1,67 @@
+
+> frontend@0.0.0 build
+> tsc -b && vite build
+
+npm.cmd : failed to load config from C:\Users\Leona\Documents\GitHub\Gerencia-Projeto-2026.2\frontend\vite.config.ts
+No linha:2 caractere:141
++ ... a/lint.log; npm.cmd run build *> ../.tmp/qa-us11-5abd06a/build.log; W ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (failed to load ...\vite.config.ts:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+
+error during build:
+Error: Build failed with 2 errors:
+
+[plugin externalize-deps]
+Error: spawn EPERM
+    at ChildProcess.spawn (node:internal/child_process:486:11)
+    at spawn (node:child_process:860:9)
+    at Object.execFile (node:child_process:352:17)
+    at exec (node:child_process:239:25)
+    at optimizeSafeRealPathSync (file:///C:/Users/Leona/Documents/GitHub/Gerencia-Projeto-2026.2/frontend/node_modules/
+vite/dist/node/chunks/node.js:2492:2)
+    at windowsSafeRealPathSync (file:///C:/Users/Leona/Documents/GitHub/Gerencia-Projeto-2026.2/frontend/node_modules/v
+ite/dist/node/chunks/node.js:2478:3)
+    at getRealPath (file:///C:/Users/Leona/Documents/GitHub/Gerencia-Projeto-2026.2/frontend/node_modules/vite/dist/nod
+e/chunks/node.js:29695:36)
+    at tryResolveRealFileOrType (file:///C:/Users/Leona/Documents/GitHub/Gerencia-Projeto-2026.2/frontend/node_modules/
+vite/dist/node/chunks/node.js:29689:9)
+    at tryCleanFsResolve (file:///C:/Users/Leona/Documents/GitHub/Gerencia-Projeto-2026.2/frontend/node_modules/vite/di
+st/node/chunks/node.js:29438:21)
+    at tryFsResolve (file:///C:/Users/Leona/Documents/GitHub/Gerencia-Projeto-2026.2/frontend/node_modules/vite/dist/no
+de/chunks/node.js:29431:14)
+[31m[UNLOADABLE_DEPENDENCY] [0mCould not load
+node_modules/@tailwindcss/oxide-win32-x64-msvc/tailwindcss-oxide.win32-x64-msvc.node
+     [38;5;246m╭[0m[38;5;246m─[0m[38;5;246m[[0m node_modules/@tailwindcss/oxide/index.js:131:33 [38;5;246m][0m
+     [38;5;246m│[0m
+ [38;5;246m131 │[0m [38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m
+[0m[38;5;249m [0m[38;5;249m
+[0m[38;5;249mc[0m[38;5;249mo[0m[38;5;249mn[0m[38;5;249ms[0m[38;5;249mt[0m[38;5;249m [0m[38;5;249mb[0m[3
+8;5;249mi[0m[38;5;249mn[0m[38;5;249md[0m[38;5;249mi[0m[38;5;249mn[0m[38;5;249mg[0m[38;5;249m
+[0m[38;5;249m=[0m[38;5;249m [0m[38;5;249mr[0m[38;5;249me[0m[38;5;249mq[0m[38;5;249mu[0m[38;5;249mi[0m[3
+8;5;249mr[0m[38;5;249me[0m[38;5;249m([0m'@tailwindcss/oxide-win32-x64-msvc'[38;5;249m)[0m
+ [38;5;240m    │[0m                                 ─────────────────┬─────────────────
+ [38;5;240m    │[0m                                                  ╰─────────────────── stream did not contain
+valid UTF-8
+[38;5;246m─────╯[0m
+
+    at aggregateBindingErrorsIntoJsError (file:///C:/Users/Leona/Documents/GitHub/Gerencia-Projeto-2026.2/frontend/node
+_modules/rolldown/dist/shared/error-D0SD8_tL.mjs:49:18)
+    at unwrapBindingResult (file:///C:/Users/Leona/Documents/GitHub/Gerencia-Projeto-2026.2/frontend/node_modules/rolld
+own/dist/shared/error-D0SD8_tL.mjs:19:128)
+    at #build (file:///C:/Users/Leona/Documents/GitHub/Gerencia-Projeto-2026.2/frontend/node_modules/rolldown/dist/shar
+ed/rolldown-CMhwwZPA.mjs:145:34)
+    at async bundleConfigFile (file:///C:/Users/Leona/Documents/GitHub/Gerencia-Projeto-2026.2/frontend/node_modules/vi
+te/dist/node/chunks/node.js:38209:12)
+    at async bundleAndLoadConfigFile (file:///C:/Users/Leona/Documents/GitHub/Gerencia-Projeto-2026.2/frontend/node_mod
+ules/vite/dist/node/chunks/node.js:38105:18)
+    at async loadConfigFromFile (file:///C:/Users/Leona/Documents/GitHub/Gerencia-Projeto-2026.2/frontend/node_modules/
+vite/dist/node/chunks/node.js:38066:42)
+    at async resolveConfig (file:///C:/Users/Leona/Documents/GitHub/Gerencia-Projeto-2026.2/frontend/node_modules/vite/
+dist/node/chunks/node.js:37668:22)
+    at async createBuilder (file:///C:/Users/Leona/Documents/GitHub/Gerencia-Projeto-2026.2/frontend/node_modules/vite/
+dist/node/chunks/node.js:35245:17)
+    at async CAC.<anonymous>
+(file:///C:/Users/Leona/Documents/GitHub/Gerencia-Projeto-2026.2/frontend/node_modules/vite/dist/node/cli.js:779:19) {
+  errors: [Getter/Setter]
+}

@@ -37,3 +37,15 @@ Funcionalidade: Expiração e invalidação de sessão
     E a API rejeita a consulta de máquinas por sessão inválida
     Quando ele acessa a página de máquinas
     Então o sistema deve retornar para a tela de login
+
+  Esquema do Cenário: Voltar ao login quando uma consulta da matriz rejeitar a sessão
+    Dado que o planejador possui uma sessão válida no Driver06
+    E a API rejeita a consulta de "<recurso>" da matriz por sessão inválida
+    Quando ele acessa a matriz de setup no Driver06
+    Então a consulta da matriz deve ter sido rejeitada com 401
+    E o sistema deve retornar para a tela de login
+
+    Exemplos:
+      | recurso      |
+      | families     |
+      | tempos-setup |

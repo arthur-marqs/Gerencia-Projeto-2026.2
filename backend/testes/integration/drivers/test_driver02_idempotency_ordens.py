@@ -221,9 +221,12 @@ def test_reenvios_simultaneos_criam_uma_ordem(seeded_auth):
     with ThreadPoolExecutor(max_workers=5) as executor:
         respostas = list(executor.map(lambda _: enviar(), range(5)))
 
-    assert all(resposta.status_code in (200, 201) for resposta in respostas), [
-        (resposta.status_code, resposta.json()) for resposta in respostas
-    ]
+    assert all(
+        resposta.status_code in (200, 201) for resposta in respostas
+    ), (
+        "Respostas inesperadas nas requisições simultâneas: "
+        f"{[(resposta.status_code, resposta.text) for resposta in respostas]}"
+    )
     assert len({resposta.json()["id_ordem"] for resposta in respostas}) == 1
     with state.engine.connect() as connection:
         total = connection.scalar(
