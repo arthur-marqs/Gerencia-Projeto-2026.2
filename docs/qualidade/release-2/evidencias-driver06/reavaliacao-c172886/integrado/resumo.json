@@ -1,0 +1,33 @@
+{
+  "commit": "c17288606ebbd0afedf18e7a6b6be73923a3ac60",
+  "executedAt": "2026-11-23T18:50:12.922Z",
+  "mode": "integrado",
+  "tipo": "Navegador + API + PostgreSQL reais",
+  "browser": "chrome",
+  "browserVersion": "157.0.8103.79",
+  "cypress": "16.3.0",
+  "node": "v26.13.0",
+  "total": 2,
+  "passed": 2,
+  "failed": 0,
+  "pending": 0,
+  "skipped": 0,
+  "tests": [
+    {
+      "title": [
+        "Driver06 integrado",
+        "sessão válida, expirar, negar acesso, login e acesso novamente"
+      ],
+      "state": "passed",
+      "error": null
+    },
+    {
+      "title": [
+        "Driver06 integrado",
+        "sessão válida, invalidar, negar acesso, login e acesso novamente"
+      ],
+      "state": "passed",
+      "error": null
+    }
+  ]
+}

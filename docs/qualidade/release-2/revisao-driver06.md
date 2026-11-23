@@ -1,5 +1,220 @@
 # Revisão de QA — Driver06: expiração e invalidação de sessão
 
+> **Situação atual — reavaliação de 23/11/2026, commit `c17288606ebbd0afedf18e7a6b6be73923a3ac60`: Validação inconclusiva para aceite.** BUG002 resolvido e verificado nos cenários retestados; testes funcionais e medições locais aprovados. Falta comprovar a DoD vigente e confirmar os requisitos/planejamento no Jira. Há uma sinalização de integração do PR a esclarecer. A avaliação inicial e suas reprovações estão integralmente preservadas no histórico ao final.
+
+## 1. Identificação — versão atual
+
+| Campo | Reavaliação |
+| --- | --- |
+| Item | Driver06 — expiração e invalidação de sessão / SC-61 |
+| Release / sprint | Release 2 / Sprint 3 |
+| PR / branch efetivamente avaliados | [#17](https://github.com/arthur-marqs/Gerencia-Projeto-2026.2/pull/17), aberto, `feature/driver06-expiracao-sessao` |
+| Commit anterior testado | `16abb603959ceaad3852cf52a50c058fbb3f8454` |
+| Commit que preservou a avaliação inicial | `4a6cba7e7afc0cd508440c2c5ac0e4cfde3a536d` |
+| Correção de autenticação | `67fa646` — `fix(auth): corrigir retorno ao login apos 401 BUG002` |
+| Commit atual testado | **`c17288606ebbd0afedf18e7a6b6be73923a3ac60`**; corresponde ao head remoto consultado do PR, não à main |
+| Alterações adicionais no head | Correção de concorrência idempotente em ordens, tipagem UUID do usuário e teste adicional do Driver02. Incluídas na regressão de backend. |
+| Base informada pelo GitHub | `5cf655eef47a453ca95eaab5818b93d8fc6415d9` |
+| Alterações locais iniciais | Nenhuma. A execução avaliou o código commitado. As únicas alterações produzidas pelo QA são este relatório e as novas evidências. |
+| Data / fuso | 23/11/2026, America/Sao_Paulo; nova coleta a partir de 15:44 |
+| Ambiente | Windows build 26200; Python 3.11.9, pytest 8.4.2, FastAPI 0.162.0, SQLAlchemy 2.1.6, psycopg 3.3.6, PostgreSQL 18.6; Node 26.13.0, Vite 8.3.5, Cypress 16.3.0, Chrome headless 157.0.8103.79 |
+| Isolamento | Nova instância temporária em `127.0.0.1:55437`; banco Pytest `qa_driver06_test`; banco de navegador `qa_driver06_browser_e2e_test`; migrations até `f032ad660001`; usuários fictícios. API HTTP de medição em 8006, API do navegador em 8000 e Vite em 5173. |
+
+Reconsultados README, guias do backend/Cypress, arquitetura/modelo de dados, template de PR, workflow, Plano de Teste DOCX e Plano de Qualidade XLSX. Nenhum `AGENTS.md` foi localizado no repositório. A definição de aceite adotada continua sendo a fornecida na solicitação original: negar sessão expirada/inválida, solicitar nova autenticação, permitir sessão válida e perfil autorizado, e negar 100% de pelo menos 20 acessos com cada resposta em até 2 s. Não foi alterada a meta.
+
+A URL da [SC-61](https://gerencia-team-arthur-leo-luiz.atlassian.net/browse/SC-61) foi tentada e permaneceu inacessível à ferramenta; não há conector Jira nesta sessão. O Plano de Teste local ainda identifica Release 1 / Sprint 1. O Plano de Qualidade remete a DoD aos acordos da equipe, sem enumerá-la. Foi solicitada a definição vigente, sem resposta disponível até o fechamento desta reavaliação.
+
+Evidências novas ficam em [reavaliacao-c172886](evidencias-driver06/reavaliacao-c172886/manifesto.json), com manifesto próprio. Os arquivos anteriores não foram sobrescritos. [Metadados de ambiente](evidencias-driver06/reavaliacao-c172886/ambiente.json) e [consulta ao GitHub/CI](evidencias-driver06/reavaliacao-c172886/github-ci.json).
+
+## 2. Parecer resumido e situação das pendências
+
+**BUG002 resolvido e verificado no escopo executado.** Em `App.tsx:97–98`, o evento de sessão expirada limpa diretamente o usuário. Famílias passou a usar `apiFetch` em `FamiliesPage.tsx:66,92,136`. A nova execução confirmou o login e a remoção da navegação após 401, sem depender de uma reconsulta de identidade. Também confirmou que uma resposta de identidade antiga não restaura a área autenticada nos ensaios realizados.
+
+**Parecer atual: Validação inconclusiva para aceite**, por falta de evidência da DoD vigente e da versão atual dos requisitos/planejamento no Jira. Não há falha funcional confirmada nos testes conclusivos desta reavaliação. O GitHub também informa `mergeable=false` e `mergeable_state=dirty`; essa sinalização exige esclarecimento e validação da combinação final, mas não foi tratada como conflito reproduzido nem como bug funcional.
+
+Resumo quantitativo, usando o resultado mais recente de cada caso deste escopo:
+
+| Conjunto | Resultado atual | Comparação / regra de contagem |
+| --- | --- | --- |
+| Testes do backend versionados no produto | **202/202 aprovados**: 4 do Driver06 + 198 restantes | Antes: 201. A diferença é o novo teste do Driver02; repetir testes não acrescenta casos. |
+| Autenticação Cypress versionada no produto | **10/10 aprovados**: 5 do Driver06 + 5 de login | Antes: 8; dois cenários de regressão do BUG002 foram incorporados. |
+| Casos anteriores de QA retestados | **4/4 aprovados** | Os dois casos antes reprovados agora passaram; os controles 403/500 continuam aprovados. Sobrepõem comportamentos dos novos cenários oficiais; não somados a eles como critérios únicos. |
+| Investigação adicional de identidade em voo | **6/6 aprovados** | Casos de QA, não IDs oficiais: Famílias/Máquinas × 503, erro de rede e 200 tardio. |
+| Navegador + API + banco reais | **2/2 aprovados** | Casos de QA: expiração e invalidação persistidas, com acesso válido antes e novo login depois. |
+| HTTP real, ensaio de QA | **3/3 casos aprovados; 60/60 amostras negadas** | 20 por estado; máximo global **0,028439 s = 28,439 ms**. Três escritas adicionais recusadas sem persistência. |
+| Fronteira de expiração, ensaio de QA | **3/3 aprovados** | 1 µs antes: 200; no instante de expiração e 1 µs depois: 401. Relógio controlado. |
+| Lint / build | **Aprovados**, saída 0 | Verificações complementares, não substituem aceite funcional. |
+| CI atual consultada | **Sucesso**, execução de push #136 no head exato | Logs confirmam 202 testes backend e 10 cenários de autenticação. Não somados às execuções locais. |
+| DoD / métricas de toda a release | **Não verificado** | Denominadores e documentos atuais não levantados; não representados como zero. |
+
+## 3. Rastreabilidade atual
+
+Os nomes são os nomes efetivos dos testes e cenários; não foram criados IDs fictícios de plano. Casos sob a pasta de evidências são instrumentos adicionais de QA.
+
+| Critério/meta | Caso e código | Evidência atual | Resultado |
+| --- | --- | --- | --- |
+| Negar sessão invalidada | `test_driver06_sessao_invalidada_rejeita_20_tentativas`; `test_driver06_rota_protegida_com_sessao_valida_e_invalidada`; `deps.py:25` e logout | [JUnit Driver06](evidencias-driver06/reavaliacao-c172886/pytest-driver06.xml), [log](evidencias-driver06/reavaliacao-c172886/pytest-driver06.txt) | Aprovado: 20/20 recusas, máximo 0,0094 s, TestClient + PostgreSQL |
+| Negar sessão expirada | `test_driver06_rota_protegida_rejeita_sessao_expirada` | Mesmo JUnit | Aprovado com relógio simulado; complementado abaixo por expiração gravada no banco real |
+| Negar estados inválidos nas APIs protegidas e impedir escrita | `test_qa_http_20_tentativas_por_estado[invalidada/expirada/desconhecida]` | [Teste](evidencias-driver06/reavaliacao-c172886/test_qa_driver06_http.py), [JUnit](evidencias-driver06/reavaliacao-c172886/pytest-http.xml), amostras na seção 4 | Aprovado: 60 GETs 401 e 3 POSTs 401, sem registro indevido |
+| Solicitar nova autenticação após recusa | Cenários oficiais `Retornar ao login após a sessão expirar`, `Retornar ao login quando a sessão for invalidada em outra funcionalidade` e dois `Voltar ao login ... após 401 mesmo se a identidade responder 503`; `App.tsx:97–98`, `apiFetch.ts:9–10` | [Resumo oficial](evidencias-driver06/reavaliacao-c172886/existente/resumo.json), [reteste QA](evidencias-driver06/reavaliacao-c172886/reteste/resumo.json) | Aprovado na interface com API simulada |
+| BUG002: remover área autenticada sem depender de `/me` | Dois casos de reteste `deve solicitar autenticação após 401 em ... mesmo se /me retornar 503` | [Script QA](evidencias-driver06/reavaliacao-c172886/reteste.cy.ts), [captura Famílias](evidencias-driver06/reavaliacao-c172886/reteste/screenshots/qa-reavaliacao-driver06.cy.ts/families-login-apos-401.png), [Máquinas](evidencias-driver06/reavaliacao-c172886/reteste/screenshots/qa-reavaliacao-driver06.cy.ts/maquinas-login-apos-401.png) | Resolvido e verificado para ambos os módulos |
+| Não restaurar sessão após resposta antiga | `Famílias de produtos/Máquinas: login após 401 com identidade 503/rede/tardia200` | [Script](evidencias-driver06/reavaliacao-c172886/concorrencia.cy.ts), [resumo](evidencias-driver06/reavaliacao-c172886/concorrencia/resumo.json) | 6/6 aprovados; consulta de identidade já em voo, liberada somente após observar o login |
+| Cenários 1 e 2 integrados | `sessão válida, expirar/invalidar, negar acesso, login e acesso novamente` | [Script](evidencias-driver06/reavaliacao-c172886/integrado.cy.ts), [resumo](evidencias-driver06/reavaliacao-c172886/integrado/resumo.json), [captura expiração](evidencias-driver06/reavaliacao-c172886/integrado/screenshots/qa-reavaliacao-driver06.cy.ts/expirar-login-real.png), [invalidação](evidencias-driver06/reavaliacao-c172886/integrado/screenshots/qa-reavaliacao-driver06.cy.ts/invalidar-login-real.png) | Aprovado em Famílias com navegador/API/PostgreSQL reais e novo login funcional |
+| Sessão válida e perfil autorizado | `test_driver06_rota_protegida_com_sessao_valida_e_invalidada`; `Permitir acesso com sessão válida`; verificações anteriores à invalidação no HTTP e no navegador | JUnits e resumos acima | Aprovado |
+| Autorização 403 distinta de autenticação 401 | `test_driver06_sessao_valida_sem_permissao_retorna_403`; controles `preserva sessão quando somente a funcionalidade retorna 403/500` e suíte US02 | JUnit Driver06, reteste e [regressão](evidencias-driver06/reavaliacao-c172886/pytest-regressao.xml) | Aprovado; a mudança não transformou 403/500 isolados em logout nos casos executados |
+| Limite exato da expiração | `test_qa_fronteira_expiracao[-1-200/0-401/1-401]`; comparação estrita de `deps.py:44` | [Teste](evidencias-driver06/reavaliacao-c172886/test_qa_driver06_limites.py), [JUnit](evidencias-driver06/reavaliacao-c172886/pytest-limites.xml) | 3/3 aprovados; microssegundos relativos a `expira_em`, relógio controlado |
+| Meta de 100% de ≥20 recusas, cada resposta ≤2 s | Teste oficial de 20 e três condições do ensaio HTTP adicional | Medições individuais na seção 4 | Atendida para resposta da API no ambiente local; não extrapolada para homologação ou duração completa da navegação |
+
+## 4. Execuções atuais, comandos e medidas
+
+### Condições e resultados do driver
+
+Estímulo e resposta continuam os originais. O ambiente previsto não especifica carga/infraestrutura/rede; a medição executada usa uma instância local exclusiva, um cliente sequencial, sem proxy/TLS e sem carga concorrente. O tempo HTTP inclui envio e leitura completa do corpo com `perf_counter`. A meta é verificada por tentativa, sem substituição por média ou p95.
+
+| Ensaio atual | Amostras | Recusas | Maior tempo | Evidência |
+| --- | ---: | ---: | ---: | --- |
+| TestClient + banco real, sessão invalidada por logout | 20 | 20/20 | 0,0094 s / 9,4 ms | [Log do driver](evidencias-driver06/reavaliacao-c172886/pytest-driver06.txt) |
+| HTTP + Uvicorn + banco real, invalidada por logout | 20 | 20/20 | 0,027881 s / 27,881 ms | [Amostras](evidencias-driver06/reavaliacao-c172886/http-invalidada.json) |
+| HTTP + Uvicorn + banco real, expiração persistida | 20 | 20/20 | 0,026856 s / 26,856 ms | [Amostras](evidencias-driver06/reavaliacao-c172886/http-expirada.json) |
+| HTTP + Uvicorn + banco real, token desconhecido | 20 | 20/20 | 0,028439 s / 28,439 ms | [Amostras](evidencias-driver06/reavaliacao-c172886/http-desconhecida.json) |
+
+Todos os tempos individuais ficaram abaixo de 2 s. Os máximos da tabela foram arredondados para exibição; os JSONs guardam precisão e cada status. Cada estado alterna oito rotas: famílias, máquinas, produtos, ordens, planejamentos, tempos de setup, usuários e identidade. Não são 20 amostras por rota. Antes da recusa, o ensaio confirma 200 nessas rotas com perfis autorizados. Após cada estado, executa também um POST de família e consulta o banco para comprovar ausência de persistência; essas três escritas não entram nas 60 amostras de tempo.
+
+A expiração integrada foi produzida alterando `criada_em` e `expira_em` somente no banco de teste; não houve espera de oito horas. A invalidação HTTP usa logout real; a do navegador grava `invalidada_em` no banco isolado. O navegador não simula autenticação ou respostas do recurso; seus intercepts apenas observam os status reais.
+
+### Comandos executados
+
+Na raiz, a infraestrutura foi preparada por `backend/.venv/Scripts/python.exe -X utf8 docs/qualidade/release-2/evidencias-driver06/reavaliacao-c172886/qa-infra.py start`. O helper recusa diretório existente; as dependências já instaladas foram reutilizadas, sem atualização. Para repetir, é necessário PostgreSQL 18 no caminho do helper e portas livres, ou adaptar exclusivamente o ambiente de QA.
+
+Na pasta `backend`:
+
+```powershell
+$env:TEST_DATABASE_URL='postgresql+psycopg://qa_driver06@127.0.0.1:55437/qa_driver06_test'
+.venv/Scripts/python.exe -X utf8 -m pytest -v -s --junitxml=../docs/qualidade/release-2/evidencias-driver06/reavaliacao-c172886/pytest-driver06.xml testes/integration/drivers/test_driver06_session_expiration.py
+.venv/Scripts/python.exe -X utf8 -m pytest -v --ignore=testes/integration/drivers/test_driver06_session_expiration.py --junitxml=../docs/qualidade/release-2/evidencias-driver06/reavaliacao-c172886/pytest-regressao.xml testes
+$env:PYTHONPATH='.'
+.venv/Scripts/python.exe -X utf8 -m pytest -v -s --junitxml=../docs/qualidade/release-2/evidencias-driver06/reavaliacao-c172886/pytest-http.xml ../docs/qualidade/release-2/evidencias-driver06/reavaliacao-c172886/test_qa_driver06_http.py
+.venv/Scripts/python.exe -X utf8 -m pytest -v --junitxml=../docs/qualidade/release-2/evidencias-driver06/reavaliacao-c172886/pytest-limites.xml ../docs/qualidade/release-2/evidencias-driver06/reavaliacao-c172886/test_qa_driver06_limites.py
+```
+
+Resultados: 4 aprovados em 1,32 s; 198 em 58,14 s; 3 HTTP em 3,81 s; 3 limites em 1,32 s. [Log regressão](evidencias-driver06/reavaliacao-c172886/pytest-regressao.txt), [HTTP](evidencias-driver06/reavaliacao-c172886/pytest-http.txt), [limites](evidencias-driver06/reavaliacao-c172886/pytest-limites.txt). Os tempos totais de suíte não são os tempos de resposta das amostras.
+
+Para a API do navegador, em outro terminal na pasta `backend`, foram definidos `DB_USER=qa_driver06`, `DB_PASSWORD=''`, `DB_HOST=127.0.0.1`, `DB_PORT=55437`, `DB_NAME=qa_driver06_browser_e2e_test` e `COOKIE_SECURE=false`; executados `alembic upgrade head` e `.venv/Scripts/python.exe -m uvicorn app.main:app --host 127.0.0.1 --port 8000`. A API de medição em 8006 é iniciada e encerrada pelo teste HTTP, apontando para o banco Pytest.
+
+Na pasta `frontend`, Vite iniciado com `npm.cmd run dev -- --host 127.0.0.1`. Em outro terminal:
+
+```powershell
+node ../docs/qualidade/release-2/evidencias-driver06/reavaliacao-c172886/qa-run.cjs existente
+node ../docs/qualidade/release-2/evidencias-driver06/reavaliacao-c172886/qa-run.cjs reteste
+node ../docs/qualidade/release-2/evidencias-driver06/reavaliacao-c172886/qa-run.cjs concorrencia
+# Para integrado, herdar os mesmos DB_* da API e definir:
+$env:E2E_DATABASE_URL='postgresql+psycopg://qa_driver06@127.0.0.1:55437/qa_driver06_browser_e2e_test'
+node ../docs/qualidade/release-2/evidencias-driver06/reavaliacao-c172886/qa-run.cjs integrado
+npm.cmd run lint
+npm.cmd run build
+```
+
+Os resumos vinculados na seção 3 registram commit, horário UTC, versões, casos e estados. [Log Cypress oficial](evidencias-driver06/reavaliacao-c172886/cypress-existente.txt), [reteste](evidencias-driver06/reavaliacao-c172886/cypress-reteste.txt), [identidade em voo](evidencias-driver06/reavaliacao-c172886/cypress-concorrencia.txt), [integrado](evidencias-driver06/reavaliacao-c172886/cypress-integrado.txt), [lint](evidencias-driver06/reavaliacao-c172886/lint.txt), [build](evidencias-driver06/reavaliacao-c172886/build.txt).
+
+### O que cada evidência comprova
+
+- **Revisão estática:** identifica o uso de `apiFetch`, a limpeza direta do usuário e a incorporação dos cenários; isoladamente não aprova a correção.
+- **TestClient + PostgreSQL:** testa dependências, permissões, persistência e regressão; no caso oficial de expiração e no ensaio de fronteira o relógio é controlado.
+- **Cypress com API simulada:** testa renderização, eventos e respostas em voo. A disponibilidade 503 fica configurada no reteste oficial; como a correção não faz reconsulta após 401, não é correto exigir que essa requisição exista. O ensaio adicional inicia uma sincronização real do frontend por evento `focus` e entrega 503, erro de rede ou 200 tardio após observar o login, comprovando a independência também quando já há consulta em andamento.
+- **HTTP real:** Uvicorn e PostgreSQL reais, sem override da autenticação, 60 amostras por transporte TCP loopback.
+- **Navegador integrado:** login real, consulta 200, expiração/invalidação persistida, consulta 401, remoção da navegação, login real e nova consulta 200; dois cenários em Famílias.
+
+### Ajustes do instrumento de QA e tentativas não conclusivas
+
+O teste adicional antigo aguardava obrigatoriamente uma reconsulta `/me` 503. Executá-lo sem adaptação reprovaria a ausência dessa chamada, embora a correção corretamente a dispense. O arquivo antigo não foi alterado. O novo reteste mantém 401, login visível e retirada da área autenticada; o conjunto de identidade em voo comprova a falha posterior sem impor a estratégia antiga.
+
+Na primeira tentativa integrada, a configuração do instrumento não resolveu uma dependência a partir da pasta de evidências; isso foi corrigido no executor de QA, sem mudar o produto. Na tentativa seguinte, um alias genérico consumiu a segunda consulta inicial 200 do React em vez da consulta posterior 401. O log da API mostrou as duas consultas iniciais 200 e a consulta posterior 401. O instrumento passou a atribuir alias específico somente após a mudança da sessão. A [tentativa anterior](evidencias-driver06/reavaliacao-c172886/integrado/tentativa-alias-inicial.json) e seu [log](evidencias-driver06/reavaliacao-c172886/cypress-integrado-tentativa-alias.txt) foram preservados, classificados como falha de sincronização do instrumento, não como defeito confirmado do produto. Os mesmos dois casos passaram na execução conclusiva; não foram contados como quatro casos.
+
+### CI correspondente ao commit atual
+
+A primeira ferramenta consultada lista somente execuções de PR e retornou lista vazia. A consulta direta às execuções por `head_sha` encontrou a [CI de push #136](https://github.com/arthur-marqs/Gerencia-Projeto-2026.2/actions/runs/45239960927), com `head_sha=c17288606ebbd0afedf18e7a6b6be73923a3ac60`, concluída com sucesso em cinco jobs.
+
+- [Backend](https://github.com/arthur-marqs/Gerencia-Projeto-2026.2/actions/runs/45239960927/job/137921618770): quatro testes do Driver06 nominalmente aprovados, **202 passed in 49.20s**.
+- [Frontend BDD](https://github.com/arthur-marqs/Gerencia-Projeto-2026.2/actions/runs/45239960927/job/137921619740): **10/10**, incluindo nominalmente os dois cenários novos do BUG002. O comando usa o script que encontra `driver06.feature` e `login.feature`, apesar do campo `spec` restrito a login no YAML.
+- Lint/build e US32 Chrome/Electron têm status de sucesso. Seus casos individuais não foram reinspecionados nesta reavaliação.
+
+Os [metadados e trechos dos logs](evidencias-driver06/reavaliacao-c172886/github-ci.json) foram preservados. Essa CI testa o head da branch, não uma combinação futura com a main. A CI antiga #109 continua apenas como evidência histórica.
+
+## 5. Bugs e pendências — acompanhamento
+
+| Pendência | Situação anterior | Situação atual | Evidência concreta | Ação restante |
+| --- | --- | --- | --- | --- |
+| BUG002: 401 seguido de falha de identidade conserva tela autenticada | Bug reproduzido em Famílias/Máquinas | **Resolvida e verificada** no escopo retestado | `67fa646`; `App.tsx:97–98`; Famílias usa `apiFetch`; 2 cenários oficiais + 2 retestes QA e 6 ensaios em voo aprovados | QA/time revisar este relatório e atualizar o rastreador, se apropriado. Nenhuma issue foi alterada pelo agente. |
+| Registro e rastreabilidade do bug | Sem ID de issue no relatório inicial | **Parcialmente resolvida** | [#19 / BUG002](https://github.com/arthur-marqs/Gerencia-Projeto-2026.2/issues/19) existe, está aberta, ligada a SC-61/PR #17; checkbox de QA ainda desmarcado na consulta | Registrar o resultado de reteste na issue após revisão humana; confirmar vínculo no Jira. |
+| Casos de regressão do defeito fora da suíte do produto | Somente instrumento de QA | **Resolvida e verificada** para o defeito original | `driver06.feature:26,34`; asserções de login e ausência de nav em `driver06.ts:74–79`; execução local 10/10 e CI atual | Casos adicionais de concorrência permanecem instrumentos de QA, não parte da suíte oficial. |
+| Falha de rede/identidade pendente e respostas antigas | Não executadas | **Resolvida e verificada** no escopo simulado | 6 casos: o login é observado antes de liberar a identidade; 503, erro de rede e resposta 200 tardia não restauram navegação | Indisponibilidade física de serviços não foi induzida; não necessária para afirmar o resultado simulado. |
+| Navegador, API e banco validados separadamente | Integração completa não executada | **Resolvida e verificada** para os dois fluxos centrais de Famílias | 2/2 integrados, expiração/invalidação no banco e novo login reais | Ampliação a todas as telas e operações permanece na linha de regressão ampla abaixo. |
+| Repetir meta no novo commit | Evidência apenas no SHA anterior | **Resolvida e verificada** localmente | 20 recusas TestClient + 60 HTTP; máximo HTTP 28,439 ms, todos ≤2 s | Repetir em ambiente específico se o acordo de aceite o exigir. Não há tal ambiente definido nas fontes acessíveis. |
+| Fronteira `expira_em == agora` | Não executada | **Resolvida e verificada** com relógio controlado | Três casos `test_qa_fronteira_expiracao` aprovados | Sem ação impeditiva identificada nesse recorte. |
+| DoD formal vigente | Não localizada | **Não foi possível verificar** | Nova leitura de DOCX/XLSX/README sem definição; pedido de esclarecimento sem resposta disponível | PO/time fornecer versão vigente e QA avaliar cada critério. |
+| SC-61 atual, plano Sprint 3, bugs no Jira | Acesso indisponível | **Não foi possível verificar** | URL inacessível; sem conector; plano local ainda da R1 | Conferir no Jira e anexar definição/plano vigentes. |
+| Regressão de todas as telas/escritas afetadas | Parcial | **Parcialmente resolvida** | Backend 202/202; login 5/5; Famílias integrada; Famílias/Máquinas simuladas | Cobrir consultas/escritas dos demais módulos e múltiplas abas, conforme risco e DoD. |
+| CI da versão atual | Só merge de teste antigo | **Resolvida e verificada** para o head | CI push #136, SHA exato; logs dos casos relevantes | Validar também a combinação final quando a integração for definida. |
+| Mergeabilidade/integração do PR | Base anterior constava ancestral e mergeable | **Não foi possível verificar** a causa da nova sinalização | GitHub retorna `mergeable=false`, `mergeable_state=dirty`, merge SHA nulo; base informada continua ancestral do head local | Esclarecer o estado no GitHub e validar a versão final integrada. Não corrigir/mesclar nesta revisão. |
+
+**Status do BUG002:** corrigido e retestado no código avaliado; a issue #19 permanece aberta no rastreador. Não foi fechada nem comentada por esta tarefa. A issue #18, referente a US11/matriz, é outro item e não foi retestada ou encerrada.
+
+**Novo achado — sinalização de integração a esclarecer:** classificação **suspeita a validar / pendência de integração**, sem severidade funcional atribuída. Reprodução da consulta: `GET /repos/arthur-marqs/Gerencia-Projeto-2026.2/pulls/17` retorna os campos acima. Esperado para concluir integração: combinação alvo identificada e validável. Obtido: GitHub sinaliza `dirty`, mas a base `5cf655ee...` é ancestral do head (`git merge-base --is-ancestor`, saída 0) e `git merge-tree <base> HEAD <base>` não apresenta conflito. Evidência: metadados preservados. Não foi reproduzido conflito e não há arquivo/linha de defeito atribuível. Critério de encerramento: confirmar os SHAs reais da combinação, esclarecer a sinalização e executar os checks aplicáveis na versão integrada. Não foi criado bug duplicado ou inferida falha do produto dessa inconsistência.
+
+## 6. DoD e checklist — situação atual
+
+**DoD vigente: Não verificado.** O impedimento documental persiste. Os critérios abaixo são do checklist do PR já disponível, não uma DoD inventada. Não se declara a release pronta nem se atribui “Não se aplica” a critérios desconhecidos.
+
+| Critério disponível | Situação atual | Evidência/limite |
+| --- | --- | --- |
+| Branch atualizada com a base | **Não verificado** quanto à integração | Base consultada ancestral do head, mas sinalização `dirty` do GitHub sem causa confirmada. |
+| Padrões verificáveis do código | **Atendido** no recorte revisado | Lint/build locais aprovados e diff inspecionado. |
+| Testes novos/atualizados e todos passando | **Atendido** no escopo executado | 202 testes oficiais backend, 10 Cypress de autenticação, reteste e ensaios adicionais conclusivos aprovados. A falha anterior foi preservada. |
+| CI sem falhas | **Atendido** para o head | CI push #136, SHA exato e cinco jobs com sucesso; não cobre combinação futura. |
+| Critérios de aceite validados | **Atendido** para a definição fornecida, no ambiente local | API, UI, integração central, perfis e meta medidos. Correspondência com a versão vigente no Jira ainda não verificada. |
+| Documentação atualizada quando necessária | **Não verificado** como DoD | Relatório/evidências atualizados; documentação/plano vigente e exigências formais desconhecidos. |
+| Sem segredos no diff revisado | **Atendido** no escopo | Nenhum segredo identificado; dados de teste fictícios. Não é auditoria do histórico completo. |
+| Leitura do código sem problema funcional confirmado | **Atendido** no recorte retestado | BUG002 deixou de se reproduzir; sinalização de integração registrada separadamente. |
+| Execução dos passos de teste | **Atendido** | Comandos, logs, resumos, medições e capturas desta reavaliação. |
+| Sem regressões visíveis | **Não verificado** para todo o frontend | Backend completo e conjuntos descritos aprovados; falta cobertura integrada de todos os módulos/abas. |
+
+Os indicadores Q-01 a Q-09 do plano disponível continuam sem conclusão global para a Release 2. Não se recalcula taxa da release somando o mesmo caso local, CI e reteste; não há inventário completo do Jira para Q-03, nem denominador integral de casos para Q-01/Q-02. A medição de recusas do Driver06 não comprova p95 de todas as operações (Q-07). O tratamento específico de 401/503 anteriormente falho agora tem evidência favorável para Q-09.
+
+## 7. Reteste e regressão atuais
+
+**Reteste da correção:** cenário original do BUG002 em Famílias/Máquinas executado e aprovado; as duas falhas históricas não foram apagadas. O novo comportamento dispensa a consulta subsequente, portanto a aprovação considera o resultado de login/retirada da navegação, não a existência da estratégia antiga. Foram acrescidos seis cenários de identidade em voo, incluindo observação do login enquanto a resposta estava retida e liberação posterior de 503, erro de rede ou 200.
+
+**Regressão selecionada:** toda a suíte de backend foi executada porque o head também altera tipagem do usuário e concorrência de ordens; isso cobre autenticação, perfis, persistência e operações das releases anteriores, US32 e drivers 02/05. O novo `test_reenvio_apos_confirmacao_entre_consultas_retorna_mesma_ordem` passou junto com o teste de reenvios simultâneos; sua condição determinística usa monkeypatch, sem confundir isso com concorrência real do teste anterior.
+
+No frontend, selecionados login, sessão válida, 401, 403/500, dois módulos com caminhos de tratamento antes diferentes, foco/sincronização em voo e Famílias com backend real. A alteração em `App.tsx` afeta a aplicação inteira; por isso os controles de manutenção de sessão e resposta tardia foram incluídos. Testes integrados realizaram nova autenticação e acesso 200 após cada rejeição.
+
+**Regressão não executada:** todos os CRUDs na interface de produtos, máquinas, ordens, planejamento, tempos de setup e usuários; múltiplas abas; navegadores locais além do Chrome; carga concorrente real específica de expiração/logout; proxy/TLS/homologação; espera real de oito horas. Essas ausências não foram convertidas em bugs. A aplicabilidade de cobertura adicional ao aceite depende dos acordos ainda indisponíveis.
+
+## 8. Limitações e ações restantes
+
+1. Fornecer e verificar a DoD vigente; confirmar definição da SC-61, plano da Sprint 3 e bugs no Jira. Essas evidências essenciais impedem parecer “Apta para aceite”.
+2. Esclarecer `mergeable_state=dirty` e validar o resultado final da integração. Nenhum conflito foi resolvido ou merge tentado nesta revisão.
+3. QA/time revisar o reteste e registrar o resultado na issue #19. O relatório não fecha automaticamente a issue nem substitui o aceite do PO.
+4. Definir a regressão adicional exigida para os módulos não executados e ambiente de homologação, se aplicável; repetir a meta sem reduzir o número de tentativas ou o limite de 2 s.
+
+Os executores adicionais copiam somente specs temporárias para a pasta Cypress e as removem ao finalizar; recusam sobrescrever arquivo existente. Os scripts de banco limitam a preparação/mutação ao banco E2E exclusivo desta coleta. A API, o Vite e o PostgreSQL criados para QA foram encerrados após as execuções. Não houve alteração de implementação, requisito, teste oficial, configuração do produto, issue ou comentário; não houve commit, push, aprovação ou merge.
+
+## 9. Parecer atual e histórico
+
+**Validação inconclusiva para aceite — commit `c17288606ebbd0afedf18e7a6b6be73923a3ac60`.** O BUG002 está resolvido e verificado nos cenários executados; os critérios fornecidos e a meta da API passaram no ambiente local. Falta comprovar a DoD e a definição/planejamento vigentes; o estado de integração do PR também precisa ser esclarecido. O parecer atual não equivale ao aceite do PO.
+
+| Data | Commit testado | Resultado e evidência |
+| --- | --- | --- |
+| 23/11/2026, avaliação inicial | `16abb603959ceaad3852cf52a50c058fbb3f8454` | Pendente de ajustes: 401/503 reprovado em dois módulos; 201 backend e 8 Cypress oficiais aprovados; máximo HTTP 24,826 ms; DoD indisponível. Registro completo abaixo. |
+| 23/11/2026, reavaliação | `c17288606ebbd0afedf18e7a6b6be73923a3ac60` | BUG002 verificado; 202 backend, 10 Cypress oficiais, 4 retestes QA, 6 cenários em voo, 2 integrados, 3 casos HTTP e 3 limites aprovados; máximo HTTP 28,439 ms. Validação inconclusiva pelas pendências descritas, sem somar retestes como novos casos oficiais. |
+
+### Comentário para revisão e publicação manual
+
+> QA — reavaliação no commit `c17288606ebbd0afedf18e7a6b6be73923a3ac60`. BUG002/#19 resolvido e verificado em Famílias e Máquinas, incluindo identidade com 503/erro de rede e resposta tardia. Passaram 202 testes backend e 10 cenários oficiais de autenticação; 2 fluxos com navegador/API/banco reais também passaram. Medição HTTP: 60/60 recusas, máximo 28,439 ms, cada resposta abaixo de 2 s. Restam comprovar DoD/SC-61/plano vigente e esclarecer o estado de integração `dirty` do PR. **Parecer: Validação inconclusiva para aceite.** Relatório: `docs/qualidade/release-2/revisao-driver06.md` — [inserir link da versão publicada após revisão].
+
+<details>
+<summary>Histórico integral — avaliação inicial de 23/11/2026 no commit 16abb603959ceaad3852cf52a50c058fbb3f8454</summary>
+
 ## 1. Identificação
 
 | Campo | Versão avaliada |
@@ -239,3 +454,5 @@ Os scripts adicionais são instrumentos desta revisão, preservados para reprodu
 ## 9. Parecer final
 
 **Pendente de ajustes.** O bloqueio da API e a meta quantitativa foram comprovados no ambiente local descrito, mas o retorno à nova autenticação falha no cenário reproduzido. A DoD vigente também permanece sem comprovação. O item não está apto para aceite neste commit. O parecer de QA não substitui o aceite do PO.
+
+</details>

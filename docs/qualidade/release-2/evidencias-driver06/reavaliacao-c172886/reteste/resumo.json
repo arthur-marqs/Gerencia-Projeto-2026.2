@@ -1,0 +1,49 @@
+{
+  "commit": "c17288606ebbd0afedf18e7a6b6be73923a3ac60",
+  "executedAt": "2026-11-23T18:47:42.840Z",
+  "mode": "reteste",
+  "tipo": "Frontend com respostas simuladas",
+  "browser": "chrome",
+  "browserVersion": "157.0.8103.79",
+  "cypress": "16.3.0",
+  "node": "v26.13.0",
+  "total": 4,
+  "passed": 4,
+  "failed": 0,
+  "pending": 0,
+  "skipped": 0,
+  "tests": [
+    {
+      "title": [
+        "Reteste BUG002",
+        "deve solicitar autenticação após 401 em Famílias de produtos, mesmo se /me retornar 503"
+      ],
+      "state": "passed",
+      "error": null
+    },
+    {
+      "title": [
+        "Reteste BUG002",
+        "deve solicitar autenticação após 401 em Máquinas, mesmo se /me retornar 503"
+      ],
+      "state": "passed",
+      "error": null
+    },
+    {
+      "title": [
+        "Reteste BUG002",
+        "preserva sessão quando somente a funcionalidade retorna 403"
+      ],
+      "state": "passed",
+      "error": null
+    },
+    {
+      "title": [
+        "Reteste BUG002",
+        "preserva sessão quando somente a funcionalidade retorna 500"
+      ],
+      "state": "passed",
+      "error": null
+    }
+  ]
+}
