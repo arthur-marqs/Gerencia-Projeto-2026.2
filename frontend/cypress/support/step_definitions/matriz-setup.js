@@ -140,10 +140,10 @@ When('abrir a matriz de setup', () => {
 Then(
   'as famílias {string} e {string} devem aparecer nos dois eixos',
   (familiaA, familiaB) => {
-    cy.get(`[data-cy="matriz-celula-${familiaA}-${familiaB}]`)
+    cy.get(`[data-cy="matriz-celula-${familiaA}-${familiaB}"]`)
       .should('be.visible')
 
-    cy.get(`[data-cy="matriz-celula-${familiaB}-${familiaA}]`)
+    cy.get(`[data-cy="matriz-celula-${familiaB}-${familiaA}"]`)
       .should('be.visible')
   },
 )
@@ -151,7 +151,7 @@ Then(
 Then(
   'a transição de {string} para {string} deve indicar ausência de configuração',
   (origem, destino) => {
-    cy.get(`[data-cy="matriz-celula-${origem}-${destino}]`)
+    cy.get(`[data-cy="matriz-celula-${origem}-${destino}"]`)
       .should('contain.text', '—')
   },
 )
