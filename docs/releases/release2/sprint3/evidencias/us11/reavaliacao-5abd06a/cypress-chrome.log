@@ -1,0 +1,71 @@
+
+> frontend@0.0.0 test:e2e
+> node scripts/run-e2e.mjs --browser chrome --tags @US11
+
+
+
+====================================================================================================
+
+  (Run Starting)
+
+  ┌────────────────────────────────────────────────────────────────────────────────────────────────┐
+  │ Cypress:        16.3.0                                                                         │
+  │ Browser:        Chrome 157 (headless)                                                          │
+  │ Node Version:   v26.13.0 (C:\Program Files\nodejs\node.exe)                                    │
+  │ Specs:          1 found (matriz-setup.feature)                                                 │
+  │ Searched:       C:/Users/Leona/Documents/GitHub/Gerencia-Projeto-2026.2/frontend/cypress/e2e/m │
+  │                 atriz-setup.feature                                                            │
+  └────────────────────────────────────────────────────────────────────────────────────────────────┘
+
+
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+  Running:  matriz-setup.feature                                                            (1 of 1)
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites name="Mocha Tests" time="5.985" tests="4" failures="0">
+  <testsuite name="Root Suite" timestamp="2026-11-23T17:14:36" tests="0" file="cypress\e2e\matriz-setup.feature" time="0.000" failures="0">
+  </testsuite>
+  <testsuite name="Consultar matriz de setup entre famílias de produtos" timestamp="2026-11-23T17:14:36" tests="4" time="5.983" failures="0">
+    <testcase name="Consultar matriz de setup entre famílias de produtos Consultar tempos de setup diferentes em cada direção" time="1.637" classname="Consultar tempos de setup diferentes em cada direção">
+    </testcase>
+    <testcase name="Consultar matriz de setup entre famílias de produtos Consultar matriz sem configurações de setup" time="1.481" classname="Consultar matriz sem configurações de setup">
+    </testcase>
+    <testcase name="Consultar matriz de setup entre famílias de produtos Exibir família de destino ausente na lista de famílias" time="1.462" classname="Exibir família de destino ausente na lista de famílias">
+    </testcase>
+    <testcase name="Consultar matriz de setup entre famílias de produtos Exibir família de origem ausente na lista de famílias" time="1.335" classname="Exibir família de origem ausente na lista de famílias">
+    </testcase>
+  </testsuite>
+</testsuites>
+
+  (Results)
+
+  ┌────────────────────────────────────────────────────────────────────────────────────────────────┐
+  │ Tests:        4                                                                                │
+  │ Passing:      4                                                                                │
+  │ Failing:      0                                                                                │
+  │ Pending:      0                                                                                │
+  │ Skipped:      0                                                                                │
+  │ Screenshots:  0                                                                                │
+  │ Video:        true                                                                             │
+  │ Duration:     5 seconds                                                                        │
+  │ Spec Ran:     matriz-setup.feature                                                             │
+  └────────────────────────────────────────────────────────────────────────────────────────────────┘
+
+
+  (Video)
+
+  -  Video output: C:\Users\Leona\Documents\GitHub\Gerencia-Projeto-2026.2\.tmp\qa-us11-5abd06a\cypress-chrome\videos\matriz-setup.feature.mp4
+
+
+====================================================================================================
+
+  (Run Finished)
+
+
+       Spec                                              Tests  Passing  Failing  Pending  Skipped
+  ┌────────────────────────────────────────────────────────────────────────────────────────────────┐
+  │ √  matriz-setup.feature                     00:05        4        4        -        -        - │
+  └────────────────────────────────────────────────────────────────────────────────────────────────┘
+    √  All specs passed!                        00:05        4        4        -        -        -
+
+Evidências Cypress: C:\Users\Leona\Documents\GitHub\Gerencia-Projeto-2026.2\.tmp\qa-us11-5abd06a\cypress-chrome
