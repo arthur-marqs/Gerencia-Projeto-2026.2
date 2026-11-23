@@ -9,7 +9,6 @@ import PlanejamentosPage from '../../planejamentos/pages/PlanejamentosPage'
 import ProdutosPage from '../../produtos/pages/ProdutosPage'
 import TemposSetupPage from '../../tempos-setup/pages/TemposSetupPage'
 import UsuariosPage from '../../usuarios/pages/UsuariosPage'
-import MatrizSetupPage from '../../matriz-setup/pages/MatrizSetupPage'
 
 type Pagina =
   | 'dashboard'
@@ -18,7 +17,6 @@ type Pagina =
   | 'maquinas'
   | 'ordens'
   | 'tempos-setup'
-  | 'matriz-setup'
   | 'planejamentos'
   | 'usuarios'
 
@@ -65,8 +63,6 @@ function AuthenticatedPage({
           <OrdensProducaoPage />
         ) : paginaAtual === 'tempos-setup' && ehPlanejador ? (
           <TemposSetupPage />
-        ) : paginaAtual === 'matriz-setup' && ehPlanejador ? (
-          <MatrizSetupPage />
         ) : paginaAtual === 'planejamentos' && ehPlanejador ? (
           <PlanejamentosPage />
         ) : (

@@ -82,7 +82,7 @@ jobs:
         run: npm run build
 
   acceptance-us32:
-    name: Acceptance BDD - US11 e US32 (${{ matrix.browser }})
+    name: US32 BDD (${{ matrix.browser }})
     runs-on: ubuntu-latest
     timeout-minutes: 20
     strategy:
@@ -142,7 +142,7 @@ jobs:
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: acceptance-bdd-${{ matrix.browser }}
+          name: us32-bdd-${{ matrix.browser }}
           path: |
             frontend/artifacts/
             /tmp/setupflow-api.log
