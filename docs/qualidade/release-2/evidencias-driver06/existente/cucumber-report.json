@@ -1,0 +1,685 @@
+[
+  {
+    "description": "  Como usuário do SetupFlow\n  Quero que sessões inválidas sejam rejeitadas\n  Para impedir acessos sem autenticação válida",
+    "elements": [
+      {
+        "description": "",
+        "id": "expiração-e-invalidação-de-sessão;permitir-acesso-com-sessão-válida",
+        "keyword": "Cenário",
+        "line": 8,
+        "name": "Permitir acesso com sessão válida",
+        "steps": [
+          {
+            "result": {
+              "status": "passed",
+              "duration": 12000000
+            },
+            "arguments": [],
+            "keyword": "Dado ",
+            "line": 9,
+            "name": "que o planejador possui uma sessão válida no Driver06",
+            "match": {
+              "location": "not available:0"
+            }
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 8000000
+            },
+            "arguments": [],
+            "keyword": "E ",
+            "line": 10,
+            "name": "a API permite consultar as famílias",
+            "match": {
+              "location": "not available:0"
+            }
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 768000000
+            },
+            "arguments": [],
+            "keyword": "Quando ",
+            "line": 11,
+            "name": "ele acessa a página de famílias",
+            "match": {
+              "location": "not available:0"
+            }
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 9000000
+            },
+            "arguments": [],
+            "keyword": "Então ",
+            "line": 12,
+            "name": "a listagem de famílias deve ser exibida",
+            "match": {
+              "location": "not available:0"
+            }
+          }
+        ],
+        "tags": [
+          {
+            "name": "@Driver06",
+            "line": 2
+          },
+          {
+            "name": "@SC61",
+            "line": 2
+          },
+          {
+            "name": "@R2",
+            "line": 2
+          },
+          {
+            "name": "@regressao",
+            "line": 2
+          }
+        ],
+        "type": "scenario"
+      },
+      {
+        "description": "",
+        "id": "expiração-e-invalidação-de-sessão;retornar-ao-login-após-a-sessão-expirar",
+        "keyword": "Cenário",
+        "line": 14,
+        "name": "Retornar ao login após a sessão expirar",
+        "steps": [
+          {
+            "result": {
+              "status": "passed",
+              "duration": 6000000
+            },
+            "arguments": [],
+            "keyword": "Dado ",
+            "line": 15,
+            "name": "que o planejador possui uma sessão válida no Driver06",
+            "match": {
+              "location": "not available:0"
+            }
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 5000000
+            },
+            "arguments": [],
+            "keyword": "E ",
+            "line": 16,
+            "name": "a API rejeita a consulta de famílias com sessão expirada",
+            "match": {
+              "location": "not available:0"
+            }
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 170000000
+            },
+            "arguments": [],
+            "keyword": "Quando ",
+            "line": 17,
+            "name": "ele acessa a página de famílias",
+            "match": {
+              "location": "not available:0"
+            }
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 10000000
+            },
+            "arguments": [],
+            "keyword": "Então ",
+            "line": 18,
+            "name": "o sistema deve retornar para a tela de login",
+            "match": {
+              "location": "not available:0"
+            }
+          }
+        ],
+        "tags": [
+          {
+            "name": "@Driver06",
+            "line": 2
+          },
+          {
+            "name": "@SC61",
+            "line": 2
+          },
+          {
+            "name": "@R2",
+            "line": 2
+          },
+          {
+            "name": "@regressao",
+            "line": 2
+          }
+        ],
+        "type": "scenario"
+      },
+      {
+        "description": "",
+        "id": "expiração-e-invalidação-de-sessão;retornar-ao-login-quando-a-sessão-for-invalidada-em-outra-funcionalidade",
+        "keyword": "Cenário",
+        "line": 20,
+        "name": "Retornar ao login quando a sessão for invalidada em outra funcionalidade",
+        "steps": [
+          {
+            "result": {
+              "status": "passed",
+              "duration": 4000000
+            },
+            "arguments": [],
+            "keyword": "Dado ",
+            "line": 21,
+            "name": "que o planejador possui uma sessão válida no Driver06",
+            "match": {
+              "location": "not available:0"
+            }
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 5000000
+            },
+            "arguments": [],
+            "keyword": "E ",
+            "line": 22,
+            "name": "a API rejeita a consulta de máquinas por sessão inválida",
+            "match": {
+              "location": "not available:0"
+            }
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 149000000
+            },
+            "arguments": [],
+            "keyword": "Quando ",
+            "line": 23,
+            "name": "ele acessa a página de máquinas",
+            "match": {
+              "location": "not available:0"
+            }
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 7000000
+            },
+            "arguments": [],
+            "keyword": "Então ",
+            "line": 24,
+            "name": "o sistema deve retornar para a tela de login",
+            "match": {
+              "location": "not available:0"
+            }
+          }
+        ],
+        "tags": [
+          {
+            "name": "@Driver06",
+            "line": 2
+          },
+          {
+            "name": "@SC61",
+            "line": 2
+          },
+          {
+            "name": "@R2",
+            "line": 2
+          },
+          {
+            "name": "@regressao",
+            "line": 2
+          }
+        ],
+        "type": "scenario"
+      }
+    ],
+    "id": "expiração-e-invalidação-de-sessão",
+    "line": 3,
+    "keyword": "Funcionalidade",
+    "name": "Expiração e invalidação de sessão",
+    "tags": [
+      {
+        "name": "@Driver06",
+        "line": 2
+      },
+      {
+        "name": "@SC61",
+        "line": 2
+      },
+      {
+        "name": "@R2",
+        "line": 2
+      },
+      {
+        "name": "@regressao",
+        "line": 2
+      }
+    ],
+    "uri": "cypress\\e2e\\autenticacao\\driver06.feature"
+  },
+  {
+    "description": "  Como usuário do sistema\n  Quero acessar a tela de login\n  Para informar minhas credenciais",
+    "elements": [
+      {
+        "description": "",
+        "id": "autenticação-no-setupflow;exibir-a-tela-de-login",
+        "keyword": "Cenário",
+        "line": 9,
+        "name": "Exibir a tela de login",
+        "steps": [
+          {
+            "result": {
+              "status": "passed",
+              "duration": 220000000
+            },
+            "arguments": [],
+            "keyword": "Dado ",
+            "line": 10,
+            "name": "que o usuário acessa o SetupFlow",
+            "match": {
+              "location": "not available:0"
+            }
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 25000000
+            },
+            "arguments": [],
+            "keyword": "Então ",
+            "line": 11,
+            "name": "a tela de login deve ser exibida",
+            "match": {
+              "location": "not available:0"
+            }
+          }
+        ],
+        "tags": [
+          {
+            "name": "@US01",
+            "line": 3
+          },
+          {
+            "name": "@R1",
+            "line": 3
+          },
+          {
+            "name": "@smoke",
+            "line": 3
+          },
+          {
+            "name": "@regressao",
+            "line": 3
+          }
+        ],
+        "type": "scenario"
+      },
+      {
+        "description": "",
+        "id": "autenticação-no-setupflow;tentar-entrar-com-os-campos-vazios",
+        "keyword": "Cenário",
+        "line": 13,
+        "name": "Tentar entrar com os campos vazios",
+        "steps": [
+          {
+            "result": {
+              "status": "passed",
+              "duration": 55000000
+            },
+            "arguments": [],
+            "keyword": "Dado ",
+            "line": 14,
+            "name": "que o usuário acessa o SetupFlow",
+            "match": {
+              "location": "not available:0"
+            }
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 87000000
+            },
+            "arguments": [],
+            "keyword": "Quando ",
+            "line": 15,
+            "name": "ele tenta entrar sem preencher os campos",
+            "match": {
+              "location": "not available:0"
+            }
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 6000000
+            },
+            "arguments": [],
+            "keyword": "Então ",
+            "line": 16,
+            "name": "deve aparecer a mensagem \"Informe seu e-mail.\"",
+            "match": {
+              "location": "not available:0"
+            }
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 6000000
+            },
+            "arguments": [],
+            "keyword": "E ",
+            "line": 17,
+            "name": "deve aparecer a mensagem \"Informe sua senha.\"",
+            "match": {
+              "location": "not available:0"
+            }
+          }
+        ],
+        "tags": [
+          {
+            "name": "@US01",
+            "line": 3
+          },
+          {
+            "name": "@R1",
+            "line": 3
+          },
+          {
+            "name": "@smoke",
+            "line": 3
+          },
+          {
+            "name": "@regressao",
+            "line": 3
+          }
+        ],
+        "type": "scenario"
+      },
+      {
+        "description": "",
+        "id": "autenticação-no-setupflow;tentar-entrar-com-e-mail-inválido",
+        "keyword": "Cenário",
+        "line": 19,
+        "name": "Tentar entrar com e-mail inválido",
+        "steps": [
+          {
+            "result": {
+              "status": "passed",
+              "duration": 53000000
+            },
+            "arguments": [],
+            "keyword": "Dado ",
+            "line": 20,
+            "name": "que o usuário acessa o SetupFlow",
+            "match": {
+              "location": "not available:0"
+            }
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 306000000
+            },
+            "arguments": [],
+            "keyword": "Quando ",
+            "line": 21,
+            "name": "ele informa o e-mail \"emailinvalido\" e a senha \"senha123\"",
+            "match": {
+              "location": "not available:0"
+            }
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 80000000
+            },
+            "arguments": [],
+            "keyword": "E ",
+            "line": 22,
+            "name": "tenta entrar no sistema",
+            "match": {
+              "location": "not available:0"
+            }
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 7000000
+            },
+            "arguments": [],
+            "keyword": "Então ",
+            "line": 23,
+            "name": "deve aparecer a mensagem \"Informe um e-mail válido.\"",
+            "match": {
+              "location": "not available:0"
+            }
+          }
+        ],
+        "tags": [
+          {
+            "name": "@US01",
+            "line": 3
+          },
+          {
+            "name": "@R1",
+            "line": 3
+          },
+          {
+            "name": "@smoke",
+            "line": 3
+          },
+          {
+            "name": "@regressao",
+            "line": 3
+          }
+        ],
+        "type": "scenario"
+      },
+      {
+        "description": "",
+        "id": "autenticação-no-setupflow;tentar-entrar-sem-informar-a-senha",
+        "keyword": "Cenário",
+        "line": 25,
+        "name": "Tentar entrar sem informar a senha",
+        "steps": [
+          {
+            "result": {
+              "status": "passed",
+              "duration": 52000000
+            },
+            "arguments": [],
+            "keyword": "Dado ",
+            "line": 26,
+            "name": "que o usuário acessa o SetupFlow",
+            "match": {
+              "location": "not available:0"
+            }
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 166000000
+            },
+            "arguments": [],
+            "keyword": "Quando ",
+            "line": 27,
+            "name": "ele informa o e-mail \"usuario@empresa.com\"",
+            "match": {
+              "location": "not available:0"
+            }
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 78000000
+            },
+            "arguments": [],
+            "keyword": "E ",
+            "line": 28,
+            "name": "tenta entrar no sistema",
+            "match": {
+              "location": "not available:0"
+            }
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 9000000
+            },
+            "arguments": [],
+            "keyword": "Então ",
+            "line": 29,
+            "name": "deve aparecer a mensagem \"Informe sua senha.\"",
+            "match": {
+              "location": "not available:0"
+            }
+          }
+        ],
+        "tags": [
+          {
+            "name": "@US01",
+            "line": 3
+          },
+          {
+            "name": "@R1",
+            "line": 3
+          },
+          {
+            "name": "@smoke",
+            "line": 3
+          },
+          {
+            "name": "@regressao",
+            "line": 3
+          }
+        ],
+        "type": "scenario"
+      },
+      {
+        "description": "",
+        "id": "autenticação-no-setupflow;tentar-entrar-com-credenciais-incorretas",
+        "keyword": "Cenário",
+        "line": 31,
+        "name": "Tentar entrar com credenciais incorretas",
+        "steps": [
+          {
+            "result": {
+              "status": "passed",
+              "duration": 50000000
+            },
+            "arguments": [],
+            "keyword": "Dado ",
+            "line": 32,
+            "name": "que o usuário acessa o SetupFlow",
+            "match": {
+              "location": "not available:0"
+            }
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 319000000
+            },
+            "arguments": [],
+            "keyword": "Quando ",
+            "line": 33,
+            "name": "ele informa o e-mail \"usuario@empresa.com\" e a senha \"senhaerrada\"",
+            "match": {
+              "location": "not available:0"
+            }
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 5000000
+            },
+            "arguments": [],
+            "keyword": "E ",
+            "line": 34,
+            "name": "a API rejeita as credenciais",
+            "match": {
+              "location": "not available:0"
+            }
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 86000000
+            },
+            "arguments": [],
+            "keyword": "E ",
+            "line": 35,
+            "name": "tenta entrar no sistema",
+            "match": {
+              "location": "not available:0"
+            }
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 8000000
+            },
+            "arguments": [],
+            "keyword": "Então ",
+            "line": 36,
+            "name": "deve aparecer o erro de autenticação \"Credenciais inválidas.\"",
+            "match": {
+              "location": "not available:0"
+            }
+          }
+        ],
+        "tags": [
+          {
+            "name": "@US01",
+            "line": 3
+          },
+          {
+            "name": "@R1",
+            "line": 3
+          },
+          {
+            "name": "@smoke",
+            "line": 3
+          },
+          {
+            "name": "@regressao",
+            "line": 3
+          }
+        ],
+        "type": "scenario"
+      }
+    ],
+    "id": "autenticação-no-setupflow",
+    "line": 4,
+    "keyword": "Funcionalidade",
+    "name": "Autenticação no SetupFlow",
+    "tags": [
+      {
+        "name": "@US01",
+        "line": 3
+      },
+      {
+        "name": "@R1",
+        "line": 3
+      },
+      {
+        "name": "@smoke",
+        "line": 3
+      },
+      {
+        "name": "@regressao",
+        "line": 3
+      }
+    ],
+    "uri": "cypress\\e2e\\autenticacao\\login.feature"
+  }
+]

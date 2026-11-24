@@ -1,0 +1,58 @@
+
+
+====================================================================================================
+
+  (Run Starting)
+
+  ┌────────────────────────────────────────────────────────────────────────────────────────────────┐
+  │ Cypress:        16.3.0                                                                         │
+  │ Browser:        Chrome 157 (headless)                                                          │
+  │ Node Version:   v26.13.0 (C:\Program Files\nodejs\node.exe)                                    │
+  │ Specs:          1 found (qa-reavaliacao-driver06.cy.ts)                                        │
+  │ Searched:       C:\Users\Leona\Documents\GitHub\Gerencia-Projeto-2026.2\frontend\cypress\e2e\a │
+  │                 utenticacao\qa-reavaliacao-driver06.cy.ts                                      │
+  └────────────────────────────────────────────────────────────────────────────────────────────────┘
+
+
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+  Running:  qa-reavaliacao-driver06.cy.ts                                                   (1 of 1)
+
+
+  QA Driver06: identidade em voo durante 401
+    √ Famílias de produtos: login após 401 com identidade 503 (688ms)
+    √ Famílias de produtos: login após 401 com identidade rede (236ms)
+    √ Famílias de produtos: login após 401 com identidade tardia200 (359ms)
+    √ Máquinas: login após 401 com identidade 503 (348ms)
+    √ Máquinas: login após 401 com identidade rede (204ms)
+    √ Máquinas: login após 401 com identidade tardia200 (358ms)
+
+
+  6 passing (2s)
+
+
+  (Results)
+
+  ┌────────────────────────────────────────────────────────────────────────────────────────────────┐
+  │ Tests:        6                                                                                │
+  │ Passing:      6                                                                                │
+  │ Failing:      0                                                                                │
+  │ Pending:      0                                                                                │
+  │ Skipped:      0                                                                                │
+  │ Screenshots:  0                                                                                │
+  │ Video:        false                                                                            │
+  │ Duration:     2 seconds                                                                        │
+  │ Spec Ran:     qa-reavaliacao-driver06.cy.ts                                                    │
+  └────────────────────────────────────────────────────────────────────────────────────────────────┘
+
+
+====================================================================================================
+
+  (Run Finished)
+
+
+       Spec                                              Tests  Passing  Failing  Pending  Skipped
+  ┌────────────────────────────────────────────────────────────────────────────────────────────────┐
+  │ √  qa-reavaliacao-driver06.cy.ts            00:02        6        6        -        -        - │
+  └────────────────────────────────────────────────────────────────────────────────────────────────┘
+    √  All specs passed!                        00:02        6        6        -        -        -

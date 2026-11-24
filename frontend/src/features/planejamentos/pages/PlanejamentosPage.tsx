@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
+import { apiFetch } from '../../../lib/apiFetch'
 
 type OrdemProducao = {
   id_ordem: string
@@ -39,8 +40,8 @@ function PlanejamentosPage() {
     async function carregarDados() {
       try {
         const [respostaOrdens, respostaPlanejamentos] = await Promise.all([
-          fetch(`${API_URL}/ordens-producao`, { credentials: 'include' }),
-          fetch(`${API_URL}/planejamentos`, { credentials: 'include' }),
+          apiFetch(`${API_URL}/ordens-producao`, { credentials: 'include' }),
+          apiFetch(`${API_URL}/planejamentos`, { credentials: 'include' }),
         ])
 
         if (!respostaOrdens.ok || !respostaPlanejamentos.ok) {
@@ -71,7 +72,7 @@ function PlanejamentosPage() {
   }, [])
 
   async function carregarPlanejamentos() {
-    const resposta = await fetch(`${API_URL}/planejamentos`, {
+    const resposta = await apiFetch(`${API_URL}/planejamentos`, {
       credentials: 'include',
     })
 
@@ -149,7 +150,7 @@ function PlanejamentosPage() {
       : `${API_URL}/planejamentos`
 
     try {
-      const resposta = await fetch(url, {
+      const resposta = await apiFetch(url, {
         method: editando ? 'PUT' : 'POST',
         credentials: 'include',
         headers: { 'Content-Type': 'application/json' },

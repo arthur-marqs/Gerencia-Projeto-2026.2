@@ -8,8 +8,9 @@ from sqlalchemy import (
     func,
     text,
 )
-from sqlalchemy.dialects.postgresql import UUID
+from sqlalchemy.dialects.postgresql import UUID as PG_UUID
 from sqlalchemy.orm import Mapped, mapped_column
+from uuid import UUID
 
 from app.db.base import Base
 
@@ -18,7 +19,7 @@ class Usuario(Base):
     __tablename__ = "usuarios"
 
     id_usuario: Mapped[UUID] = mapped_column(
-        UUID(as_uuid=True),
+        PG_UUID(as_uuid=True),
         primary_key=True,
         server_default=text("gen_random_uuid()"),
     )

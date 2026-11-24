@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useState, type FormEvent } from 'react'
+import { apiFetch } from '../../../lib/apiFetch'
 
 type Family = {
   id: string
@@ -62,7 +63,11 @@ function FamiliesPage() {
     setLoading(true)
 
     try {
-      const response = await fetch(API_URL, { credentials: 'include' })
+      const response = await apiFetch(API_URL, { credentials: 'include' })
+
+      if (response.status === 401) {
+        return
+      }
 
       if (!response.ok) {
         throw new Error(await readError(response))
@@ -84,7 +89,11 @@ function FamiliesPage() {
   useEffect(() => {
     async function loadInitialFamilies() {
       try {
-        const response = await fetch(API_URL, { credentials: 'include' })
+        const response = await apiFetch(API_URL, { credentials: 'include' })
+
+        if (response.status === 401) {
+          return
+        }
 
         if (!response.ok) {
           throw new Error(await readError(response))
@@ -124,12 +133,16 @@ function FamiliesPage() {
 
     setSaving(true)
     try {
-      const response = await fetch(API_URL, {
+      const response = await apiFetch(API_URL, {
         method: 'POST',
         credentials: 'include',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload),
       })
+
+      if (response.status === 401) {
+        return
+      }
 
       if (!response.ok) {
         throw new Error(await readError(response))

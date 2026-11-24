@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import type { FormEvent } from 'react'
+import { apiFetch } from '../../../lib/apiFetch'
 
 type ErrosFormulario = {
   codigo?: string
@@ -34,7 +35,7 @@ function MaquinasPage() {
     setErroListagem('')
 
     try {
-      const response = await fetch('http://localhost:8000/api/maquinas', {
+      const response = await apiFetch('http://localhost:8000/api/maquinas', {
         credentials: 'include',
       })
 
@@ -57,7 +58,7 @@ function MaquinasPage() {
 
     async function carregarMaquinasIniciais() {
       try {
-        const response = await fetch('http://localhost:8000/api/maquinas', {
+        const response = await apiFetch('http://localhost:8000/api/maquinas', {
           credentials: 'include',
         })
 
@@ -141,7 +142,7 @@ function MaquinasPage() {
       const endpoint = maquinaEmEdicao
         ? `http://localhost:8000/api/maquinas/${maquinaEmEdicao}`
         : 'http://localhost:8000/api/maquinas'
-      const response = await fetch(endpoint, {
+      const response = await apiFetch(endpoint, {
         method: maquinaEmEdicao ? 'PUT' : 'POST',
         credentials: 'include',
         headers: {
@@ -215,7 +216,7 @@ function MaquinasPage() {
     setMensagemErro('')
     setMensagemSucesso('')
     try {
-      const response = await fetch(
+      const response = await apiFetch(
         `http://localhost:8000/api/maquinas/${maquina.id_maquina}/status`,
         {
           method: 'PATCH',
@@ -259,7 +260,7 @@ function MaquinasPage() {
     setMensagemErro('')
     setMensagemSucesso('')
     try {
-      const response = await fetch(
+      const response = await apiFetch(
         `http://localhost:8000/api/maquinas/${maquina.id_maquina}`,
         { method: 'DELETE', credentials: 'include' },
       )

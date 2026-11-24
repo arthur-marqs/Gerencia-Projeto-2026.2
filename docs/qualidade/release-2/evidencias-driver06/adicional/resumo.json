@@ -1,0 +1,48 @@
+{
+  "commit": "16abb603959ceaad3852cf52a50c058fbb3f8454",
+  "executedAt": "2026-11-23T13:30:53.409Z",
+  "tipo": "Frontend com respostas simuladas",
+  "browser": "chrome",
+  "browserVersion": "157.0.8103.79",
+  "cypress": "16.3.0",
+  "node": "v26.13.0",
+  "total": 4,
+  "passed": 2,
+  "failed": 2,
+  "pending": 0,
+  "skipped": 0,
+  "tests": [
+    {
+      "title": [
+        "QA Driver06: resposta a 401 e falhas independentes",
+        "deve solicitar autenticação após 401 em Famílias de produtos, mesmo se /me retornar 503"
+      ],
+      "state": "failed",
+      "error": "AssertionError: Timed out retrying after 3000ms: Expected to find content: 'Acesse sua conta' within the selector: 'h2' but never did.\n    at Context.eval (http://localhost:5173/__cypress/tests?p=cypress\\e2e\\autenticacao\\qa-driver06.cy.ts:24:65)"
+    },
+    {
+      "title": [
+        "QA Driver06: resposta a 401 e falhas independentes",
+        "deve solicitar autenticação após 401 em Máquinas, mesmo se /me retornar 503"
+      ],
+      "state": "failed",
+      "error": "AssertionError: Timed out retrying after 3000ms: Expected to find content: 'Acesse sua conta' within the selector: 'h2' but never did.\n    at Context.eval (http://localhost:5173/__cypress/tests?p=cypress\\e2e\\autenticacao\\qa-driver06.cy.ts:24:65)"
+    },
+    {
+      "title": [
+        "QA Driver06: resposta a 401 e falhas independentes",
+        "preserva sessão quando somente a funcionalidade retorna 403"
+      ],
+      "state": "passed",
+      "error": null
+    },
+    {
+      "title": [
+        "QA Driver06: resposta a 401 e falhas independentes",
+        "preserva sessão quando somente a funcionalidade retorna 500"
+      ],
+      "state": "passed",
+      "error": null
+    }
+  ]
+}

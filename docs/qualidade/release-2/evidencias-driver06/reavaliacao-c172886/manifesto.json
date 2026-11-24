@@ -1,0 +1,220 @@
+{
+  "data": "2026-11-23",
+  "timezone": "America/Sao_Paulo",
+  "commit": "c17288606ebbd0afedf18e7a6b6be73923a3ac60",
+  "avaliacao_anterior": "16abb603959ceaad3852cf52a50c058fbb3f8454",
+  "nota": "Somente arquivos desta reavalia??o; evid?ncias anteriores preservadas. Tentativa-alias-inicial representa falha do instrumento, n?o bug do produto.",
+  "relatorio_sha256": "d6d2f728c95a21fadc546133df0553ae407c398ff98dc67101b9d7ddcb227abf",
+  "arquivos": [
+    {
+      "arquivo": "ambiente.json",
+      "bytes": 357,
+      "sha256": "580e585432907091f9d5d639849e76e1278c40533d5433a0f3dbcb87368ff0ba"
+    },
+    {
+      "arquivo": "build.txt",
+      "bytes": 396,
+      "sha256": "28e17f2458ca598cdf0772a7ae7d2639af031a0acef3fa56b4e3f44112f8d022"
+    },
+    {
+      "arquivo": "concorrencia/cucumber-report.json",
+      "bytes": 2,
+      "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    {
+      "arquivo": "concorrencia/resumo.json",
+      "bytes": 1586,
+      "sha256": "d19e5e0d2cb96e0cdffa829a0a4ccd56b4c3c5132db2791293a48d0a88e63433"
+    },
+    {
+      "arquivo": "concorrencia.cy.ts",
+      "bytes": 2155,
+      "sha256": "bcc12f1914b93503ef610f7c9ac8432fc3ab45829b6da4be66c14093aa14bd01"
+    },
+    {
+      "arquivo": "cypress-concorrencia.txt",
+      "bytes": 4817,
+      "sha256": "2396f7b9d359621f7a00f8533b4e375640767b9394509c7c242fd5fe8a680419"
+    },
+    {
+      "arquivo": "cypress-existente.txt",
+      "bytes": 7437,
+      "sha256": "49f56afab2d2eb5120f612943d4aaed6236370adfa5561bd04d3240085fc0a6e"
+    },
+    {
+      "arquivo": "cypress-integrado-tentativa-alias.txt",
+      "bytes": 5799,
+      "sha256": "519eae72ed4a6662ad9c62c48710dd190f47b807729d72de19b388440166696e"
+    },
+    {
+      "arquivo": "cypress-integrado.txt",
+      "bytes": 5014,
+      "sha256": "19599f163a9b420d1add3021d2bcd8f31138e82d6fcf391181a8f5ad92bf7c19"
+    },
+    {
+      "arquivo": "cypress-reteste.txt",
+      "bytes": 5206,
+      "sha256": "9af8be1053153b3b5211c928ae7498f6eb1b40f54b37585be1877ac9126c83ab"
+    },
+    {
+      "arquivo": "existente/cucumber-report.json",
+      "bytes": 23247,
+      "sha256": "698ae408f04b009ee68107255db5eb3129999ce334c140f080f0b9223bb0839b"
+    },
+    {
+      "arquivo": "existente/resumo.json",
+      "bytes": 2227,
+      "sha256": "d2f1d103ab23854a7a14e70d53764c779fa4516b722a479baadd6b7fba05d4ac"
+    },
+    {
+      "arquivo": "github-ci.json",
+      "bytes": 3449,
+      "sha256": "33b4afb42783b6162caeb04568f7ea2e399457cbb704a59fe2df811849ac4b11"
+    },
+    {
+      "arquivo": "http-desconhecida.json",
+      "bytes": 2765,
+      "sha256": "99642041e3bc017ad7acb3238cbfdd5c99390d8241a90b90aae62e673fe8fde2"
+    },
+    {
+      "arquivo": "http-expirada.json",
+      "bytes": 2759,
+      "sha256": "880fc076ac98d3bb5d07f07d26aa9d93eb7ce1b490cf7d2bffee1fd9bfcc9856"
+    },
+    {
+      "arquivo": "http-invalidada.json",
+      "bytes": 2762,
+      "sha256": "2e8719fe1df9eafff49da7fda6cfe3a7366abe3dbc00e1e31341f53e8cc13739"
+    },
+    {
+      "arquivo": "integrado/resumo.json",
+      "bytes": 751,
+      "sha256": "49e8b57c7cc9102f4933f02da3bffeaf8a92e3790b89a7a7ef770930190e2048"
+    },
+    {
+      "arquivo": "integrado/screenshots/qa-reavaliacao-driver06.cy.ts/expirar-login-real.png",
+      "bytes": 69753,
+      "sha256": "2a415e8aac06d402dab65dda16bb33359ef592cf913f002a911b6d27aadaaa3c"
+    },
+    {
+      "arquivo": "integrado/screenshots/qa-reavaliacao-driver06.cy.ts/invalidar-login-real.png",
+      "bytes": 69753,
+      "sha256": "2a415e8aac06d402dab65dda16bb33359ef592cf913f002a911b6d27aadaaa3c"
+    },
+    {
+      "arquivo": "integrado/tentativa-alias-inicial.json",
+      "bytes": 1149,
+      "sha256": "bbe3e27860e6402df4a3735ae2658092a8270e35339d160c88bc2b2058fd9ac5"
+    },
+    {
+      "arquivo": "integrado.cy.ts",
+      "bytes": 1735,
+      "sha256": "ea41c9ef0ce6973f8f7ba1fe4cd996b6758a71571d3c4f361b43a813782ea47d"
+    },
+    {
+      "arquivo": "lint.txt",
+      "bytes": 34,
+      "sha256": "31298a090b4d326219614a2b109f11bc9be6ea420c4b2fa47c181368d3733a26"
+    },
+    {
+      "arquivo": "pytest-driver06.txt",
+      "bytes": 3869,
+      "sha256": "0cd813aa6fde34ab679a95d69c8afd0647ee17fc283d63b52118dbbb245d28d2"
+    },
+    {
+      "arquivo": "pytest-driver06.xml",
+      "bytes": 881,
+      "sha256": "a69d484fcea141b6d16631b35d3c306b3ab3106c6d5c67e7a6656b56863481e2"
+    },
+    {
+      "arquivo": "pytest-http.txt",
+      "bytes": 1706,
+      "sha256": "02264f13b892e2cb57bbed5fd5861dc60c2147f2806efe4578cbc32b3beb5140"
+    },
+    {
+      "arquivo": "pytest-http.xml",
+      "bytes": 787,
+      "sha256": "3e82128a267c3b384cf45d512d1b32146d8e22f4867ea0a012b15edcef498cbb"
+    },
+    {
+      "arquivo": "pytest-limites.txt",
+      "bytes": 1061,
+      "sha256": "bc1127f12e68c1409efd7f32cbc1e1843fa1431a2a071ff7a987c172f30b859a"
+    },
+    {
+      "arquivo": "pytest-limites.xml",
+      "bytes": 752,
+      "sha256": "2a45a1367380403b70657cd23b00305d16187678d6331223ee0c9502d7290db2"
+    },
+    {
+      "arquivo": "pytest-regressao.txt",
+      "bytes": 23052,
+      "sha256": "b83ee15ddf7fea9940b3a80ff8cecca9bd69c4172fcce4d344e0b5788b6a8dd7"
+    },
+    {
+      "arquivo": "pytest-regressao.xml",
+      "bytes": 27811,
+      "sha256": "222a5344bd870b52ce31356da2d44cb95d2a19570c94567d86f4c081dd7eaf32"
+    },
+    {
+      "arquivo": "qa-db.py",
+      "bytes": 1225,
+      "sha256": "5b9cba1a01c43bd4d34d8adb898fa0373d5a4227ab113a5a18c2236d28d05d3d"
+    },
+    {
+      "arquivo": "qa-infra.py",
+      "bytes": 1349,
+      "sha256": "4c59c9df9de8589207b2c4873ddaf02f8ea2dc698130c2569cf43e5a2360011c"
+    },
+    {
+      "arquivo": "qa-integrado.config.cjs",
+      "bytes": 836,
+      "sha256": "c8cd2abeea48e71f63bec6b5a87d9dfa7fa9080d25b63d683ac85d034556b129"
+    },
+    {
+      "arquivo": "qa-run.cjs",
+      "bytes": 2281,
+      "sha256": "2bd258e2220bda16108400d1793de8109a4fcc22145a15e91dca28d2e1e6f587"
+    },
+    {
+      "arquivo": "reteste/cucumber-report.json",
+      "bytes": 2,
+      "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    {
+      "arquivo": "reteste/resumo.json",
+      "bytes": 1141,
+      "sha256": "14cc788dedc6bc70a734315aac1b4914754ac393b8b1bd410978fa5f325275b3"
+    },
+    {
+      "arquivo": "reteste/screenshots/qa-reavaliacao-driver06.cy.ts/families-login-apos-401.png",
+      "bytes": 69753,
+      "sha256": "2a415e8aac06d402dab65dda16bb33359ef592cf913f002a911b6d27aadaaa3c"
+    },
+    {
+      "arquivo": "reteste/screenshots/qa-reavaliacao-driver06.cy.ts/maquinas-login-apos-401.png",
+      "bytes": 69753,
+      "sha256": "2a415e8aac06d402dab65dda16bb33359ef592cf913f002a911b6d27aadaaa3c"
+    },
+    {
+      "arquivo": "reteste.cy.ts",
+      "bytes": 2143,
+      "sha256": "33d6c2e7d4a5243a1cc97199dfc91e03caa9a87a6100fcc1a9b4d9ab604bbc83"
+    },
+    {
+      "arquivo": "test_qa_driver06_http.py",
+      "bytes": 4958,
+      "sha256": "463dd159f23eb30ec21ce6a0a57beda3a9b92fcb1545a7fb2a376153dcad93e5"
+    },
+    {
+      "arquivo": "test_qa_driver06_limites.py",
+      "bytes": 1196,
+      "sha256": "d15ed8e17da5989f429e9b21a7a8122bd96ed9eb3b58fc64e02ea636c83c4054"
+    },
+    {
+      "arquivo": "uvicorn-http.txt",
+      "bytes": 6894,
+      "sha256": "f33c3597bff59fc6b9db7cd62cf256e4cf4c1ecb0ab0051c447bd31321a74f7c"
+    }
+  ]
+}

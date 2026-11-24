@@ -1,5 +1,6 @@
 
 import { useCallback, useEffect, useState } from 'react'
+import { apiFetch } from '../../../lib/apiFetch'
 
 type Familia = {
   id: string
@@ -63,8 +64,8 @@ function MatrizSetupPage() {
   // Busca os dados nas APIs e retorna os resultados.
   const buscarDados = useCallback(async () => {
     const [familiasResponse, temposResponse] = await Promise.all([
-      fetch(FAMILIAS_API_URL, { credentials: 'include' }),
-      fetch(TEMPOS_SETUP_API_URL, { credentials: 'include' }),
+      apiFetch(FAMILIAS_API_URL, { credentials: 'include' }),
+      apiFetch(TEMPOS_SETUP_API_URL, { credentials: 'include' }),
     ])
 
     if (!familiasResponse.ok) {
