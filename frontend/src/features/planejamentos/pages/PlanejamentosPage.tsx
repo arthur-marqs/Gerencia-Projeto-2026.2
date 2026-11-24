@@ -232,10 +232,10 @@ function PlanejamentosPage() {
 
     try {
       const resposta = planejamentoId
-        ? await fetch(`${API_URL}/planejamentos/${planejamentoId}/sugestao`, {
+        ? await apiFetch(`${API_URL}/planejamentos/${planejamentoId}/sugestao`, {
           credentials: 'include',
         })
-        : await fetch(`${API_URL}/planejamentos/sugestoes`, {
+        : await apiFetch(`${API_URL}/planejamentos/sugestoes`, {
           method: 'POST',
           credentials: 'include',
           headers: { 'Content-Type': 'application/json' },
