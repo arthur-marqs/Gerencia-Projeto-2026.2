@@ -13,6 +13,7 @@ from app.models.ordem_producao import OrdemProducao
 from app.models.ordem_producao_operacao import OrdemProducaoOperacao
 from app.models.perfil import Perfil
 from app.models.planejamento import Planejamento
+from app.models.sugestao_planejamento import SugestaoPlanejamento
 from app.models.sessao import Sessao
 from app.models.usuario import Usuario
 from app.models.usuario_perfil import usuario_perfil
@@ -193,6 +194,7 @@ def excluir(usuario_id: UUID, db: Session = Depends(get_db),
     for campo, descricao in (
         (OrdemProducao.criado_por, "ordens de produção"),
         (Planejamento.criado_por, "planejamentos"),
+        (SugestaoPlanejamento.criado_por, "sugestões de planejamento"),
         (OrdemProducaoOperacao.usuario_id, "operações de ordens de produção"),
     ):
         if db.scalar(select(campo).where(campo == usuario_id).limit(1)) is not None:

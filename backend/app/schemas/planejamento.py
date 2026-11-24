@@ -49,3 +49,27 @@ class PlanejamentoResponse(BaseModel):
 
 class PlanejamentoUpdate(PlanejamentoCreate):
     pass
+
+
+class SugestaoPlanejamentoCreate(BaseModel):
+    ordens_ids: list[UUID]
+
+
+class ItemSugestaoPlanejamentoResponse(BaseModel):
+    model_config = ConfigDict(from_attributes=True)
+
+    ordem_id: UUID
+    posicao: int
+    posicao_original: int
+    setup_minutos: int
+
+
+class SugestaoPlanejamentoResponse(BaseModel):
+    model_config = ConfigDict(from_attributes=True)
+
+    id_sugestao: UUID
+    criado_por: UUID
+    criado_em: datetime
+    tempo_setup_original_minutos: int
+    tempo_setup_total_minutos: int
+    itens: list[ItemSugestaoPlanejamentoResponse]
