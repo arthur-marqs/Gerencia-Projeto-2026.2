@@ -6,7 +6,7 @@ Sistema web para apoiar o planejamento e o acompanhamento da produção em peque
 
 O SetupFlow busca auxiliar pequenas e médias indústrias no planejamento da sequência de produção.
 
-O projeto está em desenvolvimento. A versão atual implementa autenticação, controle de acesso e funcionalidades de cadastro; a geração automática de sequências de produção ainda não está disponível.
+O projeto está em desenvolvimento. A versão atual inclui autenticação, controle de acesso, cadastros e planejamento da produção com geração de sugestões por tempo de setup.
 
 ## Equipe
 
@@ -142,12 +142,13 @@ O GitHub Actions executa os testes do backend e as verificações de lint e buil
 - **Gerenciamento de máquinas (US03):** cadastro, consulta, edição, ativação, inativação e exclusão quando não há registros vinculados. A tela e a API aplicam as permissões por perfil.
 - **Produtos e famílias (US04–US06):** cadastro e consulta de produtos e famílias, com associação e remoção da associação entre produto e família.
 - **Ordens de produção (US07–US08):** cadastro e consulta de ordens, além da definição e atualização de prazo e prioridade.
+- **Sequência sugerida (US13).** O planejador pode gerar uma sugestão a partir das ordens selecionadas e consultar o resultado no planejamento correspondente. [Guia de uso](frontend/README.MD#gerar-e-consultar-uma-sequência-sugerida-us13)
 - **Interface web:** telas de login, máquinas, produtos, famílias e ordens de produção conectadas à API.
 
 
 ## Documentação
 
-Consulte o [guia do backend](backend/README.md) para detalhes de configuração do PostgreSQL e execução da API, o [guia do frontend](frontend/README.md) para requisitos e execução da interface e o [mapa visual do projeto](docs/estrutura-projeto.md) para conhecer a estrutura atual do repositório.
+Consulte o [guia do backend](backend/README.md) para detalhes de configuração do PostgreSQL e execução da API, o [guia do frontend](frontend/README.MD) para requisitos e execução da interface e o [mapa visual do projeto](docs/estrutura-projeto.md) para conhecer a estrutura atual do repositório.
 ---
 ## Organização arquitetural planejada (referência futura)
 

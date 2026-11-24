@@ -1,6 +1,6 @@
 # SetupFlow
 
-Aplicação em desenvolvimento para planejamento e acompanhamento da produção. Esta versão contém a interface inicial de login em React e uma API em FastAPI com endpoint de saúde.
+Aplicação em desenvolvimento para planejamento e acompanhamento da produção, com interface em React e API em FastAPI.
 
 
 ## Estado atual
@@ -8,6 +8,7 @@ Aplicação em desenvolvimento para planejamento e acompanhamento da produção.
 - **Frontend:** aplicação React, TypeScript, Vite e Tailwind CSS, com tela de login e áreas autenticadas para produtos, famílias de produtos, máquinas, ordens de produção, tempos de setup, matriz de setup, planejamentos e usuários.
 - **Autenticação:** integração com a API FastAPI, sessões mantidas por cookies e controle de acesso conforme os perfis do usuário.
 - **Planejamento:** consulta dos tempos de setup entre famílias de produtos e visualização da matriz de transições direcionais.
+- **Sequência sugerida (US13).** Geração a partir das ordens selecionadas, com estimativa de setup e consulta da sugestão pelo planejamento.
 - **Matriz de setup:** apresenta as famílias nas linhas e colunas, com os tempos de transição em minutos. Transições sem configuração são representadas por um traço. A tela permite atualizar os dados consultados.
 - **Backend:** API FastAPI com documentação interativa, endpoint de saúde, autenticação e rotas para os módulos da aplicação.
 - **Banco de dados:** PostgreSQL para persistência dos dados da aplicação.
@@ -140,6 +141,21 @@ A consulta utiliza as rotas `GET /api/families` e `GET /api/tempos-setup`, dispo
 
 Os testes de aceitação da funcionalidade estão documentados em `frontend/cypress/README.md`.
 
+## Gerar e consultar uma sequência sugerida (US13)
+
+Entre com o perfil **Planejador de Produção**. A geração usa ordens pendentes com
+produto associado a uma família e os tempos cadastrados nos dois sentidos para
+cada par de famílias selecionadas. O banco precisa estar na revisão atual das
+migrations. [Guia do backend](../backend/README.md#us13--sequência-sugerida-de-produção)
+
+1. Abra **Planejamento manual** e selecione as ordens na sequência de referência.
+2. Clique em **Gerar sequência sugerida**. Você pode gerar a sugestão antes de preencher o nome ou salvar o planejamento.
+3. Confira a ordem sugerida, o setup por posição e o tempo total estimado em minutos.
+4. Para consultar novamente, encontre o planejamento com as mesmas ordens em **Planejamentos cadastrados** e clique em **Consultar sugestão**. Para gerar outra sugestão para um planejamento salvo, clique em **Editar** e use **Gerar sequência sugerida**.
+
+A tela informa quando a seleção está vazia, quando um produto está sem família
+ou quando falta o tempo de uma troca. A **Matriz de setup** ajuda a localizar as
+transições que precisam ser cadastradas em **Tempos de setup**.
 
 ## Banco de dados
 
