@@ -235,6 +235,46 @@ def test_reenvios_simultaneos_criam_uma_ordem(seeded_auth):
     assert total == 1
 
 
+def test_reenvio_apos_confirmacao_entre_consultas_retorna_mesma_ordem(
+    seeded_auth, monkeypatch
+):
+    from app.api.routes import ordens_producao as rota_ordens
+
+    client, state = seeded_auth.client, seeded_auth.state
+    assert _login(client, state.email, state.password).status_code == 200
+    produto = _criar_produto(client)
+    chave = uuid4()
+    dados = {
+        "codigo": "DR02-CORRIDA-CONSULTA",
+        "produto_id": produto["id_produto"],
+        "quantidade": "4",
+    }
+
+    primeira = _cadastrar(client, dados, chave)
+    assert primeira.status_code == 201
+
+    consultar_original = rota_ordens._buscar_ordem_reutilizada
+    chamadas = 0
+
+    def consultar_simulando_leitura_anterior(*args, **kwargs):
+        nonlocal chamadas
+        chamadas += 1
+        if chamadas == 1:
+            return None
+        return consultar_original(*args, **kwargs)
+
+    monkeypatch.setattr(
+        rota_ordens,
+        "_buscar_ordem_reutilizada",
+        consultar_simulando_leitura_anterior,
+    )
+
+    repetida = _cadastrar(client, dados, chave)
+    assert repetida.status_code == 200
+    assert repetida.json()["id_ordem"] == primeira.json()["id_ordem"]
+    assert chamadas == 2
+
+
 def test_falha_antes_da_confirmacao_nao_deixa_ordem_parcial(
     seeded_auth,
     monkeypatch,

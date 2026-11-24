@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import type { FormEvent } from 'react'
+import { apiFetch } from '../../../lib/apiFetch'
 
 const API_URL = 'http://localhost:8000/api/ordens-producao'
 const PRODUTOS_URL = 'http://localhost:8000/api/produtos'
@@ -112,7 +113,7 @@ function OrdensProducaoPage() {
 
     setSalvando(true)
     try {
-      const response = await fetch(`${API_URL}/${ordemEmEdicao.id_ordem}`, {
+      const response = await apiFetch(`${API_URL}/${ordemEmEdicao.id_ordem}`, {
         method: 'PUT',
         credentials: 'include',
         headers: { 'Content-Type': 'application/json' },
@@ -152,8 +153,8 @@ function OrdensProducaoPage() {
     setCarregando(true)
     try {
       const [responseOrdens, responseProdutos] = await Promise.all([
-        fetch(API_URL, { credentials: 'include' }),
-        fetch(PRODUTOS_URL, { credentials: 'include' }),
+        apiFetch(API_URL, { credentials: 'include' }),
+        apiFetch(PRODUTOS_URL, { credentials: 'include' }),
       ])
       if (!responseOrdens.ok || !responseProdutos.ok) {
         setMensagemErro('Não foi possível carregar as ordens ou os produtos. Confira sua sessão e tente novamente.')
@@ -177,8 +178,8 @@ function OrdensProducaoPage() {
     async function carregarInicial() {
       try {
         const [responseOrdens, responseProdutos] = await Promise.all([
-          fetch(API_URL, { credentials: 'include' }),
-          fetch(PRODUTOS_URL, { credentials: 'include' }),
+          apiFetch(API_URL, { credentials: 'include' }),
+          apiFetch(PRODUTOS_URL, { credentials: 'include' }),
         ])
         if (!responseOrdens.ok || !responseProdutos.ok) {
           if (ativa) setMensagemErro('Não foi possível carregar as ordens ou os produtos. Confira sua sessão e tente novamente.')
@@ -241,7 +242,7 @@ function OrdensProducaoPage() {
           chave: crypto.randomUUID(),
         }
       }
-      const response = await fetch(API_URL, {
+      const response = await apiFetch(API_URL, {
         method: 'POST',
         credentials: 'include',
         headers: {
@@ -312,7 +313,7 @@ function OrdensProducaoPage() {
     })
 
     try {
-      const response = await fetch(`${API_URL}/${ordem.id_ordem}/duracao-estimada`, {
+      const response = await apiFetch(`${API_URL}/${ordem.id_ordem}/duracao-estimada`, {
         method: 'PATCH',
         credentials: 'include',
         headers: { 'Content-Type': 'application/json' },

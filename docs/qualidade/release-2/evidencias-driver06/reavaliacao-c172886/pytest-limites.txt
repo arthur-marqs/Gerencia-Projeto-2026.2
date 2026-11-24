@@ -1,0 +1,13 @@
+============================= test session starts =============================
+platform win32 -- Python 3.11.9, pytest-8.4.2, pluggy-1.7.0 -- C:\Users\Leona\Documents\GitHub\Gerencia-Projeto-2026.2\backend\.venv\Scripts\python.exe
+cachedir: .pytest_cache
+rootdir: C:\Users\Leona\Documents\GitHub\Gerencia-Projeto-2026.2
+plugins: anyio-4.15.1
+collecting ... collected 3 items
+
+..\docs\qualidade\release-2\evidencias-driver06\reavaliacao-c172886\test_qa_driver06_limites.py::test_qa_fronteira_expiracao[-1-200] PASSED [ 33%]
+..\docs\qualidade\release-2\evidencias-driver06\reavaliacao-c172886\test_qa_driver06_limites.py::test_qa_fronteira_expiracao[0-401] PASSED [ 66%]
+..\docs\qualidade\release-2\evidencias-driver06\reavaliacao-c172886\test_qa_driver06_limites.py::test_qa_fronteira_expiracao[1-401] PASSED [100%]
+
+- generated xml file: C:\Users\Leona\Documents\GitHub\Gerencia-Projeto-2026.2\docs\qualidade\release-2\evidencias-driver06\reavaliacao-c172886\pytest-limites.xml -
+============================== 3 passed in 1.32s ==============================

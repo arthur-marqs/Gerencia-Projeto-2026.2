@@ -1,0 +1,97 @@
+{
+  "commit": "c17288606ebbd0afedf18e7a6b6be73923a3ac60",
+  "executedAt": "2026-11-23T18:47:12.089Z",
+  "mode": "existente",
+  "tipo": "Frontend com respostas simuladas",
+  "browser": "chrome",
+  "browserVersion": "157.0.8103.79",
+  "cypress": "16.3.0",
+  "node": "v26.13.0",
+  "total": 10,
+  "passed": 10,
+  "failed": 0,
+  "pending": 0,
+  "skipped": 0,
+  "tests": [
+    {
+      "title": [
+        "Expiração e invalidação de sessão",
+        "Permitir acesso com sessão válida"
+      ],
+      "state": "passed",
+      "error": null
+    },
+    {
+      "title": [
+        "Expiração e invalidação de sessão",
+        "Retornar ao login após a sessão expirar"
+      ],
+      "state": "passed",
+      "error": null
+    },
+    {
+      "title": [
+        "Expiração e invalidação de sessão",
+        "Retornar ao login quando a sessão for invalidada em outra funcionalidade"
+      ],
+      "state": "passed",
+      "error": null
+    },
+    {
+      "title": [
+        "Expiração e invalidação de sessão",
+        "Voltar ao login em Famílias após 401 mesmo se a identidade responder 503"
+      ],
+      "state": "passed",
+      "error": null
+    },
+    {
+      "title": [
+        "Expiração e invalidação de sessão",
+        "Voltar ao login em Máquinas após 401 mesmo se a identidade responder 503"
+      ],
+      "state": "passed",
+      "error": null
+    },
+    {
+      "title": [
+        "Autenticação no SetupFlow",
+        "Exibir a tela de login"
+      ],
+      "state": "passed",
+      "error": null
+    },
+    {
+      "title": [
+        "Autenticação no SetupFlow",
+        "Tentar entrar com os campos vazios"
+      ],
+      "state": "passed",
+      "error": null
+    },
+    {
+      "title": [
+        "Autenticação no SetupFlow",
+        "Tentar entrar com e-mail inválido"
+      ],
+      "state": "passed",
+      "error": null
+    },
+    {
+      "title": [
+        "Autenticação no SetupFlow",
+        "Tentar entrar sem informar a senha"
+      ],
+      "state": "passed",
+      "error": null
+    },
+    {
+      "title": [
+        "Autenticação no SetupFlow",
+        "Tentar entrar com credenciais incorretas"
+      ],
+      "state": "passed",
+      "error": null
+    }
+  ]
+}

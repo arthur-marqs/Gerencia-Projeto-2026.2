@@ -1,0 +1,91 @@
+
+
+====================================================================================================
+
+  (Run Starting)
+
+  ┌────────────────────────────────────────────────────────────────────────────────────────────────┐
+  │ Cypress:        16.3.0                                                                         │
+  │ Browser:        Chrome 157 (headless)                                                          │
+  │ Node Version:   v26.13.0 (C:\Program Files\nodejs\node.exe)                                    │
+  │ Specs:          1 found (qa-reavaliacao-driver06.cy.ts)                                        │
+  │ Searched:       C:\Users\Leona\Documents\GitHub\Gerencia-Projeto-2026.2\frontend\cypress\e2e\a │
+  │                 utenticacao\qa-reavaliacao-driver06.cy.ts                                      │
+  └────────────────────────────────────────────────────────────────────────────────────────────────┘
+
+
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+  Running:  qa-reavaliacao-driver06.cy.ts                                                   (1 of 1)
+
+
+  Driver06 integrado
+    1) sessão válida, expirar, negar acesso, login e acesso novamente
+    2) sessão válida, invalidar, negar acesso, login e acesso novamente
+
+
+  0 passing (12s)
+  2 failing
+
+  1) Driver06 integrado
+       sessão válida, expirar, negar acesso, login e acesso novamente:
+
+      Timed out retrying after 4000ms
+      + expected - actual
+
+      -200
+      +401
+
+      at Context.eval (http://localhost:5173/__cypress/tests?p=cypress\e2e\autenticacao\qa-reavaliacao-driver06.cy.ts:25:57)
+
+  2) Driver06 integrado
+       sessão válida, invalidar, negar acesso, login e acesso novamente:
+
+      Timed out retrying after 4000ms
+      + expected - actual
+
+      -200
+      +401
+
+      at Context.eval (http://localhost:5173/__cypress/tests?p=cypress\e2e\autenticacao\qa-reavaliacao-driver06.cy.ts:25:57)
+
+
+
+
+  (Results)
+
+  ┌────────────────────────────────────────────────────────────────────────────────────────────────┐
+  │ Tests:        2                                                                                │
+  │ Passing:      0                                                                                │
+  │ Failing:      2                                                                                │
+  │ Pending:      0                                                                                │
+  │ Skipped:      0                                                                                │
+  │ Screenshots:  2                                                                                │
+  │ Video:        false                                                                            │
+  │ Duration:     12 seconds                                                                       │
+  │ Spec Ran:     qa-reavaliacao-driver06.cy.ts                                                    │
+  └────────────────────────────────────────────────────────────────────────────────────────────────┘
+
+
+  (Screenshots)
+
+  -  C:\Users\Leona\Documents\GitHub\Gerencia-Projeto-2026.2\docs\qualidade\release-2     (1264x625)
+     \evidencias-driver06\reavaliacao-c172886\integrado\screenshots\qa-reavaliacao-dr
+     iver06.cy.ts\Driver06 integrado -- sessão válida, expirar, negar acesso, login e
+      acesso novamente (failed).png
+  -  C:\Users\Leona\Documents\GitHub\Gerencia-Projeto-2026.2\docs\qualidade\release-2     (1264x625)
+     \evidencias-driver06\reavaliacao-c172886\integrado\screenshots\qa-reavaliacao-dr
+     iver06.cy.ts\Driver06 integrado -- sessão válida, invalidar, negar acesso, login
+      e acesso novamente (failed).png
+
+
+====================================================================================================
+
+  (Run Finished)
+
+
+       Spec                                              Tests  Passing  Failing  Pending  Skipped
+  ┌────────────────────────────────────────────────────────────────────────────────────────────────┐
+  │ ×  qa-reavaliacao-driver06.cy.ts            00:12        2        -        2        -        - │
+  └────────────────────────────────────────────────────────────────────────────────────────────────┘
+    ×  1 of 1 failed (100%)                     00:12        2        -        2        -        -

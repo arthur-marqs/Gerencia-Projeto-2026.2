@@ -1,0 +1,24 @@
+============================= test session starts =============================
+platform win32 -- Python 3.11.9, pytest-8.4.2, pluggy-1.7.0 -- C:\Users\Leona\Documents\GitHub\Gerencia-Projeto-2026.2\backend\.venv\Scripts\python.exe
+cachedir: .pytest_cache
+rootdir: C:\Users\Leona\Documents\GitHub\Gerencia-Projeto-2026.2
+plugins: anyio-4.15.1
+collecting ... collected 3 items
+
+.venv/Scripts/python.exe : INFO  [alembic.runtime.migration] Context impl PostgresqlImpl.
+No linha:2 caractere:114
++ ... ONPATH='.'; .venv/Scripts/python.exe -X utf8 -m pytest -v -s --junitx ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (INFO  [alembic....PostgresqlImpl.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+
+INFO  [alembic.runtime.migration] Will assume transactional DDL.
+..\docs\qualidade\release-2\evidencias-driver06\reavaliacao-c172886\test_qa_driver06_http.py::test_qa_http_20_tentativas_por_estado[invalidada] invalidada: 20/20 recusadas, máximo 0.027881s
+PASSED
+..\docs\qualidade\release-2\evidencias-driver06\reavaliacao-c172886\test_qa_driver06_http.py::test_qa_http_20_tentativas_por_estado[expirada] expirada: 20/20 recusadas, máximo 0.026856s
+PASSED
+..\docs\qualidade\release-2\evidencias-driver06\reavaliacao-c172886\test_qa_driver06_http.py::test_qa_http_20_tentativas_por_estado[desconhecida] desconhecida: 20/20 recusadas, máximo 0.028439s
+PASSED
+
+- generated xml file: C:\Users\Leona\Documents\GitHub\Gerencia-Projeto-2026.2\docs\qualidade\release-2\evidencias-driver06\reavaliacao-c172886\pytest-http.xml -
+============================== 3 passed in 3.81s ==============================

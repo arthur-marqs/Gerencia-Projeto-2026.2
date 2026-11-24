@@ -1,0 +1,81 @@
+
+
+====================================================================================================
+
+  (Run Starting)
+
+  ┌────────────────────────────────────────────────────────────────────────────────────────────────┐
+  │ Cypress:        16.3.0                                                                         │
+  │ Browser:        Chrome 157 (headless)                                                          │
+  │ Node Version:   v26.13.0 (C:\Program Files\nodejs\node.exe)                                    │
+  │ Specs:          1 found (qa-driver06.cy.ts)                                                    │
+  │ Searched:       C:\Users\Leona\Documents\GitHub\Gerencia-Projeto-2026.2\frontend\cypress\e2e\a │
+  │                 utenticacao\qa-driver06.cy.ts                                                  │
+  └────────────────────────────────────────────────────────────────────────────────────────────────┘
+
+
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+  Running:  qa-driver06.cy.ts                                                               (1 of 1)
+
+
+  QA Driver06: resposta a 401 e falhas independentes
+    1) deve solicitar autenticação após 401 em Famílias de produtos, mesmo se /me retornar 503
+    2) deve solicitar autenticação após 401 em Máquinas, mesmo se /me retornar 503
+    √ preserva sessão quando somente a funcionalidade retorna 403 (162ms)
+    √ preserva sessão quando somente a funcionalidade retorna 500 (167ms)
+
+
+  2 passing (7s)
+  2 failing
+
+  1) QA Driver06: resposta a 401 e falhas independentes
+       deve solicitar autenticação após 401 em Famílias de produtos, mesmo se /me retornar 503:
+     AssertionError: Timed out retrying after 3000ms: Expected to find content: 'Acesse sua conta' within the selector: 'h2' but never did.
+      at Context.eval (http://localhost:5173/__cypress/tests?p=cypress\e2e\autenticacao\qa-driver06.cy.ts:24:65)
+
+  2) QA Driver06: resposta a 401 e falhas independentes
+       deve solicitar autenticação após 401 em Máquinas, mesmo se /me retornar 503:
+     AssertionError: Timed out retrying after 3000ms: Expected to find content: 'Acesse sua conta' within the selector: 'h2' but never did.
+      at Context.eval (http://localhost:5173/__cypress/tests?p=cypress\e2e\autenticacao\qa-driver06.cy.ts:24:65)
+
+
+
+
+  (Results)
+
+  ┌────────────────────────────────────────────────────────────────────────────────────────────────┐
+  │ Tests:        4                                                                                │
+  │ Passing:      2                                                                                │
+  │ Failing:      2                                                                                │
+  │ Pending:      0                                                                                │
+  │ Skipped:      0                                                                                │
+  │ Screenshots:  2                                                                                │
+  │ Video:        false                                                                            │
+  │ Duration:     7 seconds                                                                        │
+  │ Spec Ran:     qa-driver06.cy.ts                                                                │
+  └────────────────────────────────────────────────────────────────────────────────────────────────┘
+
+
+  (Screenshots)
+
+  -  C:\Users\Leona\Documents\GitHub\Gerencia-Projeto-2026.2\docs\qualidade\release-2     (1264x625)
+     \evidencias-driver06\adicional\screenshots\qa-driver06.cy.ts\QA Driver06 respost
+     a a 401 e falhas independentes -- deve solicitar autenticação após 401 em Famíli
+     as de produtos, mesmo se me retornar 503 (failed).png
+  -  C:\Users\Leona\Documents\GitHub\Gerencia-Projeto-2026.2\docs\qualidade\release-2     (1264x625)
+     \evidencias-driver06\adicional\screenshots\qa-driver06.cy.ts\QA Driver06 respost
+     a a 401 e falhas independentes -- deve solicitar autenticação após 401 em Máquin
+     as, mesmo se me retornar 503 (failed).png
+
+
+====================================================================================================
+
+  (Run Finished)
+
+
+       Spec                                              Tests  Passing  Failing  Pending  Skipped
+  ┌────────────────────────────────────────────────────────────────────────────────────────────────┐
+  │ ×  qa-driver06.cy.ts                        00:07        4        2        2        -        - │
+  └────────────────────────────────────────────────────────────────────────────────────────────────┘
+    ×  1 of 1 failed (100%)                     00:07        4        2        2        -        -

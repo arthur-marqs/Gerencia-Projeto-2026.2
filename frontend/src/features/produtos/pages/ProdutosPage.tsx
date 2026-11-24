@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import type { FormEvent } from 'react'
 import CompatibilidadeMaquinas from '../components/CompatibilidadeMaquinas'
+import { apiFetch } from '../../../lib/apiFetch'
 
 type ErrosFormulario = {
   codigo?: string
@@ -55,7 +56,7 @@ function ProdutosPage() {
     setErroListagem('')
 
     try {
-      const response = await fetch('http://localhost:8000/api/produtos', {
+      const response = await apiFetch('http://localhost:8000/api/produtos', {
         credentials: 'include',
       })
 
@@ -77,10 +78,10 @@ function ProdutosPage() {
     async function carregarDadosIniciais() {
       try {
         const [responseProdutos, responseFamilias] = await Promise.all([
-          fetch('http://localhost:8000/api/produtos', {
+          apiFetch('http://localhost:8000/api/produtos', {
             credentials: 'include',
           }),
-          fetch('http://localhost:8000/api/families', {
+          apiFetch('http://localhost:8000/api/families', {
             credentials: 'include',
           }),
         ])
@@ -143,7 +144,7 @@ function ProdutosPage() {
     setSalvando(true)
 
     try {
-      const response = await fetch('http://localhost:8000/api/produtos', {
+      const response = await apiFetch('http://localhost:8000/api/produtos', {
         method: 'POST',
         credentials: 'include',
         headers: {
@@ -190,7 +191,7 @@ function ProdutosPage() {
     setProdutoAtualizando(produtoId)
 
     try {
-      const response = await fetch(
+      const response = await apiFetch(
         `http://localhost:8000/api/produtos/${produtoId}/familia`,
         {
           method: 'PATCH',

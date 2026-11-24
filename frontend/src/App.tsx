@@ -1,6 +1,7 @@
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import LoginPage from './features/auth/pages/LoginPage'
 import AuthenticatedPage from './features/auth/pages/AuthenticatedPage'
+import { SESSION_EXPIRED_EVENT } from './lib/apiFetch'
 
 type UsuarioAutenticado = {
   nome: string
@@ -12,8 +13,12 @@ async function buscarUsuarioAutenticado(): Promise<UsuarioAutenticado | null> {
     credentials: 'include',
   })
 
-  if (!response.ok) {
+  if (response.status === 401) {
     return null
+  }
+
+  if (!response.ok) {
+    throw new Error('Não foi possível verificar a sessão.')
   }
 
   const data: {
@@ -79,14 +84,26 @@ function App() {
     }
   }, [])
 
-  async function carregarUsuarioAposLogin() {
+  const carregarUsuarioAposLogin = useCallback(async () => {
     try {
       const usuarioAutenticado = await buscarUsuarioAutenticado()
       setUsuario(usuarioAutenticado)
     } catch {
+      // Uma falha de rede não deve encerrar a sessão.
+    }
+  }, [])
+
+  useEffect(() => {
+    function tratarSessaoExpirada() {
       setUsuario(null)
     }
-  }
+
+    window.addEventListener(SESSION_EXPIRED_EVENT, tratarSessaoExpirada)
+
+    return () => {
+      window.removeEventListener(SESSION_EXPIRED_EVENT, tratarSessaoExpirada)
+    }
+  }, [])
 
   async function sair() {
     const response = await fetch('http://localhost:8000/api/auth/logout', {

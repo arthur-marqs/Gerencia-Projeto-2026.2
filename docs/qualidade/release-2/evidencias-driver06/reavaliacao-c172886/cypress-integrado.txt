@@ -1,0 +1,64 @@
+
+
+====================================================================================================
+
+  (Run Starting)
+
+  ┌────────────────────────────────────────────────────────────────────────────────────────────────┐
+  │ Cypress:        16.3.0                                                                         │
+  │ Browser:        Chrome 157 (headless)                                                          │
+  │ Node Version:   v26.13.0 (C:\Program Files\nodejs\node.exe)                                    │
+  │ Specs:          1 found (qa-reavaliacao-driver06.cy.ts)                                        │
+  │ Searched:       C:\Users\Leona\Documents\GitHub\Gerencia-Projeto-2026.2\frontend\cypress\e2e\a │
+  │                 utenticacao\qa-reavaliacao-driver06.cy.ts                                      │
+  └────────────────────────────────────────────────────────────────────────────────────────────────┘
+
+
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+  Running:  qa-reavaliacao-driver06.cy.ts                                                   (1 of 1)
+
+
+  Driver06 integrado
+    √ sessão válida, expirar, negar acesso, login e acesso novamente (2996ms)
+    √ sessão válida, invalidar, negar acesso, login e acesso novamente (2631ms)
+
+
+  2 passing (6s)
+
+
+  (Results)
+
+  ┌────────────────────────────────────────────────────────────────────────────────────────────────┐
+  │ Tests:        2                                                                                │
+  │ Passing:      2                                                                                │
+  │ Failing:      0                                                                                │
+  │ Pending:      0                                                                                │
+  │ Skipped:      0                                                                                │
+  │ Screenshots:  2                                                                                │
+  │ Video:        false                                                                            │
+  │ Duration:     5 seconds                                                                        │
+  │ Spec Ran:     qa-reavaliacao-driver06.cy.ts                                                    │
+  └────────────────────────────────────────────────────────────────────────────────────────────────┘
+
+
+  (Screenshots)
+
+  -  C:\Users\Leona\Documents\GitHub\Gerencia-Projeto-2026.2\docs\qualidade\release-2     (1264x625)
+     \evidencias-driver06\reavaliacao-c172886\integrado\screenshots\qa-reavaliacao-dr
+     iver06.cy.ts\expirar-login-real.png
+  -  C:\Users\Leona\Documents\GitHub\Gerencia-Projeto-2026.2\docs\qualidade\release-2     (1264x625)
+     \evidencias-driver06\reavaliacao-c172886\integrado\screenshots\qa-reavaliacao-dr
+     iver06.cy.ts\invalidar-login-real.png
+
+
+====================================================================================================
+
+  (Run Finished)
+
+
+       Spec                                              Tests  Passing  Failing  Pending  Skipped
+  ┌────────────────────────────────────────────────────────────────────────────────────────────────┐
+  │ √  qa-reavaliacao-driver06.cy.ts            00:05        2        2        -        -        - │
+  └────────────────────────────────────────────────────────────────────────────────────────────────┘
+    √  All specs passed!                        00:05        2        2        -        -        -

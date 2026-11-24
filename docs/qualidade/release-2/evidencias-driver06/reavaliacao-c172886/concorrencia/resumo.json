@@ -1,0 +1,65 @@
+{
+  "commit": "c17288606ebbd0afedf18e7a6b6be73923a3ac60",
+  "executedAt": "2026-11-23T18:48:19.310Z",
+  "mode": "concorrencia",
+  "tipo": "Frontend com respostas simuladas",
+  "browser": "chrome",
+  "browserVersion": "157.0.8103.79",
+  "cypress": "16.3.0",
+  "node": "v26.13.0",
+  "total": 6,
+  "passed": 6,
+  "failed": 0,
+  "pending": 0,
+  "skipped": 0,
+  "tests": [
+    {
+      "title": [
+        "QA Driver06: identidade em voo durante 401",
+        "Famílias de produtos: login após 401 com identidade 503"
+      ],
+      "state": "passed",
+      "error": null
+    },
+    {
+      "title": [
+        "QA Driver06: identidade em voo durante 401",
+        "Famílias de produtos: login após 401 com identidade rede"
+      ],
+      "state": "passed",
+      "error": null
+    },
+    {
+      "title": [
+        "QA Driver06: identidade em voo durante 401",
+        "Famílias de produtos: login após 401 com identidade tardia200"
+      ],
+      "state": "passed",
+      "error": null
+    },
+    {
+      "title": [
+        "QA Driver06: identidade em voo durante 401",
+        "Máquinas: login após 401 com identidade 503"
+      ],
+      "state": "passed",
+      "error": null
+    },
+    {
+      "title": [
+        "QA Driver06: identidade em voo durante 401",
+        "Máquinas: login após 401 com identidade rede"
+      ],
+      "state": "passed",
+      "error": null
+    },
+    {
+      "title": [
+        "QA Driver06: identidade em voo durante 401",
+        "Máquinas: login após 401 com identidade tardia200"
+      ],
+      "state": "passed",
+      "error": null
+    }
+  ]
+}

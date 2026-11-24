@@ -1,0 +1,128 @@
+{
+  "commit": "c17288606ebbd0afedf18e7a6b6be73923a3ac60",
+  "estado": "expirada",
+  "tipo": "HTTP real + Uvicorn + PostgreSQL",
+  "amostras": [
+    {
+      "tentativa": 1,
+      "rota": "/api/families",
+      "status": 401,
+      "segundos": 0.026856099953874946
+    },
+    {
+      "tentativa": 2,
+      "rota": "/api/maquinas",
+      "status": 401,
+      "segundos": 0.01585009996779263
+    },
+    {
+      "tentativa": 3,
+      "rota": "/api/produtos",
+      "status": 401,
+      "segundos": 0.015122200129553676
+    },
+    {
+      "tentativa": 4,
+      "rota": "/api/ordens-producao",
+      "status": 401,
+      "segundos": 0.015980100026354194
+    },
+    {
+      "tentativa": 5,
+      "rota": "/api/planejamentos",
+      "status": 401,
+      "segundos": 0.016203699866309762
+    },
+    {
+      "tentativa": 6,
+      "rota": "/api/tempos-setup",
+      "status": 401,
+      "segundos": 0.015603900188580155
+    },
+    {
+      "tentativa": 7,
+      "rota": "/api/usuarios",
+      "status": 401,
+      "segundos": 0.014713899930939078
+    },
+    {
+      "tentativa": 8,
+      "rota": "/api/auth/me",
+      "status": 401,
+      "segundos": 0.014741499908268452
+    },
+    {
+      "tentativa": 9,
+      "rota": "/api/families",
+      "status": 401,
+      "segundos": 0.0024332997854799032
+    },
+    {
+      "tentativa": 10,
+      "rota": "/api/maquinas",
+      "status": 401,
+      "segundos": 0.013348100008442998
+    },
+    {
+      "tentativa": 11,
+      "rota": "/api/produtos",
+      "status": 401,
+      "segundos": 0.014865800039842725
+    },
+    {
+      "tentativa": 12,
+      "rota": "/api/ordens-producao",
+      "status": 401,
+      "segundos": 0.015743499854579568
+    },
+    {
+      "tentativa": 13,
+      "rota": "/api/planejamentos",
+      "status": 401,
+      "segundos": 0.015564299887046218
+    },
+    {
+      "tentativa": 14,
+      "rota": "/api/tempos-setup",
+      "status": 401,
+      "segundos": 0.015299800084903836
+    },
+    {
+      "tentativa": 15,
+      "rota": "/api/usuarios",
+      "status": 401,
+      "segundos": 0.015166500117629766
+    },
+    {
+      "tentativa": 16,
+      "rota": "/api/auth/me",
+      "status": 401,
+      "segundos": 0.015618599951267242
+    },
+    {
+      "tentativa": 17,
+      "rota": "/api/families",
+      "status": 401,
+      "segundos": 0.015648199943825603
+    },
+    {
+      "tentativa": 18,
+      "rota": "/api/maquinas",
+      "status": 401,
+      "segundos": 0.014143799897283316
+    },
+    {
+      "tentativa": 19,
+      "rota": "/api/produtos",
+      "status": 401,
+      "segundos": 0.015537300147116184
+    },
+    {
+      "tentativa": 20,
+      "rota": "/api/ordens-producao",
+      "status": 401,
+      "segundos": 0.016246099956333637
+    }
+  ],
+  "maximo_segundos": 0.026856099953874946
+}

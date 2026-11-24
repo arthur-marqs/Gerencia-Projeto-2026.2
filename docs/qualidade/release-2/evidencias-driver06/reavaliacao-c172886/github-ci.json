@@ -1,0 +1,58 @@
+{
+  "consultadoEm": "2026-11-23",
+  "head": "c17288606ebbd0afedf18e7a6b6be73923a3ac60",
+  "pr": {
+    "head": "c17288606ebbd0afedf18e7a6b6be73923a3ac60",
+    "base": "5cf655eef47a453ca95eaab5818b93d8fc6415d9",
+    "mergeable": false,
+    "mergeable_state": "dirty",
+    "merge_commit_sha": null
+  },
+  "issue19": {
+    "state": "open",
+    "title": "[BUG002][Driver06] Interface não retorna ao login após 401 quando /auth/me responde 503",
+    "qaCheckbox": false
+  },
+  "ci": [
+    {
+      "id": 45239960927,
+      "head_sha": "c17288606ebbd0afedf18e7a6b6be73923a3ac60",
+      "event": "push",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/arthur-marqs/Gerencia-Projeto-2026.2/actions/runs/45239960927",
+      "run_number": 136
+    }
+  ],
+  "logs": [
+    {
+      "job_id": 137921618770,
+      "trechos": [
+        "2026-11-23T18:35:38.0012141Z [command]/usr/bin/git -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --depth=1 origin +c17288606ebbd0afedf18e7a6b6be73923a3ac60:refs/remotes/origin/feature/driver06-expiracao-sessao",
+        "2026-11-23T18:35:38.4322853Z  * [new ref]         c17288606ebbd0afedf18e7a6b6be73923a3ac60 -> origin/feature/driver06-expiracao-sessao",
+        "2026-11-23T18:35:38.4917971Z c17288606ebbd0afedf18e7a6b6be73923a3ac60",
+        "2026-11-23T18:36:03.1931381Z testes/integration/drivers/test_driver06_session_expiration.py::test_driver06_sessao_invalidada_rejeita_20_tentativas PASSED [ 15%]",
+        "2026-11-23T18:36:03.3840482Z testes/integration/drivers/test_driver06_session_expiration.py::test_driver06_rota_protegida_com_sessao_valida_e_invalidada PASSED [ 15%]",
+        "2026-11-23T18:36:03.5577314Z testes/integration/drivers/test_driver06_session_expiration.py::test_driver06_rota_protegida_rejeita_sessao_expirada PASSED [ 16%]",
+        "2026-11-23T18:36:03.7330016Z testes/integration/drivers/test_driver06_session_expiration.py::test_driver06_sessao_valida_sem_permissao_retorna_403 PASSED [ 16%]",
+        "2026-11-23T18:36:36.7955249Z ============================= 202 passed in 49.20s ============================="
+      ]
+    },
+    {
+      "job_id": 137921619740,
+      "trechos": [
+        "2026-11-23T18:35:17.7787253Z [command]/usr/bin/git -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --depth=1 origin +c17288606ebbd0afedf18e7a6b6be73923a3ac60:refs/remotes/origin/feature/driver06-expiracao-sessao",
+        "2026-11-23T18:35:18.7985830Z  * [new ref]         c17288606ebbd0afedf18e7a6b6be73923a3ac60 -> origin/feature/driver06-expiracao-sessao",
+        "2026-11-23T18:35:18.8599034Z c17288606ebbd0afedf18e7a6b6be73923a3ac60",
+        "2026-11-23T18:36:10.6133113Z   │ Specs:          2 found (driver06.feature, login.feature)                                      │",
+        "2026-11-23T18:36:10.6156678Z   Running:  driver06.feature                                                                (1 of 2)",
+        "2026-11-23T18:36:23.5415211Z   │ ✔  driver06.feature                         00:02        5        5        -        -        - │",
+        "2026-11-23T18:36:23.5436893Z     ✔  All specs passed!                        00:04       10       10        -        -        -  "
+      ]
+    }
+  ],
+  "jira": {
+    "url": "https://gerencia-team-arthur-leo-luiz.atlassian.net/browse/SC-61",
+    "resultado": "URL inacessível via ferramenta web; sem conector Jira."
+  }
+}

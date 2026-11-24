@@ -1,4 +1,4 @@
-
+import { apiFetch } from '../../../lib/apiFetch'
 import { useEffect, useState } from 'react'
 
 type Maquina = {
@@ -43,10 +43,10 @@ function CompatibilidadeMaquinas({
       try {
         const [responseMaquinas, responseCompatibilidade] =
           await Promise.all([
-            fetch('http://localhost:8000/api/maquinas', {
+            apiFetch('http://localhost:8000/api/maquinas', {
               credentials: 'include',
             }),
-            fetch(
+            apiFetch(
               `http://localhost:8000/api/produtos/${produtoId}/maquinas`,
               { credentials: 'include' },
             ),
@@ -101,7 +101,7 @@ function CompatibilidadeMaquinas({
     setMensagemSucesso('')
 
     try {
-      const response = await fetch(
+      const response = await apiFetch(
         `http://localhost:8000/api/produtos/${produtoId}/maquinas`,
         {
           method: 'PUT',
