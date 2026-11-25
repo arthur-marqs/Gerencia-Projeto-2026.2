@@ -1,14 +1,14 @@
 # Modelo de dados do SetupFlow
 
-**Versão:** 0.5 — proposta conceitual e esquemas de autenticação e sugestões de planejamento
+**Versão:** 0.6 — proposta conceitual e esquemas de autenticação e sugestões de planejamento
 **Data:** 25/11/2026
-**Estado:** referência das implementações da US01, da US13 e da US14 e do modelo conceitual de evolução.
+**Estado:** referência das implementações da US01, da US13, da US14 e da US15 e do modelo conceitual de evolução.
 
 ## 1. Como ler este documento
 
 O documento apresenta o esquema aplicado e o modelo conceitual.
 
-1. **Implementado.** Esquemas PostgreSQL da autenticação da US01 e das sugestões da US13, atualizadas pela US14, derivados dos modelos ORM e das migrations em `backend/`. [DER de autenticação](diagramas/der-autenticacao-implementado.jpeg)
+1. **Implementado.** Esquemas PostgreSQL da autenticação da US01 e das sugestões da US13, atualizadas pelas US14 e US15, derivados dos modelos ORM e das migrations em `backend/`. [DER de autenticação](diagramas/der-autenticacao-implementado.jpeg)
 2. **Proposto.** DER conceitual para cadastros, ordens, planejamento e execução, seguido pelo mapeamento relacional de referência para a evolução do sistema.
 
 As seções **Implementação atual** e as migrations são a referência para o esquema executável.
@@ -176,15 +176,17 @@ O `SELECT ... FOR UPDATE` serializa atualizações para a mesma combinação e o
 | `7a2c9f1d4e6b` | Cria a tabela `maquinas`. |
 | `13e41f6d48c2` | Cria `sugestoes_planejamento` e `itens_sugestao_planejamento` para a US13. |
 | `6b14a2e9c703` | Remove a restrição que limitava o setup total sugerido ao setup total original, permitindo considerar prazos e prioridades na US14. |
+| `7c15a3e9d204` | Adiciona `maquina_id`, sua chave estrangeira e seu índice em `itens_sugestao_planejamento` para a US15. |
+| `b872837156bd` | Une as revisões `6b14a2e9c703` e `7c15a3e9d204` em um único head, sem alterações adicionais no esquema. |
 
 As migrations são aplicadas com `alembic upgrade head`, a partir de `backend/`. Para alterar o esquema, atualize o modelo e crie uma nova migration revisada; não edite uma migration já aplicada em ambientes compartilhados. A suíte de integração também aplica `head` automaticamente, sempre no PostgreSQL selecionado por `TEST_DATABASE_URL` validada com sufixo `_test`.
 
-## Implementação atual — sugestões de planejamento (US13 e US14)
+## Implementação atual — sugestões de planejamento (US13, US14 e US15)
 
 | Tabela | Dados e vínculos |
 |---|---|
 | `sugestoes_planejamento` | `id_sugestao` como chave primária, `criado_por` referenciando `usuarios`, `criado_em` e os totais de setup original e sugerido em minutos. Os totais original e sugerido são maiores ou iguais a zero. O total sugerido pode superar o original. |
-| `itens_sugestao_planejamento` | Chave composta por `sugestao_id` e `ordem_id`, com referências à sugestão e a `ordens_producao`. Guarda a posição original, a posição sugerida e o setup em minutos. As posições de cada sequência são positivas e únicas por sugestão. O primeiro item sugerido tem setup zero. |
+| `itens_sugestao_planejamento` | Chave composta por `sugestao_id` e `ordem_id`, com referências à sugestão e a `ordens_producao`. Guarda a posição original, a posição sugerida, o setup em minutos e `maquina_id` (FK opcional para `maquinas.id_maquina`). As posições de cada sequência são positivas e únicas por sugestão. O primeiro item de cada máquina tem setup zero nas novas sugestões. |
 
 Cada geração grava a sugestão e os itens em uma transação. A consulta pelo
 planejamento recupera a última sugestão cujos itens correspondem exatamente às
@@ -209,13 +211,71 @@ prioridade (Alta, Média ou Baixa) e duração estimada em minutos. Quando algum
 ordem selecionada possui prazo ou prioridade, todas as ordens da seleção devem
 possuir os três dados para gerar a sugestão. Essa validação ocorre na aplicação,
 não por uma nova restrição da tabela de sugestões. Quando nenhuma ordem possui
-prazo ou prioridade, permanece o comportamento de redução de setup da US13.
+prazo ou prioridade, permanece o comportamento de redução de setup da US13, aplicado por máquina após a US15.
 
 Os diagramas conceituais permanecem inalterados, pois a US14 não modifica as
 entidades nem seus relacionamentos. As regras da implementação estão descritas
 no [README do backend](../../backend/README.md#us14--prazos-e-prioridades-no-sequenciamento).
 Os resultados dos testes estão no
 [relatório da US14](../releases/release2/sprint3/relatorio-testes-us14.md).
+
+### Associação de máquinas às sugestões na US15
+
+A US15 registra a máquina atribuída a cada ordem na sequência sugerida.
+A compatibilidade utiliza a associação existente entre produto e máquina
+(`produto_maquina`). Somente máquinas ativas e associadas ao produto podem
+receber novas ordens na sugestão.
+
+| Coluna | Tipo | Chave / regra |
+|---|---|---|
+| `itens_sugestao_planejamento.maquina_id` | UUID NULL | FK para `maquinas.id_maquina`, denominada `fk_item_sugestao_maquina`. Índice `ix_itens_sugestao_planejamento_maquina_id`. |
+
+A coluna aceita `NULL` para preservar sugestões gravadas antes da US15.
+Não há preenchimento retroativo nem alteração da chave primária composta.
+Nas novas sugestões, a aplicação sempre atribui uma máquina a cada item.
+A participação relacional é MÁQUINA `(0,N)` — ITEM DA SUGESTÃO `(0,1)`;
+para novos itens, a regra da aplicação exige exatamente uma máquina.
+A FK garante a existência da máquina referenciada, mas não valida sua
+compatibilidade com o produto nem seu estado ativo: essas verificações
+ocorrem na geração da sugestão.
+
+Quando há mais de uma máquina compatível ativa, a distribuição escolhe
+aquela com menos ordens já atribuídas na sugestão, com desempate pelo
+código da máquina. Essa heurística não representa uma otimização global
+da carga ou da duração. Quando não existe máquina compatível ativa para
+uma ordem, a API retorna 422, identifica a pendência e não grava a sugestão.
+
+O sequenciamento é realizado separadamente para cada máquina, utilizando
+as regras das US13 e US14. O primeiro item de cada máquina tem setup zero,
+e não são contabilizadas trocas entre máquinas distintas. Os tempos de
+setup continuam cadastrados por par direcionado de famílias, e não por
+máquina. Os totais original e sugerido somam os setups das respectivas
+sequências por máquina, usando a mesma distribuição de ordens. As posições
+continuam globais e únicas por sugestão. Quando há dados de urgência,
+as máquinas são avaliadas a partir do mesmo horário inicial.
+
+A máquina registrada permanece vinculada ao histórico mesmo se a
+compatibilidade do produto for alterada posteriormente. A consulta não
+recalcula a atribuição. A FK impede a exclusão de uma máquina referenciada
+por um item de sugestão.
+
+A alteração está em `backend/app/models/sugestao_planejamento.py` e na
+migration `backend/migrations/versions/7c15a3e9d204_adiciona_maquina_sugestao_us15.py`.
+Essa revisão e a revisão `6b14a2e9c703` têm como origem comum a
+`13e41f6d48c2`. A migration
+`backend/migrations/versions/b872837156bd_unifica_migrations_us14_e_us15.py`
+une as duas revisões sem executar DDL adicional.
+
+Após `alembic upgrade head`, a revisão esperada nesta entrega é
+`b872837156bd` (head). A aplicação foi confirmada nos dois bancos
+isolados da US15. O downgrade da revisão da US15 remove a coluna e,
+consequentemente, perde as atribuições de máquina armazenadas nela.
+
+Os diagramas conceituais abaixo permanecem como referência de evolução;
+não representam integralmente o esquema físico das sugestões.
+As regras atuais estão no [README do backend](../../backend/README.md)
+e os resultados no
+[relatório de testes da US15](../releases/release2/sprint3/relatorio-testes-us15.md).
 
 ## 3. DER conceitual proposto — cadastros e ordens (parcialmente implementado)
 

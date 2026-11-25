@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites name="Mocha Tests" time="148.211" tests="6" failures="0">
+  <testsuite name="Root Suite" timestamp="2026-11-25T19:02:53" tests="0" file="cypress\e2e\prazos-prioridades.feature" time="0.000" failures="0">
+  </testsuite>
+  <testsuite name="Considerar prazos e prioridades no sequenciamento" timestamp="2026-11-25T19:02:53" tests="6" time="148.207" failures="0">
+    <testcase name="Considerar prazos e prioridades no sequenciamento Priorizar uma ordem urgente mesmo com aumento de setup" time="27.066" classname="Priorizar uma ordem urgente mesmo com aumento de setup">
+    </testcase>
+    <testcase name="Considerar prazos e prioridades no sequenciamento Considerar o prazo antes do setup em ordens de mesma prioridade" time="20.352" classname="Considerar o prazo antes do setup em ordens de mesma prioridade">
+    </testcase>
+    <testcase name="Considerar prazos e prioridades no sequenciamento Considerar prioridades diferentes em ordens de mesmo prazo" time="19.432" classname="Considerar prioridades diferentes em ordens de mesmo prazo">
+    </testcase>
+    <testcase name="Considerar prazos e prioridades no sequenciamento Informar dados de planejamento incompletos" time="25.121" classname="Informar dados de planejamento incompletos">
+    </testcase>
+    <testcase name="Considerar prazos e prioridades no sequenciamento Resolver o conflito entre prazo, prioridade e setup (example #1)" time="28.438" classname="Resolver o conflito entre prazo, prioridade e setup (example #1)">
+    </testcase>
+    <testcase name="Considerar prazos e prioridades no sequenciamento Resolver o conflito entre prazo, prioridade e setup (example #2)" time="27.041" classname="Resolver o conflito entre prazo, prioridade e setup (example #2)">
+    </testcase>
+  </testsuite>
+</testsuites>
