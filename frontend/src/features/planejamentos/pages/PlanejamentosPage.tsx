@@ -31,6 +31,7 @@ function PlanejamentosPage() {
   const [nome, setNome] = useState('')
   const [ordens, setOrdens] = useState<OrdemProducao[]>([])
   const [maquinas, setMaquinas] = useState<Maquina[]>([])
+  const [catalogoIndisponivel, setCatalogoIndisponivel] = useState(false)
   const [selecionadas, setSelecionadas] = useState<OrdemProducao[]>([])
   const [planejamentos, setPlanejamentos] = useState<Planejamento[]>([])
   const [planejamentoEmEdicao, setPlanejamentoEmEdicao] = useState<string | null>(null)
@@ -51,27 +52,22 @@ function PlanejamentosPage() {
 
     async function carregarDados() {
       try {
-
-        const [respostaOrdens, respostaPlanejamentos, respostaMaquinas] = await Promise.all([
+        const [respostaOrdens, respostaPlanejamentos] = await Promise.all([
           apiFetch(`${API_URL}/ordens-producao`, { credentials: 'include' }),
           apiFetch(`${API_URL}/planejamentos`, { credentials: 'include' }),
-          apiFetch(`${API_URL}/maquinas`, { credentials: 'include' }),
         ])
 
-        if (!respostaOrdens.ok || !respostaPlanejamentos.ok || !respostaMaquinas.ok) {
+        if (!respostaOrdens.ok || !respostaPlanejamentos.ok) {
           throw new Error('Não foi possível carregar os dados.')
         }
 
         const dadosOrdens: OrdemProducao[] = await respostaOrdens.json()
         const dadosPlanejamentos: Planejamento[] = await respostaPlanejamentos.json()
-        const dadosMaquinas: Maquina[] = await respostaMaquinas.json()
 
         if (ativo) {
           setOrdens(dadosOrdens)
           setPlanejamentos(dadosPlanejamentos)
-          setMaquinas(dadosMaquinas)
         }
-
       } catch (error) {
         if (ativo) {
           setErro(error instanceof Error ? error.message : 'Erro ao carregar os dados.')
@@ -81,7 +77,22 @@ function PlanejamentosPage() {
       }
     }
 
+    async function carregarMaquinas() {
+      try {
+        const resposta = await apiFetch(`${API_URL}/maquinas`, { credentials: 'include' })
+        if (!resposta.ok) {
+          throw new Error(`Catálogo de máquinas retornou HTTP ${resposta.status}.`)
+        }
+
+        const dados: Maquina[] = await resposta.json()
+        if (ativo) setMaquinas(dados)
+      } catch {
+        if (ativo) setCatalogoIndisponivel(true)
+      }
+    }
+
     void carregarDados()
+    void carregarMaquinas()
 
     return () => {
       ativo = false
@@ -314,6 +325,15 @@ function PlanejamentosPage() {
           {erro && (
             <p role="alert" className="mt-4 rounded-xl bg-red-50 p-3 text-sm text-red-700">
               {erro}
+            </p>
+          )}
+          {catalogoIndisponivel && (
+            <p
+              role="status"
+              data-cy="aviso-catalogo-maquinas"
+              className="mt-4 rounded-xl bg-amber-50 p-3 text-sm text-amber-900"
+            >
+              Catálogo de máquinas indisponível. As máquinas atribuídas são exibidas pelo identificador.
             </p>
           )}
         </section>

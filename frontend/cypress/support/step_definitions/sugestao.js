@@ -9,6 +9,7 @@ const BOTAO_GERAR = '[data-cy="gerar-sugestao"]'
 const COMPARACAO = '[data-cy="comparacao-sequencias"]'
 const MANUAL = '[data-cy="sequencia-manual"]'
 const SUGERIDA = '[data-cy="sequencia-sugerida"]'
+const AVISO_CATALOGO = '[data-cy="aviso-catalogo-maquinas"]'
 
 let estado
 let planejamentoManual
@@ -210,6 +211,31 @@ When('solicitar a comparação do planejamento', () => {
   cy.intercept('GET', `**/api/planejamentos/${planejamentoManual.id_planejamento}/comparacao`).as('comparar')
   abrirPlanejamento()
   return cardDoPlano().find('[data-cy="comparar-sequencias"]').click()
+})
+
+Given('que o catálogo de máquinas responde 503', () => (
+  cy.intercept('GET', '**/api/maquinas', {
+    statusCode: 503,
+    body: { detail: 'Indisponibilidade simulada do catálogo.' },
+  }).as('catalogoIndisponivel')
+))
+
+When('o catálogo voltar a ficar disponível', () => (
+  cy.intercept('GET', '**/api/maquinas', (pedido) => pedido.continue()).as('catalogoRestaurado')
+))
+
+Then('o Planejador deve ver o aviso do catálogo e a ordem pendente {string}', (codigo) => {
+  cy.wait('@catalogoIndisponivel').its('response.statusCode').should('eq', 503)
+  cy.get(AVISO_CATALOGO).should('be.visible').and('contain.text', 'Catálogo de máquinas indisponível.')
+  cy.contains('label', new RegExp(`^${codigo}$`)).find('input[type="checkbox"]').should('be.enabled')
+  const maquinaId = sugestaoGerada.itens[0].maquina_id
+  cy.get(SUGERIDA).should('contain.text', `Máquina ${maquinaId.slice(0, 8)}`)
+})
+
+Then('a comparação deve voltar a mostrar a máquina {string} pelo nome', (codigoMaquina) => {
+  cy.wait('@catalogoRestaurado').its('response.statusCode').should('eq', 200)
+  cy.get(AVISO_CATALOGO).should('not.exist')
+  cy.get(COMPARACAO).find(SUGERIDA).should('contain.text', `${codigoMaquina} — Máquina ${codigoMaquina}`)
 })
 
 Then('a comparação deve exibir a sequência manual {string} e a sugerida {string}', (manual, sugerida) => {
