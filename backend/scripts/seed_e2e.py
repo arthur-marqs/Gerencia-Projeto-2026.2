@@ -1,6 +1,6 @@
-"""Fixtures da US-32 para Cypress. Recusa qualquer banco sem sufixo _e2e_test.
+"""Fixtures de aceite para Cypress. Recusa qualquer banco sem sufixo _e2e_test.
 
-Uso: E2E_DATABASE_URL=... python -m scripts.seed_e2e [normal|vazio|bootstrap]
+Uso: E2E_DATABASE_URL=... python -m scripts.seed_e2e [modo]
 Não é importado pela aplicação nem expõe endpoints de preparação de dados.
 """
 import contextlib
@@ -10,7 +10,7 @@ import os
 import sys
 from unittest.mock import patch
 
-from sqlalchemy import create_engine, select, text
+from sqlalchemy import create_engine, func, select, text
 from sqlalchemy.engine import make_url
 from sqlalchemy.exc import ArgumentError
 from sqlalchemy.orm import sessionmaker
@@ -23,6 +23,7 @@ from app.models.ordem_producao import OrdemProducao
 from app.models.perfil import Perfil
 from app.models.planejamento import Planejamento
 from app.models.produto import Produto
+from app.models.sugestao_planejamento import ItemSugestaoPlanejamento, SugestaoPlanejamento
 from app.models.usuario import Usuario
 from app.models.usuario_perfil import usuario_perfil
 
@@ -41,6 +42,28 @@ CONTAS = {
 }
 
 
+def preparar_ordens_sugestao(db, planejador_id):
+    familias = {codigo: Family(code=codigo, name=f'Família {codigo}') for codigo in ('A', 'B')}
+    db.add_all(familias.values())
+    ordens = {}
+    for codigo, familia in [('OP01', 'A'), ('OP02', 'B'), ('OP03', 'A'), ('OP04', 'A'), ('OP05', None)]:
+        produto = Produto(
+            codigo=f'PROD-{codigo}', nome=f'Produto {codigo}', unidade='UN',
+            family=familias.get(familia),
+        )
+        ordem = OrdemProducao(codigo=codigo, produto=produto, quantidade=10, criado_por=planejador_id)
+        db.add(ordem)
+        ordens[codigo] = ordem
+    db.flush()
+    return {
+        'familias': {codigo: str(familia.id) for codigo, familia in familias.items()},
+        'ordens': {
+            codigo: {'id': str(ordem.id_ordem), 'produto_id': str(ordem.produto_id)}
+            for codigo, ordem in ordens.items()
+        },
+    }
+
+
 def preparar(modo):
     valor = os.environ.get('E2E_DATABASE_URL', '')
     if not valor:
@@ -54,6 +77,12 @@ def preparar(modo):
     engine = create_engine(url.set(drivername='postgresql+psycopg'))
     factory = sessionmaker(bind=engine, expire_on_commit=False)
     try:
+        if modo == 'inspecionar-sugestoes':
+            with factory() as db:
+                return {
+                    'sugestoes': db.scalar(select(func.count()).select_from(SugestaoPlanejamento)),
+                    'itens': db.scalar(select(func.count()).select_from(ItemSugestaoPlanejamento)),
+                }
         if modo == 'inspecionar':
             with factory() as db:
                 usuarios = [
@@ -98,6 +127,9 @@ def preparar(modo):
                 ])
                 usuarios[chave] = {'id': str(usuario.id_usuario), 'nome': nome, 'email': email,
                                    'perfis': codigos, 'ativo': usuario.ativo}
+            if modo == 'sugestao':
+                return {'usuarios': usuarios, **preparar_ordens_sugestao(db, usuarios['ana']['id'])}
+
             produto = Produto(codigo='PROD-E2E', nome='Produto E2E', unidade='UN')
             db.add(produto)
             db.flush()
@@ -150,8 +182,11 @@ if __name__ == '__main__':
         'inspecionar',
         'matriz',
         'matriz-vazia',
+        'sugestao',
+        'inspecionar-sugestoes',
     }:
         raise SystemExit(
-            'Modo inválido; use normal, vazio, bootstrap, inspecionar, matriz ou matriz-vazia.'
+            'Modo inválido. Use normal, vazio, bootstrap, inspecionar, matriz, matriz-vazia, '
+            'sugestao ou inspecionar-sugestoes.'
         )
     print(json.dumps(preparar(modo), ensure_ascii=True))

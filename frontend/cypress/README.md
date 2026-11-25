@@ -1,11 +1,11 @@
 
-# Aceite BDD das US11 e US32
+# Aceite BDD das US11, US13 e US32
 
 A suíte utiliza Cypress 16 + Cucumber/Gherkin em português, API FastAPI real e PostgreSQL exclusivo para testes.
 
-A US32 cobre o gerenciamento de usuários e seus critérios de aceitação, rastreados por `@CT32` a `@CT43`. A US11 acrescenta dois cenários de aceitação para a matriz de setup: consulta de tempos diferentes em cada direção e consulta sem configurações cadastradas.
+A US32 cobre o gerenciamento de usuários, com os casos `@CT32` a `@CT43`. A US11 cobre a consulta da matriz de setup e a regressão de famílias ausentes. A US13 automatiza os 13 casos de geração e consulta da sequência sugerida em [`sugestao.feature`](e2e/sugestao.feature).
 
-O smoke continua sendo um subconjunto dos cenários identificados com `@smoke`. A regressão contempla os cenários marcados com `@regressao`, incluindo US11 e US32.
+O smoke usa `@smoke` e a regressão usa `@regressao`. Na US13, o smoke inclui o CT-107 e o CT-110.
 
 ## Ambiente local
 
@@ -84,7 +84,21 @@ com `log: false`; os tasks de autenticação não registram cookies nos relatór
 
 Para a US11, os modos `matriz` e `matriz-vazia` preparam duas famílias fictícias (`FAM-A` e `FAM-B`). O modo `matriz` cadastra tempos direcionais de 30 minutos de A para B e 75 minutos de B para A. O modo `matriz-vazia` mantém as famílias, mas não cadastra tempos de setup.
 
-O hook de preparação da US11 é restrito à tag `@US11`, enquanto o hook original da US32 permanece restrito à tag `@US32`. Cada cenário prepara sua própria massa de dados.
+Cada funcionalidade prepara seus dados em um hook restrito à tag da US correspondente.
+
+### Cenários da US13
+
+O modo `sugestao` prepara usuários, famílias A e B e as ordens OP01 a OP05 em um banco reiniciado por cenário. Os steps cadastram os tempos direcionais necessários pela API real. O task `e2e:inspecionar-sugestoes` lê as contagens de sugestões e itens no banco isolado para verificar que uma falha de validação não grava registros parciais.
+
+| Tags | Cobertura |
+| --- | --- |
+| `@CT79`, `@CT80`, `@CT81` | Redução de setup, ordem única e resultado restrito aos IDs selecionados |
+| `@CT82`, `@CT83`, `@CT84` | Produto sem família, sentido de troca ausente e nova tentativa após corrigir os dados |
+| `@CT85` | Negação de acesso ao Operador pela API e preservação da sugestão e do planejamento existentes |
+| `@CT107`, `@CT108`, `@CT109` | Geração antes de salvar o manual, preservação da sequência de menor custo e empate |
+| `@CT110`, `@CT111`, `@CT112` | Recuperação após recarregar, seleção vazia e várias ordens da mesma família |
+
+O CT-119 depende da integração com a US15.
 
 O CT43 começa sem contas e chama o script inicial com entradas controladas;
 depois verifica o login do administrador e o cadastro de outra conta pela tela.
@@ -97,13 +111,15 @@ as variáveis `DB_*`/`E2E_DATABASE_URL` corretas. Não é necessário para execu
 
 ## Tags e comandos
 
-O projeto mantém duas configurações Cypress. `cypress.config.cjs` executa a suíte de aceite com API e banco reais, descobrindo as features em `cypress/e2e/**/*.feature`. Essa configuração contempla os cenários de US11 e US32 filtrados pelas tags. `cypress.config.ts` permanece dedicada aos cenários de validação da interface de login. Os hooks de preparação de dados são restritos às respectivas tags `@US11` e `@US32`.
+`cypress.config.cjs` descobre as features de aceite em `cypress/e2e/*.feature` e executa os cenários das US11, US13 e US32 filtrados pelas tags, com API e banco reais. `cypress.config.ts` executa os cenários de autenticação.
 
 
 | Comando | Seleção |
 | --- | --- |
 | `npm run test:e2e:smoke -- --browser chrome` | `@smoke and not @wip` |
 | `npm run test:e2e:regressao -- --browser electron` | `@regressao and not @wip` |
+| `npm run test:e2e -- --browser chrome --tags "@US13 and not @wip"` | Os 13 casos da sequência sugerida |
+| `npm run test:e2e -- --browser chrome --tags "@CT110"` | Recuperação da sugestão e preservação do planejamento manual |
 | `npm run test:e2e -- --browser chrome --tags "@CT39"` | Somente bloqueios por vínculos |
 | `npm run test:e2e:open` | Interface interativa do Cypress |
 | `npm run test:e2e:login -- --browser chrome` | Validação de login, sem preparação do banco E2E |
@@ -123,7 +139,7 @@ Os comandos geram `frontend/artifacts/cypress/<navegador>/<smoke|regressao>/`:
   captura automática de falhas.
 - `videos/`: gravação da spec executada, inclusive quando houver falha.
 
-No GitHub Actions, o job publica os artefatos de aceitação nos arquivos `acceptance-bdd-chrome` e `acceptance-bdd-electron`, mesmo quando os testes falham.
+No GitHub Actions, a regressão das US11, US13 e US32 roda em Chrome e Electron. Os jobs publicam os relatórios e capturas nos artefatos `acceptance-bdd-chrome` e `acceptance-bdd-electron`, inclusive em caso de falha. As capturas da US13 usam os IDs dos casos do plano. O CT-85 é verificado pela API e consta nos relatórios.
 
 O runner retorna erro se o Cypress falhar, houver teste reprovado ou nenhum teste
 for selecionado. Os relatórios locais não afirmam que houve execução remota do CI.

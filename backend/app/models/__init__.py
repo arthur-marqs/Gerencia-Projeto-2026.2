@@ -13,6 +13,7 @@ from app.models.usuario_perfil import usuario_perfil
 from app.models.produto_maquina import produto_maquina
 from app.models.planejamento import Planejamento
 from app.models.item_planejamento import ItemPlanejamento
+from app.models.sugestao_planejamento import ItemSugestaoPlanejamento, SugestaoPlanejamento
 from app.models.tempo_setup_familia import TempoSetupFamilia
 
 __all__ = [
@@ -31,4 +32,6 @@ __all__ = [
     "produto_maquina",
     "Planejamento",
     "ItemPlanejamento",
+    "SugestaoPlanejamento",
+    "ItemSugestaoPlanejamento",
 ]

@@ -148,6 +148,51 @@ conforme as permissões de cada recurso. A senha deve ter pelo menos oito
 caracteres e será armazenada como hash. A migration da US-32 disponibiliza
 `ADMINISTRADOR`, sem inserção manual no PostgreSQL.
 
+## US13 — Sequência sugerida de produção
+
+Aplique `alembic upgrade head` na pasta `backend` para incluir a revisão
+`13e41f6d48c2`. As rotas usam o cookie de sessão e exigem o perfil `PLANEJADOR`.
+
+| Método | Rota | Operação |
+| --- | --- | --- |
+| POST | `/api/planejamentos/sugestoes` | Gerar e salvar uma sugestão a partir de `ordens_ids` na ordem de seleção (201) |
+| GET | `/api/planejamentos/sugestoes/{id_sugestao}` | Recuperar pelo identificador da sugestão |
+| GET | `/api/planejamentos/{id_planejamento}/sugestao` | Recuperar a sugestão mais recente para o conjunto exato de ordens do planejamento |
+
+O cálculo soma os tempos das trocas consecutivas. A primeira ordem e as trocas
+dentro da mesma família têm setup de zero minuto. Entre famílias distintas,
+a geração exige um tempo para cada sentido dos pares de famílias selecionadas.
+A heurística agrupa ordens da mesma família e testa um caminho a partir de cada
+família, escolhendo a próxima troca de menor custo. Empates na escolha da próxima
+família seguem a primeira ocorrência na seleção. A ordem selecionada é mantida
+quando nenhuma alternativa avaliada reduz o total. Como a busca é gulosa, outras
+sequências podem ter custo menor que o da sugestão encontrada.
+
+Com A → B de 20 minutos e B → A de 30 minutos, a seleção A, B, A tem setup
+total de 50 minutos. A sugestão A, A, B reduz o total para 20 minutos.
+
+A resposta traz `id_sugestao`, `criado_por`, `criado_em`,
+`tempo_setup_original_minutos`, `tempo_setup_total_minutos` e `itens` em ordem
+sugerida. Cada item traz `ordem_id`, `posicao`, `posicao_original` e `setup_minutos`.
+A geração pode ocorrer antes de criar um planejamento. A consulta pelo
+planejamento localiza a sugestão pelo conjunto de ordens, independentemente da
+posição em que elas foram gravadas no planejamento manual. Esses dados ficam
+disponíveis para a comparação da US16.
+
+A API retorna 422 para seleção vazia ou duplicada, ordens fora do status pendente,
+produtos sem família ou tempos de troca ausentes. A mensagem identifica a ordem e
+o produto sem família ou o sentido da troca pendente. Ordens inexistentes e
+consultas sem resultado retornam 404. Requisições sem sessão válida retornam 401,
+e perfis sem acesso retornam 403. Os registros de uma sugestão são gravados na
+mesma transação após a validação dos dados.
+
+Os cenários de aceite da API podem ser executados com `TEST_DATABASE_URL`
+apontando para um PostgreSQL isolado cujo nome termine em `_test`.
+
+```powershell
+.\.venv\Scripts\python.exe -m pytest -v testes\integration\test_us13_sequencia_sugerida.py
+```
+
 ## US-32 — Gerenciamento de usuários
 
 Para testar pela interface e organizar os prints dos critérios de aceite, siga o
@@ -194,10 +239,10 @@ para preservar essa regra entre solicitações simultâneas. A unicidade do e-ma
 também é garantida por constraint do banco. O login bloqueia a conta durante a
 criação da sessão para coordená-la com trocas de senha e desativações.
 
-Contas criadoras de ordens, planejamentos ou operações de cadastro de ordens não
-podem ser excluídas. A API retorna 409 com os tipos de vínculo e a indicação
-`pode_desativar`; a interface oferece a desativação quando permitida. As chaves
-estrangeiras e os registros de autoria são preservados.
+Vínculos de autoria em ordens, planejamentos, sugestões de planejamento e
+operações de cadastro de ordens bloqueiam a exclusão da conta. A API retorna 409
+com os tipos de vínculo e a indicação `pode_desativar`. A interface oferece a
+desativação quando permitida e a autoria continua registrada.
 Dados inválidos retornam 422, e-mail em uso retorna 409, conta inexistente retorna
 404, sessão ausente/inválida retorna 401 e perfil insuficiente retorna 403.
 Nenhuma resposta de gerenciamento, incluindo erros de validação, retorna a senha

@@ -6,7 +6,7 @@ Sistema web para apoiar o planejamento e o acompanhamento da produção em peque
 
 O SetupFlow busca auxiliar pequenas e médias indústrias no planejamento da sequência de produção.
 
-O projeto está em desenvolvimento. A versão atual implementa autenticação, controle de acesso e funcionalidades de cadastro; a geração automática de sequências de produção ainda não está disponível.
+O projeto está em desenvolvimento. A versão atual inclui autenticação, controle de acesso, cadastros e planejamento da produção com geração de sugestões por tempo de setup.
 
 ## Equipe
 
@@ -70,12 +70,12 @@ O projeto está em desenvolvimento. A versão atual implementa autenticação, c
 - **Backend:** Python 3.11, FastAPI e SQLAlchemy
 - **Banco de dados:** PostgreSQL 18
 - **Migrações:** Alembic
-- **Testes:** Pytest, TestClient e PostgreSQL
+- **Testes.** Pytest e TestClient para integração. Cypress e Cucumber para aceite ponta a ponta.
 - **CI:** GitHub Actions
 
 ## Como executar localmente
 
-Pré-requisitos: Windows com PowerShell, Python 3.11, Node.js 22 e PostgreSQL 18. O frontend usa Vite 8; consulte os requisitos atuais de Node.js no [guia do frontend](frontend/README.md).
+Os comandos abaixo usam PowerShell no Windows. Instale Python 3.11, Node.js 22 e PostgreSQL 18. [Requisitos do frontend](frontend/README.MD)
 
 Configure o PostgreSQL, crie o banco local, configure `backend/.env` e aplique as migrations seguindo o [guia de configuração do backend](backend/README.md). Não versione o `.env` nem compartilhe suas credenciais.
 
@@ -132,7 +132,21 @@ npm run lint
 npm run build
 ```
 
-O GitHub Actions executa os testes do backend e as verificações de lint e build do frontend em pushes e pull requests.
+### Aceite ponta a ponta
+
+Inicie o frontend e a API com um banco PostgreSQL exclusivo terminado em `_e2e_test`. O guia descreve como preparar esse ambiente. [Configuração do Cypress](frontend/cypress/README.md#ambiente-local)
+
+Na pasta `frontend`, execute os 13 casos automatizados da sequência sugerida (US13).
+
+```powershell
+npm run test:e2e -- --browser chrome --tags "@US13 and not @wip"
+```
+
+### Integração contínua
+
+Em pushes e pull requests, o GitHub Actions executa Pytest, lint, build e os cenários Cypress. A regressão de aceite das US11, US13 e US32 roda em Chrome e Electron e publica relatórios e capturas por navegador.
+
+A execução do commit `82ff7d7` no PR da US13 registrou **213 testes de backend aprovados** e **49 cenários Cypress aprovados em cada navegador**, incluindo os **13 casos da US13**. [Resultados e evidências no GitHub Actions](https://github.com/arthur-marqs/Gerencia-Projeto-2026.2/actions/runs/45528957609)
 
 ## Funcionalidades implementadas
 
@@ -142,12 +156,13 @@ O GitHub Actions executa os testes do backend e as verificações de lint e buil
 - **Gerenciamento de máquinas (US03):** cadastro, consulta, edição, ativação, inativação e exclusão quando não há registros vinculados. A tela e a API aplicam as permissões por perfil.
 - **Produtos e famílias (US04–US06):** cadastro e consulta de produtos e famílias, com associação e remoção da associação entre produto e família.
 - **Ordens de produção (US07–US08):** cadastro e consulta de ordens, além da definição e atualização de prazo e prioridade.
+- **Sequência sugerida (US13).** O planejador pode gerar uma sugestão a partir das ordens selecionadas e consultar o resultado no planejamento correspondente. [Guia de uso](frontend/README.MD#gerar-e-consultar-uma-sequência-sugerida-us13)
 - **Interface web:** telas de login, máquinas, produtos, famílias e ordens de produção conectadas à API.
 
 
 ## Documentação
 
-Consulte o [guia do backend](backend/README.md) para detalhes de configuração do PostgreSQL e execução da API, o [guia do frontend](frontend/README.md) para requisitos e execução da interface e o [mapa visual do projeto](docs/estrutura-projeto.md) para conhecer a estrutura atual do repositório.
+Consulte o [guia do backend](backend/README.md) para detalhes de configuração do PostgreSQL e execução da API, o [guia do frontend](frontend/README.MD) para requisitos e execução da interface e o [mapa visual do projeto](docs/estrutura-projeto.md) para conhecer a estrutura atual do repositório.
 ---
 ## Organização arquitetural planejada (referência futura)
 

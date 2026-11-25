@@ -1,17 +1,17 @@
 # Modelo de dados do SetupFlow
 
-**Versão:** 0.3 — proposta conceitual e esquema implementado de autenticação
-**Data:** 25/10/2026
-**Estado:** autenticação da US01 implementada; demais áreas permanecem propostas.
+**Versão:** 0.4 — proposta conceitual e esquemas de autenticação e sugestões de planejamento
+**Data:** 23/11/2026
+**Estado:** referência das implementações da US01 e da US13 e do modelo conceitual de evolução.
 
 ## 1. Como ler este documento
 
-Este documento agora separa explicitamente dois níveis:
+O documento apresenta o esquema aplicado e o modelo conceitual.
 
-1. **Implementado:** esquema PostgreSQL da autenticação da US01, derivado dos modelos ORM e das migrations em `backend/`. O DER de Peter Chen fornecido pela equipe está em [der-autenticacao-implementado.jpeg](diagramas/der-autenticacao-implementado.jpeg).
-2. **Proposto:** DER conceitual para cadastros, ordens, planejamento e execução, seguido pelo mapeamento relacional ainda não migrado. Essas partes são referência de evolução, não descrevem tabelas que existam no banco atual.
+1. **Implementado.** Esquemas PostgreSQL da autenticação da US01 e das sugestões da US13, derivados dos modelos ORM e das migrations em `backend/`. [DER de autenticação](diagramas/der-autenticacao-implementado.jpeg)
+2. **Proposto.** DER conceitual para cadastros, ordens, planejamento e execução, seguido pelo mapeamento relacional de referência para a evolução do sistema.
 
-Quando houver diferença entre a proposta conceitual e o banco atual, a seção **Implementação atual** e as migrations são a referência do que está executável.
+As seções **Implementação atual** e as migrations são a referência para o esquema executável.
 
 Os diagramas estão divididos por assunto. Uma entidade que aparece em mais de um quadro é a mesma entidade; a repetição evita cruzamentos de linhas. Cada quadro é uma visão parcial de um relacionamento, e não um banco separado. Atributos selecionados aparecem nas imagens; os demais são descritos no catálogo e no mapeamento.
 
@@ -174,12 +174,21 @@ O `SELECT ... FOR UPDATE` serializa atualizações para a mesma combinação e o
 | `4ba7b334799a` | Insere os perfis `PLANEJADOR` e `OPERADOR`. |
 | `5ccce81c5c27` | Cria a tabela `produtos`. |
 | `7a2c9f1d4e6b` | Cria a tabela `maquinas`. |
+| `13e41f6d48c2` | Cria `sugestoes_planejamento` e `itens_sugestao_planejamento` para a US13. |
 
 As migrations são aplicadas com `alembic upgrade head`, a partir de `backend/`. Para alterar o esquema, atualize o modelo e crie uma nova migration revisada; não edite uma migration já aplicada em ambientes compartilhados. A suíte de integração também aplica `head` automaticamente, sempre no PostgreSQL selecionado por `TEST_DATABASE_URL` validada com sufixo `_test`.
 
-### O que ainda não está implementado
+## Implementação atual — sugestões de planejamento (US13)
 
-O PostgreSQL atual contém as seis tabelas de autenticação desta seção, além de `produtos` e `maquinas`. Ainda não há tabelas de família, compatibilidade, ordem, idempotência, planejamento, cenário, aprovação, execução, pausa ou auditoria. As entidades, atributos e regras restantes deste documento são propostas, até existirem modelos e migrations correspondentes.
+| Tabela | Dados e vínculos |
+|---|---|
+| `sugestoes_planejamento` | `id_sugestao` como chave primária, `criado_por` referenciando `usuarios`, `criado_em` e os totais de setup original e sugerido em minutos. O total sugerido é maior ou igual a zero e menor ou igual ao total original. |
+| `itens_sugestao_planejamento` | Chave composta por `sugestao_id` e `ordem_id`, com referências à sugestão e a `ordens_producao`. Guarda a posição original, a posição sugerida e o setup em minutos. As posições de cada sequência são positivas e únicas por sugestão. O primeiro item sugerido tem setup zero. |
+
+Cada geração grava a sugestão e os itens em uma transação. A consulta pelo
+planejamento recupera a última sugestão cujos itens correspondem exatamente às
+ordens registradas em `itens_planejamento`. O histórico pode ser consultado pelo
+identificador de cada sugestão. [Contrato da API](../../backend/README.md#us13--sequência-sugerida-de-produção)
 
 ## 3. DER conceitual proposto — cadastros e ordens (parcialmente implementado)
 

@@ -20,6 +20,11 @@ type Planejamento = {
   itens: ItemPlanejamento[]
 }
 
+type SugestaoPlanejamento = {
+  tempo_setup_total_minutos: number
+  itens: { ordem_id: string; posicao: number; setup_minutos: number }[]
+}
+
 const API_URL = 'http://localhost:8000/api'
 
 function PlanejamentosPage() {
@@ -30,9 +35,14 @@ function PlanejamentosPage() {
   const [planejamentoEmEdicao, setPlanejamentoEmEdicao] = useState<string | null>(null)
   const [carregando, setCarregando] = useState(true)
   const [salvando, setSalvando] = useState(false)
+  const [acaoSugestao, setAcaoSugestao] = useState<'gerar' | 'consultar' | null>(null)
+  const [sugestao, setSugestao] = useState<SugestaoPlanejamento | null>(null)
+  const [erroSugestao, setErroSugestao] = useState('')
   const [erro, setErro] = useState('')
   const [mensagem, setMensagem] = useState('')
   const formularioRef = useRef<HTMLElement | null>(null)
+  const resultadoSugestaoRef = useRef<HTMLDivElement | null>(null)
+  const ocupado = salvando || acaoSugestao !== null
 
   useEffect(() => {
     let ativo = true
@@ -71,6 +81,12 @@ function PlanejamentosPage() {
     }
   }, [])
 
+  useEffect(() => {
+    if (sugestao || erroSugestao) {
+      resultadoSugestaoRef.current?.scrollIntoView({ behavior: 'smooth', block: 'nearest' })
+    }
+  }, [sugestao, erroSugestao])
+
   async function carregarPlanejamentos() {
     const resposta = await apiFetch(`${API_URL}/planejamentos`, {
       credentials: 'include',
@@ -84,8 +100,14 @@ function PlanejamentosPage() {
     setPlanejamentos(dados)
   }
 
+  function limparSugestao() {
+    setSugestao(null)
+    setErroSugestao('')
+  }
+
   function selecionarOrdem(ordem: OrdemProducao) {
-    if (salvando) return
+    if (ocupado) return
+    limparSugestao()
     setMensagem('')
     setSelecionadas((atual) =>
       atual.some((item) => item.id_ordem === ordem.id_ordem)
@@ -95,7 +117,8 @@ function PlanejamentosPage() {
   }
 
   function moverOrdem(indice: number, direcao: number) {
-    if (salvando) return
+    if (ocupado) return
+    limparSugestao()
     setSelecionadas((atual) => {
       const destino = indice + direcao
       if (destino < 0 || destino >= atual.length) return atual
@@ -124,6 +147,7 @@ function PlanejamentosPage() {
     setPlanejamentoEmEdicao(planejamento.id_planejamento)
     setNome(planejamento.nome)
     setSelecionadas(ordensEdicao)
+    limparSugestao()
     setErro('')
     setMensagem('')
     formularioRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' })
@@ -133,12 +157,13 @@ function PlanejamentosPage() {
     setPlanejamentoEmEdicao(null)
     setNome('')
     setSelecionadas([])
+    limparSugestao()
     setErro('')
     setMensagem('')
   }
 
   async function salvarPlanejamento() {
-    if (!nome.trim() || selecionadas.length === 0 || salvando || carregando) return
+    if (!nome.trim() || selecionadas.length === 0 || ocupado || carregando) return
 
     setSalvando(true)
     setErro('')
@@ -172,6 +197,7 @@ function PlanejamentosPage() {
       setPlanejamentoEmEdicao(null)
       setNome('')
       setSelecionadas([])
+      limparSugestao()
       setMensagem(
         editando
           ? 'Planejamento atualizado com sucesso!'
@@ -187,6 +213,47 @@ function PlanejamentosPage() {
       setErro(error instanceof Error ? error.message : 'Erro ao salvar planejamento.')
     } finally {
       setSalvando(false)
+    }
+  }
+
+  async function solicitarSugestao(planejamentoId?: string) {
+    if (ocupado || carregando) return
+    limparSugestao()
+
+    if (!planejamentoId && selecionadas.length === 0) {
+      setErroSugestao('Selecione pelo menos uma ordem para gerar a sugestão.')
+      return
+    }
+
+    setAcaoSugestao(planejamentoId ? 'consultar' : 'gerar')
+    const erroPadrao = planejamentoId
+      ? 'Não foi possível consultar a sequência sugerida.'
+      : 'Não foi possível gerar a sequência sugerida.'
+
+    try {
+      const resposta = planejamentoId
+        ? await apiFetch(`${API_URL}/planejamentos/${planejamentoId}/sugestao`, {
+          credentials: 'include',
+        })
+        : await apiFetch(`${API_URL}/planejamentos/sugestoes`, {
+          method: 'POST',
+          credentials: 'include',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ ordens_ids: selecionadas.map((ordem) => ordem.id_ordem) }),
+        })
+
+      if (!resposta.ok) {
+        const dadosErro = await resposta.json().catch(() => null)
+        setErroSugestao(typeof dadosErro?.detail === 'string' ? dadosErro.detail : erroPadrao)
+        return
+      }
+
+      const dados: SugestaoPlanejamento = await resposta.json()
+      setSugestao(dados)
+    } catch {
+      setErroSugestao(erroPadrao)
+    } finally {
+      setAcaoSugestao(null)
     }
   }
 
@@ -214,7 +281,7 @@ function PlanejamentosPage() {
         <section className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
           <h1 className="text-2xl font-bold text-slate-950">Planejamento manual</h1>
           <p className="mt-2 text-sm text-slate-500">
-            Selecione as ordens e defina manualmente a sequência de execução.
+            Selecione as ordens para montar a sequência manual ou gerar uma sugestão de produção.
           </p>
 
           {mensagem && (
@@ -248,7 +315,7 @@ function PlanejamentosPage() {
             data-cy="nome-planejamento"
             value={nome}
             maxLength={150}
-            disabled={salvando}
+            disabled={ocupado}
             onChange={(evento) => setNome(evento.target.value)}
             placeholder="Ex.: Planejamento de segunda-feira"
             className="mt-2 w-full rounded-xl border border-slate-300 px-4 py-3 text-sm outline-none focus:border-blue-500 disabled:opacity-60"
@@ -276,7 +343,7 @@ function PlanejamentosPage() {
                     <input
                       type="checkbox"
                       checked={idsSelecionados.has(ordem.id_ordem)}
-                      disabled={salvando}
+                      disabled={ocupado}
                       onChange={() => selecionarOrdem(ordem)}
                       className="h-4 w-4 accent-blue-600"
                     />
@@ -309,7 +376,7 @@ function PlanejamentosPage() {
                     <button
                       type="button"
                       aria-label={`Subir ${ordem.codigo}`}
-                      disabled={indice === 0 || salvando}
+                      disabled={indice === 0 || ocupado}
                       onClick={() => moverOrdem(indice, -1)}
                       className="rounded-lg border px-3 py-2 text-sm disabled:opacity-30"
                     >
@@ -318,7 +385,7 @@ function PlanejamentosPage() {
                     <button
                       type="button"
                       aria-label={`Descer ${ordem.codigo}`}
-                      disabled={indice === selecionadas.length - 1 || salvando}
+                      disabled={indice === selecionadas.length - 1 || ocupado}
                       onClick={() => moverOrdem(indice, 1)}
                       className="rounded-lg border px-3 py-2 text-sm disabled:opacity-30"
                     >
@@ -336,7 +403,7 @@ function PlanejamentosPage() {
             <button
               type="button"
               onClick={cancelarEdicao}
-              disabled={salvando}
+              disabled={ocupado}
               className="rounded-xl border border-slate-300 px-6 py-3 text-sm font-semibold text-slate-700 hover:bg-slate-50 disabled:opacity-50"
             >
               Cancelar edição
@@ -344,9 +411,18 @@ function PlanejamentosPage() {
           )}
           <button
             type="button"
+            data-cy="gerar-sugestao"
+            onClick={() => void solicitarSugestao()}
+            disabled={ocupado || carregando}
+            className="rounded-xl border border-blue-200 px-6 py-3 text-sm font-semibold text-blue-700 hover:bg-blue-50 disabled:opacity-50"
+          >
+            {acaoSugestao === 'gerar' ? 'Gerando sugestão...' : 'Gerar sequência sugerida'}
+          </button>
+          <button
+            type="button"
             data-cy="salvar-planejamento"
             onClick={() => void salvarPlanejamento()}
-            disabled={!nome.trim() || selecionadas.length === 0 || salvando || carregando}
+            disabled={!nome.trim() || selecionadas.length === 0 || ocupado || carregando}
             className="rounded-xl bg-blue-600 px-6 py-3 text-sm font-semibold text-white disabled:cursor-not-allowed disabled:opacity-50"
           >
             {salvando
@@ -356,6 +432,33 @@ function PlanejamentosPage() {
                 : 'Salvar planejamento'}
           </button>
         </div>
+
+        {(sugestao || erroSugestao) && (
+          <div ref={resultadoSugestaoRef} className="scroll-mt-28">
+            {erroSugestao && (
+              <p role="alert" className="whitespace-pre-line rounded-xl bg-red-50 p-4 text-sm text-red-700">
+                {erroSugestao}
+              </p>
+            )}
+            {sugestao && (
+              <section aria-labelledby="titulo-sugestao" className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
+                <h2 id="titulo-sugestao" className="text-lg font-semibold text-slate-900">Sequência sugerida</h2>
+                <p role="status" className="mt-2 text-sm text-slate-700">
+                  Tempo total estimado de setup de <strong>{sugestao.tempo_setup_total_minutos} {sugestao.tempo_setup_total_minutos === 1 ? 'minuto' : 'minutos'}</strong>
+                </p>
+                <ol className="mt-4 space-y-2">
+                  {sugestao.itens.map((item) => (
+                    <li key={item.ordem_id} className="flex items-center gap-3 rounded-xl border border-slate-200 p-3 text-sm">
+                      <span className="rounded-lg bg-blue-50 px-3 py-2 font-semibold text-blue-700">{item.posicao}</span>
+                      <span data-cy="sugestao-ordem" className="min-w-0 flex-1 wrap-anywhere font-medium text-slate-800">{codigoDaOrdem(item.ordem_id)}</span>
+                      <span className="shrink-0 text-slate-600">Setup de {item.setup_minutos} min</span>
+                    </li>
+                  ))}
+                </ol>
+              </section>
+            )}
+          </div>
+        )}
 
         <section className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
           <h2 className="text-lg font-semibold text-slate-900">Planejamentos cadastrados</h2>
@@ -372,6 +475,7 @@ function PlanejamentosPage() {
               {planejamentos.map((planejamento) => (
                 <div
                   key={planejamento.id_planejamento}
+                  data-cy="planejamento-card"
                   className="rounded-xl border border-slate-200 p-4"
                 >
                   <div className="flex flex-wrap items-center justify-between gap-3">
@@ -381,14 +485,22 @@ function PlanejamentosPage() {
                         {planejamento.itens.length} ordem(ns) de produção
                       </p>
                     </div>
-                    <div className="flex items-center gap-3">
+                    <div className="flex flex-wrap items-center gap-3">
                       <span className="text-xs text-slate-500">
                         {new Date(planejamento.criado_em).toLocaleDateString('pt-BR')}
                       </span>
                       <button
                         type="button"
+                        onClick={() => void solicitarSugestao(planejamento.id_planejamento)}
+                        disabled={ocupado || carregando}
+                        className="rounded-lg border border-blue-200 px-4 py-2 text-sm font-medium text-blue-700 hover:bg-blue-50 disabled:opacity-50"
+                      >
+                        Consultar sugestão
+                      </button>
+                      <button
+                        type="button"
                         onClick={() => editarPlanejamento(planejamento)}
-                        disabled={salvando || carregando}
+                        disabled={ocupado || carregando}
                         className="rounded-lg border border-blue-200 px-4 py-2 text-sm font-medium text-blue-700 hover:bg-blue-50 disabled:opacity-50"
                       >
                         Editar
