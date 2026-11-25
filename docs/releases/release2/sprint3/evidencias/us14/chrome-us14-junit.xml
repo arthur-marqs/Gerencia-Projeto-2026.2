@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites name="Mocha Tests" time="90.170" tests="4" failures="0">
+  <testsuite name="Root Suite" timestamp="2026-11-25T14:29:02" tests="0" file="cypress\e2e\prazos-prioridades.feature" time="0.000" failures="0">
+  </testsuite>
+  <testsuite name="Considerar prazos e prioridades no sequenciamento" timestamp="2026-11-25T14:29:02" tests="4" time="90.169" failures="0">
+    <testcase name="Considerar prazos e prioridades no sequenciamento Priorizar uma ordem urgente mesmo com aumento de setup" time="40.290" classname="Priorizar uma ordem urgente mesmo com aumento de setup">
+    </testcase>
+    <testcase name="Considerar prazos e prioridades no sequenciamento Considerar prazos diferentes em ordens de mesma prioridade" time="14.917" classname="Considerar prazos diferentes em ordens de mesma prioridade">
+    </testcase>
+    <testcase name="Considerar prazos e prioridades no sequenciamento Considerar prioridades diferentes em ordens de mesmo prazo" time="14.151" classname="Considerar prioridades diferentes em ordens de mesmo prazo">
+    </testcase>
+    <testcase name="Considerar prazos e prioridades no sequenciamento Informar dados de planejamento incompletos" time="20.506" classname="Informar dados de planejamento incompletos">
+    </testcase>
+  </testsuite>
+</testsuites>

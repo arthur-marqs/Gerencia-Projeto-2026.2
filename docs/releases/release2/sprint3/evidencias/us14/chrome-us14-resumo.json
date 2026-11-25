@@ -1,0 +1,39 @@
+{
+  "startedAt": "2026-11-25T14:28:35.413Z",
+  "branch": "feature/us14-prazos-prioridades",
+  "commit": "e5d73f1d473892bd883faf49ba87c31f62c88948",
+  "dirty": true,
+  "sourceSha256": "6d37ad8405ae77fdd230b66e1643eea3e8800d3af7f3e34e4a353c7f50445116",
+  "browser": "chrome",
+  "configFile": "cypress.config.cjs",
+  "tags": "@US14 and not @wip",
+  "node": "v24.11.1",
+  "platform": "win32 10.0.19045",
+  "finishedAt": "2026-11-25T14:30:36.687Z",
+  "browserVersion": "158.0.8127.37",
+  "cypressVersion": "16.3.0",
+  "total": 4,
+  "passed": 4,
+  "failed": 0,
+  "pending": 0,
+  "skipped": 0,
+  "durationMs": 90224,
+  "tests": [
+    {
+      "title": "Considerar prazos e prioridades no sequenciamento / Priorizar uma ordem urgente mesmo com aumento de setup",
+      "state": "passed"
+    },
+    {
+      "title": "Considerar prazos e prioridades no sequenciamento / Considerar prazos diferentes em ordens de mesma prioridade",
+      "state": "passed"
+    },
+    {
+      "title": "Considerar prazos e prioridades no sequenciamento / Considerar prioridades diferentes em ordens de mesmo prazo",
+      "state": "passed"
+    },
+    {
+      "title": "Considerar prazos e prioridades no sequenciamento / Informar dados de planejamento incompletos",
+      "state": "passed"
+    }
+  ]
+}

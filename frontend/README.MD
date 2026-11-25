@@ -8,11 +8,11 @@ Aplicação em desenvolvimento para planejamento e acompanhamento da produção,
 - **Frontend:** aplicação React, TypeScript, Vite e Tailwind CSS, com tela de login e áreas autenticadas para produtos, famílias de produtos, máquinas, ordens de produção, tempos de setup, matriz de setup, planejamentos e usuários.
 - **Autenticação:** integração com a API FastAPI, sessões mantidas por cookies e controle de acesso conforme os perfis do usuário.
 - **Planejamento:** consulta dos tempos de setup entre famílias de produtos e visualização da matriz de transições direcionais.
-- **Sequência sugerida (US13).** Geração a partir das ordens selecionadas, com estimativa de setup e consulta da sugestão pelo planejamento.
+- **Sequência sugerida (US13 e US14):** geração a partir das ordens selecionadas, considerando tempos de setup, prazos, prioridades e durações estimadas, com consulta da sugestão pelo planejamento.
 - **Matriz de setup:** apresenta as famílias nas linhas e colunas, com os tempos de transição em minutos. Transições sem configuração são representadas por um traço. A tela permite atualizar os dados consultados.
 - **Backend:** API FastAPI com documentação interativa, endpoint de saúde, autenticação e rotas para os módulos da aplicação.
 - **Banco de dados:** PostgreSQL para persistência dos dados da aplicação.
-- **Testes:** testes automatizados de backend e testes de aceitação Cypress com Gherkin, incluindo os cenários das US11 e US32.
+- **Testes:** testes automatizados de backend e testes de aceitação Cypress com Gherkin, incluindo os cenários das US11, US13, US14 e US32.
 
 
 ## Requisitos
@@ -156,6 +156,36 @@ migrations. [Guia do backend](../backend/README.md#us13--sequência-sugerida-de-
 A tela informa quando a seleção está vazia, quando um produto está sem família
 ou quando falta o tempo de uma troca. A **Matriz de setup** ajuda a localizar as
 transições que precisam ser cadastradas em **Tempos de setup**.
+
+
+## Sequenciamento por prazos e prioridades (US14)
+
+A geração da sequência sugerida também considera os prazos, as prioridades
+e as durações estimadas das ordens de produção.
+
+O fluxo de utilização permanece o mesmo da US13:
+
+1. Acesse o **Planejamento manual** com o perfil Planejador de Produção.
+2. Selecione as ordens de produção.
+3. Clique em **Gerar sequência sugerida**.
+4. Confira a sequência apresentada e os tempos de setup.
+
+A sequência sugerida pode apresentar um tempo total de setup superior
+ao original quando isso favorece o atendimento aos prazos e prioridades.
+
+Quando houver dados de prazo ou prioridade, todas as ordens selecionadas
+devem possuir prazo, prioridade e duração estimada. Caso existam dados
+incompletos, a geração é bloqueada e a pendência é informada.
+
+Quando nenhuma ordem possui prazo ou prioridade, o comportamento
+original da US13 é mantido.
+
+As regras de sequenciamento estão descritas no
+[README do backend](../backend/README.md#us14--prazos-e-prioridades-no-sequenciamento).
+
+Os resultados dos testes estão disponíveis no
+[relatório de testes da US14](../docs/releases/release2/sprint3/relatorio-testes-us14.md).
+
 
 ## Banco de dados
 

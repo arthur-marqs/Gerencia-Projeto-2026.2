@@ -1,9 +1,11 @@
-
-# Aceite BDD das US11, US13 e US32
+# Aceite BDD das US11, US13, US14 e US32
 
 A suíte utiliza Cypress 16 + Cucumber/Gherkin em português, API FastAPI real e PostgreSQL exclusivo para testes.
 
 A US32 cobre o gerenciamento de usuários, com os casos `@CT32` a `@CT43`. A US11 cobre a consulta da matriz de setup e a regressão de famílias ausentes. A US13 automatiza os 13 casos de geração e consulta da sequência sugerida em [`sugestao.feature`](e2e/sugestao.feature).
+
+A US14 automatiza quatro cenários de sequenciamento por prazos e prioridades
+em [`prazos-prioridades.feature`](e2e/prazos-prioridades.feature).
 
 O smoke usa `@smoke` e a regressão usa `@regressao`. Na US13, o smoke inclui o CT-107 e o CT-110.
 
@@ -100,9 +102,31 @@ O modo `sugestao` prepara usuários, famílias A e B e as ordens OP01 a OP05 em 
 
 O CT-119 depende da integração com a US15.
 
+### Cenários da US14
+
+A US14 utiliza o modo `sugestao` para preparar os dados de teste,
+reaproveitando as fixtures e os steps da US13.
+
+Os cenários verificam o sequenciamento considerando prazos, prioridades,
+durações estimadas e tempos de setup, utilizando a API e o banco de testes.
+
+| Caso | Cobertura |
+| --- | --- |
+| US14_CT01 | Priorização de ordem urgente mesmo com aumento de setup |
+| US14_CT02 | Prazos diferentes em ordens de mesma prioridade |
+| US14_CT03 | Prioridades diferentes em ordens de mesmo prazo |
+| US14_CT04 | Bloqueio da geração com dados de planejamento incompletos |
+
+Os quatro cenários podem ser executados separadamente pela tag `@US14`
+e foram aprovados na execução local de regressão.
+
+### Cenários da US32
+
 O CT43 começa sem contas e chama o script inicial com entradas controladas;
 depois verifica o login do administrador e o cadastro de outra conta pela tela.
 Os demais cenários também são independentes e podem ser executados isoladamente.
+
+### Execução com contêiner
 
 Quando o Python está em um contêiner já configurado para esse banco, é possível
 usar `E2E_SEED_CONTAINER=<nome>` em vez de `E2E_PYTHON`. O contêiner deve ter o
@@ -111,7 +135,7 @@ as variáveis `DB_*`/`E2E_DATABASE_URL` corretas. Não é necessário para execu
 
 ## Tags e comandos
 
-`cypress.config.cjs` descobre as features de aceite em `cypress/e2e/*.feature` e executa os cenários das US11, US13 e US32 filtrados pelas tags, com API e banco reais. `cypress.config.ts` executa os cenários de autenticação.
+`cypress.config.cjs` descobre as features de aceite em `cypress/e2e/*.feature` e executa os cenários das US11, US13, US14 e US32 filtrados pelas tags, com API e banco reais. `cypress.config.ts` executa os cenários de autenticação.
 
 
 | Comando | Seleção |
@@ -119,6 +143,7 @@ as variáveis `DB_*`/`E2E_DATABASE_URL` corretas. Não é necessário para execu
 | `npm run test:e2e:smoke -- --browser chrome` | `@smoke and not @wip` |
 | `npm run test:e2e:regressao -- --browser electron` | `@regressao and not @wip` |
 | `npm run test:e2e -- --browser chrome --tags "@US13 and not @wip"` | Os 13 casos da sequência sugerida |
+| `npm run test:e2e -- --browser chrome --tags "@US14 and not @wip"` | Os quatro casos de prazos e prioridades |
 | `npm run test:e2e -- --browser chrome --tags "@CT110"` | Recuperação da sugestão e preservação do planejamento manual |
 | `npm run test:e2e -- --browser chrome --tags "@CT39"` | Somente bloqueios por vínculos |
 | `npm run test:e2e:open` | Interface interativa do Cypress |
@@ -139,12 +164,18 @@ Os comandos geram `frontend/artifacts/cypress/<navegador>/<smoke|regressao>/`:
   captura automática de falhas.
 - `videos/`: gravação da spec executada, inclusive quando houver falha.
 
-No GitHub Actions, a regressão das US11, US13 e US32 roda em Chrome e Electron. Os jobs publicam os relatórios e capturas nos artefatos `acceptance-bdd-chrome` e `acceptance-bdd-electron`, inclusive em caso de falha. As capturas da US13 usam os IDs dos casos do plano. O CT-85 é verificado pela API e consta nos relatórios.
+No GitHub Actions, a regressão BDD está configurada para execução em Chrome
+e Electron, com seleção de cenários por tags. A execução da US14 na CI ainda
+precisa ser confirmada. Os jobs publicam os relatórios e capturas nos artefatos `acceptance-bdd-chrome` e `acceptance-bdd-electron`, inclusive em caso de falha. As capturas da US13 usam os IDs dos casos do plano. O CT-85 é verificado pela API e consta nos relatórios.
 
 O runner retorna erro se o Cypress falhar, houver teste reprovado ou nenhum teste
 for selecionado. Os relatórios locais não afirmam que houve execução remota do CI.
 Os artefatos completos são ignorados pelo Git. Os relatórios e prints selecionados
 desta entrega estão no [registro de evidências da US-32](../../docs/releases/release2/sprint2/evidencias/us32/README.md).
+
+Os resultados locais da US14 e da regressão completa no Chrome estão
+documentados no [relatório de testes da US14](../../docs/releases/release2/sprint3/relatorio-testes-us14.md),
+com os relatórios JUnit, resumos de execução e capturas dos quatro cenários.
 
 ## Referências de configuração
 

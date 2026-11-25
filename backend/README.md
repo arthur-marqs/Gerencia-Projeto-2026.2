@@ -164,8 +164,9 @@ dentro da mesma família têm setup de zero minuto. Entre famílias distintas,
 a geração exige um tempo para cada sentido dos pares de famílias selecionadas.
 A heurística agrupa ordens da mesma família e testa um caminho a partir de cada
 família, escolhendo a próxima troca de menor custo. Empates na escolha da próxima
-família seguem a primeira ocorrência na seleção. A ordem selecionada é mantida
-quando nenhuma alternativa avaliada reduz o total. Como a busca é gulosa, outras
+família seguem a primeira ocorrência na seleção. Quando não há dados de prazo ou prioridade nas ordens selecionadas,
+a ordem original é mantida se nenhuma alternativa avaliada reduz
+o tempo total de setup. Como a busca é gulosa, outras
 sequências podem ter custo menor que o da sugestão encontrada.
 
 Com A → B de 20 minutos e B → A de 30 minutos, a seleção A, B, A tem setup
@@ -192,6 +193,65 @@ apontando para um PostgreSQL isolado cujo nome termine em `_test`.
 ```powershell
 .\.venv\Scripts\python.exe -m pytest -v testes\integration\test_us13_sequencia_sugerida.py
 ```
+
+
+## US14 — Prazos e prioridades no sequenciamento
+
+A US14 complementa a sequência sugerida da US13, considerando os prazos,
+as prioridades e as durações estimadas das ordens de produção, além dos
+tempos de setup entre famílias.
+
+A geração continua utilizando a rota `POST /api/planejamentos/sugestoes`,
+com acesso restrito ao perfil `PLANEJADOR`.
+
+### Regras de sequenciamento
+
+- São avaliadas alternativas de sequência considerando setup, prazo,
+  prioridade e folga até o prazo.
+- A previsão de conclusão de cada ordem considera sua duração estimada
+  e os tempos de setup acumulados.
+- O algoritmo busca reduzir a quantidade de ordens atrasadas e o impacto
+  dos atrasos, considerando as prioridades Alta, Média e Baixa.
+- O tempo total de setup pode aumentar quando a sequência alternativa
+  apresenta um resultado melhor em relação aos critérios de urgência.
+- Quando nenhuma ordem selecionada possui prazo ou prioridade, o
+  comportamento da US13 é preservado.
+- Quando existem dados de prazo ou prioridade, todas as ordens selecionadas
+  devem possuir prazo, prioridade e duração estimada para gerar a sugestão.
+
+O cálculo considera o prazo até o final do dia, no fuso `America/Recife`,
+e assume produção contínua, sem considerar turnos ou pausas.
+
+A solução utiliza uma heurística de comparação de alternativas e não
+garante a obtenção da sequência globalmente ótima.
+
+### Banco de dados
+
+A migration `6b14a2e9c703` remove a restrição que impedia o tempo total de
+setup sugerido de superar o tempo original. Os dois valores continuam
+sujeitos à restrição de não negatividade.
+
+Execute `alembic upgrade head` para atualizar o esquema.
+
+O downgrade para a revisão anterior pode falhar caso existam sugestões
+com tempo de setup superior ao original, pois a restrição anterior não
+permite esses registros.
+
+### Testes automatizados
+
+Com `TEST_DATABASE_URL` apontando para um banco exclusivo de testes,
+execute na pasta `backend`:
+
+```powershell
+.\.venv\Scripts\python.exe -m pytest -v testes/unit/test_us14_sequenciamento.py testes/integration/test_us14_prazos_prioridades.py
+```
+
+Os testes verificam o sequenciamento por prazo e prioridade, a possibilidade
+de aumento de setup, as validações dos dados e a integração com a API.
+
+Os resultados estão registrados no
+[relatório de testes da US14](../docs/releases/release2/sprint3/relatorio-testes-us14.md).
+
 
 ## US-32 — Gerenciamento de usuários
 

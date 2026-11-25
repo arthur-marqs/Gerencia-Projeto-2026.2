@@ -1,14 +1,14 @@
 # Modelo de dados do SetupFlow
 
-**Versão:** 0.4 — proposta conceitual e esquemas de autenticação e sugestões de planejamento
-**Data:** 23/11/2026
-**Estado:** referência das implementações da US01 e da US13 e do modelo conceitual de evolução.
+**Versão:** 0.5 — proposta conceitual e esquemas de autenticação e sugestões de planejamento
+**Data:** 25/11/2026
+**Estado:** referência das implementações da US01, da US13 e da US14 e do modelo conceitual de evolução.
 
 ## 1. Como ler este documento
 
 O documento apresenta o esquema aplicado e o modelo conceitual.
 
-1. **Implementado.** Esquemas PostgreSQL da autenticação da US01 e das sugestões da US13, derivados dos modelos ORM e das migrations em `backend/`. [DER de autenticação](diagramas/der-autenticacao-implementado.jpeg)
+1. **Implementado.** Esquemas PostgreSQL da autenticação da US01 e das sugestões da US13, atualizadas pela US14, derivados dos modelos ORM e das migrations em `backend/`. [DER de autenticação](diagramas/der-autenticacao-implementado.jpeg)
 2. **Proposto.** DER conceitual para cadastros, ordens, planejamento e execução, seguido pelo mapeamento relacional de referência para a evolução do sistema.
 
 As seções **Implementação atual** e as migrations são a referência para o esquema executável.
@@ -175,20 +175,47 @@ O `SELECT ... FOR UPDATE` serializa atualizações para a mesma combinação e o
 | `5ccce81c5c27` | Cria a tabela `produtos`. |
 | `7a2c9f1d4e6b` | Cria a tabela `maquinas`. |
 | `13e41f6d48c2` | Cria `sugestoes_planejamento` e `itens_sugestao_planejamento` para a US13. |
+| `6b14a2e9c703` | Remove a restrição que limitava o setup total sugerido ao setup total original, permitindo considerar prazos e prioridades na US14. |
 
 As migrations são aplicadas com `alembic upgrade head`, a partir de `backend/`. Para alterar o esquema, atualize o modelo e crie uma nova migration revisada; não edite uma migration já aplicada em ambientes compartilhados. A suíte de integração também aplica `head` automaticamente, sempre no PostgreSQL selecionado por `TEST_DATABASE_URL` validada com sufixo `_test`.
 
-## Implementação atual — sugestões de planejamento (US13)
+## Implementação atual — sugestões de planejamento (US13 e US14)
 
 | Tabela | Dados e vínculos |
 |---|---|
-| `sugestoes_planejamento` | `id_sugestao` como chave primária, `criado_por` referenciando `usuarios`, `criado_em` e os totais de setup original e sugerido em minutos. O total sugerido é maior ou igual a zero e menor ou igual ao total original. |
+| `sugestoes_planejamento` | `id_sugestao` como chave primária, `criado_por` referenciando `usuarios`, `criado_em` e os totais de setup original e sugerido em minutos. Os totais original e sugerido são maiores ou iguais a zero. O total sugerido pode superar o original. |
 | `itens_sugestao_planejamento` | Chave composta por `sugestao_id` e `ordem_id`, com referências à sugestão e a `ordens_producao`. Guarda a posição original, a posição sugerida e o setup em minutos. As posições de cada sequência são positivas e únicas por sugestão. O primeiro item sugerido tem setup zero. |
 
 Cada geração grava a sugestão e os itens em uma transação. A consulta pelo
 planejamento recupera a última sugestão cujos itens correspondem exatamente às
 ordens registradas em `itens_planejamento`. O histórico pode ser consultado pelo
 identificador de cada sugestão. [Contrato da API](../../backend/README.md#us13--sequência-sugerida-de-produção)
+
+### Alteração das restrições na US14
+
+Na US13, o banco exigia que `tempo_setup_total_minutos` fosse menor ou igual a
+`tempo_setup_original_minutos`. A US14 remove essa comparação entre os totais,
+pois uma sequência que favorece o atendimento aos prazos e às prioridades pode
+exigir mais tempo de setup.
+
+A alteração foi realizada no modelo
+`backend/app/models/sugestao_planejamento.py` e na migration
+`backend/migrations/versions/6b14a2e9c703_permite_setup_maior_us14.py`,
+posterior à revisão `13e41f6d48c2`. As restrições de não negatividade dos totais
+são mantidas. Não foram adicionadas tabelas, colunas ou relacionamentos pela US14.
+
+O algoritmo utiliza os dados já existentes das ordens de produção: prazo,
+prioridade (Alta, Média ou Baixa) e duração estimada em minutos. Quando alguma
+ordem selecionada possui prazo ou prioridade, todas as ordens da seleção devem
+possuir os três dados para gerar a sugestão. Essa validação ocorre na aplicação,
+não por uma nova restrição da tabela de sugestões. Quando nenhuma ordem possui
+prazo ou prioridade, permanece o comportamento de redução de setup da US13.
+
+Os diagramas conceituais permanecem inalterados, pois a US14 não modifica as
+entidades nem seus relacionamentos. As regras da implementação estão descritas
+no [README do backend](../../backend/README.md#us14--prazos-e-prioridades-no-sequenciamento).
+Os resultados dos testes estão no
+[relatório da US14](../releases/release2/sprint3/relatorio-testes-us14.md).
 
 ## 3. DER conceitual proposto — cadastros e ordens (parcialmente implementado)
 
