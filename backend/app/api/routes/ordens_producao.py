@@ -4,7 +4,7 @@ from uuid import UUID
 
 from fastapi import APIRouter, Depends, Header, HTTPException, Response, status
 from sqlalchemy import select
-from sqlalchemy.exc import IntegrityError
+from sqlalchemy.exc import IntegrityError, SQLAlchemyError
 from sqlalchemy.orm import Session, joinedload
 
 from app.api.deps import get_db, require_profiles
@@ -21,6 +21,27 @@ from app.schemas.ordem_producao import (
 
 
 router = APIRouter()
+
+
+MENSAGEM_FALHA_PERSISTENCIA = (
+    "Não foi possível confirmar a gravação dos dados de produção. "
+    "Atualize a consulta antes de tentar novamente."
+)
+
+
+def _falha_persistencia(db: Session, erro: SQLAlchemyError) -> None:
+    """Interrompe a operação e informa uma falha de persistência ao cliente."""
+    try:
+        db.rollback()
+    except SQLAlchemyError:
+        # A conexão pode já estar indisponível. O fechamento da sessão ocorre
+        # na dependência get_db e libera/descarta a conexão problemática.
+        pass
+
+    raise HTTPException(
+        status_code=status.HTTP_503_SERVICE_UNAVAILABLE,
+        detail=MENSAGEM_FALHA_PERSISTENCIA,
+    ) from erro
 
 
 def _hash_conteudo(dados: OrdemProducaoCreate) -> str:
@@ -179,12 +200,15 @@ def cadastrar_ordem_producao(
             status_code=status.HTTP_409_CONFLICT,
             detail="Não foi possível cadastrar a ordem de produção.",
         ) from erro
+    except SQLAlchemyError as erro:
+        _falha_persistencia(db, erro)
 
     ordem.operacao_id = operacao.id_operacao
     db.add(ordem)
 
     try:
         db.commit()
+        db.refresh(ordem)
     except IntegrityError as erro:
         db.rollback()
         ordem_reutilizada = _buscar_ordem_reutilizada(
@@ -200,8 +224,9 @@ def cadastrar_ordem_producao(
             status_code=status.HTTP_409_CONFLICT,
             detail="Não foi possível cadastrar a ordem de produção.",
         ) from erro
+    except SQLAlchemyError as erro:
+        _falha_persistencia(db, erro)
 
-    db.refresh(ordem)
     return ordem
 
 @router.patch(
@@ -224,6 +249,7 @@ def atualizar_duracao_estimada(
     ordem.duracao_estimada_minutos = dados.duracao_estimada_minutos
     try:
         db.commit()
+        db.refresh(ordem)
     except IntegrityError as erro:
         db.rollback()
         raise HTTPException(
@@ -232,8 +258,9 @@ def atualizar_duracao_estimada(
                 "A duração estimada é inválida. Informe um número inteiro de minutos maior que zero."
             ),
         ) from erro
+    except SQLAlchemyError as erro:
+        _falha_persistencia(db, erro)
 
-    db.refresh(ordem)
     return ordem
 
 
@@ -253,6 +280,10 @@ def atualizar_prazo_prioridade_ordem(
 
     ordem.prazo = dados.prazo
     ordem.prioridade = dados.prioridade
-    db.commit()
-    db.refresh(ordem)
+    try:
+        db.commit()
+        db.refresh(ordem)
+    except SQLAlchemyError as erro:
+        _falha_persistencia(db, erro)
+
     return ordem
