@@ -52,6 +52,14 @@ class ItemSugestaoPlanejamento(Base):
     ordem_id: Mapped[UUID] = mapped_column(
         ForeignKey("ordens_producao.id_ordem"), primary_key=True, index=True
     )
+    maquina_id: Mapped[UUID | None] = mapped_column(
+        ForeignKey(
+            "maquinas.id_maquina",
+            name="fk_item_sugestao_maquina",
+        ),
+        nullable=True,
+        index=True,
+    )
     posicao: Mapped[int] = mapped_column(Integer)
     posicao_original: Mapped[int] = mapped_column(Integer)
     setup_minutos: Mapped[int] = mapped_column(Integer)

@@ -59,6 +59,7 @@ class ItemSugestaoPlanejamentoResponse(BaseModel):
     model_config = ConfigDict(from_attributes=True)
 
     ordem_id: UUID
+    maquina_id: UUID | None = None
     posicao: int
     posicao_original: int
     setup_minutos: int
