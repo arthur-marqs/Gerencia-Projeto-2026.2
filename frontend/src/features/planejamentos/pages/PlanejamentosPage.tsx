@@ -1,23 +1,12 @@
 import { useEffect, useRef, useState } from 'react'
 import { apiFetch } from '../../../lib/apiFetch'
+import { ComparacaoSequencias } from '../components/ComparacaoSequencias'
+import type { ComparacaoPlanejamento, Planejamento, SugestaoPlanejamento } from '../types'
 
 type OrdemProducao = {
   id_ordem: string
   codigo: string
   status: string
-}
-
-type ItemPlanejamento = {
-  id_item: string
-  ordem_id: string
-  posicao: number
-}
-
-type Planejamento = {
-  id_planejamento: string
-  nome: string
-  criado_em: string
-  itens: ItemPlanejamento[]
 }
 
 type Maquina = {
@@ -26,14 +15,14 @@ type Maquina = {
   nome: string
 }
 
-type SugestaoPlanejamento = {
-  tempo_setup_total_minutos: number
-  itens: {
-    ordem_id: string
-    maquina_id: string | null
-    posicao: number
-    setup_minutos: number
-  }[]
+type PedidoSugestao =
+  | { acao: 'gerar' }
+  | { acao: 'consultar' | 'comparar'; planejamentoId: string }
+
+const ERROS_SUGESTAO = {
+  gerar: 'Não foi possível gerar a sequência sugerida.',
+  consultar: 'Não foi possível consultar a sequência sugerida.',
+  comparar: 'Não foi possível comparar as sequências.',
 }
 
 const API_URL = 'http://localhost:8000/api'
@@ -47,14 +36,15 @@ function PlanejamentosPage() {
   const [planejamentoEmEdicao, setPlanejamentoEmEdicao] = useState<string | null>(null)
   const [carregando, setCarregando] = useState(true)
   const [salvando, setSalvando] = useState(false)
-  const [acaoSugestao, setAcaoSugestao] = useState<'gerar' | 'consultar' | null>(null)
+  const [pedidoSugestao, setPedidoSugestao] = useState<PedidoSugestao | null>(null)
   const [sugestao, setSugestao] = useState<SugestaoPlanejamento | null>(null)
+  const [comparacao, setComparacao] = useState<ComparacaoPlanejamento | null>(null)
   const [erroSugestao, setErroSugestao] = useState('')
   const [erro, setErro] = useState('')
   const [mensagem, setMensagem] = useState('')
   const formularioRef = useRef<HTMLElement | null>(null)
   const resultadoSugestaoRef = useRef<HTMLDivElement | null>(null)
-  const ocupado = salvando || acaoSugestao !== null
+  const ocupado = salvando || pedidoSugestao !== null
 
   useEffect(() => {
     let ativo = true
@@ -99,10 +89,10 @@ function PlanejamentosPage() {
   }, [])
 
   useEffect(() => {
-    if (sugestao || erroSugestao) {
+    if (sugestao || comparacao || erroSugestao) {
       resultadoSugestaoRef.current?.scrollIntoView({ behavior: 'smooth', block: 'nearest' })
     }
-  }, [sugestao, erroSugestao])
+  }, [sugestao, comparacao, erroSugestao])
 
   async function carregarPlanejamentos() {
     const resposta = await apiFetch(`${API_URL}/planejamentos`, {
@@ -119,6 +109,7 @@ function PlanejamentosPage() {
 
   function limparSugestao() {
     setSugestao(null)
+    setComparacao(null)
     setErroSugestao('')
   }
 
@@ -233,31 +224,30 @@ function PlanejamentosPage() {
     }
   }
 
-  async function solicitarSugestao(planejamentoId?: string) {
+  async function solicitarSugestao(pedido: PedidoSugestao) {
     if (ocupado || carregando) return
     limparSugestao()
 
-    if (!planejamentoId && selecionadas.length === 0) {
+    if (pedido.acao === 'gerar' && selecionadas.length === 0) {
       setErroSugestao('Selecione pelo menos uma ordem para gerar a sugestão.')
       return
     }
 
-    setAcaoSugestao(planejamentoId ? 'consultar' : 'gerar')
-    const erroPadrao = planejamentoId
-      ? 'Não foi possível consultar a sequência sugerida.'
-      : 'Não foi possível gerar a sequência sugerida.'
+    setPedidoSugestao(pedido)
+    const erroPadrao = ERROS_SUGESTAO[pedido.acao]
 
     try {
-      const resposta = planejamentoId
-        ? await apiFetch(`${API_URL}/planejamentos/${planejamentoId}/sugestao`, {
-          credentials: 'include',
-        })
-        : await apiFetch(`${API_URL}/planejamentos/sugestoes`, {
+      const resposta = pedido.acao === 'gerar'
+        ? await apiFetch(`${API_URL}/planejamentos/sugestoes`, {
           method: 'POST',
           credentials: 'include',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ ordens_ids: selecionadas.map((ordem) => ordem.id_ordem) }),
         })
+        : await apiFetch(
+          `${API_URL}/planejamentos/${pedido.planejamentoId}/${pedido.acao === 'comparar' ? 'comparacao' : 'sugestao'}`,
+          { credentials: 'include' },
+        )
 
       if (!resposta.ok) {
         const dadosErro = await resposta.json().catch(() => null)
@@ -265,12 +255,15 @@ function PlanejamentosPage() {
         return
       }
 
-      const dados: SugestaoPlanejamento = await resposta.json()
-      setSugestao(dados)
+      if (pedido.acao === 'comparar') {
+        setComparacao(await resposta.json())
+      } else {
+        setSugestao(await resposta.json())
+      }
     } catch {
       setErroSugestao(erroPadrao)
     } finally {
-      setAcaoSugestao(null)
+      setPedidoSugestao(null)
     }
   }
 
@@ -441,11 +434,11 @@ function PlanejamentosPage() {
           <button
             type="button"
             data-cy="gerar-sugestao"
-            onClick={() => void solicitarSugestao()}
+            onClick={() => void solicitarSugestao({ acao: 'gerar' })}
             disabled={ocupado || carregando}
             className="rounded-xl border border-blue-200 px-6 py-3 text-sm font-semibold text-blue-700 hover:bg-blue-50 disabled:opacity-50"
           >
-            {acaoSugestao === 'gerar' ? 'Gerando sugestão...' : 'Gerar sequência sugerida'}
+            {pedidoSugestao?.acao === 'gerar' ? 'Gerando sugestão...' : 'Gerar sequência sugerida'}
           </button>
           <button
             type="button"
@@ -462,12 +455,19 @@ function PlanejamentosPage() {
           </button>
         </div>
 
-        {(sugestao || erroSugestao) && (
+        {(sugestao || comparacao || erroSugestao) && (
           <div ref={resultadoSugestaoRef} className="scroll-mt-28">
             {erroSugestao && (
               <p role="alert" className="whitespace-pre-line rounded-xl bg-red-50 p-4 text-sm text-red-700">
                 {erroSugestao}
               </p>
+            )}
+            {comparacao && (
+              <ComparacaoSequencias
+                comparacao={comparacao}
+                codigoDaOrdem={codigoDaOrdem}
+                identificarMaquina={identificarMaquina}
+              />
             )}
             {sugestao && (
               <section aria-labelledby="titulo-sugestao" className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
@@ -535,11 +535,26 @@ function PlanejamentosPage() {
                       </span>
                       <button
                         type="button"
-                        onClick={() => void solicitarSugestao(planejamento.id_planejamento)}
+                        onClick={() => void solicitarSugestao({
+                          acao: 'consultar', planejamentoId: planejamento.id_planejamento,
+                        })}
                         disabled={ocupado || carregando}
                         className="rounded-lg border border-blue-200 px-4 py-2 text-sm font-medium text-blue-700 hover:bg-blue-50 disabled:opacity-50"
                       >
                         Consultar sugestão
+                      </button>
+                      <button
+                        type="button"
+                        data-cy="comparar-sequencias"
+                        onClick={() => void solicitarSugestao({
+                          acao: 'comparar', planejamentoId: planejamento.id_planejamento,
+                        })}
+                        disabled={ocupado || carregando}
+                        className="rounded-lg border border-blue-200 px-4 py-2 text-sm font-medium text-blue-700 hover:bg-blue-50 disabled:opacity-50"
+                      >
+                        {pedidoSugestao?.acao === 'comparar'
+                          && pedidoSugestao.planejamentoId === planejamento.id_planejamento
+                          ? 'Comparando...' : 'Comparar sequências'}
                       </button>
                       <button
                         type="button"
