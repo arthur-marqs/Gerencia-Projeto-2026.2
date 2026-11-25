@@ -4,7 +4,7 @@ A suíte utiliza Cypress 16 + Cucumber/Gherkin em português, API FastAPI real e
 
 A US32 cobre o gerenciamento de usuários, com os casos `@CT32` a `@CT43`. A US11 cobre a consulta da matriz de setup e a regressão de famílias ausentes. A US13 automatiza os 13 casos de geração e consulta da sequência sugerida em [`sugestao.feature`](e2e/sugestao.feature).
 
-A US14 automatiza quatro cenários de sequenciamento por prazos e prioridades
+A US14 automatiza seis execuções de sequenciamento por prazos e prioridades
 em [`prazos-prioridades.feature`](e2e/prazos-prioridades.feature).
 
 O smoke usa `@smoke` e a regressão usa `@regressao`. Na US13, o smoke inclui o CT-107 e o CT-110.
@@ -113,12 +113,13 @@ durações estimadas e tempos de setup, utilizando a API e o banco de testes.
 | Caso | Cobertura |
 | --- | --- |
 | US14_CT01 | Priorização de ordem urgente mesmo com aumento de setup |
-| US14_CT02 | Prazos diferentes em ordens de mesma prioridade |
+| US14_CT02 | Prazo mais próximo antes do setup menor em ordens de mesma prioridade |
 | US14_CT03 | Prioridades diferentes em ordens de mesmo prazo |
 | US14_CT04 | Bloqueio da geração com dados de planejamento incompletos |
+| CT-115 (`@US14_CT05`, `@CT115`) | Prazo restritivo antecipa Baixa sem atrasar Alta. Com ambos os prazos viáveis, Alta vem primeiro |
 
-Os quatro cenários podem ser executados separadamente pela tag `@US14`
-e foram aprovados na execução local de regressão.
+A tag `@US14` seleciona todos os casos da história. A tag `@CT115`
+seleciona os dois exemplos de conflito.
 
 ### Cenários da US32
 
@@ -143,7 +144,7 @@ as variáveis `DB_*`/`E2E_DATABASE_URL` corretas. Não é necessário para execu
 | `npm run test:e2e:smoke -- --browser chrome` | `@smoke and not @wip` |
 | `npm run test:e2e:regressao -- --browser electron` | `@regressao and not @wip` |
 | `npm run test:e2e -- --browser chrome --tags "@US13 and not @wip"` | Os 13 casos da sequência sugerida |
-| `npm run test:e2e -- --browser chrome --tags "@US14 and not @wip"` | Os quatro casos de prazos e prioridades |
+| `npm run test:e2e -- --browser chrome --tags "@US14 and not @wip"` | Os seis casos de prazos e prioridades |
 | `npm run test:e2e -- --browser chrome --tags "@CT110"` | Recuperação da sugestão e preservação do planejamento manual |
 | `npm run test:e2e -- --browser chrome --tags "@CT39"` | Somente bloqueios por vínculos |
 | `npm run test:e2e:open` | Interface interativa do Cypress |
@@ -164,9 +165,8 @@ Os comandos geram `frontend/artifacts/cypress/<navegador>/<smoke|regressao>/`:
   captura automática de falhas.
 - `videos/`: gravação da spec executada, inclusive quando houver falha.
 
-No GitHub Actions, a regressão BDD está configurada para execução em Chrome
-e Electron, com seleção de cenários por tags. A execução da US14 na CI ainda
-precisa ser confirmada. Os jobs publicam os relatórios e capturas nos artefatos `acceptance-bdd-chrome` e `acceptance-bdd-electron`, inclusive em caso de falha. As capturas da US13 usam os IDs dos casos do plano. O CT-85 é verificado pela API e consta nos relatórios.
+No GitHub Actions, a regressão BDD inclui a feature da US14 em Chrome
+e Electron pela tag `@regressao`. Os jobs publicam os relatórios e capturas nos artefatos `acceptance-bdd-chrome` e `acceptance-bdd-electron`, inclusive em caso de falha. As capturas da US13 usam os IDs dos casos do plano. O CT-85 é verificado pela API e consta nos relatórios.
 
 O runner retorna erro se o Cypress falhar, houver teste reprovado ou nenhum teste
 for selecionado. Os relatórios locais não afirmam que houve execução remota do CI.

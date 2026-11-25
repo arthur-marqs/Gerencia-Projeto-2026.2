@@ -1,6 +1,7 @@
+from collections.abc import Iterator
 from dataclasses import dataclass
 from datetime import date, datetime, time, timedelta
-from itertools import pairwise
+from itertools import accumulate, chain, pairwise
 from uuid import UUID
 
 def _sugerir_por_setup(
@@ -128,9 +129,11 @@ def sugerir_sequencia(
         por_folga.append(ordem)
         restantes.remove(ordem)
 
-    def avaliar(sequencia: list[UUID]) -> tuple:
-        atrasadas = [0, 0, 0]
-        atrasos = [0.0, 0.0, 0.0]
+    def avaliar(
+        sequencia: list[UUID],
+    ) -> tuple[dict[UUID, float], list[int], tuple[int, ...]]:
+        atrasadas = [0] * len(prioridades)
+        atrasos = {}
         decorrido = 0
 
         setups = calcular_setups(
@@ -140,45 +143,94 @@ def sugerir_sequencia(
         for ordem, setup in zip(sequencia, setups, strict=True):
             decorrido += setup * 60 + duracao[ordem]
             atraso = max(0, decorrido - prazo[ordem])
+            atrasos[ordem] = atraso
+            atrasadas[prioridade[ordem]] += atraso > 0
 
-            if atraso:
-                atrasadas[prioridade[ordem]] += 1
-                atrasos[prioridade[ordem]] += atraso
+        return atrasos, setups, (*atrasadas, sum(setups))
 
-        inversoes_prioridade = sum(
-            prioridade[a] > prioridade[b]
-            for i, a in enumerate(sequencia)
-            for b in sequencia[i + 1:]
+    def ordenar_prazos(sequencia: list[UUID]) -> list[UUID]:
+        # Mantém as posições de cada prioridade e ordena seus prazos.
+        por_nivel = [
+            iter(sorted(
+                (ordem for ordem in sequencia if prioridade[ordem] == nivel),
+                key=prazo.__getitem__,
+            ))
+            for nivel in prioridades.values()
+        ]
+        return [next(por_nivel[prioridade[ordem]]) for ordem in sequencia]
+
+    def antecipacao_valida(
+        sequencia: list[UUID], atrasos: dict[UUID, float], referencia: dict[UUID, float]
+    ) -> bool:
+        prioridade_mais_alta_depois = len(prioridades)
+        limite_protecao = -1
+        for ordem in reversed(sequencia):
+            nivel = prioridade[ordem]
+            if nivel > prioridade_mais_alta_depois:
+                if referencia[ordem] == 0 or atrasos[ordem] > 0:
+                    return False
+                limite_protecao = max(limite_protecao, nivel)
+            prioridade_mais_alta_depois = min(prioridade_mais_alta_depois, nivel)
+
+        return limite_protecao >= 0 and all(
+            atraso <= referencia[ordem]
+            for ordem, atraso in atrasos.items()
+            if prioridade[ordem] < limite_protecao
         )
 
-        inversoes_prazo = sum(
-            prazo[a] > prazo[b]
-            for i, a in enumerate(sequencia)
-            for b in sequencia[i + 1:]
-        )
-
-        return (
-            sum(atrasadas),
-            atrasadas[0],
-            atrasadas[1],
-            *atrasos,
-            inversoes_prioridade,
-            sum(setups),
-            inversoes_prazo,
-        )
+    def antecipacoes_individuais(
+        referencia: list[UUID], setups: list[int], atrasos: dict[UUID, float],
+    ) -> Iterator[list[UUID]]:
+        # Tenta salvar uma única ordem quando antecipar o grupo inteiro não cabe no prazo.
+        fim_do_prefixo = [0, *accumulate(
+            duracao[ordem] + setup * 60
+            for ordem, setup in zip(referencia, setups, strict=True)
+        )]
+        for posicao, ordem in enumerate(referencia):
+            nivel = prioridade[ordem]
+            if nivel == 0 or atrasos[ordem] == 0:
+                continue
+            for destino in range(posicao - 1, -1, -1):
+                posterior = referencia[destino]
+                if prioridade[posterior] == nivel:
+                    if prazo[posterior] < prazo[ordem]:
+                        break
+                    continue
+                anterior = referencia[destino - 1] if destino else None
+                fim = fim_do_prefixo[destino] + setup_entre(anterior, ordem) * 60 + duracao[ordem]
+                if fim <= prazo[ordem]:
+                    yield (
+                        referencia[:destino] + [ordem]
+                        + referencia[destino:posicao] + referencia[posicao + 1:]
+                    )
+                    break
 
     alternativas = [
         original,
         por_setup,
         sorted(original, key=lambda o: (prazo[o], prioridade[o])),
-        sorted(original, key=lambda o: (prioridade[o], prazo[o])),
         por_folga,
     ]
 
-    sequencia = min(alternativas, key=avaliar)
-
-    return (
-        sequencia,
-        calcular_setups(sequencia, familias_por_ordem, tempos),
-        total_original,
+    por_prioridade_e_prazo = (
+        sorted(alternativa, key=lambda o: (prioridade[o], prazo[o]))
+        for alternativa in alternativas
     )
+    referencia = min(
+        por_prioridade_e_prazo,
+        key=lambda alternativa: sum(calcular_setups(alternativa, familias_por_ordem, tempos)),
+    )
+    atrasos_referencia, setups, melhor_pontuacao = avaliar(referencia)
+    sequencia = referencia
+    candidatas = chain(
+        map(ordenar_prazos, alternativas),
+        antecipacoes_individuais(referencia, setups, atrasos_referencia),
+    )
+    for candidata in candidatas:
+        atrasos, setups_candidatos, pontuacao = avaliar(candidata)
+        if pontuacao < melhor_pontuacao and antecipacao_valida(
+            candidata, atrasos, atrasos_referencia
+        ):
+            sequencia, setups, melhor_pontuacao = candidata, setups_candidatos, pontuacao
+
+    return sequencia, setups, total_original

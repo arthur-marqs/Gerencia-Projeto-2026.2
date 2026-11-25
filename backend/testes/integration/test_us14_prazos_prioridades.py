@@ -117,6 +117,46 @@ def test_prazo_influencia_ordens_de_mesma_prioridade(cenario_us14):
     assert sugestao["tempo_setup_total_minutos"] == 0
 
 
+def test_prazo_mais_proximo_precede_setup_menor_quando_ambos_sao_viaveis(cenario_us14):
+    client, _, (op01, _, op03), dia = cenario_us14
+    _planejar(client, op01, dia + timedelta(days=2), "Média", 40)
+    _planejar(client, op03, dia + timedelta(days=1), "Média", 40)
+
+    sugestao = _post(client, SUGESTOES, {"ordens_ids": [op01, op03]})
+
+    assert [item["ordem_id"] for item in sugestao["itens"]] == [op03, op01]
+    assert sugestao["tempo_setup_original_minutos"] == 5
+    assert sugestao["tempo_setup_total_minutos"] == 30
+
+
+def test_setup_menor_desempata_ordens_com_mesma_prioridade_e_prazo(cenario_us14):
+    client, _, (op01, _, op03), dia = cenario_us14
+    prazo = dia + timedelta(days=1)
+    _planejar(client, op01, prazo, "Média", 40)
+    _planejar(client, op03, prazo, "Média", 40)
+
+    sugestao = _post(client, SUGESTOES, {"ordens_ids": [op03, op01]})
+
+    assert [item["ordem_id"] for item in sugestao["itens"]] == [op01, op03]
+    assert sugestao["tempo_setup_original_minutos"] == 30
+    assert sugestao["tempo_setup_total_minutos"] == 5
+
+
+@pytest.mark.parametrize("prazo_baixa_em_dias,setup_esperado", [(0, 30), (1, 5)])
+def test_conflito_de_prazo_prioridade_e_setup(cenario_us14, prazo_baixa_em_dias, setup_esperado):
+    client, state, (alta, _, baixa), dia = cenario_us14
+    _planejar(client, alta, dia + timedelta(days=1), "Alta", 40)
+    _planejar(client, baixa, dia + timedelta(days=prazo_baixa_em_dias), "Baixa", 40)
+
+    sugestao = _post(client, SUGESTOES, {"ordens_ids": [alta, baixa]})
+
+    ordem_esperada = [baixa, alta] if prazo_baixa_em_dias == 0 else [alta, baixa]
+    assert [item["ordem_id"] for item in sugestao["itens"]] == ordem_esperada
+    assert sugestao["tempo_setup_original_minutos"] == 5
+    assert sugestao["tempo_setup_total_minutos"] == setup_esperado
+    _confirmar_persistencia(state.engine, 1, 2)
+
+
 def test_prioridade_influencia_ordens_de_mesmo_prazo(cenario_us14):
     client, _, (op01, op02, _), dia = cenario_us14
     prazo = dia + timedelta(days=5)

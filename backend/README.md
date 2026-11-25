@@ -210,10 +210,14 @@ com acesso restrito ao perfil `PLANEJADOR`.
   prioridade e folga até o prazo.
 - A previsão de conclusão de cada ordem considera sua duração estimada
   e os tempos de setup acumulados.
-- O algoritmo busca reduzir a quantidade de ordens atrasadas e o impacto
-  dos atrasos, considerando as prioridades Alta, Média e Baixa.
-- O tempo total de setup pode aumentar quando a sequência alternativa
-  apresenta um resultado melhor em relação aos critérios de urgência.
+- A sequência de referência segue Alta, Média e Baixa. Dentro da mesma
+  prioridade, vem primeiro o prazo mais próximo. Com prazos iguais,
+  o menor setup total desempata as alternativas avaliadas.
+- Uma ordem de prioridade menor só pode passar à frente quando isso evita
+  seu atraso e preserva, individualmente, o resultado das ordens mais
+  prioritárias. Entre as alternativas válidas, o algoritmo compara a
+  quantidade de atrasos por prioridade e o setup total.
+- O setup sugerido pode aumentar para respeitar prazo ou prioridade.
 - Quando nenhuma ordem selecionada possui prazo ou prioridade, o
   comportamento da US13 é preservado.
 - Quando existem dados de prazo ou prioridade, todas as ordens selecionadas
