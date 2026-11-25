@@ -183,6 +183,39 @@ def test_historico_impede_exclusao_e_preserva_autoria(admin, auth_state, vinculo
         assert str(conn.scalar(text(f"SELECT criado_por FROM {tabela}"))) == novo["id"]
 
 
+def test_autoria_de_sugestao_impede_exclusao(admin, auth_state):
+    autor = criar(admin)
+    with auth_state.engine.begin() as conn:
+        familia = conn.scalar(text("""
+            INSERT INTO families (code, name) VALUES ('A', 'Família A') RETURNING id
+        """))
+        produto = conn.scalar(text("""
+            INSERT INTO produtos (codigo, nome, unidade, family_id)
+            VALUES ('P32', 'Produto', 'UN', :familia) RETURNING id_produto
+        """), {"familia": familia})
+        ordem = conn.scalar(text("""
+            INSERT INTO ordens_producao (codigo, produto_id, quantidade, criado_por)
+            VALUES ('OP32', :produto, 1, :criador) RETURNING id_ordem
+        """), {"produto": produto, "criador": auth_state.user_id})
+
+    with TestClient(auth_state.app, client=("192.0.2.32", 50000)) as planejador:
+        assert login(planejador, autor["email"]).status_code == 200
+        geracao = planejador.post("/api/planejamentos/sugestoes", json={"ordens_ids": [str(ordem)]})
+        assert geracao.status_code == 201, geracao.text
+        sugestao = geracao.json()
+
+    exclusao = admin.delete(f"{API}/{autor['id']}")
+
+    assert exclusao.status_code == 409
+    assert exclusao.json()["detail"]["vinculos"] == ["sugestões de planejamento"]
+    assert exclusao.json()["detail"]["pode_desativar"] is True
+    assert admin.get(f"{API}/{autor['id']}").json() == autor
+    consulta = admin.get(f"/api/planejamentos/sugestoes/{sugestao['id_sugestao']}")
+    assert consulta.status_code == 200
+    assert consulta.json() == sugestao
+    assert consulta.json()["criado_por"] == autor["id"]
+
+
 @pytest.mark.parametrize("acao", ["excluir", "desativar", "perfil"])
 def test_ultimo_admin_ativo_protegido(admin, auth_state, acao):
     # Uma segunda conta administrativa inativa não satisfaz a regra.

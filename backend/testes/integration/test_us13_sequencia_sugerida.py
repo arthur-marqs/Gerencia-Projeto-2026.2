@@ -114,6 +114,41 @@ def test_retorna_pendencias_e_so_persiste_depois_da_correcao(cenario_ab):
     _confirmar_sugestoes_salvas(state.engine, 1, 4)
 
 
+def test_reduz_setup_direcional_com_tres_familias(cenario_ab):
+    client, state, a, b, (op01, op02, op03) = cenario_ab
+    c = _post(client, "/api/families", {"code": "C", "name": "Família C"})["id"]
+    op04 = _ordem(client, "OP04", c)["id_ordem"]
+    for origem, destino, minutos in (
+        (a, b, 20), (a, c, 30), (b, a, 4), (b, c, 15), (c, a, 25), (c, b, 3),
+    ):
+        _setup(client, origem, destino, minutos)
+
+    sugestao = _post(client, SUGESTOES, {"ordens_ids": [op01, op02, op03, op04]})
+
+    assert sugestao["tempo_setup_original_minutos"] == 54
+    assert sugestao["tempo_setup_total_minutos"] == 7
+    assert [item["ordem_id"] for item in sugestao["itens"]] == [op04, op02, op01, op03]
+    assert [item["setup_minutos"] for item in sugestao["itens"]] == [0, 3, 4, 0]
+    _confirmar_sugestoes_salvas(state.engine, 1, 4)
+
+
+def test_ordem_nao_pendente_bloqueia_a_geracao_sem_persistencia(cenario_ab):
+    client, state, a, b, (op01, op02, _) = cenario_ab
+    _setup(client, a, b, 20)
+    _setup(client, b, a, 30)
+    with state.engine.begin() as conexao:
+        conexao.execute(
+            text("UPDATE ordens_producao SET status = 'CONCLUIDA' WHERE id_ordem = :id"),
+            {"id": op02},
+        )
+
+    resposta = client.post(SUGESTOES, json={"ordens_ids": [op01, op02]})
+
+    assert resposta.status_code == 422
+    assert resposta.json()["detail"] == "Somente ordens pendentes podem ser planejadas."
+    _confirmar_sugestoes_salvas(state.engine, 0, 0)
+
+
 @pytest.mark.parametrize("tempo_reverso", [20, 30])
 def test_preserva_ordem_quando_as_alternativas_sao_iguais_ou_piores(cenario_ab, tempo_reverso):
     client, _, a, b, (op01, op02, op03) = cenario_ab
