@@ -1,6 +1,33 @@
 # Revisão de QA da US16 — Comparar sequência manual e sequência sugerida
 
-> **Parecer atual — Validação inconclusiva para aceite em `03cffae`.** CT-120, CT-121 e CT-122 passaram no ambiente local e na CI. A indisponibilidade simulada do catálogo de máquinas voltou a esconder os cartões e também impediu acessar a comparação pela interface. Faltam o tratamento desse defeito e a comprovação das condições de entrega.
+> **Situação atual — falha do catálogo resolvida e verificada localmente em `1e98b76`.** O Planejador consegue abrir a comparação durante o 503 do catálogo. **Parecer de QA da US16 — Validação inconclusiva para aceite**, com evidência de CI do commit corrigido, DoD vigente, integração e aceite do PO ainda pendentes. A aplicabilidade da homologação continua em aberto.
+
+## Reteste da correção do catálogo
+
+Em 25/11/2026, o cenário automatizado `@US16_Catalogo` foi executado no Windows com Chrome 158, Cypress 16.3.0 e Node 26.13.0. O teste usou FastAPI, frontend compilado e PostgreSQL 18.6 em instância isolada. A resposta 503 foi injetada somente em `GET /api/maquinas`. As demais chamadas usaram a API e o banco de teste.
+
+| Execução | Resultado | Evidência |
+| --- | --- | --- |
+| Reprodução antes da correção, `03cffae` com o cenário novo na árvore de trabalho | O teste reprovou porque o cartão do plano ficou ausente com o 503. | [Resumo anterior](evidencias-us16/reteste-catalogo-1e98b76/antes-cypress.json) · [JUnit da reprodução](evidencias-us16/reteste-catalogo-1e98b76/antes-junit.xml) |
+| Reteste da correção em `1e98b763e7fedfe195f4d9c1dd3f95665187bea9` | **Aprovado.** A ordem OP04 continuou selecionável. O cartão abriu a comparação, exibindo as duas sequências e os tempos de setup de 50 e 20 minutos. O aviso do catálogo e o identificador da máquina apareceram durante a falha. Ao reabrir com catálogo saudável, a máquina M01 voltou a ser exibida pelo nome. | [JUnit da US16](evidencias-us16/reteste-catalogo-1e98b76/depois-us16-junit.xml) · [Cenário automatizado](../../../frontend/cypress/e2e/comparacao.feature#L36-L47) · [Consultas independentes](../../../frontend/src/features/planejamentos/pages/PlanejamentosPage.tsx#L53-L98) |
+
+Para retestar, prepare o ambiente descrito no [guia do Cypress](../../../frontend/cypress/README.md) e execute a partir de `frontend`.
+
+```powershell
+npm run test:e2e -- --browser chrome --tags '@US16_Catalogo'
+npm run test:e2e -- --browser chrome --tags '(@US11 or @US13 or @US14 or @US15 or @US16) and not @wip'
+npm run test:e2e -- --browser chrome --tags '@CT85'
+```
+
+A regressão integrada partiu da árvore limpa em `1e98b76`. Passaram 31 dos 32 cenários de matriz de setup, geração e consulta de sugestões, prazos, prioridades, compatibilidade e comparação. CT-120, CT-121, CT-122 e `@US16_Catalogo` passaram. O CT-85 foi interrompido na preparação da massa por falha de alocação de memória no Argon2, antes do exercício da API. [Resumo da regressão](evidencias-us16/reteste-catalogo-1e98b76/regressao-cypress.json) · [JUnit da suíte de sugestões](evidencias-us16/reteste-catalogo-1e98b76/regressao-sugestao-junit.xml)
+
+O CT-85 passou na reexecução isolada. O resumo do Cypress registra o mesmo commit e a mesma impressão digital dos arquivos de código e teste. Na reexecução, havia alterações locais apenas no relatório e nas evidências. O resultado mais recente dos 32 cenários é aprovado. O lint e o build do frontend também passaram. [Resultado da reexecução do CT-85](evidencias-us16/reteste-catalogo-1e98b76/ct85-cypress.json)
+
+A CI citada na avaliação anterior corresponde a `03cffae`. A evidência deste reteste foi produzida localmente. Os registros abaixo preservam as constatações anteriores à correção.
+
+## Avaliação anterior em `03cffae`
+
+> **Parecer na avaliação anterior — Validação inconclusiva para aceite em `03cffae`.** CT-120, CT-121 e CT-122 passaram no ambiente local e na CI. A indisponibilidade simulada do catálogo de máquinas voltou a esconder os cartões e também impediu acessar a comparação pela interface. Faltavam o tratamento desse defeito e a comprovação das condições de entrega.
 
 ## 1. Identificação
 
@@ -31,7 +58,7 @@ Este relatório inicia o registro em arquivo da US16. A referência anterior é 
 | --- | --- | --- | --- |
 | C1 — Exibir plano manual, sugestão e diferenças | **CT-120** | Manual OP01, OP02, OP03 e sugestão OP01, OP03, OP02. A tela indica as duas ordens reposicionadas e mostra 50 min no manual e 20 min na sugerida, diferença de 30 min a menos. O Pytest confirma a seleção da sugestão mais recente entre as que contêm exatamente as ordens do plano. [Cenário](../../../frontend/cypress/e2e/comparacao.feature#L12-L19) · [Integração](../../../backend/testes/integration/test_us16_comparacao.py#L18-L47) | **Aprovado** |
 | C2 — Orientar a geração quando falta sugestão | **CT-121** | A interface exibiu «Gere uma sequência sugerida para este planejamento antes de comparar». A API retornou 404 com essa mensagem, a tela não abriu o painel e a contagem de sugestões permaneceu zero. A integração também verificou a existência de uma sugestão de outro conjunto e distinguiu plano inexistente. [Cenário](../../../frontend/cypress/e2e/comparacao.feature#L21-L25) · [Integração](../../../backend/testes/integration/test_us16_comparacao.py#L50-L67) | **Aprovado** |
-| A comparação preserva os dados gravados | **CT-122** | O cenário comparou os GETs com os dados retornados na criação do plano e da sugestão e confirmou uma sugestão com três itens persistidos. O teste da API também conferiu que consultar a comparação não alterou registros. [Cenário](../../../frontend/cypress/e2e/comparacao.feature#L27-L34) · [Asserções dos GETs](../../../frontend/cypress/support/step_definitions/sugestao.js#L250-L254) | **Aprovado** |
+| A comparação preserva os dados gravados | **CT-122** | O cenário comparou os GETs com os dados retornados na criação do plano e da sugestão e confirmou uma sugestão com três itens persistidos. O teste da API também conferiu que consultar a comparação não alterou registros. [Cenário](../../../frontend/cypress/e2e/comparacao.feature#L27-L34) · [Asserções dos GETs em `03cffae`](https://github.com/arthur-marqs/Gerencia-Projeto-2026.2/blob/03cffaef12376435d52eaf6da862662a8639c8cd/frontend/cypress/support/step_definitions/sugestao.js#L250-L254) | **Aprovado** |
 | Recálculo com plano reordenado e acesso pela API | Testes oficiais de integração, sem ID no plano | A reordenação com duas máquinas produziu setup manual de 30 min e sugerido de 20 min. Remover um tempo de troca necessário retornou `setup: null`, mantendo as duas sequências. A API retornou 401 sem sessão e 403 para Operador autenticado. [Integração](../../../backend/testes/integration/test_us16_comparacao.py#L70-L128) | **Aprovado** |
 
 ## 4. Execuções da revisão
@@ -60,7 +87,7 @@ npm run test:e2e -- --browser chrome --tags '(@US11 or @CT110 or @CT115 or @US15
 
 ### Erro no catálogo de máquinas impede abrir a comparação pela interface
 
-É uma regressão já registrada na revisão da US15. O impacto sobre a ação **Comparar sequências** foi confirmado nesta avaliação. A severidade sugerida é **média**. O Planejador perde o acesso ao fluxo quando o catálogo está indisponível e os dados continuam consultáveis pela API. [Registro original](revisao-us15.md) · [Carregamento conjunto na página](../../../frontend/src/features/planejamentos/pages/PlanejamentosPage.tsx#L51-L83)
+É uma regressão já registrada na revisão da US15. O impacto sobre a ação **Comparar sequências** foi confirmado nesta avaliação. A severidade sugerida é **média**. O Planejador perde o acesso ao fluxo quando o catálogo está indisponível e os dados continuam consultáveis pela API. [Registro original](revisao-us15.md) · [Carregamento conjunto em `03cffae`](https://github.com/arthur-marqs/Gerencia-Projeto-2026.2/blob/03cffaef12376435d52eaf6da862662a8639c8cd/frontend/src/features/planejamentos/pages/PlanejamentosPage.tsx#L51-L83)
 
 1. Com uma conta Planejador, salve um planejamento para a ordem fictícia OP01 e gere uma sugestão correspondente. Abra **Planejamento manual** e confirme a comparação com os serviços saudáveis. [Captura do controle](evidencias-us16/reavaliacao-03cffae/comparacao-com-catalogo-disponivel.png)
 2. No navegador, substitua somente a resposta de `GET /api/maquinas` por HTTP 503. Recarregue e reabra **Planejamento manual**.
@@ -102,5 +129,6 @@ DoD formal da US16 — **Não verificado**. A tabela registra as condições obs
 | --- | --- | --- |
 | 25/11/2026 | `db73ab8` com alterações locais da US16 | A primeira tentativa de Pytest registrou um erro de preparação no teste novo, que usava o nome incorreto de uma tabela. A primeira tentativa de Cypress foi interrompida durante a gravação e ficou sem resultado do runner. Após correção do teste e nova execução sem vídeo, passaram 253 testes de backend e 31 casos Cypress, incluindo CT-120, CT-121 e CT-122. [Resumo da implementação](evidencias-us16/reavaliacao-03cffae/validacao-implementacao-cypress.json) |
 | 25/11/2026 | `03cffaef12376435d52eaf6da862662a8639c8cd` | Reexecução com a árvore limpa. 60 Pytest e 15 Cypress locais passaram. A CI do commit passou no backend e nos dois navegadores. O reteste do catálogo confirmou a perda de acesso à comparação pela interface durante 503. |
+| 25/11/2026 | `1e98b763e7fedfe195f4d9c1dd3f95665187bea9` | Corrigido o bloqueio da interface durante o 503. O cenário novo reprovou antes da correção e passou depois. A regressão teve 31 aprovações e o CT-85 passou em reexecução isolada após a falha de ambiente. |
 
-**Validação inconclusiva para aceite.** Os critérios fornecidos e a preservação dos registros foram comprovados nas condições do plano. O defeito de catálogo segue reproduzível, com impacto confirmado na comparação. A conclusão depende do tratamento desse defeito, da verificação da DoD vigente, da integração via PR e das evidências de homologação quando exigida e de aceite pelo PO.
+**Parecer em `03cffae` — Validação inconclusiva para aceite.** Os critérios fornecidos e a preservação dos registros foram comprovados nas condições do plano. O defeito de catálogo seguia reproduzível, com impacto confirmado na comparação. A conclusão dependia do tratamento desse defeito, da verificação da DoD vigente, da integração via PR e das evidências de homologação quando exigida e de aceite pelo PO.

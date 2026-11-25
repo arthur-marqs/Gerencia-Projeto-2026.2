@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites name="Mocha Tests" time="98.825" tests="13" failures="1">
+  <testsuite name="Root Suite" timestamp="2026-11-25T23:39:41" tests="0" file="cypress\e2e\sugestao.feature" time="0.000" failures="0">
+  </testsuite>
+  <testsuite name="Gerar sequência sugerida de produção" timestamp="2026-11-25T23:39:41" tests="13" time="98.819" failures="1">
+    <testcase name="Gerar sequência sugerida de produção CT-79 Reduzir o setup entre famílias com tempos direcionais" time="9.171" classname="CT-79 Reduzir o setup entre famílias com tempos direcionais">
+    </testcase>
+    <testcase name="Gerar sequência sugerida de produção CT-80 Gerar sugestão para uma única ordem" time="5.932" classname="CT-80 Gerar sugestão para uma única ordem">
+    </testcase>
+    <testcase name="Gerar sequência sugerida de produção CT-81 Sugerir somente as ordens do subconjunto selecionado" time="5.903" classname="CT-81 Sugerir somente as ordens do subconjunto selecionado">
+    </testcase>
+    <testcase name="Gerar sequência sugerida de produção CT-82 Bloquear a geração quando o produto não tem família" time="11.136" classname="CT-82 Bloquear a geração quando o produto não tem família">
+    </testcase>
+    <testcase name="Gerar sequência sugerida de produção CT-83 Bloquear a geração quando falta um sentido da troca" time="9.022" classname="CT-83 Bloquear a geração quando falta um sentido da troca">
+    </testcase>
+    <testcase name="Gerar sequência sugerida de produção CT-84 Gerar sugestão após corrigir as pendências" time="9.028" classname="CT-84 Gerar sugestão após corrigir as pendências">
+    </testcase>
+    <testcase name="Gerar sequência sugerida de produção CT-85 Negar a solicitação direta à API para o Operador" time="0.000" classname="CT-85 Negar a solicitação direta à API para o Operador">
+      <failure message="`cy.task(&apos;e2e:reset&apos;)` failed with the following error:
+
+&gt; Command failed: C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.11_3.11.2544.0_x64__qbz5n2kfra8p0\python3.11.exe -m scripts.seed_e2e sugestao
+Traceback (most recent call last):
+  File &quot;&lt;frozen runpy&gt;&quot;, line 198, in _run_module_as_main
+  File &quot;&lt;frozen runpy&gt;&quot;, line 88, in _run_code
+  File &quot;H:\PROGRAMACAO\Gerencia-Projeto-2026.2\backend\scripts\seed_e2e.py&quot;, line 229, in &lt;module&gt;
+    print(json.dumps(preparar(modo), ensure_ascii=True))
+                     ^^^^^^^^^^^^^^
+  File &quot;H:\PROGRAMACAO\Gerencia-Projeto-2026.2\backend\scripts\seed_e2e.py&quot;, line 156, in preparar
+    senha_hash = hash_password(SENHA)
+                 ^^^^^^^^^^^^^^^^^^^^
+  File &quot;H:\PROGRAMACAO\Gerencia-Projeto-2026.2\backend\app\core\security.py&quot;, line 11, in hash_password
+    return password_hash.hash(password)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File &quot;H:\PROGRAMACAO\Gerencia-Projeto-2026.2\backend\.venv\Lib\site-packages\pwdlib\_hash.py&quot;, line 66, in hash
+    return self.current_hasher.hash(password, salt=salt)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File &quot;H:\PROGRAMACAO\Gerencia-Projeto-2026.2\backend\.venv\Lib\site-packages\pwdlib\hashers\argon2.py&quot;, line 68, in hash
+    return self._hasher.hash(password, salt=salt)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File &quot;H:\PROGRAMACAO\Gerencia-Projeto-2026.2\backend\.venv\Lib\site-packages\argon2\_password_hasher.py&quot;, line 199, in hash
+    return hash_secret(
+           ^^^^^^^^^^^^
+  File &quot;H:\PROGRAMACAO\Gerencia-Projeto-2026.2\backend\.venv\Lib\site-packages\argon2\low_level.py&quot;, line 118, in hash_secret
+    raise HashingError(error_to_str(rv))
+argon2.exceptions.HashingError: Memory allocation error
+
+
+https://on.cypress.io/api/task" type="CypressError"><![CDATA[CypressError: `cy.task('e2e:reset')` failed with the following error:
+
+> Command failed: C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.11_3.11.2544.0_x64__qbz5n2kfra8p0\python3.11.exe -m scripts.seed_e2e sugestao
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "H:\PROGRAMACAO\Gerencia-Projeto-2026.2\backend\scripts\seed_e2e.py", line 229, in <module>
+    print(json.dumps(preparar(modo), ensure_ascii=True))
+                     ^^^^^^^^^^^^^^
+  File "H:\PROGRAMACAO\Gerencia-Projeto-2026.2\backend\scripts\seed_e2e.py", line 156, in preparar
+    senha_hash = hash_password(SENHA)
+                 ^^^^^^^^^^^^^^^^^^^^
+  File "H:\PROGRAMACAO\Gerencia-Projeto-2026.2\backend\app\core\security.py", line 11, in hash_password
+    return password_hash.hash(password)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "H:\PROGRAMACAO\Gerencia-Projeto-2026.2\backend\.venv\Lib\site-packages\pwdlib\_hash.py", line 66, in hash
+    return self.current_hasher.hash(password, salt=salt)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "H:\PROGRAMACAO\Gerencia-Projeto-2026.2\backend\.venv\Lib\site-packages\pwdlib\hashers\argon2.py", line 68, in hash
+    return self._hasher.hash(password, salt=salt)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "H:\PROGRAMACAO\Gerencia-Projeto-2026.2\backend\.venv\Lib\site-packages\argon2\_password_hasher.py", line 199, in hash
+    return hash_secret(
+           ^^^^^^^^^^^^
+  File "H:\PROGRAMACAO\Gerencia-Projeto-2026.2\backend\.venv\Lib\site-packages\argon2\low_level.py", line 118, in hash_secret
+    raise HashingError(error_to_str(rv))
+argon2.exceptions.HashingError: Memory allocation error
+
+
+https://on.cypress.io/api/task
+    at <unknown> (http://localhost:5173/__cypress/runner/cypress_runner.js:147234:70)
+    at tryCatcher (http://localhost:5173/__cypress/runner/cypress_runner.js:1776:23)
+    at Promise._settlePromiseFromHandler (http://localhost:5173/__cypress/runner/cypress_runner.js:1488:31)
+    at Promise._settlePromise (http://localhost:5173/__cypress/runner/cypress_runner.js:1545:18)
+    at Promise._settlePromise0 (http://localhost:5173/__cypress/runner/cypress_runner.js:1590:10)
+    at Promise._settlePromises (http://localhost:5173/__cypress/runner/cypress_runner.js:1666:18)
+    at _drainQueueStep (http://localhost:5173/__cypress/runner/cypress_runner.js:2376:12)
+    at _drainQueue (http://localhost:5173/__cypress/runner/cypress_runner.js:2369:9)
+    at Async._drainQueues (http://localhost:5173/__cypress/runner/cypress_runner.js:2385:5)
+    at Async.drainQueues (http://localhost:5173/__cypress/runner/cypress_runner.js:2255:14)
+From Your Spec Code:
+    at Context.eval (http://localhost:5173/__cypress/tests?p=cypress\e2e\sugestao.feature:14034:19)
+    at Registry.runCaseHook (http://localhost:5173/__cypress/tests?p=cypress\e2e\sugestao.feature:9425:38)
+    at Object.fn (http://localhost:5173/__cypress/tests?p=cypress\e2e\sugestao.feature:12558:57)
+    at runStepWithLogGroup (http://localhost:5173/__cypress/tests?p=cypress\e2e\sugestao.feature:11370:29)
+    at Context.eval (http://localhost:5173/__cypress/tests?p=cypress\e2e\sugestao.feature:12557:58)
+    at getRet (http://localhost:5173/__cypress/runner/cypress_runner.js:122309:22)
+    at tryCatcher (http://localhost:5173/__cypress/runner/cypress_runner.js:1776:23)
+    at Promise.attempt.Promise.try (http://localhost:5173/__cypress/runner/cypress_runner.js:4284:29)
+    at Context.thenFn (http://localhost:5173/__cypress/runner/cypress_runner.js:122321:66)
+
+From Node.js Internals:
+  Error: Command failed: C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.11_3.11.2544.0_x64__qbz5n2kfra8p0\python3.11.exe -m scripts.seed_e2e sugestao
+  Traceback (most recent call last):
+    File "<frozen runpy>", line 198, in _run_module_as_main
+    File "<frozen runpy>", line 88, in _run_code
+    File "H:\PROGRAMACAO\Gerencia-Projeto-2026.2\backend\scripts\seed_e2e.py", line 229, in <module>
+      print(json.dumps(preparar(modo), ensure_ascii=True))
+                       ^^^^^^^^^^^^^^
+    File "H:\PROGRAMACAO\Gerencia-Projeto-2026.2\backend\scripts\seed_e2e.py", line 156, in preparar
+      senha_hash = hash_password(SENHA)
+                   ^^^^^^^^^^^^^^^^^^^^
+    File "H:\PROGRAMACAO\Gerencia-Projeto-2026.2\backend\app\core\security.py", line 11, in hash_password
+      return password_hash.hash(password)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    File "H:\PROGRAMACAO\Gerencia-Projeto-2026.2\backend\.venv\Lib\site-packages\pwdlib\_hash.py", line 66, in hash
+      return self.current_hasher.hash(password, salt=salt)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    File "H:\PROGRAMACAO\Gerencia-Projeto-2026.2\backend\.venv\Lib\site-packages\pwdlib\hashers\argon2.py", line 68, in hash
+      return self._hasher.hash(password, salt=salt)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    File "H:\PROGRAMACAO\Gerencia-Projeto-2026.2\backend\.venv\Lib\site-packages\argon2\_password_hasher.py", line 199, in hash
+      return hash_secret(
+             ^^^^^^^^^^^^
+    File "H:\PROGRAMACAO\Gerencia-Projeto-2026.2\backend\.venv\Lib\site-packages\argon2\low_level.py", line 118, in hash_secret
+      raise HashingError(error_to_str(rv))
+  argon2.exceptions.HashingError: Memory allocation error
+
+      at genericNodeError (node:internal/errors:999:15)
+      at wrappedFn (node:internal/errors:544:14)
+      at ChildProcess.exithandler (node:child_process:420:12)
+      at ChildProcess.emit (node:events:514:20)
+      at maybeClose (node:internal/child_process:1156:16)
+      at ChildProcess._handle.onexit (node:internal/child_process:334:5)]]></failure>
+    </testcase>
+    <testcase name="Gerar sequência sugerida de produção CT-107 Gerar uma sugestão antes de salvar o planejamento manual" time="11.480" classname="CT-107 Gerar uma sugestão antes de salvar o planejamento manual">
+    </testcase>
+    <testcase name="Gerar sequência sugerida de produção CT-108 Preservar a seleção que já tem o menor setup" time="8.049" classname="CT-108 Preservar a seleção que já tem o menor setup">
+    </testcase>
+    <testcase name="Gerar sequência sugerida de produção CT-109 Preservar a seleção no empate entre os sentidos" time="6.659" classname="CT-109 Preservar a seleção no empate entre os sentidos">
+    </testcase>
+    <testcase name="Gerar sequência sugerida de produção CT-110 Recuperar a sugestão e preservar o planejamento manual" time="5.930" classname="CT-110 Recuperar a sugestão e preservar o planejamento manual">
+    </testcase>
+    <testcase name="Gerar sequência sugerida de produção CT-111 Bloquear a geração sem ordens selecionadas" time="5.657" classname="CT-111 Bloquear a geração sem ordens selecionadas">
+    </testcase>
+    <testcase name="Gerar sequência sugerida de produção CT-112 Manter a seleção de várias ordens da mesma família" time="4.087" classname="CT-112 Manter a seleção de várias ordens da mesma família">
+    </testcase>
+  </testsuite>
+</testsuites>
