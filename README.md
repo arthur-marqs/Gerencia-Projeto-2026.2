@@ -70,12 +70,12 @@ O projeto está em desenvolvimento. A versão atual inclui autenticação, contr
 - **Backend:** Python 3.11, FastAPI e SQLAlchemy
 - **Banco de dados:** PostgreSQL 18
 - **Migrações:** Alembic
-- **Testes:** Pytest, TestClient e PostgreSQL
+- **Testes.** Pytest e TestClient para integração. Cypress e Cucumber para aceite ponta a ponta.
 - **CI:** GitHub Actions
 
 ## Como executar localmente
 
-Pré-requisitos: Windows com PowerShell, Python 3.11, Node.js 22 e PostgreSQL 18. O frontend usa Vite 8; consulte os requisitos atuais de Node.js no [guia do frontend](frontend/README.md).
+Os comandos abaixo usam PowerShell no Windows. Instale Python 3.11, Node.js 22 e PostgreSQL 18. [Requisitos do frontend](frontend/README.MD)
 
 Configure o PostgreSQL, crie o banco local, configure `backend/.env` e aplique as migrations seguindo o [guia de configuração do backend](backend/README.md). Não versione o `.env` nem compartilhe suas credenciais.
 
@@ -132,7 +132,21 @@ npm run lint
 npm run build
 ```
 
-O GitHub Actions executa os testes do backend e as verificações de lint e build do frontend em pushes e pull requests.
+### Aceite ponta a ponta
+
+Inicie o frontend e a API com um banco PostgreSQL exclusivo terminado em `_e2e_test`. O guia descreve como preparar esse ambiente. [Configuração do Cypress](frontend/cypress/README.md#ambiente-local)
+
+Na pasta `frontend`, execute os 13 casos automatizados da sequência sugerida (US13).
+
+```powershell
+npm run test:e2e -- --browser chrome --tags "@US13 and not @wip"
+```
+
+### Integração contínua
+
+Em pushes e pull requests, o GitHub Actions executa Pytest, lint, build e os cenários Cypress. A regressão de aceite das US11, US13 e US32 roda em Chrome e Electron e publica relatórios e capturas por navegador.
+
+A execução do commit `82ff7d7` no PR da US13 registrou **213 testes de backend aprovados** e **49 cenários Cypress aprovados em cada navegador**, incluindo os **13 casos da US13**. [Resultados e evidências no GitHub Actions](https://github.com/arthur-marqs/Gerencia-Projeto-2026.2/actions/runs/45528957609)
 
 ## Funcionalidades implementadas
 
