@@ -82,7 +82,7 @@ jobs:
         run: npm run build
 
   acceptance-us32:
-    name: Acceptance BDD - US11 e US32 (${{ matrix.browser }})
+    name: Acceptance BDD - US11, US13 e US32 (${{ matrix.browser }})
     runs-on: ubuntu-latest
     timeout-minutes: 20
     strategy:

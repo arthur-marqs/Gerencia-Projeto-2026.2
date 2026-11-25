@@ -450,7 +450,7 @@ function PlanejamentosPage() {
                   {sugestao.itens.map((item) => (
                     <li key={item.ordem_id} className="flex items-center gap-3 rounded-xl border border-slate-200 p-3 text-sm">
                       <span className="rounded-lg bg-blue-50 px-3 py-2 font-semibold text-blue-700">{item.posicao}</span>
-                      <span className="min-w-0 flex-1 wrap-anywhere font-medium text-slate-800">{codigoDaOrdem(item.ordem_id)}</span>
+                      <span data-cy="sugestao-ordem" className="min-w-0 flex-1 wrap-anywhere font-medium text-slate-800">{codigoDaOrdem(item.ordem_id)}</span>
                       <span className="shrink-0 text-slate-600">Setup de {item.setup_minutos} min</span>
                     </li>
                   ))}
@@ -475,6 +475,7 @@ function PlanejamentosPage() {
               {planejamentos.map((planejamento) => (
                 <div
                   key={planejamento.id_planejamento}
+                  data-cy="planejamento-card"
                   className="rounded-xl border border-slate-200 p-4"
                 >
                   <div className="flex flex-wrap items-center justify-between gap-3">

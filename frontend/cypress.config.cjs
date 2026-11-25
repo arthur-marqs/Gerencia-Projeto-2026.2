@@ -68,6 +68,7 @@ module.exports = defineConfig({
         'e2e:reset': prepararBanco,
         'e2e:bootstrap': () => prepararBanco('bootstrap'),
         'e2e:inspect': () => prepararBanco('inspecionar'),
+        'e2e:inspecionar-sugestoes': () => prepararBanco('inspecionar-sugestoes'),
         'e2e:session': requisitarSessao,
         async 'e2e:credentials'({ email, senha }) {
           const resposta = await fetch(`${api}/api/auth/login`, {
