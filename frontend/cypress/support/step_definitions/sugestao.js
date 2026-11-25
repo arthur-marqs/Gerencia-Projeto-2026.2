@@ -70,7 +70,7 @@ function verificarGeracao(minutos, verificarOrdens) {
   })
 }
 
-Before({ tags: '@US13 or @US14' }, () => {
+Before({ tags: '@US13 or @US14 or @US15' }, () => {
   planejamentoManual = undefined
   sugestaoGerada = undefined
   respostaOperador = undefined
@@ -225,4 +225,72 @@ Given('que a ordem {string} tem prazo em {int} dias, prioridade {string} e dura�
 
   requisitar('PUT', rota, { prazo: prazo.toISOString().slice(0, 10), prioridade })
   return requisitar('PATCH', `${rota}/duracao-estimada`, { duracao_estimada_minutos: duracao })
+})
+
+After({ tags: '@US15' }, ({ pickle }) => {
+  const caso = pickle.tags.find(({ name }) => /^@US15_CT\d+$/.test(name))
+  return cy.screenshot(caso.name.replace('@', ''), { capture: 'viewport' })
+})
+
+Given('que existe uma máquina adicional {string}', (codigo) => {
+  return requisitar('POST', '/maquinas', {
+    codigo,
+    nome: `Máquina ${codigo}`,
+  }, 201).then((maquina) => {
+    estado.maquinas[codigo] = maquina.id_maquina
+  })
+})
+
+Given('que o produto de {string} é compatível com {string}', (ordem, lista) => {
+  return requisitar('PUT', `/produtos/${estado.ordens[ordem].produto_id}/maquinas`, {
+    maquinas_ids: codigos(lista).map((codigo) => estado.maquinas[codigo]),
+  })
+})
+
+Given('que o produto de {string} não possui máquinas compatíveis', (ordem) => {
+  return requisitar('PUT', `/produtos/${estado.ordens[ordem].produto_id}/maquinas`, {
+    maquinas_ids: [],
+  })
+})
+
+Given('que a máquina {string} está inativa', (codigo) => {
+  return requisitar('PATCH', `/maquinas/${estado.maquinas[codigo]}/status`, {
+    ativo: false,
+  })
+})
+
+Then('a sugestão deve apresentar as atribuições {string} com setup total de {int} minutos', (lista, minutos) => {
+  const esperadas = Object.fromEntries(
+    codigos(lista).map((atribuicao) => {
+      const [ordem, maquina] = atribuicao.split(':')
+      return [estado.ordens[ordem].id, estado.maquinas[maquina]]
+    }),
+  )
+
+  return cy.wait('@gerarSugestao').its('response').then(({ statusCode, body }) => {
+    expect(statusCode).to.equal(201)
+    expect(body.tempo_setup_original_minutos).to.equal(minutos)
+    expect(body.tempo_setup_total_minutos).to.equal(minutos)
+
+    const atribuicoes = Object.fromEntries(
+      body.itens.map((item) => [item.ordem_id, item.maquina_id]),
+    )
+
+    expect(body.itens).to.have.length(Object.keys(esperadas).length)
+    expect(atribuicoes).to.deep.equal(esperadas)
+
+    sugestaoGerada = body
+    conferirSugestaoNaTela(body)
+
+    for (const atribuicao of codigos(lista)) {
+      const [ordem, maquina] = atribuicao.split(':')
+
+      cy.get(PAINEL)
+        .contains('[data-cy="sugestao-ordem"]', ordem)
+        .closest('li')
+        .find('[data-cy="sugestao-maquina"]')
+        .should('be.visible')
+        .and('contain.text', maquina)
+    }
+  })
 })

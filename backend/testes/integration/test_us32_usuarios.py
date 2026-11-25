@@ -183,6 +183,7 @@ def test_historico_impede_exclusao_e_preserva_autoria(admin, auth_state, vinculo
         assert str(conn.scalar(text(f"SELECT criado_por FROM {tabela}"))) == novo["id"]
 
 
+
 def test_autoria_de_sugestao_impede_exclusao(admin, auth_state):
     autor = criar(admin)
     with auth_state.engine.begin() as conn:
@@ -193,6 +194,18 @@ def test_autoria_de_sugestao_impede_exclusao(admin, auth_state):
             INSERT INTO produtos (codigo, nome, unidade, family_id)
             VALUES ('P32', 'Produto', 'UN', :familia) RETURNING id_produto
         """), {"familia": familia})
+
+        maquina = conn.scalar(text("""
+            INSERT INTO maquinas (codigo, nome, ativo)
+            VALUES ('M32', 'Máquina US32', TRUE)
+            RETURNING id_maquina
+        """))
+
+        conn.execute(text("""
+            INSERT INTO produto_maquina (id_produto, id_maquina)
+            VALUES (:produto, :maquina)
+        """), {"produto": produto, "maquina": maquina})
+
         ordem = conn.scalar(text("""
             INSERT INTO ordens_producao (codigo, produto_id, quantidade, criado_por)
             VALUES ('OP32', :produto, 1, :criador) RETURNING id_ordem

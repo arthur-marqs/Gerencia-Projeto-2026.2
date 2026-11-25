@@ -26,6 +26,7 @@ from app.models.produto import Produto
 from app.models.sugestao_planejamento import ItemSugestaoPlanejamento, SugestaoPlanejamento
 from app.models.usuario import Usuario
 from app.models.usuario_perfil import usuario_perfil
+from app.models.maquina import Maquina
 
 from app.models.family import Family
 from app.models.tempo_setup_familia import TempoSetupFamilia
@@ -42,23 +43,59 @@ CONTAS = {
 }
 
 
+
 def preparar_ordens_sugestao(db, planejador_id):
-    familias = {codigo: Family(code=codigo, name=f'Família {codigo}') for codigo in ('A', 'B')}
+    familias = {
+        codigo: Family(code=codigo, name=f'Família {codigo}')
+        for codigo in ('A', 'B')
+    }
     db.add_all(familias.values())
+
+    maquina = Maquina(codigo='M01', nome='Máquina M01', ativo=True)
+    db.add(maquina)
+
     ordens = {}
-    for codigo, familia in [('OP01', 'A'), ('OP02', 'B'), ('OP03', 'A'), ('OP04', 'A'), ('OP05', None)]:
+
+    for codigo, familia in [
+        ('OP01', 'A'),
+        ('OP02', 'B'),
+        ('OP03', 'A'),
+        ('OP04', 'A'),
+        ('OP05', None),
+    ]:
         produto = Produto(
-            codigo=f'PROD-{codigo}', nome=f'Produto {codigo}', unidade='UN',
+            codigo=f'PROD-{codigo}',
+            nome=f'Produto {codigo}',
+            unidade='UN',
             family=familias.get(familia),
+            maquinas_compativeis=[maquina],
         )
-        ordem = OrdemProducao(codigo=codigo, produto=produto, quantidade=10, criado_por=planejador_id)
+
+        ordem = OrdemProducao(
+            codigo=codigo,
+            produto=produto,
+            quantidade=10,
+            criado_por=planejador_id,
+        )
+
         db.add(ordem)
         ordens[codigo] = ordem
+
     db.flush()
+
     return {
-        'familias': {codigo: str(familia.id) for codigo, familia in familias.items()},
+        'familias': {
+            codigo: str(familia.id)
+            for codigo, familia in familias.items()
+        },
+        'maquinas': {
+            'M01': str(maquina.id_maquina),
+        },
         'ordens': {
-            codigo: {'id': str(ordem.id_ordem), 'produto_id': str(ordem.produto_id)}
+            codigo: {
+                'id': str(ordem.id_ordem),
+                'produto_id': str(ordem.produto_id),
+            }
             for codigo, ordem in ordens.items()
         },
     }
