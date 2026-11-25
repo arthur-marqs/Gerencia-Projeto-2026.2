@@ -70,7 +70,7 @@ function verificarGeracao(minutos, verificarOrdens) {
   })
 }
 
-Before({ tags: '@US13' }, () => {
+Before({ tags: '@US13 or @US14' }, () => {
   planejamentoManual = undefined
   sugestaoGerada = undefined
   respostaOperador = undefined
@@ -210,4 +210,19 @@ Then('a API deve negar a geração, preservar os registros e retornar somente a 
   requisitar('GET', '/planejamentos').should('deep.equal', [planejamentoManual])
   return requisitar('GET', `${SUGESTOES}/${sugestaoGerada.id_sugestao}`)
     .should('deep.equal', sugestaoGerada)
+})
+
+
+After({ tags: '@US14' }, ({ pickle }) => {
+  const caso = pickle.tags.find(({ name }) => /^@US14_CT\d+$/.test(name))
+  return cy.screenshot(caso.name.slice(1), { capture: 'viewport' })
+})
+
+Given('que a ordem {string} tem prazo em {int} dias, prioridade {string} e duração de {int} minutos', (codigo, dias, prioridade, duracao) => {
+  const prazo = new Date()
+  prazo.setUTCDate(prazo.getUTCDate() + dias)
+  const rota = `/ordens-producao/${estado.ordens[codigo].id}`
+
+  requisitar('PUT', rota, { prazo: prazo.toISOString().slice(0, 10), prioridade })
+  return requisitar('PATCH', `${rota}/duracao-estimada`, { duracao_estimada_minutos: duracao })
 })

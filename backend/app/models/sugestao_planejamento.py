@@ -35,8 +35,8 @@ class SugestaoPlanejamento(Base):
 
     __table_args__ = (
         CheckConstraint(
-            "tempo_setup_total_minutos >= 0 "
-            "AND tempo_setup_total_minutos <= tempo_setup_original_minutos",
+            "tempo_setup_original_minutos >= 0 "
+            "AND tempo_setup_total_minutos >= 0",
             name="ck_sugestao_planejamento_tempos",
         ),
     )

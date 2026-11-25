@@ -1,4 +1,6 @@
+from datetime import datetime
 from uuid import UUID
+from zoneinfo import ZoneInfo
 
 from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy import func, select
@@ -14,7 +16,7 @@ from app.models.sugestao_planejamento import ItemSugestaoPlanejamento, SugestaoP
 from app.models.tempo_setup_familia import TempoSetupFamilia
 from app.models.usuario import Usuario
 from app.schemas.planejamento import SugestaoPlanejamentoCreate, SugestaoPlanejamentoResponse
-from app.services.sequenciamento import sugerir_sequencia
+from app.services.sequenciamento import DadosSequenciamento, sugerir_sequencia
 
 
 router = APIRouter()
@@ -86,10 +88,57 @@ def gerar_sugestao(
             if origem != destino and (origem, destino) not in tempos
         )
 
+    dados_por_ordem: dict[UUID, DadosSequenciamento] | None = None
+
+    considera_urgencia = any(
+        ordem.prazo is not None or ordem.prioridade is not None
+        for ordem in ordens.values()
+    )
+
+    if considera_urgencia:
+        dados_por_ordem = {}
+
+        for ordem_id in dados.ordens_ids:
+            ordem = ordens[ordem_id]
+
+            prazo = ordem.prazo
+            prioridade = ordem.prioridade
+            duracao = ordem.duracao_estimada_minutos
+
+            if prazo is None or prioridade is None or duracao is None:
+                campos_ausentes = []
+
+                if prazo is None:
+                    campos_ausentes.append("prazo")
+
+                if prioridade is None:
+                    campos_ausentes.append("prioridade")
+
+                if duracao is None:
+                    campos_ausentes.append("duração estimada")
+
+                pendencias.append(
+                    f"A ordem {ordem.codigo} está sem: "
+                    f"{', '.join(campos_ausentes)}."
+                )
+                continue
+
+            dados_por_ordem[ordem_id] = DadosSequenciamento(
+                prazo=prazo,
+                prioridade=prioridade,
+                duracao_estimada_minutos=duracao,
+            )
+
     if pendencias:
         raise HTTPException(422, "\n".join(pendencias))
 
-    sequencia, setups, total_original = sugerir_sequencia(familias_por_ordem, tempos)
+    sequencia, setups, total_original = sugerir_sequencia(
+        familias_por_ordem,
+        tempos,
+        dados_por_ordem=dados_por_ordem,
+        inicio=datetime.now(ZoneInfo("America/Recife")),
+    )
+
     posicoes_originais = {
         ordem_id: posicao for posicao, ordem_id in enumerate(dados.ordens_ids, start=1)
     }
