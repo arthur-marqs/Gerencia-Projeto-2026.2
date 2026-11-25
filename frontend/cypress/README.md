@@ -7,7 +7,7 @@ A US32 cobre o gerenciamento de usuários, com os casos `@CT32` a `@CT43`. A US1
 A US14 automatiza seis execuções de sequenciamento por prazos e prioridades
 em [`prazos-prioridades.feature`](e2e/prazos-prioridades.feature).
 
-A US15 automatiza quatro cenários de compatibilidade entre produtos e máquinas
+A US15 automatiza cinco cenários de compatibilidade entre produtos e máquinas
 em [`compatibilidade.feature`](e2e/compatibilidade.feature).
 
 O smoke usa `@smoke` e a regressão usa `@regressao`. Na US13, o smoke inclui o CT-107 e o CT-110.
@@ -139,8 +139,9 @@ bem como a persistência da sugestão ou a ausência de registros em caso de err
 | `@US15_CT02` | Distribuição de ordens entre máquinas compatíveis |
 | `@US15_CT03` | Bloqueio de ordem sem máquina compatível, sem persistência |
 | `@US15_CT04` | Bloqueio quando a única máquina compatível está inativa |
+| `@US15_CT05` | Separação de famílias entre máquinas compatíveis quando faltam setups na distribuição inicial |
 
-A tag `@US15` seleciona os quatro cenários. A regressão direcionada às três
+A tag `@US15` seleciona os cinco cenários. A regressão direcionada às três
 histórias de sequenciamento usa `@US13 or @US14 or @US15`.
 
 ### Cenários da US32
@@ -167,7 +168,7 @@ as variáveis `DB_*`/`E2E_DATABASE_URL` corretas. Não é necessário para execu
 | `npm run test:e2e:regressao -- --browser electron` | `@regressao and not @wip` |
 | `npm run test:e2e -- --browser chrome --tags "@US13 and not @wip"` | Os 13 casos da sequência sugerida |
 | `npm run test:e2e -- --browser chrome --tags "@US14 and not @wip"` | Os seis casos de prazos e prioridades |
-| `npm run test:e2e -- --browser chrome --tags "@US15" --suite us15` | Os quatro cenários de compatibilidade |
+| `npm run test:e2e -- --browser chrome --tags "@US15" --suite us15` | Os cinco cenários de compatibilidade |
 | `npm run test:e2e -- --browser chrome --tags "@US13 or @US14 or @US15" --suite us15-integrada` | Regressão direcionada das três histórias de sequenciamento |
 | `npm run test:e2e -- --browser chrome --tags "@CT110"` | Recuperação da sugestão e preservação do planejamento manual |
 | `npm run test:e2e -- --browser chrome --tags "@CT39"` | Somente bloqueios por vínculos |

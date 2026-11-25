@@ -272,6 +272,8 @@ A geração continua restrita ao perfil `PLANEJADOR`.
   `PUT /api/produtos/{id}/maquinas`.
 - Quando existe mais de uma máquina compatível, a distribuição escolhe a que
   recebeu menos ordens na sugestão em geração. O código da máquina desempata.
+  Se essa distribuição exigir um setup sem cadastro, o sistema procura outra
+  distribuição entre máquinas compatíveis ativas antes de rejeitar a sugestão.
 - Se uma ordem não possui máquina compatível ativa, a API retorna 422,
   identifica a ordem e o produto e não grava nenhuma parte da sugestão.
 - Cada máquina tem sua própria sequência, com setup zero na primeira ordem e
