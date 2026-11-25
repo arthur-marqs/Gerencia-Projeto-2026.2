@@ -119,6 +119,31 @@ def test_associa_maquinas_compativeis_e_persiste_sugestao(cenario):
     _confirmar_persistencia(state.engine, 1, 2)
 
 
+@pytest.mark.parametrize("inverter_selecao", [False, True])
+def test_separa_familias_quando_ha_distribuicao_viavel_sem_setup(cenario, inverter_selecao):
+    client, state = cenario
+    a = _familia(client, "A")
+    b = _familia(client, "B")
+    m1 = _maquina(client, "M01")
+    m2 = _maquina(client, "M02")
+    op1 = _ordem(client, "OP01", a, [m1, m2])["id_ordem"]
+    op2 = _ordem(client, "OP02", b, [m1])["id_ordem"]
+    selecao = [op2, op1] if inverter_selecao else [op1, op2]
+
+    sugestao = _post(client, SUGESTOES, {"ordens_ids": selecao})
+
+    assert sugestao["tempo_setup_original_minutos"] == 0
+    assert sugestao["tempo_setup_total_minutos"] == 0
+    assert {
+        item["ordem_id"]: (item["maquina_id"], item["posicao_original"], item["setup_minutos"])
+        for item in sugestao["itens"]
+    } == {op1: (m2, selecao.index(op1) + 1, 0), op2: (m1, selecao.index(op2) + 1, 0)}
+    consulta = client.get(f"{SUGESTOES}/{sugestao['id_sugestao']}")
+    assert consulta.status_code == 200
+    assert consulta.json() == sugestao
+    _confirmar_persistencia(state.engine, 1, 2)
+
+
 def test_distribui_ordens_e_desconsidera_maquina_inativa(cenario):
     client, state = cenario
 

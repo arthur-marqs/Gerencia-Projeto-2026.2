@@ -16,8 +16,11 @@ from app.models.sugestao_planejamento import ItemSugestaoPlanejamento, SugestaoP
 from app.models.tempo_setup_familia import TempoSetupFamilia
 from app.models.usuario import Usuario
 from app.schemas.planejamento import SugestaoPlanejamentoCreate, SugestaoPlanejamentoResponse
+from app.services.distribuicao_maquinas import (
+    distribuir_ordens,
+    redistribuir_com_setups_cadastrados,
+)
 from app.services.sequenciamento import DadosSequenciamento
-from app.services.distribuicao_maquinas import distribuir_ordens
 from app.services.sequenciamento_maquinas import sugerir_sequencia_por_maquina
 
 router = APIRouter()
@@ -131,11 +134,19 @@ def gerar_sugestao(
             )
         }
 
+        setups_ausentes = [par for par in pares_necessarios if par not in tempos]
+        if setups_ausentes and not pendencias:
+            alternativa = redistribuir_com_setups_cadastrados(
+                maquinas_por_ordem, familias_por_ordem, tempos,
+            )
+            if alternativa is not None:
+                distribuicao = alternativa
+                setups_ausentes = []
+
         pendencias.extend(
             f"Tempo de setup de {codigos_familias[origem]} "
             f"→ {codigos_familias[destino]} sem cadastro."
-            for origem, destino in pares_necessarios
-            if (origem, destino) not in tempos
+            for origem, destino in setups_ausentes
         )
 
     dados_por_ordem: dict[UUID, DadosSequenciamento] | None = None

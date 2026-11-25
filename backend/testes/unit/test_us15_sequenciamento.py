@@ -3,7 +3,10 @@ from uuid import uuid4
 
 import pytest
 
-from app.services.distribuicao_maquinas import distribuir_ordens
+from app.services.distribuicao_maquinas import (
+    distribuir_ordens,
+    redistribuir_com_setups_cadastrados,
+)
 from app.services.sequenciamento import DadosSequenciamento
 from app.services.sequenciamento_maquinas import sugerir_sequencia_por_maquina
 
@@ -41,6 +44,23 @@ def test_ordem_sem_maquina_compativel():
 
     with pytest.raises(ValueError, match="não possui máquina compatível"):
         distribuir_ordens({ordem: {}})
+
+
+def test_redistribui_ao_reconsiderar_escolha_que_bloqueia_outra_familia():
+    op1, op2, op3, op4 = (uuid4() for _ in range(4))
+    a, b, c, m1, m2, m3 = (uuid4() for _ in range(6))
+    maquinas = {
+        op1: {m1: "M01", m2: "M02"},
+        op2: {m1: "M01", m3: "M03"},
+        op3: {m1: "M01", m3: "M03"},
+        op4: {m2: "M02", m1: "M01"},
+    }
+
+    resultado = redistribuir_com_setups_cadastrados(
+        maquinas, {op1: a, op2: b, op3: c, op4: a}, {},
+    )
+
+    assert resultado == {op1: m2, op2: m1, op3: m3, op4: m2}
 
 
 def test_nao_calcula_setup_entre_maquinas_diferentes():

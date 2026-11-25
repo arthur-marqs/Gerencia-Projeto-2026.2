@@ -43,3 +43,13 @@ Funcionalidade: Considerar compatibilidade entre produtos e máquinas
     E solicitar a sequência sugerida
     Então a geração deve ser rejeitada com "A ordem OP01 usa o produto PROD-OP01 (Produto OP01), que não possui máquina compatível ativa."
     E nenhuma sugestão deve ter sido gravada
+
+  @US15_CT05
+  Cenário: Separar famílias entre máquinas compatíveis sem setup cadastrado
+    Dado que existe uma máquina adicional "M02"
+    E que o produto de "OP01" é compatível com "M01, M02"
+    E que o produto de "OP02" é compatível com "M01"
+    Quando selecionar "OP01, OP02" para a sugestão
+    E solicitar a sequência sugerida
+    Então a sugestão deve apresentar as atribuições "OP01:M02, OP02:M01" com setup total de 0 minutos
+    E deve existir uma única sugestão gravada com 2 itens
