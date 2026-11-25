@@ -1,0 +1,161 @@
+{
+  "commit": "40725d1d30777beb99f8851bfe444cde6053fcfb",
+  "commit_anterior": "ca23d0f4e775719c40926f1de12d3b7d6b096a93",
+  "branch": "feature/SC-32-us15-compatibilidade-sequenciamento",
+  "data_local": "2026-11-25",
+  "fuso": "America/Sao_Paulo",
+  "backend": {
+    "testes": 249,
+    "aprovados": 249,
+    "falhas": 0,
+    "ignorados": 0,
+    "duracao_s": 327.267,
+    "unitarios_us15": 10,
+    "integracoes_us15": 8,
+    "integracoes_us14": 11,
+    "casos_destaque": [
+      {
+        "classname": "testes.integration.test_us13_sequencia_sugerida",
+        "name": "test_geracao_e_consulta_exigem_sessao_de_planejador",
+        "time": "0.864"
+      },
+      {
+        "classname": "testes.integration.test_us14_prazos_prioridades",
+        "name": "test_prazo_e_prioridade_por_maquina_com_inicio_independente",
+        "time": "2.293"
+      },
+      {
+        "classname": "testes.integration.test_us15_compatibilidade",
+        "name": "test_separa_familias_quando_ha_distribuicao_viavel_sem_setup[False]",
+        "time": "1.114"
+      },
+      {
+        "classname": "testes.integration.test_us15_compatibilidade",
+        "name": "test_separa_familias_quando_ha_distribuicao_viavel_sem_setup[True]",
+        "time": "1.031"
+      },
+      {
+        "classname": "testes.integration.test_us15_compatibilidade",
+        "name": "test_bloqueia_ordem_sem_maquina_compativel_ativa[False]",
+        "time": "0.984"
+      },
+      {
+        "classname": "testes.integration.test_us15_compatibilidade",
+        "name": "test_bloqueia_ordem_sem_maquina_compativel_ativa[True]",
+        "time": "0.881"
+      },
+      {
+        "classname": "testes.integration.test_us15_compatibilidade",
+        "name": "test_exige_setup_entre_familias_da_mesma_maquina",
+        "time": "0.773"
+      },
+      {
+        "classname": "testes.integration.test_us15_compatibilidade",
+        "name": "test_preserva_maquina_da_sugestao_apos_alterar_compatibilidade",
+        "time": "0.802"
+      },
+      {
+        "classname": "testes.unit.test_us15_sequenciamento",
+        "name": "test_redistribui_ao_reconsiderar_escolha_que_bloqueia_outra_familia",
+        "time": "0.001"
+      }
+    ]
+  },
+  "chrome": {
+    "startedAt": "2026-11-25T22:14:34.433Z",
+    "branch": "feature/SC-32-us15-compatibilidade-sequenciamento",
+    "commit": "40725d1d30777beb99f8851bfe444cde6053fcfb",
+    "dirty": false,
+    "sourceSha256": "8605c4240712dfa72c5a04ad82d65c5147e80dd969ac244280526c9771b646c3",
+    "browser": "chrome",
+    "configFile": "cypress.config.cjs",
+    "tags": "(@US15 or @CT85 or @CT110 or @CT115) and not @wip",
+    "node": "v26.13.0",
+    "platform": "win32 10.0.26300",
+    "finishedAt": "2026-11-25T22:17:55.395Z",
+    "browserVersion": "158.0.8127.38",
+    "cypressVersion": "16.3.0",
+    "total": 9,
+    "passed": 9,
+    "failed": 0,
+    "pending": 0,
+    "skipped": 0,
+    "durationMs": 147686,
+    "tests": [
+      {
+        "title": "Considerar compatibilidade entre produtos e máquinas / Atribuir ordens a máquinas compatíveis diferentes",
+        "state": "passed"
+      },
+      {
+        "title": "Considerar compatibilidade entre produtos e máquinas / Distribuir ordens entre máquinas compatíveis",
+        "state": "passed"
+      },
+      {
+        "title": "Considerar compatibilidade entre produtos e máquinas / Bloquear ordem sem máquina compatível",
+        "state": "passed"
+      },
+      {
+        "title": "Considerar compatibilidade entre produtos e máquinas / Bloquear ordem compatível somente com máquina inativa",
+        "state": "passed"
+      },
+      {
+        "title": "Considerar compatibilidade entre produtos e máquinas / Separar famílias entre máquinas compatíveis sem setup cadastrado",
+        "state": "passed"
+      },
+      {
+        "title": "Considerar prazos e prioridades no sequenciamento / Resolver o conflito entre prazo, prioridade e setup (example #1)",
+        "state": "passed"
+      },
+      {
+        "title": "Considerar prazos e prioridades no sequenciamento / Resolver o conflito entre prazo, prioridade e setup (example #2)",
+        "state": "passed"
+      },
+      {
+        "title": "Gerar sequência sugerida de produção / CT-85 Negar a solicitação direta à API para o Operador",
+        "state": "passed"
+      },
+      {
+        "title": "Gerar sequência sugerida de produção / CT-110 Recuperar a sugestão e preservar o planejamento manual",
+        "state": "passed"
+      }
+    ]
+  },
+  "sondagens_api": [
+    {
+      "classname": ".tmp.qa-us15.test_sondagem_us15",
+      "name": "test_ct117_subconjunto_de_maquinas_ativas",
+      "time": "2.591"
+    },
+    {
+      "classname": ".tmp.qa-us15.test_sondagem_us15",
+      "name": "test_ct118_ordem_unica_sem_maquina_compativel",
+      "time": "0.926"
+    },
+    {
+      "classname": ".tmp.qa-us15.test_sondagem_us15",
+      "name": "test_observa_leitura_da_compatibilidade_em_edicao_concorrente",
+      "time": "1.422"
+    }
+  ],
+  "migracao": [
+    {
+      "classname": ".tmp.qa-us15.test_migracao_us15",
+      "name": "test_upgrade_da_us14_preserva_sugestao_anterior",
+      "time": "2.101"
+    }
+  ],
+  "sondagem_ui": {
+    "tipo": "Cypress com HTTP 503 simulado exclusivamente para GET /api/maquinas",
+    "duracao_s": 8.219,
+    "controle_exibiu_plano_salvo_e_ordem_pendente": true,
+    "http_catalogo_simulado": 503,
+    "http_ordens_real": 200,
+    "http_planos_real": 200,
+    "regressao_reproduzida": true,
+    "capturas": [
+      "planejamento-controle.png",
+      "planejamento-catalogo-503.png"
+    ],
+    "junit": "sondagem-ui.xml"
+  }
+}

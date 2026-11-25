@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites name="Mocha Tests" time="8.219" tests="1" failures="0">
+  <testsuite name="Root Suite" timestamp="2026-11-25T22:18:35" tests="0" file=".tmp\qa-us15-reeval\ui-sondagem.cy.js" time="0.000" failures="0">
+  </testsuite>
+  <testsuite name="Sondagem de QA da regressão do Planejamento Manual" timestamp="2026-11-25T22:18:35" tests="1" time="8.209" failures="0">
+    <testcase name="Sondagem de QA da regressão do Planejamento Manual observa a tela quando somente o catálogo de máquinas retorna 503" time="8.072" classname="observa a tela quando somente o catálogo de máquinas retorna 503">
+    </testcase>
+  </testsuite>
+</testsuites>

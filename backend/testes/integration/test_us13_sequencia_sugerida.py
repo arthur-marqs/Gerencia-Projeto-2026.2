@@ -17,19 +17,40 @@ def _post(client, rota, dados, **kwargs):
     assert resposta.status_code == 201, resposta.text
     return resposta.json()
 
+def _maquina_cenario(client):
+    resposta = client.get("/api/maquinas")
+    assert resposta.status_code == 200, resposta.text
+
+    return next(
+        maquina["id_maquina"]
+        for maquina in resposta.json()
+        if maquina["codigo"] == "M01"
+    )
 
 def _ordem(client, codigo, familia_id=None):
     produto = _post(client, "/api/produtos", {
-        "codigo": f"PROD-{codigo}", "nome": f"Produto {codigo}", "unidade": "un",
+        "codigo": f"PROD-{codigo}",
+        "nome": f"Produto {codigo}",
+        "unidade": "un",
     })
+
     if familia_id is not None:
         resposta = client.patch(
-            f"/api/produtos/{produto['id_produto']}/familia", json={"family_id": familia_id}
+            f"/api/produtos/{produto['id_produto']}/familia",
+            json={"family_id": familia_id},
         )
         assert resposta.status_code == 200, resposta.text
 
+    resposta = client.put(
+        f"/api/produtos/{produto['id_produto']}/maquinas",
+        json={"maquinas_ids": [_maquina_cenario(client)]},
+    )
+    assert resposta.status_code == 200, resposta.text
+
     return _post(client, "/api/ordens-producao", {
-        "codigo": codigo, "produto_id": produto["id_produto"], "quantidade": 10,
+        "codigo": codigo,
+        "produto_id": produto["id_produto"],
+        "quantidade": 10,
     }, headers={"Idempotency-Key": str(uuid4())})
 
 
@@ -51,13 +72,26 @@ def _confirmar_sugestoes_salvas(engine, sugestoes, itens):
 def cenario_ab(seeded_auth):
     client, state = seeded_auth.client, seeded_auth.state
     _login(client, state.email, state.password)
-    a = _post(client, "/api/families", {"code": "A", "name": "Família A"})["id"]
-    b = _post(client, "/api/families", {"code": "B", "name": "Família B"})["id"]
+
+    _post(client, "/api/maquinas", {
+        "codigo": "M01",
+        "nome": "Máquina M01",
+    })
+
+    a = _post(client, "/api/families", {
+        "code": "A", "name": "Família A",
+    })["id"]
+
+    b = _post(client, "/api/families", {
+        "code": "B", "name": "Família B",
+    })["id"]
+
     ordens = [
         _ordem(client, "OP01", a)["id_ordem"],
         _ordem(client, "OP02", b)["id_ordem"],
         _ordem(client, "OP03", a)["id_ordem"],
     ]
+
     return client, state, a, b, ordens
 
 
@@ -71,10 +105,12 @@ def test_reduz_setup_direcional_sem_planejamento_manual(cenario_ab):
 
     assert sugestao["tempo_setup_original_minutos"] == 50
     assert sugestao["tempo_setup_total_minutos"] == 20
+    maquina = _maquina_cenario(client)
+
     assert sugestao["itens"] == [
-        {"ordem_id": op01, "posicao": 1, "posicao_original": 1, "setup_minutos": 0},
-        {"ordem_id": op03, "posicao": 2, "posicao_original": 3, "setup_minutos": 0},
-        {"ordem_id": op02, "posicao": 3, "posicao_original": 2, "setup_minutos": 20},
+        {"ordem_id": op01, "maquina_id": maquina, "posicao": 1, "posicao_original": 1, "setup_minutos": 0},
+        {"ordem_id": op03, "maquina_id": maquina, "posicao": 2, "posicao_original": 3, "setup_minutos": 0},
+        {"ordem_id": op02, "maquina_id": maquina, "posicao": 3, "posicao_original": 2, "setup_minutos": 20},
     ]
     consulta = client.get(f"{SUGESTOES}/{sugestao['id_sugestao']}")
     assert consulta.status_code == 200
@@ -192,7 +228,7 @@ def test_ordem_unica_tem_setup_zero_sem_tempos_cadastrados(cenario_ab):
 
     assert sugestao["tempo_setup_total_minutos"] == 0
     assert sugestao["itens"] == [
-        {"ordem_id": op01, "posicao": 1, "posicao_original": 1, "setup_minutos": 0},
+        {"ordem_id": op01, "maquina_id": _maquina_cenario(client), "posicao": 1, "posicao_original": 1, "setup_minutos": 0},
     ]
 
 

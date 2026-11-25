@@ -1,4 +1,4 @@
-# Aceite BDD das US11, US13, US14 e US32
+# Aceite BDD das US11, US13, US14, US15 e US32
 
 A suíte utiliza Cypress 16 + Cucumber/Gherkin em português, API FastAPI real e PostgreSQL exclusivo para testes.
 
@@ -6,6 +6,9 @@ A US32 cobre o gerenciamento de usuários, com os casos `@CT32` a `@CT43`. A US1
 
 A US14 automatiza seis execuções de sequenciamento por prazos e prioridades
 em [`prazos-prioridades.feature`](e2e/prazos-prioridades.feature).
+
+A US15 automatiza cinco cenários de compatibilidade entre produtos e máquinas
+em [`compatibilidade.feature`](e2e/compatibilidade.feature).
 
 O smoke usa `@smoke` e a regressão usa `@regressao`. Na US13, o smoke inclui o CT-107 e o CT-110.
 
@@ -90,7 +93,7 @@ Cada funcionalidade prepara seus dados em um hook restrito à tag da US correspo
 
 ### Cenários da US13
 
-O modo `sugestao` prepara usuários, famílias A e B e as ordens OP01 a OP05 em um banco reiniciado por cenário. Os steps cadastram os tempos direcionais necessários pela API real. O task `e2e:inspecionar-sugestoes` lê as contagens de sugestões e itens no banco isolado para verificar que uma falha de validação não grava registros parciais.
+O modo `sugestao` prepara usuários, famílias A e B, a máquina ativa M01 e as ordens OP01 a OP05 em um banco reiniciado por cenário. Os produtos das ordens são associados à M01, inclusive o produto sem família usado nos testes de validação. Os steps cadastram os tempos direcionais necessários pela API real. O task `e2e:inspecionar-sugestoes` lê as contagens de sugestões e itens no banco isolado para verificar que uma falha de validação não grava registros parciais.
 
 | Tags | Cobertura |
 | --- | --- |
@@ -100,7 +103,9 @@ O modo `sugestao` prepara usuários, famílias A e B e as ordens OP01 a OP05 em 
 | `@CT107`, `@CT108`, `@CT109` | Geração antes de salvar o manual, preservação da sequência de menor custo e empate |
 | `@CT110`, `@CT111`, `@CT112` | Recuperação após recarregar, seleção vazia e várias ordens da mesma família |
 
-O CT-119 depende da integração com a US15.
+O CT-119 depende da integração com a US15. Os cenários específicos abaixo
+validam a compatibilidade; não há confirmação de equivalência com o CT-119
+nos identificadores registrados nesta execução.
 
 ### Cenários da US14
 
@@ -121,6 +126,24 @@ durações estimadas e tempos de setup, utilizando a API e o banco de testes.
 A tag `@US14` seleciona todos os casos da história. A tag `@CT115`
 seleciona os dois exemplos de conflito.
 
+### Cenários da US15
+
+A US15 compartilha o modo `sugestao` e os steps da US13 e US14. Os cenários
+criam máquinas adicionais e alteram as associações dos produtos pela API.
+A validação confere a atribuição de máquinas na resposta da API e na tela,
+bem como a persistência da sugestão ou a ausência de registros em caso de erro.
+
+| Caso | Cobertura |
+| --- | --- |
+| `@US15_CT01` | Atribuição a máquinas compatíveis diferentes, sem setup entre máquinas |
+| `@US15_CT02` | Distribuição de ordens entre máquinas compatíveis |
+| `@US15_CT03` | Bloqueio de ordem sem máquina compatível, sem persistência |
+| `@US15_CT04` | Bloqueio quando a única máquina compatível está inativa |
+| `@US15_CT05` | Separação de famílias entre máquinas compatíveis quando faltam setups na distribuição inicial |
+
+A tag `@US15` seleciona os cinco cenários. A regressão direcionada às três
+histórias de sequenciamento usa `@US13 or @US14 or @US15`.
+
 ### Cenários da US32
 
 O CT43 começa sem contas e chama o script inicial com entradas controladas;
@@ -136,7 +159,7 @@ as variáveis `DB_*`/`E2E_DATABASE_URL` corretas. Não é necessário para execu
 
 ## Tags e comandos
 
-`cypress.config.cjs` descobre as features de aceite em `cypress/e2e/*.feature` e executa os cenários das US11, US13, US14 e US32 filtrados pelas tags, com API e banco reais. `cypress.config.ts` executa os cenários de autenticação.
+`cypress.config.cjs` descobre as features de aceite em `cypress/e2e/*.feature` e executa os cenários das US11, US13, US14, US15 e US32 filtrados pelas tags, com API e banco reais. `cypress.config.ts` executa os cenários de autenticação.
 
 
 | Comando | Seleção |
@@ -145,6 +168,8 @@ as variáveis `DB_*`/`E2E_DATABASE_URL` corretas. Não é necessário para execu
 | `npm run test:e2e:regressao -- --browser electron` | `@regressao and not @wip` |
 | `npm run test:e2e -- --browser chrome --tags "@US13 and not @wip"` | Os 13 casos da sequência sugerida |
 | `npm run test:e2e -- --browser chrome --tags "@US14 and not @wip"` | Os seis casos de prazos e prioridades |
+| `npm run test:e2e -- --browser chrome --tags "@US15" --suite us15` | Os cinco cenários de compatibilidade |
+| `npm run test:e2e -- --browser chrome --tags "@US13 or @US14 or @US15" --suite us15-integrada` | Regressão direcionada das três histórias de sequenciamento |
 | `npm run test:e2e -- --browser chrome --tags "@CT110"` | Recuperação da sugestão e preservação do planejamento manual |
 | `npm run test:e2e -- --browser chrome --tags "@CT39"` | Somente bloqueios por vínculos |
 | `npm run test:e2e:open` | Interface interativa do Cypress |
@@ -176,6 +201,18 @@ desta entrega estão no [registro de evidências da US-32](../../docs/releases/r
 Os resultados locais da US14 e da regressão completa no Chrome estão
 documentados no [relatório de testes da US14](../../docs/releases/release2/sprint3/relatorio-testes-us14.md),
 com os relatórios JUnit, resumos de execução e capturas dos quatro cenários.
+
+A regressão local integrada da US15 no Chrome registrou 23 cenários aprovados
+(13 da US13, seis da US14 e quatro da US15). Os relatórios e as quatro capturas
+selecionadas estão no [relatório de testes da US15](../../docs/releases/release2/sprint3/relatorio-testes-us15.md).
+A execução não representa uma regressão completa de todas as features nem
+uma execução do CI ou do Electron.
+
+Se a preparação do banco exceder o tempo limite de `cy.task`, confira a execução
+isolada do script de seed e os limites do Cypress e do processo Python iniciado
+pelo Node. O limite do Cypress pode ser configurado localmente com
+`$env:CYPRESS_taskTimeout = '150000'` no PowerShell. Isso não altera o limite
+interno do processo Python. Use sempre o banco exclusivo de E2E.
 
 ## Referências de configuração
 

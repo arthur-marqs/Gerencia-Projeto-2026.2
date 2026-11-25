@@ -161,11 +161,12 @@ Aplique `alembic upgrade head` na pasta `backend` para incluir a revisão
 
 O cálculo soma os tempos das trocas consecutivas. A primeira ordem e as trocas
 dentro da mesma família têm setup de zero minuto. Entre famílias distintas,
-a geração exige um tempo para cada sentido dos pares de famílias selecionadas.
+a geração exige um tempo para cada sentido dos pares de famílias atribuídas à
+mesma máquina (US15).
 A heurística agrupa ordens da mesma família e testa um caminho a partir de cada
 família, escolhendo a próxima troca de menor custo. Empates na escolha da próxima
 família seguem a primeira ocorrência na seleção. Quando não há dados de prazo ou prioridade nas ordens selecionadas,
-a ordem original é mantida se nenhuma alternativa avaliada reduz
+a ordem original de cada máquina é mantida se nenhuma alternativa avaliada reduz
 o tempo total de setup. Como a busca é gulosa, outras
 sequências podem ter custo menor que o da sugestão encontrada.
 
@@ -174,14 +175,16 @@ total de 50 minutos. A sugestão A, A, B reduz o total para 20 minutos.
 
 A resposta traz `id_sugestao`, `criado_por`, `criado_em`,
 `tempo_setup_original_minutos`, `tempo_setup_total_minutos` e `itens` em ordem
-sugerida. Cada item traz `ordem_id`, `posicao`, `posicao_original` e `setup_minutos`.
+sugerida. Cada item traz `ordem_id`, `maquina_id` (US15), `posicao`, `posicao_original`
+e `setup_minutos`.
 A geração pode ocorrer antes de criar um planejamento. A consulta pelo
 planejamento localiza a sugestão pelo conjunto de ordens, independentemente da
 posição em que elas foram gravadas no planejamento manual. Esses dados ficam
 disponíveis para a comparação da US16.
 
 A API retorna 422 para seleção vazia ou duplicada, ordens fora do status pendente,
-produtos sem família ou tempos de troca ausentes. A mensagem identifica a ordem e
+produtos sem família, produtos sem máquina compatível ativa (US15) ou tempos de
+troca ausentes. A mensagem identifica a ordem e
 o produto sem família ou o sentido da troca pendente. Ordens inexistentes e
 consultas sem resultado retornam 404. Requisições sem sessão válida retornam 401,
 e perfis sem acesso retornam 403. Os registros de uma sugestão são gravados na
@@ -256,6 +259,62 @@ de aumento de setup, as validações dos dados e a integração com a API.
 Os resultados estão registrados no
 [relatório de testes da US14](../docs/releases/release2/sprint3/relatorio-testes-us14.md).
 
+
+## US15 — Compatibilidade entre produtos e máquinas no sequenciamento
+
+A US15 complementa as US13 e US14 na rota `POST /api/planejamentos/sugestoes`.
+A geração continua restrita ao perfil `PLANEJADOR`.
+
+### Regras de distribuição e sequenciamento
+
+- Cada ordem é atribuída somente a uma máquina ativa cadastrada como compatível
+  com seu produto. As associações são gerenciadas em
+  `PUT /api/produtos/{id}/maquinas`.
+- Quando existe mais de uma máquina compatível, a distribuição escolhe a que
+  recebeu menos ordens na sugestão em geração. O código da máquina desempata.
+  Se essa distribuição exigir um setup sem cadastro, o sistema procura outra
+  distribuição entre máquinas compatíveis ativas antes de rejeitar a sugestão.
+- Se uma ordem não possui máquina compatível ativa, a API retorna 422,
+  identifica a ordem e o produto e não grava nenhuma parte da sugestão.
+- Cada máquina tem sua própria sequência, com setup zero na primeira ordem e
+  sem contabilizar trocas entre máquinas diferentes. Os tempos direcionais
+  exigidos são os das famílias atribuídas à mesma máquina.
+- As regras de prazo, prioridade e duração da US14 são aplicadas dentro de
+  cada máquina, considerando o mesmo horário inicial. Se qualquer ordem
+  possui prazo ou prioridade, os dados de urgência de todas as ordens
+  selecionadas são validados antes da geração.
+- Os totais original e sugerido são somas dos setups de cada máquina, mantendo
+  a mesma distribuição nas duas alternativas. A posição original corresponde
+  à ordem de seleção; os itens sugeridos são agrupados por máquina.
+
+A distribuição por quantidade de ordens é uma heurística simples. Ela não
+balanceia a carga pela duração das ordens, não considera capacidade ou turnos
+e não garante uma solução globalmente ótima.
+
+### Banco de dados
+
+A migration `7c15a3e9d204` adiciona `maquina_id` aos itens de sugestão,
+com chave estrangeira para `maquinas`. O campo é opcional para preservar
+sugestões anteriores à US15. Novas sugestões registram a máquina atribuída,
+que permanece no histórico mesmo que a compatibilidade do produto seja alterada.
+
+A migration de união `b872837156bd` referencia as revisões da US14
+(`6b14a2e9c703`) e da US15 (`7c15a3e9d204`). Execute `alembic upgrade head`
+para atualizar o banco e `alembic current` para verificar a revisão aplicada.
+
+### Testes automatizados
+
+Com `TEST_DATABASE_URL` apontando para um PostgreSQL exclusivo terminado
+em `_test`, execute na pasta `backend`:
+
+```powershell
+.\.venv\Scripts\python.exe -m pytest -v testes/unit/test_us15_sequenciamento.py testes/integration/test_us15_compatibilidade.py testes/integration/test_us14_prazos_prioridades.py
+```
+
+Os testes cobrem a atribuição e distribuição de máquinas, o bloqueio por
+incompatibilidade ou inatividade, os setups independentes, a persistência e a
+integração com as regras da US14. Os resultados locais estão no
+[relatório de testes da US15](../docs/releases/release2/sprint3/relatorio-testes-us15.md).
 
 ## US-32 — Gerenciamento de usuários
 

@@ -20,9 +20,20 @@ type Planejamento = {
   itens: ItemPlanejamento[]
 }
 
+type Maquina = {
+  id_maquina: string
+  codigo: string
+  nome: string
+}
+
 type SugestaoPlanejamento = {
   tempo_setup_total_minutos: number
-  itens: { ordem_id: string; posicao: number; setup_minutos: number }[]
+  itens: {
+    ordem_id: string
+    maquina_id: string | null
+    posicao: number
+    setup_minutos: number
+  }[]
 }
 
 const API_URL = 'http://localhost:8000/api'
@@ -30,6 +41,7 @@ const API_URL = 'http://localhost:8000/api'
 function PlanejamentosPage() {
   const [nome, setNome] = useState('')
   const [ordens, setOrdens] = useState<OrdemProducao[]>([])
+  const [maquinas, setMaquinas] = useState<Maquina[]>([])
   const [selecionadas, setSelecionadas] = useState<OrdemProducao[]>([])
   const [planejamentos, setPlanejamentos] = useState<Planejamento[]>([])
   const [planejamentoEmEdicao, setPlanejamentoEmEdicao] = useState<string | null>(null)
@@ -49,22 +61,27 @@ function PlanejamentosPage() {
 
     async function carregarDados() {
       try {
-        const [respostaOrdens, respostaPlanejamentos] = await Promise.all([
+
+        const [respostaOrdens, respostaPlanejamentos, respostaMaquinas] = await Promise.all([
           apiFetch(`${API_URL}/ordens-producao`, { credentials: 'include' }),
           apiFetch(`${API_URL}/planejamentos`, { credentials: 'include' }),
+          apiFetch(`${API_URL}/maquinas`, { credentials: 'include' }),
         ])
 
-        if (!respostaOrdens.ok || !respostaPlanejamentos.ok) {
+        if (!respostaOrdens.ok || !respostaPlanejamentos.ok || !respostaMaquinas.ok) {
           throw new Error('Não foi possível carregar os dados.')
         }
 
         const dadosOrdens: OrdemProducao[] = await respostaOrdens.json()
         const dadosPlanejamentos: Planejamento[] = await respostaPlanejamentos.json()
+        const dadosMaquinas: Maquina[] = await respostaMaquinas.json()
 
         if (ativo) {
           setOrdens(dadosOrdens)
           setPlanejamentos(dadosPlanejamentos)
+          setMaquinas(dadosMaquinas)
         }
+
       } catch (error) {
         if (ativo) {
           setErro(error instanceof Error ? error.message : 'Erro ao carregar os dados.')
@@ -275,6 +292,18 @@ function PlanejamentosPage() {
     return ordens.find((ordem) => ordem.id_ordem === ordemId)?.codigo ?? ordemId.slice(0, 8)
   }
 
+  function identificarMaquina(maquinaId: string | null) {
+    if (!maquinaId) return 'Máquina não atribuída'
+
+    const maquina = maquinas.find(
+      (item) => item.id_maquina === maquinaId,
+    )
+
+    return maquina
+      ? `${maquina.codigo} — ${maquina.nome}`
+      : `Máquina ${maquinaId.slice(0, 8)}`
+  }
+
   return (
     <main className="px-4 py-5 pt-[100px] sm:px-6 lg:px-7 xl:px-8">
       <div className="mx-auto max-w-[1500px] space-y-6">
@@ -450,7 +479,22 @@ function PlanejamentosPage() {
                   {sugestao.itens.map((item) => (
                     <li key={item.ordem_id} className="flex items-center gap-3 rounded-xl border border-slate-200 p-3 text-sm">
                       <span className="rounded-lg bg-blue-50 px-3 py-2 font-semibold text-blue-700">{item.posicao}</span>
-                      <span data-cy="sugestao-ordem" className="min-w-0 flex-1 wrap-anywhere font-medium text-slate-800">{codigoDaOrdem(item.ordem_id)}</span>
+
+                      <div className="min-w-0 flex-1">
+                        <span
+                          data-cy="sugestao-ordem"
+                          className="wrap-anywhere font-medium text-slate-800"
+                        >
+                          {codigoDaOrdem(item.ordem_id)}
+                        </span>
+                        <p
+                          data-cy="sugestao-maquina"
+                          className="mt-1 wrap-anywhere text-xs text-slate-500"
+                        >
+                          {identificarMaquina(item.maquina_id)}
+                        </p>
+                      </div>
+
                       <span className="shrink-0 text-slate-600">Setup de {item.setup_minutos} min</span>
                     </li>
                   ))}

@@ -8,11 +8,11 @@ Aplicação em desenvolvimento para planejamento e acompanhamento da produção,
 - **Frontend:** aplicação React, TypeScript, Vite e Tailwind CSS, com tela de login e áreas autenticadas para produtos, famílias de produtos, máquinas, ordens de produção, tempos de setup, matriz de setup, planejamentos e usuários.
 - **Autenticação:** integração com a API FastAPI, sessões mantidas por cookies e controle de acesso conforme os perfis do usuário.
 - **Planejamento:** consulta dos tempos de setup entre famílias de produtos e visualização da matriz de transições direcionais.
-- **Sequência sugerida (US13 e US14):** geração a partir das ordens selecionadas, considerando tempos de setup, prazos, prioridades e durações estimadas, com consulta da sugestão pelo planejamento.
+- **Sequência sugerida (US13, US14 e US15):** geração a partir das ordens selecionadas, considerando tempos de setup, prazos, prioridades, durações estimadas e máquinas compatíveis ativas, com consulta da sugestão pelo planejamento.
 - **Matriz de setup:** apresenta as famílias nas linhas e colunas, com os tempos de transição em minutos. Transições sem configuração são representadas por um traço. A tela permite atualizar os dados consultados.
 - **Backend:** API FastAPI com documentação interativa, endpoint de saúde, autenticação e rotas para os módulos da aplicação.
 - **Banco de dados:** PostgreSQL para persistência dos dados da aplicação.
-- **Testes:** testes automatizados de backend e testes de aceitação Cypress com Gherkin, incluindo os cenários das US11, US13, US14 e US32.
+- **Testes:** testes automatizados de backend e testes de aceitação Cypress com Gherkin, incluindo os cenários das US11, US13, US14, US15 e US32.
 
 
 ## Requisitos
@@ -144,17 +144,18 @@ Os testes de aceitação da funcionalidade estão documentados em `frontend/cypr
 ## Gerar e consultar uma sequência sugerida (US13)
 
 Entre com o perfil **Planejador de Produção**. A geração usa ordens pendentes com
-produto associado a uma família e os tempos cadastrados nos dois sentidos para
-cada par de famílias selecionadas. O banco precisa estar na revisão atual das
+produto associado a uma família e a pelo menos uma máquina compatível ativa,
+além dos tempos cadastrados nos dois sentidos para cada par de famílias
+atribuídas à mesma máquina. O banco precisa estar na revisão atual das
 migrations. [Guia do backend](../backend/README.md#us13--sequência-sugerida-de-produção)
 
 1. Abra **Planejamento manual** e selecione as ordens na sequência de referência.
 2. Clique em **Gerar sequência sugerida**. Você pode gerar a sugestão antes de preencher o nome ou salvar o planejamento.
-3. Confira a ordem sugerida, o setup por posição e o tempo total estimado em minutos.
+3. Confira a ordem sugerida, a máquina atribuída, o setup por posição e o tempo total estimado em minutos.
 4. Para consultar novamente, encontre o planejamento com as mesmas ordens em **Planejamentos cadastrados** e clique em **Consultar sugestão**. Para gerar outra sugestão para um planejamento salvo, clique em **Editar** e use **Gerar sequência sugerida**.
 
 A tela informa quando a seleção está vazia, quando um produto está sem família
-ou quando falta o tempo de uma troca. A **Matriz de setup** ajuda a localizar as
+ou máquina compatível ativa, ou quando falta o tempo de uma troca. A **Matriz de setup** ajuda a localizar as
 transições que precisam ser cadastradas em **Tempos de setup**.
 
 
@@ -178,7 +179,8 @@ devem possuir prazo, prioridade e duração estimada. Caso existam dados
 incompletos, a geração é bloqueada e a pendência é informada.
 
 Quando nenhuma ordem possui prazo ou prioridade, o comportamento
-original da US13 é mantido.
+de otimização de setup da US13 é mantido, respeitando a distribuição por
+máquina da US15.
 
 As regras de sequenciamento estão descritas no
 [README do backend](../backend/README.md#us14--prazos-e-prioridades-no-sequenciamento).
@@ -186,6 +188,31 @@ As regras de sequenciamento estão descritas no
 Os resultados dos testes estão disponíveis no
 [relatório de testes da US14](../docs/releases/release2/sprint3/relatorio-testes-us14.md).
 
+
+## Compatibilidade de máquinas (US15)
+
+A geração da sequência sugerida considera as máquinas ativas compatíveis
+com os produtos das ordens selecionadas.
+
+1. Cadastre as máquinas e associe as compatíveis a cada produto.
+2. No **Planejamento manual**, selecione as ordens pendentes.
+3. Clique em **Gerar sequência sugerida**.
+4. Confira a máquina indicada em cada item, a sequência e os tempos de setup.
+
+Quando existe mais de uma máquina compatível, a distribuição considera a
+quantidade de ordens já atribuídas na sugestão, com desempate pelo código da
+máquina. O sequenciamento por prazo, prioridade e setup ocorre separadamente
+em cada máquina. Não há setup entre máquinas diferentes.
+
+Se algum produto não possui máquina compatível ativa, a tela informa a
+ordem e o produto com pendência e nenhuma sugestão é salva. Após corrigir
+as associações, é possível solicitar a geração novamente.
+
+A máquina atribuída também fica registrada nas sugestões consultadas.
+Sugestões anteriores à US15 podem aparecer com **Máquina não atribuída**.
+
+Consulte as [regras do backend](../backend/README.md#us15--compatibilidade-entre-produtos-e-máquinas-no-sequenciamento)
+e o [relatório de testes da US15](../docs/releases/release2/sprint3/relatorio-testes-us15.md).
 
 ## Banco de dados
 
