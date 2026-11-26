@@ -27,6 +27,12 @@ O projeto está em desenvolvimento. A versão atual inclui autenticação, contr
 - **Quality Assurance (QA):** Leonardo Istamilo
 - **DevOps:** Leonardo Istamilo
 
+## Papéis — Release 3
+- **Product Owner (PO):** Luiz Inácio Moura da Costa
+- **Scrum Master (SM):** Leonardo Istamilo
+- **Quality Assurance (QA):** Arthur Marques
+- **DevOps:** Luiz Inácio Moura da Costa
+
 ## Responsabilidades
 
 ### Product Owner (PO)
