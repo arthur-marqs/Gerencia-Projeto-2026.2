@@ -1,0 +1,91 @@
+{
+  "startedAt": "2026-11-26T15:41:32.636Z",
+  "branch": "docs/qualidade",
+  "commit": "8978fc110480f363b65873443c072bcc4469cfd6",
+  "dirty": false,
+  "sourceSha256": "2a208517d3e775daf3fe4d2c73b37b46dee0056af444a94ee0814eb25c88a7a6",
+  "browser": "chrome",
+  "configFile": "cypress.config.ts",
+  "tags": "@regressao and not @wip",
+  "node": "v26.13.0",
+  "platform": "win32 10.0.26300",
+  "finishedAt": "2026-11-26T15:41:54.702Z",
+  "browserVersion": "158.0.8127.38",
+  "cypressVersion": "16.3.0",
+  "total": 17,
+  "passed": 17,
+  "failed": 0,
+  "pending": 0,
+  "skipped": 0,
+  "durationMs": 8595,
+  "tests": [
+    {
+      "title": "Expiração e invalidação de sessão / Permitir acesso com sessão válida",
+      "state": "passed"
+    },
+    {
+      "title": "Expiração e invalidação de sessão / Retornar ao login após a sessão expirar",
+      "state": "passed"
+    },
+    {
+      "title": "Expiração e invalidação de sessão / Retornar ao login quando a sessão for invalidada em outra funcionalidade",
+      "state": "passed"
+    },
+    {
+      "title": "Expiração e invalidação de sessão / Voltar ao login em Famílias após 401 mesmo se a identidade responder 503",
+      "state": "passed"
+    },
+    {
+      "title": "Expiração e invalidação de sessão / Voltar ao login em Máquinas após 401 mesmo se a identidade responder 503",
+      "state": "passed"
+    },
+    {
+      "title": "Expiração e invalidação de sessão / Voltar ao login quando uma consulta da matriz rejeitar a sessão (example #1)",
+      "state": "passed"
+    },
+    {
+      "title": "Expiração e invalidação de sessão / Voltar ao login quando uma consulta da matriz rejeitar a sessão (example #2)",
+      "state": "passed"
+    },
+    {
+      "title": "Autenticação no SetupFlow / Exibir a tela de login",
+      "state": "passed"
+    },
+    {
+      "title": "Autenticação no SetupFlow / Tentar entrar com os campos vazios",
+      "state": "passed"
+    },
+    {
+      "title": "Autenticação no SetupFlow / Tentar entrar com e-mail inválido",
+      "state": "passed"
+    },
+    {
+      "title": "Autenticação no SetupFlow / Tentar entrar sem informar a senha",
+      "state": "passed"
+    },
+    {
+      "title": "Autenticação no SetupFlow / Tentar entrar com credenciais incorretas",
+      "state": "passed"
+    },
+    {
+      "title": "Recuperar a verificação da sessão / Recuperar a sessão após \"503\" na abertura (example #1)",
+      "state": "passed"
+    },
+    {
+      "title": "Recuperar a verificação da sessão / Recuperar a sessão após \"rede\" na abertura (example #2)",
+      "state": "passed"
+    },
+    {
+      "title": "Recuperar a verificação da sessão / Solicitar login quando a nova verificação retorna 401",
+      "state": "passed"
+    },
+    {
+      "title": "Recuperar a verificação da sessão / Permitir outra tentativa enquanto a identidade estiver indisponível",
+      "state": "passed"
+    },
+    {
+      "title": "Recuperar a verificação da sessão / Recuperar a identificação depois de um login bem-sucedido",
+      "state": "passed"
+    }
+  ]
+}
