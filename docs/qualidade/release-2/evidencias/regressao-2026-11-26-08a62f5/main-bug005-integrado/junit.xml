@@ -1,0 +1,17 @@
+<?xml version='1.0' encoding='utf-8'?>
+<testsuites name="Mocha Tests" time="19.293" tests="3" failures="2">
+  <testsuite name="Root Suite" timestamp="2026-11-26T18:44:23" tests="3" file=".qa-cycle\bug005.cy.js" time="19.288" failures="2">
+    <testcase name="BUG-005 — recupera a sessão real após 503 inicial sem novo login ou recarga" time="0.000" classname="BUG-005 — recupera a sessão real após 503 inicial sem novo login ou recarga">
+      <failure message="Timed out retrying after 4000ms: Expected to find content: 'Não foi possível verificar a sessão.' within the selector: '[role=&quot;alert&quot;]' but never did." type="AssertionError">AssertionError: Timed out retrying after 4000ms: Expected to find content: 'Não foi possível verificar a sessão.' within the selector: '[role="alert"]' but never did.
+    at induzirFalhaNaAbertura (webpack:///./bug005.cy.js:24:72)
+    at Context.eval (webpack:///./bug005.cy.js:32:2)</failure>
+    </testcase>
+    <testcase name="BUG-005 — mostra login quando o retry recebe 401 para a sessão expirada no banco" time="0.000" classname="BUG-005 — mostra login quando o retry recebe 401 para a sessão expirada no banco">
+      <failure message="Timed out retrying after 4000ms: Expected to find content: 'Não foi possível verificar a sessão.' within the selector: '[role=&quot;alert&quot;]' but never did." type="AssertionError">AssertionError: Timed out retrying after 4000ms: Expected to find content: 'Não foi possível verificar a sessão.' within the selector: '[role="alert"]' but never did.
+    at induzirFalhaNaAbertura (webpack:///./bug005.cy.js:24:72)
+    at Context.eval (webpack:///./bug005.cy.js:49:2)</failure>
+    </testcase>
+    <testcase name="Driver06 — uma identidade 200 atrasada não restaura o painel após recusa real" time="3.443" classname="Driver06 — uma identidade 200 atrasada não restaura o painel após recusa real">
+    </testcase>
+  </testsuite>
+</testsuites>

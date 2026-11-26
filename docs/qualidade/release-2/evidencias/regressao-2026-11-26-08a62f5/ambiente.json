@@ -1,0 +1,28 @@
+{
+  "fuso": "America/Sao_Paulo",
+  "sistema": "Windows x64",
+  "versaoWindows": "10.0.26300",
+  "processadoresLogicosDisponiveis": 8,
+  "ramVisivelBytes": 8375230464,
+  "ramLivreAmostraPreparacaoBytes": 885219328,
+  "python": "3.11.9",
+  "pytest": "8.4.2",
+  "fastapi": "0.162.0",
+  "sqlalchemy": "2.1.6",
+  "psycopg": "3.3.6",
+  "argon2Cffi": "25.1.0",
+  "uvicorn": "0.54.0",
+  "alembic": "1.20.1",
+  "postgresql": "18.6",
+  "node": "26.13.0",
+  "npm": "11.20.0",
+  "cypress": "16.3.0",
+  "chrome": "158.0.8127.38",
+  "origemAmbiente": [
+    "Versões importadas no Python 3.11.9 com os pacotes locais fixados no requirements.txt",
+    "SHOW server_version no PostgreSQL descartável",
+    "os.release, os.availableParallelism, os.totalmem e os.freemem do Node",
+    "Node, npm, Cypress e Chrome conforme os binários locais e os resumos de execução"
+  ],
+  "controle": "Suítes sequenciais, dois clones isolados, PostgreSQL exclusivamente em loopback com SCRAM e bancos dedicados por versão e tipo de teste."
+}

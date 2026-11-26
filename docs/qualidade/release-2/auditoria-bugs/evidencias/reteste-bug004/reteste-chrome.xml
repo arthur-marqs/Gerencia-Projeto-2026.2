@@ -1,0 +1,9 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<testsuites name="Mocha Tests" time="22.219" tests="2" failures="0">
+  <testsuite name="Root Suite" timestamp="2026-11-26T14:47:42" tests="2" file=".tmp\qa-bug004\bug004.cy.js" time="22.216" failures="0">
+    <testcase name="BUG-004 — recusa uma seleção desatualizada após máquina inativa" time="14.942" classname="BUG-004 — recusa uma seleção desatualizada após máquina inativa">
+    </testcase>
+    <testcase name="BUG-004 — recusa uma seleção desatualizada após compatibilidade removida" time="7.028" classname="BUG-004 — recusa uma seleção desatualizada após compatibilidade removida">
+    </testcase>
+  </testsuite>
+</testsuites>

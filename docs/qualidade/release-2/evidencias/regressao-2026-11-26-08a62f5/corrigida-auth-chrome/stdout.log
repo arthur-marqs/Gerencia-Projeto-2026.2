@@ -1,0 +1,136 @@
+
+> frontend@0.0.0 test:e2e:login
+> node scripts/run-e2e.mjs --config cypress.config.ts --suite login --browser chrome
+
+
+
+
+====================================================================================================
+
+  (Run Starting)
+
+  ┌────────────────────────────────────────────────────────────────────────────────────────────────┐
+  │ Cypress:        16.3.0                                                                         │
+  │ Browser:        Chrome 158 (headless)                                                          │
+  │ Node Version:   v26.13.0 (C:\Program Files\nodejs\node.exe)                                    │
+  │ Specs:          3 found (driver06.feature, login.feature, restauracao-sessao.feature)          │
+  │ Searched:       <ciclo> │
+  │                 /corrigida/frontend/cypress/e2e/autenticacao/driver06.feature, H:/PROGRAMACAO/ │
+  │                 Gerencia-Projeto-2026.2/.tmp/qa-release2-final-20261126-08a62f5/corrigida/fron │
+  │                 tend/cypress/e2e/autenticacao/login.feature, H:/PROGRAMACAO/Gerencia-Projeto-2 │
+  │                 026.2/.tmp/qa-release2-final-20261126-08a62f5/corrigida/frontend/cypress/e2e/a │
+  │                 utenticacao/restauracao-sessao.feature                                         │
+  └────────────────────────────────────────────────────────────────────────────────────────────────┘
+
+
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+  Running:  driver06.feature                                                                (1 of 3)
+
+
+  Expiração e invalidação de sessão
+    √ Permitir acesso com sessão válida (1204ms)
+    √ Retornar ao login após a sessão expirar (602ms)
+    √ Retornar ao login quando a sessão for invalidada em outra funcionalidade (444ms)
+    √ Voltar ao login em Famílias após 401 mesmo se a identidade responder 503 (576ms)
+    √ Voltar ao login em Máquinas após 401 mesmo se a identidade responder 503 (569ms)
+    √ Voltar ao login quando uma consulta da matriz rejeitar a sessão (example #1) (469ms)
+    √ Voltar ao login quando uma consulta da matriz rejeitar a sessão (example #2) (513ms)
+
+
+  7 passing (5s)
+
+
+  (Results)
+
+  ┌────────────────────────────────────────────────────────────────────────────────────────────────┐
+  │ Tests:        7                                                                                │
+  │ Passing:      7                                                                                │
+  │ Failing:      0                                                                                │
+  │ Pending:      0                                                                                │
+  │ Skipped:      0                                                                                │
+  │ Screenshots:  0                                                                                │
+  │ Video:        false                                                                            │
+  │ Duration:     4 seconds                                                                        │
+  │ Spec Ran:     driver06.feature                                                                 │
+  └────────────────────────────────────────────────────────────────────────────────────────────────┘
+
+
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+  Running:  login.feature                                                                   (2 of 3)
+
+
+  Autenticação no SetupFlow
+    √ Exibir a tela de login (516ms)
+    √ Tentar entrar com os campos vazios (462ms)
+    √ Tentar entrar com e-mail inválido (743ms)
+    √ Tentar entrar sem informar a senha (466ms)
+    √ Tentar entrar com credenciais incorretas (802ms)
+
+
+  5 passing (3s)
+
+
+  (Results)
+
+  ┌────────────────────────────────────────────────────────────────────────────────────────────────┐
+  │ Tests:        5                                                                                │
+  │ Passing:      5                                                                                │
+  │ Failing:      0                                                                                │
+  │ Pending:      0                                                                                │
+  │ Skipped:      0                                                                                │
+  │ Screenshots:  0                                                                                │
+  │ Video:        false                                                                            │
+  │ Duration:     3 seconds                                                                        │
+  │ Spec Ran:     login.feature                                                                    │
+  └────────────────────────────────────────────────────────────────────────────────────────────────┘
+
+
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+  Running:  restauracao-sessao.feature                                                      (3 of 3)
+
+
+  Recuperar a verificação da sessão
+    √ Recuperar a sessão após "503" na abertura (example #1) (707ms)
+    √ Recuperar a sessão após "rede" na abertura (example #2) (367ms)
+    √ Solicitar login quando a nova verificação retorna 401 (305ms)
+    √ Permitir outra tentativa enquanto a identidade estiver indisponível (430ms)
+    √ Recuperar a identificação depois de um login bem-sucedido (793ms)
+
+
+  5 passing (3s)
+
+
+  (Results)
+
+  ┌────────────────────────────────────────────────────────────────────────────────────────────────┐
+  │ Tests:        5                                                                                │
+  │ Passing:      5                                                                                │
+  │ Failing:      0                                                                                │
+  │ Pending:      0                                                                                │
+  │ Skipped:      0                                                                                │
+  │ Screenshots:  0                                                                                │
+  │ Video:        false                                                                            │
+  │ Duration:     2 seconds                                                                        │
+  │ Spec Ran:     restauracao-sessao.feature                                                       │
+  └────────────────────────────────────────────────────────────────────────────────────────────────┘
+
+
+====================================================================================================
+
+  (Run Finished)
+
+
+       Spec                                              Tests  Passing  Failing  Pending  Skipped
+  ┌────────────────────────────────────────────────────────────────────────────────────────────────┐
+  │ √  driver06.feature                         00:04        7        7        -        -        - │
+  ├────────────────────────────────────────────────────────────────────────────────────────────────┤
+  │ √  login.feature                            00:03        5        5        -        -        - │
+  ├────────────────────────────────────────────────────────────────────────────────────────────────┤
+  │ √  restauracao-sessao.feature               00:02        5        5        -        -        - │
+  └────────────────────────────────────────────────────────────────────────────────────────────────┘
+    √  All specs passed!                        00:10       17       17        -        -        -
+
+Evidências Cypress: <ciclo>\run\corrigida-auth-chrome

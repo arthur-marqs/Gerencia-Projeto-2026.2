@@ -1,8 +1,10 @@
 # Revisão de QA da US-15 — Compatibilidade entre produtos e máquinas no sequenciamento
 
-> **Parecer atual — Pendente de ajustes no commit `40725d1`.** O BUG-003 foi corrigido e verificado. A regressão do catálogo de máquinas continua reproduzível. O CT-119 e a integração via PR seguem pendentes.
->
-> As seções 1 a 9 preservam a avaliação de `ca23d0f`. Os resultados atuais estão na [reavaliação do PR #24](#reavaliação-do-pr-24).
+**Situação da entrega em 26/11/2026 · Aprovada pelo PO e integrada à `main`.** [PR #24](https://github.com/arthur-marqs/Gerencia-Projeto-2026.2/pull/24) (`db73ab8`). Os sete critérios do DoD estão concluídos para o incremento aceito. [Definition of Done](../../status-projeto.md#definition-of-done-dod)
+
+O BUG-003 foi retestado na `main`. A falha de catálogo registrada nas avaliações foi corrigida no [PR #27 da US16](https://github.com/arthur-marqs/Gerencia-Projeto-2026.2/pull/27). O aceite cobre o comportamento da implementação integrada. [Reteste na main](auditoria-bugs/relatorio-validacao.md#7-reteste-dos-três-bugs-históricos)
+
+> As seções 1 a 9 preservam a avaliação de `ca23d0f`. A rodada seguinte está na [reavaliação do PR #24](#reavaliação-do-pr-24).
 
 ## 1. Identificação
 
@@ -130,7 +132,7 @@ Cenário: Consultar o planejamento manual com o catálogo de máquinas indispon�
 
 **Duplicidade.** A busca de issues no GitHub por US15, SC-32, compatibilidade, sequenciamento, planejamento manual e catálogo não retornou registros correspondentes. As issues de regressão [#18 da US-11](https://github.com/arthur-marqs/Gerencia-Projeto-2026.2/issues/18) e [#19 do Driver06](https://github.com/arthur-marqs/Gerencia-Projeto-2026.2/issues/19) tratam de outros comportamentos e estavam fechadas. Consulte a SC-32 antes de abrir um registro separado no Jira, pois seu conteúdo não estava acessível.
 
-## 6. Verificação da DoD
+## 6. DoD na avaliação de `ca23d0f`
 
 | Critério informado | Estado | Evidência ou pendência |
 | --- | --- | --- |
@@ -160,7 +162,7 @@ Cenário: Consultar o planejamento manual com o catálogo de máquinas indispon�
 | Concorrência | Definir o instante de referência para a compatibilidade. Repetir a sondagem com duas sessões no ponto definido, após ajuste se aplicável. |
 | Homologação e integração | Identificar ambiente e commit implantado, quando exigido. Repetir geração válida, incompatibilidade, acesso do Operador e recuperação da sugestão. Conferir a CI da revisão candidata e o aceite do PO. |
 
-## 9. Parecer final
+## 9. Parecer de QA da avaliação original
 
 **Pendente de ajustes.** A API e a interface passaram nos fluxos nominais, inclusive o bloqueio de atribuição incompatível. A API rejeitou uma sugestão viável conforme a ordem de seleção e a tela ocultou dados do Planejamento Manual quando o catálogo falhou. A política do lote misto precisa de confirmação e a integração via PR está pendente. O parecer de QA não substitui o aceite do PO.
 
@@ -198,7 +200,7 @@ Foram mantidos os critérios C1 e C2 e os sete itens da DoD registrados na avali
 | Homologação, quando exigida | Exigência, URL e versão implantada sem comprovação. | **Não foi possível verificar** | A CI consultada executa testes e build. A avaliação local usou serviços descartáveis. Persistem a falta de confirmação da exigência e de evidência de implantação para a US. | Quando exigida, identificar ambiente e revisão implantada e executar os fluxos de aceite e acesso. |
 | Aceite da US pelo PO | Sem aceite registrado na consulta anterior. | **Não foi possível verificar** | O PR e a issue #25 consultados estavam sem comentários e a SC-32 permaneceu inacessível. | Obter o aceite formal depois de concluir as verificações aplicáveis. |
 
-### Rastreabilidade atual
+### Rastreabilidade da reavaliação
 
 | Caso do plano ou cenário existente | Verificação no commit atual | Resultado |
 | --- | --- | --- |
@@ -225,7 +227,7 @@ Foram mantidos os critérios C1 e C2 e os sete itens da DoD registrados na avali
 
 A regressão foi escolhida por dependência com a distribuição, o cálculo de setup e a persistência. CT-85 verifica a recusa ao Operador pela API. CT-110 verifica a consulta da sugestão e a preservação do planejamento manual. As duas variantes de CT-115 verificam prazo e prioridade no mesmo fluxo de sugestão. A suíte completa do backend cobre também permissões, máquinas, produtos, tempos de setup e compatibilidades da US-26. Os roteiros específicos das issues #18 e #19 continuam fora do reteste, pois as mudanças avaliadas se concentram na distribuição das sugestões.
 
-### DoD atual
+### DoD na reavaliação de `40725d1`
 
 | Critério | Estado no commit atual | Evidência |
 | --- | --- | --- |
@@ -258,6 +260,6 @@ Os resultados e capturas da reavaliação foram reunidos com o relatório. Os ar
 | 25/11/2026 | `ca23d0f4e775719c40926f1de12d3b7d6b096a93` | Avaliação inicial. Detectados o bloqueio que originou o BUG-003 e a regressão do catálogo. CT-119 e integração pendentes. |
 | 25/11/2026 | `40725d1d30777beb99f8851bfe444cde6053fcfb` | Reavaliação da correção `ae8ae27`. BUG-003 verificado pela API e na tela. Regressão do catálogo reproduzida novamente. CI #163 aprovada e integração pendente. |
 
-### Parecer atual
+### Parecer da reavaliação de `40725d1`
 
 **Pendente de ajustes.** O BUG-003 / #25 foi resolvido e verificado neste commit. A regressão do Planejamento Manual quando o catálogo falha continua sendo a não conformidade confirmada. Permanecem pendentes a decisão do PO para CT-119 e concorrência, a comprovação de homologação quando aplicável, a integração do PR e o aceite formal. Os cenários executados nesta reavaliação não revelaram outro defeito.

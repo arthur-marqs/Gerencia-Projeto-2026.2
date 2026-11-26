@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<testsuites name="Mocha Tests" time="12.715" tests="3" failures="0">
+  <testsuite name="Root Suite" timestamp="2026-11-26T15:42:12" tests="3" time="12.710" failures="0">
+    <testcase name="BUG-005 — recupera a sessão real após 503 inicial sem novo login ou recarga" time="5.707" classname="BUG-005 — recupera a sessão real após 503 inicial sem novo login ou recarga">
+    </testcase>
+    <testcase name="BUG-005 — mostra login quando o retry recebe 401 para a sessão expirada no banco" time="3.764" classname="BUG-005 — mostra login quando o retry recebe 401 para a sessão expirada no banco">
+    </testcase>
+    <testcase name="Driver06 — uma identidade 200 atrasada não restaura o painel após recusa real" time="3.110" classname="Driver06 — uma identidade 200 atrasada não restaura o painel após recusa real">
+    </testcase>
+  </testsuite>
+</testsuites>

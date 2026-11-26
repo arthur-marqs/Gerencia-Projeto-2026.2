@@ -1,0 +1,149 @@
+﻿{
+    "commit":  "08a62f5d1d164c7ee2cfbb0282aa7f9784baaf8f",
+    "navegador":  "Chrome/158.0.8127.38",
+    "ambiente":  "Chrome, Vite, API Uvicorn e PostgreSQL dedicado em loopback",
+    "rota":  "/api/families",
+    "observacao":  "Da requisição até o corpo completo e até a exibição do formulário. Sem respostas simuladas.",
+    "amostras":  [
+                     {
+                         "estado":  "expirada",
+                         "tentativa":  1,
+                         "http":  401,
+                         "respostaMs":  8.199999988079071,
+                         "loginMs":  9.799999997019768
+                     },
+                     {
+                         "estado":  "expirada",
+                         "tentativa":  2,
+                         "http":  401,
+                         "respostaMs":  7.5999999940395355,
+                         "loginMs":  9.099999994039536
+                     },
+                     {
+                         "estado":  "expirada",
+                         "tentativa":  3,
+                         "http":  401,
+                         "respostaMs":  6.200000002980232,
+                         "loginMs":  7.300000011920929
+                     },
+                     {
+                         "estado":  "expirada",
+                         "tentativa":  4,
+                         "http":  401,
+                         "respostaMs":  7.4000000059604645,
+                         "loginMs":  8.700000002980232
+                     },
+                     {
+                         "estado":  "expirada",
+                         "tentativa":  5,
+                         "http":  401,
+                         "respostaMs":  8.100000008940697,
+                         "loginMs":  9.400000005960464
+                     },
+                     {
+                         "estado":  "expirada",
+                         "tentativa":  6,
+                         "http":  401,
+                         "respostaMs":  7.299999997019768,
+                         "loginMs":  8.799999997019768
+                     },
+                     {
+                         "estado":  "expirada",
+                         "tentativa":  7,
+                         "http":  401,
+                         "respostaMs":  12.600000008940697,
+                         "loginMs":  13.700000002980232
+                     },
+                     {
+                         "estado":  "expirada",
+                         "tentativa":  8,
+                         "http":  401,
+                         "respostaMs":  8.100000008940697,
+                         "loginMs":  9.400000005960464
+                     },
+                     {
+                         "estado":  "expirada",
+                         "tentativa":  9,
+                         "http":  401,
+                         "respostaMs":  7,
+                         "loginMs":  8.100000008940697
+                     },
+                     {
+                         "estado":  "expirada",
+                         "tentativa":  10,
+                         "http":  401,
+                         "respostaMs":  7.4000000059604645,
+                         "loginMs":  8.600000008940697
+                     },
+                     {
+                         "estado":  "invalidada",
+                         "tentativa":  1,
+                         "http":  401,
+                         "respostaMs":  7,
+                         "loginMs":  8.200000002980232
+                     },
+                     {
+                         "estado":  "invalidada",
+                         "tentativa":  2,
+                         "http":  401,
+                         "respostaMs":  6.899999991059303,
+                         "loginMs":  8.5
+                     },
+                     {
+                         "estado":  "invalidada",
+                         "tentativa":  3,
+                         "http":  401,
+                         "respostaMs":  10.700000002980232,
+                         "loginMs":  12.100000008940697
+                     },
+                     {
+                         "estado":  "invalidada",
+                         "tentativa":  4,
+                         "http":  401,
+                         "respostaMs":  7.600000008940697,
+                         "loginMs":  9
+                     },
+                     {
+                         "estado":  "invalidada",
+                         "tentativa":  5,
+                         "http":  401,
+                         "respostaMs":  8.400000005960464,
+                         "loginMs":  9.900000005960464
+                     },
+                     {
+                         "estado":  "invalidada",
+                         "tentativa":  6,
+                         "http":  401,
+                         "respostaMs":  7.299999997019768,
+                         "loginMs":  8.799999997019768
+                     },
+                     {
+                         "estado":  "invalidada",
+                         "tentativa":  7,
+                         "http":  401,
+                         "respostaMs":  8.099999994039536,
+                         "loginMs":  9.5
+                     },
+                     {
+                         "estado":  "invalidada",
+                         "tentativa":  8,
+                         "http":  401,
+                         "respostaMs":  8.799999997019768,
+                         "loginMs":  10.299999997019768
+                     },
+                     {
+                         "estado":  "invalidada",
+                         "tentativa":  9,
+                         "http":  401,
+                         "respostaMs":  11.099999994039536,
+                         "loginMs":  13.399999991059303
+                     },
+                     {
+                         "estado":  "invalidada",
+                         "tentativa":  10,
+                         "http":  401,
+                         "respostaMs":  7,
+                         "loginMs":  8.300000011920929
+                     }
+                 ]
+}

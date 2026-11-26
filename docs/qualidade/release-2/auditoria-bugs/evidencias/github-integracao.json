@@ -1,0 +1,154 @@
+{
+  "main": "08a62f5d1d164c7ee2cfbb0282aa7f9784baaf8f",
+  "releases": [
+    {
+      "tag_name": "v0.1.0",
+      "published_at": "2026-10-30T00:25:33Z",
+      "html_url": "https://github.com/arthur-marqs/Gerencia-Projeto-2026.2/releases/tag/v0.1.0"
+    }
+  ],
+  "deployments": [],
+  "reviews": [
+    {
+      "pr": 16,
+      "quantidade": 0,
+      "aprovacoes": 0
+    },
+    {
+      "pr": 17,
+      "quantidade": 0,
+      "aprovacoes": 0
+    },
+    {
+      "pr": 21,
+      "quantidade": 0,
+      "aprovacoes": 0
+    },
+    {
+      "pr": 22,
+      "quantidade": 1,
+      "aprovacoes": 1
+    },
+    {
+      "pr": 23,
+      "quantidade": 0,
+      "aprovacoes": 0
+    },
+    {
+      "pr": 24,
+      "quantidade": 0,
+      "aprovacoes": 0
+    },
+    {
+      "pr": 26,
+      "quantidade": 0,
+      "aprovacoes": 0
+    },
+    {
+      "pr": 27,
+      "quantidade": 1,
+      "aprovacoes": 1
+    },
+    {
+      "pr": 28,
+      "quantidade": 1,
+      "aprovacoes": 1
+    },
+    {
+      "pr": 29,
+      "quantidade": 0,
+      "aprovacoes": 0
+    }
+  ],
+  "data": "26/11/2026",
+  "repositorio": "arthur-marqs/Gerencia-Projeto-2026.2",
+  "issues_publicas": [
+    {
+      "numero": 18,
+      "status": "closed",
+      "correcao_pr": 21,
+      "merge": "8f992a1"
+    },
+    {
+      "numero": 19,
+      "status": "closed",
+      "correcao_pr": 17,
+      "merge": "a118dcd"
+    },
+    {
+      "numero": 25,
+      "status": "closed",
+      "correcao_pr": 24,
+      "merge": "db73ab8"
+    }
+  ],
+  "ci": {
+    "execucao": 45827103972,
+    "event": "push",
+    "branch": "main",
+    "commit": "08a62f5d1d164c7ee2cfbb0282aa7f9784baaf8f",
+    "status": "success",
+    "jobs": [
+      {
+        "id": 139933974837,
+        "nome": "Backend pytest",
+        "situacao": "success",
+        "passos": [
+          {
+            "nome": "Run backend pytest suite",
+            "situacao": "success"
+          }
+        ]
+      },
+      {
+        "id": 139933975196,
+        "nome": "Acceptance BDD - US11, US13 e US32 (electron)",
+        "situacao": "success",
+        "passos": [
+          {
+            "nome": "Cypress smoke and regression",
+            "situacao": "success"
+          }
+        ]
+      },
+      {
+        "id": 139933975286,
+        "nome": "Frontend Cypress BDD",
+        "situacao": "success",
+        "passos": [
+          {
+            "nome": "Run Cypress BDD tests",
+            "situacao": "success"
+          }
+        ]
+      },
+      {
+        "id": 139933975362,
+        "nome": "Acceptance BDD - US11, US13 e US32 (chrome)",
+        "situacao": "success",
+        "passos": [
+          {
+            "nome": "Cypress smoke and regression",
+            "situacao": "success"
+          }
+        ]
+      },
+      {
+        "id": 139933975439,
+        "nome": "Frontend lint and build",
+        "situacao": "success",
+        "passos": [
+          {
+            "nome": "Run frontend lint",
+            "situacao": "success"
+          },
+          {
+            "nome": "Build frontend",
+            "situacao": "success"
+          }
+        ]
+      }
+    ],
+    "consulta_logs_sem_credencial_http": 403
+  }
+}

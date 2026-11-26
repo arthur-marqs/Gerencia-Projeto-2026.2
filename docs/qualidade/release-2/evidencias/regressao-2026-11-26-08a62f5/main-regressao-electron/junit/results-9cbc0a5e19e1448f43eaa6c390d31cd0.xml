@@ -1,0 +1,15 @@
+<?xml version='1.0' encoding='utf-8'?>
+<testsuites name="Mocha Tests" time="15.861" tests="4" failures="0">
+  <testsuite name="Root Suite" timestamp="2026-11-26T18:47:39" tests="0" file="cypress\e2e\matriz-setup.feature" time="0.000" failures="0">
+  </testsuite>
+  <testsuite name="Consultar matriz de setup entre famílias de produtos" timestamp="2026-11-26T18:47:39" tests="4" time="15.860" failures="0">
+    <testcase name="Consultar matriz de setup entre famílias de produtos Consultar tempos de setup diferentes em cada direção" time="3.723" classname="Consultar tempos de setup diferentes em cada direção">
+    </testcase>
+    <testcase name="Consultar matriz de setup entre famílias de produtos Consultar matriz sem configurações de setup" time="4.168" classname="Consultar matriz sem configurações de setup">
+    </testcase>
+    <testcase name="Consultar matriz de setup entre famílias de produtos Exibir família de destino ausente na lista de famílias" time="3.789" classname="Exibir família de destino ausente na lista de famílias">
+    </testcase>
+    <testcase name="Consultar matriz de setup entre famílias de produtos Exibir família de origem ausente na lista de famílias" time="4.037" classname="Exibir família de origem ausente na lista de famílias">
+    </testcase>
+  </testsuite>
+</testsuites>

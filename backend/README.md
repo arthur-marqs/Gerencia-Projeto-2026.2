@@ -4,6 +4,7 @@ Este guia explica como configurar o backend e o PostgreSQL em uma máquina de de
 
 Cada pessoa executa sua própria instância local do PostgreSQL. O GitHub contém as migrations que recriam a estrutura do banco, mas não contém o banco local, usuários de teste, sessões ou senhas.
 
+As rotas integradas abrangem autenticação e usuários, cadastros de produção, ordens, tempos de setup e planejamento manual, sugerido, comparado e aprovado. [Estado das entregas e DoD](../docs/status-projeto.md) · [Arquitetura](../docs/arquitetura/arquitetura.md)
 
 
 ## Ferramentas usadas
@@ -345,7 +346,7 @@ tela, Planejador e Operador podem consultar as sequências aprovadas.
 
 | API | Perfil | Comportamento |
 | --- | --- | --- |
-| `GET /api/planejamentos/aprovacoes/candidatos` | `PLANEJADOR` | Lista sequências com ordens pendentes e ainda disponíveis para aprovação. |
+| `GET /api/planejamentos/aprovacoes/candidatos` | `PLANEJADOR` | Lista sequências com ordens pendentes e disponíveis para aprovação. |
 | `POST /api/planejamentos/aprovacoes` | `PLANEJADOR` | Aprova a origem `manual` ou `sugerida` identificada por `origem_id`. A interface envia `ordens_ids` na ordem conferida para detectar uma edição concorrente. |
 | `GET /api/planejamentos/aprovacoes` | `PLANEJADOR`, `OPERADOR` | Lista os planejamentos aprovados com suas ordens, posições e máquinas atribuídas. |
 
@@ -356,8 +357,14 @@ aprovado fica protegido contra edição. A mesma ordem só pode integrar uma
 aprovação. Reenviar a aprovação da mesma origem retorna o registro existente.
 A tentativa sem planejamento retorna 404 com uma mensagem específica.
 
+A correção do BUG-004, validada em `docs/qualidade`, filtra os candidatos e
+revalida as atribuições na transação da aprovação. Se uma máquina ficar inativa,
+perder o vínculo com o produto ou faltar em um item legado, a API retorna 409
+e orienta a gerar uma sugestão atualizada. A sugestão original continua
+disponível para consulta. A correção aguarda integração à `main`. [Reteste do BUG-004](../docs/qualidade/release-2/auditoria-bugs/reteste-bug004.md)
+
 Aplique `alembic upgrade head` para incluir as tabelas da revisão
-`8d17b4f2c306`. As sequências existentes continuam disponíveis para seleção.
+`8d17b4f2c306`.
 Os testes da API estão em `testes/integration/test_us17_aprovacao.py` e os
 casos CT-123 a CT-125 estão no [guia do Cypress](../frontend/cypress/README.md#cenários-da-us17).
 
@@ -493,15 +500,15 @@ Execute separadamente a suíte quantitativa do Driver05, que inclui 20 ciclos (2
 .\.venv\Scripts\python.exe -m pytest -v --junitxml=junit-driver05.xml testes\integration\drivers\test_driver05_rate_limiting.py
 ```
 
-O cadastro de ordens (`POST /api/ordens-producao`) exige o cabeçalho `Idempotency-Key` com um UUID. A chave é única por usuário e fica registrada junto com a ordem; seu reconhecimento não expira, portanto permanece válido por pelo menos 24 horas. Reenvios com a mesma chave e conteúdo retornam a ordem original com HTTP 200; reutilizar a chave com conteúdo diferente retorna HTTP 409. Use uma nova chave para uma operação distinta e um novo `codigo` de ordem, que continua único.
+## Idempotência no cadastro de ordens (Driver02)
+
+O cadastro de ordens (`POST /api/ordens-producao`) exige o cabeçalho `Idempotency-Key` com um UUID. A chave é única por usuário e fica registrada junto com a ordem. A implementação mantém o reconhecimento da chave, inclusive após a janela mínima de 24 horas. Reenvios com a mesma chave e conteúdo retornam a ordem original com HTTP 200. Reutilizar a chave com conteúdo diferente retorna HTTP 409. Use uma nova chave e um novo `codigo` para cadastrar outra ordem.
 
 Execute a suíte do Driver02, que verifica 20 operações cujo commit é confirmado mas cuja resposta é perdida, cinco reenvios por operação, conflito de conteúdo, operações distintas, concorrência, retenção e recuperação após falha antes da confirmação:
 
 ```powershell
 .\.venv\Scripts\python.exe -m pytest -v testes\integration\drivers\test_driver02_idempotency_ordens.py
 ```
-
-As duas suítes também podem ser executadas juntas com `.\.venv\Scripts\python.exe -m pytest -v --junitxml=junit.xml testes`.
 
 ## Integridade da gravação de ordens (Driver01)
 
@@ -521,7 +528,15 @@ Na pasta `backend`, configure `TEST_DATABASE_URL` para um banco PostgreSQL desca
 .\.venv\Scripts\python.exe -m pytest -v testes\integration\drivers\test_driver01_integridade_ordens.py
 ```
 
-O registro do andamento da execução, como iniciar ou concluir a produção de uma ordem, permanece indisponível neste incremento. Sua validação está pendente nos cenários CT-127, CT-128 e CT-129. O relatório contém a medição com desconexões reais e o inventário da API e do banco usados para verificar essa disponibilidade. [Relatório de QA do Driver01](../docs/qualidade/release-2/revisao-driver01.md)
+O aceite do Driver01 abrange as três gravações disponíveis. A cobertura dos cenários CT-127, CT-128 e CT-129 para início e conclusão de ordens acompanha a futura implementação do registro de execução. [Relatório de QA do Driver01](../docs/qualidade/release-2/revisao-driver01.md)
+
+## Autorização e validade de sessão (Driver04 e Driver06)
+
+Operações protegidas exigem sessão válida. A API retorna HTTP 401 para sessão ausente, expirada ou invalidada e HTTP 403 quando os perfis da sessão não autorizam a operação. A matriz integrada abrange cadastros, planejamento e aprovação. Os testes verificam a rejeição sem alterações no banco, a expiração e a invalidação. [Matriz de QA do Driver04](../docs/qualidade/release-2/revisao-driver04.md) · [Validação do Driver06](../docs/qualidade/release-2/revisao-driver06.md)
+
+```powershell
+.\.venv\Scripts\python.exe -m pytest -v testes/integration/drivers/test_driver04_controle_acesso.py testes/integration/drivers/test_driver06_session_expiration.py
+```
 
 
 ## Cobertura dos testes do backend

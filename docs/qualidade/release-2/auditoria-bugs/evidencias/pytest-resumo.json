@@ -1,0 +1,2278 @@
+﻿{
+    "commit":  "08a62f5d1d164c7ee2cfbb0282aa7f9784baaf8f",
+    "ambiente":  "Windows 11 26H2, Python 3.11.9 e PostgreSQL 18.6 de teste",
+    "backend":  {
+                    "total":  325,
+                    "falhas":  0,
+                    "erros":  0,
+                    "ignorados":  0,
+                    "tempo_s":  222.81,
+                    "casos":  [
+                                  {
+                                      "grupo":  "testes.integration.drivers.test_driver01_integridade_ordens",
+                                      "caso":  "test_driver01_falha_apos_flush_no_cadastro_nao_deixa_registros_parciais[0]",
+                                      "tempo_s":  3.579,
+                                      "resultado":  "aprovado"
+                                  },
+                                  {
+                                      "grupo":  "testes.integration.drivers.test_driver01_integridade_ordens",
+                                      "caso":  "test_driver01_falha_apos_flush_no_cadastro_nao_deixa_registros_parciais[1]",
+                                      "tempo_s":  0.529,
+                                      "resultado":  "aprovado"
+                                  },
+                                  {
+                                      "grupo":  "testes.integration.drivers.test_driver01_integridade_ordens",
+                                      "caso":  "test_driver01_falha_apos_flush_no_cadastro_nao_deixa_registros_parciais[2]",
+                                      "tempo_s":  0.419,
+                                      "resultado":  "aprovado"
+                                  },
+                                  {
+                                      "grupo":  "testes.integration.drivers.test_driver01_integridade_ordens",
+                                      "caso":  "test_driver01_falha_apos_flush_no_cadastro_nao_deixa_registros_parciais[3]",
+                                      "tempo_s":  0.474,
+                                      "resultado":  "aprovado"
+                                  },
+                                  {
+                                      "grupo":  "testes.integration.drivers.test_driver01_integridade_ordens",
+                                      "caso":  "test_driver01_falha_apos_flush_no_cadastro_nao_deixa_registros_parciais[4]",
+                                      "tempo_s":  0.388,
+                                      "resultado":  "aprovado"
+                                  },
+                                  {
+                                      "grupo":  "testes.integration.drivers.test_driver01_integridade_ordens",
+                                      "caso":  "test_driver01_falha_apos_flush_no_commit_nao_deixa_ordem_parcial[0]",
+                                      "tempo_s":  0.426,
+                                      "resultado":  "aprovado"
+                                  },
+                                  {
+                                      "grupo":  "testes.integration.drivers.test_driver01_integridade_ordens",
+                                      "caso":  "test_driver01_falha_apos_flush_no_commit_nao_deixa_ordem_parcial[1]",
+                                      "tempo_s":  0.422,
+                                      "resultado":  "aprovado"
+                                  },
+                                  {
+                                      "grupo":  "testes.integration.drivers.test_driver01_integridade_ordens",
+                                      "caso":  "test_driver01_falha_apos_flush_no_commit_nao_deixa_ordem_parcial[2]",
+                                      "tempo_s":  0.5,
+                                      "resultado":  "aprovado"
+                                  },
+                                  {
+                                      "grupo":  "testes.integration.drivers.test_driver01_integridade_ordens",
+                                      "caso":  "test_driver01_falha_apos_flush_no_commit_nao_deixa_ordem_parcial[3]",
+                                      "tempo_s":  0.631,
+                                      "resultado":  "aprovado"
+                                  },
+                                  {
+                                      "grupo":  "testes.integration.drivers.test_driver01_integridade_ordens",
+                                      "caso":  "test_driver01_falha_apos_flush_no_commit_nao_deixa_ordem_parcial[4]",
+                                      "tempo_s":  0.44,
+                                      "resultado":  "aprovado"
+                                  },
+                                  {
+                                      "grupo":  "testes.integration.drivers.test_driver01_integridade_ordens",
+                                      "caso":  "test_driver01_falha_ao_atualizar_duracao_preserva_valor_anterior[0]",
+                                      "tempo_s":  0.416,
+                                      "resultado":  "aprovado"
+                                  },
+                                  {
+                                      "grupo":  "testes.integration.drivers.test_driver01_integridade_ordens",
+                                      "caso":  "test_driver01_falha_ao_atualizar_duracao_preserva_valor_anterior[1]",
+                                      "tempo_s":  0.448,
+                                      "resultado":  "aprovado"
+                                  },
+                                  {
+                                      "grupo":  "testes.integration.drivers.test_driver01_integridade_ordens",
+                                      "caso":  "test_driver01_falha_ao_atualizar_duracao_preserva_valor_anterior[2]",
+                                      "tempo_s":  0.436,
+                                      "resultado":  "aprovado"
+                                  },
+                                  {
+                                      "grupo":  "testes.integration.drivers.test_driver01_integridade_ordens",
+                                      "caso":  "test_driver01_falha_ao_atualizar_duracao_preserva_valor_anterior[3]",
+                                      "tempo_s":  0.433,
+                                      "resultado":  "aprovado"
+                                  },
+                                  {
+                                      "grupo":  "testes.integration.drivers.test_driver01_integridade_ordens",
+                                      "caso":  "test_driver01_falha_ao_atualizar_duracao_preserva_valor_anterior[4]",
+                                      "tempo_s":  0.45,
+                                      "resultado":  "aprovado"
+                                  },
+                                  {
+                                      "grupo":  "testes.integration.drivers.test_driver01_integridade_ordens",
+                                      "caso":  "test_driver01_falha_ao_atualizar_prazo_preserva_dados_anteriores[0]",
+                                      "tempo_s":  0.448,
+                                      "resultado":  "aprovado"
+                                  },
+                                  {
+                                      "grupo":  "testes.integration.drivers.test_driver01_integridade_ordens",
+                                      "caso":  "test_driver01_falha_ao_atualizar_prazo_preserva_dados_anteriores[1]",
+                                      "tempo_s":  0.486,
+                                      "resultado":  "aprovado"
+                                  },
+                                  {
+                                      "grupo":  "testes.integration.drivers.test_driver01_integridade_ordens",
+                                      "caso":  "test_driver01_falha_ao_atualizar_prazo_preserva_dados_anteriores[2]",
+                                      "tempo_s":  0.411,
+                                      "resultado":  "aprovado"
+                                  },
+                                  {
+                                      "grupo":  "testes.integration.drivers.test_driver01_integridade_ordens",
+                                      "caso":  "test_driver01_falha_ao_atualizar_prazo_preserva_dados_anteriores[3]",
+                                      "tempo_s":  0.427,
+                                      "resultado":  "aprovado"
+                                  },
+                                  {
+                                      "grupo":  "testes.integration.drivers.test_driver01_integridade_ordens",
+                                      "caso":  "test_driver01_falha_ao_atualizar_prazo_preserva_dados_anteriores[4]",
+                                      "tempo_s":  0.414,
+                                      "resultado":  "aprovado"
+                                  },
+                                  {
+                                      "grupo":  "testes.integration.drivers.test_driver02_idempotency_ordens",
+                                      "caso":  "test_driver02_20_operacoes_com_cinco_reenvios",
+                                      "tempo_s":  1.86,
+                                      "resultado":  "aprovado"
+                                  },
+                                  {
+                                      "grupo":  "testes.integration.drivers.test_driver02_idempotency_ordens",
+                                      "caso":  "test_nova_chave_com_novo_codigo_cria_ordem_distinta",
+                                      "tempo_s":  0.445,
+                                      "resultado":  "aprovado"
+                                  },
+                                  {
+                                      "grupo":  "testes.integration.drivers.test_driver02_idempotency_ordens",
+                                      "caso":  "test_mesma_chave_com_conteudo_diferente_retorna_conflito",
+                                      "tempo_s":  0.412,
+                                      "resultado":  "aprovado"
+                                  },
+                                  {
+                                      "grupo":  "testes.integration.drivers.test_driver02_idempotency_ordens",
+                                      "caso":  "test_reenvio_imediatamente_antes_e_depois_de_24_horas",
+                                      "tempo_s":  0.498,
+                                      "resultado":  "aprovado"
+                                  },
+                                  {
+                                      "grupo":  "testes.integration.drivers.test_driver02_idempotency_ordens",
+                                      "caso":  "test_reenvios_simultaneos_criam_uma_ordem",
+                                      "tempo_s":  0.58,
+                                      "resultado":  "aprovado"
+                                  },
+                                  {
+                                      "grupo":  "testes.integration.drivers.test_driver02_idempotency_ordens",
+                                      "caso":  "test_reenvio_apos_confirmacao_entre_consultas_retorna_mesma_ordem",
+                                      "tempo_s":  0.55,
+                                      "resultado":  "aprovado"
+                                  },
+                                  {
+                                      "grupo":  "testes.integration.drivers.test_driver02_idempotency_ordens",
+                                      "caso":  "test_falha_antes_da_confirmacao_nao_deixa_ordem_parcial",
+                                      "tempo_s":  0.571,
+                                      "resultado":  "aprovado"
+                                  },
+                                  {
+                                      "grupo":  "testes.integration.drivers.test_driver02_idempotency_ordens",
+                                      "caso":  "test_chave_ausente_ou_invalida_nao_persiste_ordem",
+                                      "tempo_s":  0.412,
+                                      "resultado":  "aprovado"
+                                  },
+                                  {
+                                      "grupo":  "testes.integration.drivers.test_driver04_controle_acesso",
+                                      "caso":  "test_driver04_bloqueia_operacao_sem_alterar_banco[listar-maquinas-nao-autenticado]",
+                                      "tempo_s":  0.465,
+                                      "resultado":  "aprovado"
+                                  },
+                                  {
+                                      "grupo":  "testes.integration.drivers.test_driver04_controle_acesso",
+                                      "caso":  "test_driver04_bloqueia_operacao_sem_alterar_banco[listar-maquinas-operador-sem-permissao]",
+                                      "tempo_s":  0.606,
+                                      "resultado":  "aprovado"
+                                  },
+                                  {
+                                      "grupo":  "testes.integration.drivers.test_driver04_controle_acesso",
+                                      "caso":  "test_driver04_bloqueia_operacao_sem_alterar_banco[cadastrar-maquina-nao-autenticado]",
+                                      "tempo_s":  0.464,
+                                      "resultado":  "aprovado"
+                                  },
+                                  {
+                                      "grupo":  "testes.integration.drivers.test_driver04_controle_acesso",
+                                      "caso":  "test_driver04_bloqueia_operacao_sem_alterar_banco[cadastrar-maquina-operador-sem-permissao]",
+                                      "tempo_s":  0.603,
+                                      "resultado":  "aprovado"
+                                  },
+                                  {
+                                      "grupo":  "testes.integration.drivers.test_driver04_controle_acesso",
+                                      "caso":  "test_driver04_bloqueia_operacao_sem_alterar_banco[editar-maquina-nao-autenticado]",
+                                      "tempo_s":  0.443,
+                                      "resultado":  "aprovado"
+                                  },
+                                  {
+                                      "grupo":  "testes.integration.drivers.test_driver04_controle_acesso",
+                                      "caso":  "test_driver04_bloqueia_operacao_sem_alterar_banco[editar-maquina-operador-sem-permissao]",
+                                      "tempo_s":  0.744,
+                                      "resultado":  "aprovado"
+                                  },
+                                  {
+                                      "grupo":  "testes.integration.drivers.test_driver04_controle_acesso",
+                                      "caso":  "test_driver04_bloqueia_operacao_sem_alterar_banco[alterar-status-maquina-nao-autenticado]",
+                                      "tempo_s":  0.923,
+                                      "resultado":  "aprovado"
+                                  },
+                                  {
+                                      "grupo":  "testes.integration.drivers.test_driver04_controle_acesso",
+                                      "caso":  "test_driver04_bloqueia_operacao_sem_alterar_banco[alterar-status-maquina-operador-sem-permissao]",
+                                      "tempo_s":  1.218,
+                                      "resultado":  "aprovado"
+                                  },
+                                  {
+                                      "grupo":  "testes.integration.drivers.test_driver04_controle_acesso",
+                                      "caso":  "test_driver04_bloqueia_operacao_sem_alterar_banco[excluir-maquina-nao-autenticado]",
+                                      "tempo_s":  0.667,
+                                      "resultado":  "aprovado"
+                                  },
+                                  {
+                                      "grupo":  "testes.integration.drivers.test_driver04_controle_acesso",
+                                      "caso":  "test_driver04_bloqueia_operacao_sem_alterar_banco[excluir-maquina-operador-sem-permissao]",
+                                      "tempo_s":  1.373,
+                                      "resultado":  "aprovado"
+                                  },
+                                  {
+                                      "grupo":  "testes.integration.drivers.test_driver04_controle_acesso",
+                                      "caso":  "test_driver04_bloqueia_operacao_sem_alterar_banco[listar-familias-nao-autenticado]",
+                                      "tempo_s":  0.547,
+                                      "resultado":  "aprovado"
+                                  },
+                                  {
+                                      "grupo":  "testes.integration.drivers.test_driver04_controle_acesso",
+                                      "caso":  "test_driver04_bloqueia_operacao_sem_alterar_banco[listar-familias-operador-sem-permissao]",
+                                      "tempo_s":  0.716,
+                                      "resultado":  "aprovado"
+                                  },
+                                  {
+                                      "grupo":  "testes.integration.drivers.test_driver04_controle_acesso",
+                                      "caso":  "test_driver04_bloqueia_operacao_sem_alterar_banco[cadastrar-familia-nao-autenticado]",
+                                      "tempo_s":  0.46,
+                                      "resultado":  "aprovado"
+                                  },
+                                  {
+                                      "grupo":  "testes.integration.drivers.test_driver04_controle_acesso",
+                                      "caso":  "test_driver04_bloqueia_operacao_sem_alterar_banco[cadastrar-familia-operador-sem-permissao]",
+                                      "tempo_s":  0.517,
+                                      "resultado":  "aprovado"
+                                  },
+                                  {
+                                      "grupo":  "testes.integration.drivers.test_driver04_controle_acesso",
+                                      "caso":  "test_driver04_bloqueia_operacao_sem_alterar_banco[listar-tempos-setup-nao-autenticado]",
+                                      "tempo_s":  0.435,
+                                      "resultado":  "aprovado"
+                                  },
+                                  {
+                                      "grupo":  "testes.integration.drivers.test_driver04_controle_acesso",
+                                      "caso":  "test_driver04_bloqueia_operacao_sem_alterar_banco[listar-tempos-setup-operador-sem-permissao]",
+                                      "tempo_s":  0.553,
+                                      "resultado":  "aprovado"
+                                  },
+                                  {
+                                      "grupo":  "testes.integration.drivers.test_driver04_controle_acesso",
+                                      "caso":  "test_driver04_bloqueia_operacao_sem_alterar_banco[cadastrar-tempo-setup-nao-autenticado]",
+                                      "tempo_s":  0.405,
+                                      "resultado":  "aprovado"
+                                  },
+                                  {
+                                      "grupo":  "testes.integration.drivers.test_driver04_controle_acesso",
+                                      "caso":  "test_driver04_bloqueia_operacao_sem_alterar_banco[cadastrar-tempo-setup-operador-sem-permissao]",
+                                      "tempo_s":  0.508,
+                                      "resultado":  "aprovado"
+                                  },
+                                  {
+                                      "grupo":  "testes.integration.drivers.test_driver04_controle_acesso",
+                                      "caso":  "test_driver04_bloqueia_operacao_sem_alterar_banco[listar-produtos-nao-autenticado]",
+                                      "tempo_s":  0.431,
+                                      "resultado":  "aprovado"
+                                  },
+                                  {
+                                      "grupo":  "testes.integration.drivers.test_driver04_controle_acesso",
+                                      "caso":  "test_driver04_bloqueia_operacao_sem_alterar_banco[listar-produtos-operador-sem-permissao]",
+                                      "tempo_s":  0.557,
+                                      "resultado":  "aprovado"
+                                  },
+                                  {
+                                      "grupo":  "testes.integration.drivers.test_driver04_controle_acesso",
+                                      "caso":  "test_driver04_bloqueia_operacao_sem_alterar_banco[cadastrar-produto-nao-autenticado]",
+                                      "tempo_s":  0.437,
+                                      "resultado":  "aprovado"
+                                  },
+                                  {
+                                      "grupo":  "testes.integration.drivers.test_driver04_controle_acesso",
+                                      "caso":  "test_driver04_bloqueia_operacao_sem_alterar_banco[cadastrar-produto-operador-sem-permissao]",
+                                      "tempo_s":  0.567,
+                                      "resultado":  "aprovado"
+                                  },
+                                  {
+                                      "grupo":  "testes.integration.drivers.test_driver04_controle_acesso",
+                                      "caso":  "test_driver04_bloqueia_operacao_sem_alterar_banco[listar-ordens-nao-autenticado]",
+                                      "tempo_s":  0.41,
+                                      "resultado":  "aprovado"
+                                  },
+                                  {
+                                      "grupo":  "testes.integration.drivers.test_driver04_controle_acesso",
+                                      "caso":  "test_driver04_bloqueia_operacao_sem_alterar_banco[listar-ordens-operador-sem-permissao]",
+                                      "tempo_s":  0.515,
+                                      "resultado":  "aprovado"
+                                  },
+                                  {
+                                      "grupo":  "testes.integration.drivers.test_driver04_controle_acesso",
+                                      "caso":  "test_driver04_bloqueia_operacao_sem_alterar_banco[consultar-ordem-nao-autenticado]",
+                                      "tempo_s":  0.399,
+                                      "resultado":  "aprovado"
+                                  },
+                                  {
+                                      "grupo":  "testes.integration.drivers.test_driver04_controle_acesso",
+                                      "caso":  "test_driver04_bloqueia_operacao_sem_alterar_banco[consultar-ordem-operador-sem-permissao]",
+                                      "tempo_s":  0.513,
+                                      "resultado":  "aprovado"
+                                  },
+                                  {
+                                      "grupo":  "testes.integration.drivers.test_driver04_controle_acesso",
+                                      "caso":  "test_driver04_bloqueia_operacao_sem_alterar_banco[cadastrar-ordem-nao-autenticado]",
+                                      "tempo_s":  0.423,
+                                      "resultado":  "aprovado"
+                                  },
+                                  {
+                                      "grupo":  "testes.integration.drivers.test_driver04_controle_acesso",
+                                      "caso":  "test_driver04_bloqueia_operacao_sem_alterar_banco[cadastrar-ordem-operador-sem-permissao]",
+                                      "tempo_s":  0.477,
+                                      "resultado":  "aprovado"
+                                  },
+                                  {
+                                      "grupo":  "testes.integration.drivers.test_driver04_controle_acesso",
+                                      "caso":  "test_driver04_bloqueia_operacao_sem_alterar_banco[alterar-duracao-ordem-nao-autenticado]",
+                                      "tempo_s":  0.438,
+                                      "resultado":  "aprovado"
+                                  },
+                                  {
+                                      "grupo":  "testes.integration.drivers.test_driver04_controle_acesso",
+                                      "caso":  "test_driver04_bloqueia_operacao_sem_alterar_banco[alterar-duracao-ordem-operador-sem-permissao]",
+                                      "tempo_s":  0.647,
+                                      "resultado":  "aprovado"
+                                  },
+                                  {
+                                      "grupo":  "testes.integration.drivers.test_driver04_controle_acesso",
+                                      "caso":  "test_driver04_bloqueia_operacao_sem_alterar_banco[alterar-prazo-prioridade-nao-autenticado]",
+                                      "tempo_s":  0.481,
+                                      "resultado":  "aprovado"
+                                  },
+                                  {
+                                      "grupo":  "testes.integration.drivers.test_driver04_controle_acesso",
+                                      "caso":  "test_driver04_bloqueia_operacao_sem_alterar_banco[alterar-prazo-prioridade-operador-sem-permissao]",
+                                      "tempo_s":  0.603,
+                                      "resultado":  "aprovado"
+                                  },
+                                  {
+                                      "grupo":  "testes.integration.drivers.test_driver04_controle_acesso",
+                                      "caso":  "test_driver04_bloqueia_operacao_sem_alterar_banco[listar-planejamentos-nao-autenticado]",
+                                      "tempo_s":  0.557,
+                                      "resultado":  "aprovado"
+                                  },
+                                  {
+                                      "grupo":  "testes.integration.drivers.test_driver04_controle_acesso",
+                                      "caso":  "test_driver04_bloqueia_operacao_sem_alterar_banco[listar-planejamentos-operador-sem-permissao]",
+                                      "tempo_s":  0.573,
+                                      "resultado":  "aprovado"
+                                  },
+                                  {
+                                      "grupo":  "testes.integration.drivers.test_driver04_controle_acesso",
+                                      "caso":  "test_driver04_bloqueia_operacao_sem_alterar_banco[consultar-planejamento-nao-autenticado]",
+                                      "tempo_s":  0.405,
+                                      "resultado":  "aprovado"
+                                  },
+                                  {
+                                      "grupo":  "testes.integration.drivers.test_driver04_controle_acesso",
+                                      "caso":  "test_driver04_bloqueia_operacao_sem_alterar_banco[consultar-planejamento-operador-sem-permissao]",
+                                      "tempo_s":  0.6,
+                                      "resultado":  "aprovado"
+                                  },
+                                  {
+                                      "grupo":  "testes.integration.drivers.test_driver04_controle_acesso",
+                                      "caso":  "test_driver04_bloqueia_operacao_sem_alterar_banco[criar-planejamento-nao-autenticado]",
+                                      "tempo_s":  0.396,
+                                      "resultado":  "aprovado"
+                                  },
+                                  {
+                                      "grupo":  "testes.integration.drivers.test_driver04_controle_acesso",
+                                      "caso":  "test_driver04_bloqueia_operacao_sem_alterar_banco[criar-planejamento-operador-sem-permissao]",
+                                      "tempo_s":  0.599,
+                                      "resultado":  "aprovado"
+                                  },
+                                  {
+                                      "grupo":  "testes.integration.drivers.test_driver04_controle_acesso",
+                                      "caso":  "test_driver04_bloqueia_operacao_sem_alterar_banco[replanejar-sequencia-nao-autenticado]",
+                                      "tempo_s":  0.42,
+                                      "resultado":  "aprovado"
+                                  },
+                                  {
+                                      "grupo":  "testes.integration.drivers.test_driver04_controle_acesso",
+                                      "caso":  "test_driver04_bloqueia_operacao_sem_alterar_banco[replanejar-sequencia-operador-sem-permissao]",
+                                      "tempo_s":  0.521,
+                                      "resultado":  "aprovado"
+                                  },
+                                  {
+                                      "grupo":  "testes.integration.drivers.test_driver04_controle_acesso",
+                                      "caso":  "test_driver04_bloqueia_operacao_sem_alterar_banco[gerar-sugestao-sequencia-nao-autenticado]",
+                                      "tempo_s":  0.392,
+                                      "resultado":  "aprovado"
+                                  },
+                                  {
+                                      "grupo":  "testes.integration.drivers.test_driver04_controle_acesso",
+                                      "caso":  "test_driver04_bloqueia_operacao_sem_alterar_banco[gerar-sugestao-sequencia-operador-sem-permissao]",
+                                      "tempo_s":  0.538,
+                                      "resultado":  "aprovado"
+                                  },
+                                  {
+                                      "grupo":  "testes.integration.drivers.test_driver04_controle_acesso",
+                                      "caso":  "test_driver04_bloqueia_operacao_sem_alterar_banco[consultar-sugestao-sequencia-nao-autenticado]",
+                                      "tempo_s":  0.392,
+                                      "resultado":  "aprovado"
+                                  },
+                                  {
+                                      "grupo":  "testes.integration.drivers.test_driver04_controle_acesso",
+                                      "caso":  "test_driver04_bloqueia_operacao_sem_alterar_banco[consultar-sugestao-sequencia-operador-sem-permissao]",
+                                      "tempo_s":  0.582,
+                                      "resultado":  "aprovado"
+                                  },
+                                  {
+                                      "grupo":  "testes.integration.drivers.test_driver05_rate_limiting",
+                                      "caso":  "test_driver05_rejeita_200_tentativas_bloqueadas_e_isola_20_contas[cycle-01]",
+                                      "tempo_s":  0.993,
+                                      "resultado":  "aprovado"
+                                  },
+                                  {
+                                      "grupo":  "testes.integration.drivers.test_driver05_rate_limiting",
+                                      "caso":  "test_driver05_rejeita_200_tentativas_bloqueadas_e_isola_20_contas[cycle-02]",
+                                      "tempo_s":  1.249,
+                                      "resultado":  "aprovado"
+                                  },
+                                  {
+                                      "grupo":  "testes.integration.drivers.test_driver05_rate_limiting",
+                                      "caso":  "test_driver05_rejeita_200_tentativas_bloqueadas_e_isola_20_contas[cycle-03]",
+                                      "tempo_s":  1.054,
+                                      "resultado":  "aprovado"
+                                  },
+                                  {
+                                      "grupo":  "testes.integration.drivers.test_driver05_rate_limiting",
+                                      "caso":  "test_driver05_rejeita_200_tentativas_bloqueadas_e_isola_20_contas[cycle-04]",
+                                      "tempo_s":  1.069,
+                                      "resultado":  "aprovado"
+                                  },
+                                  {
+                                      "grupo":  "testes.integration.drivers.test_driver05_rate_limiting",
+                                      "caso":  "test_driver05_rejeita_200_tentativas_bloqueadas_e_isola_20_contas[cycle-05]",
+                                      "tempo_s":  1.099,
+                                      "resultado":  "aprovado"
+                                  },
+                                  {
+                                      "grupo":  "testes.integration.drivers.test_driver05_rate_limiting",
+                                      "caso":  "test_driver05_rejeita_200_tentativas_bloqueadas_e_isola_20_contas[cycle-06]",
+                                      "tempo_s":  1.046,
+                                      "resultado":  "aprovado"
+                                  },
+                                  {
+                                      "grupo":  "testes.integration.drivers.test_driver05_rate_limiting",
+                                      "caso":  "test_driver05_rejeita_200_tentativas_bloqueadas_e_isola_20_contas[cycle-07]",
+                                      "tempo_s":  1.103,
+                                      "resultado":  "aprovado"
+                                  },
+                                  {
+                                      "grupo":  "testes.integration.drivers.test_driver05_rate_limiting",
+                                      "caso":  "test_driver05_rejeita_200_tentativas_bloqueadas_e_isola_20_contas[cycle-08]",
+                                      "tempo_s":  1.166,
+                                      "resultado":  "aprovado"
+                                  },
+                                  {
+                                      "grupo":  "testes.integration.drivers.test_driver05_rate_limiting",
+                                      "caso":  "test_driver05_rejeita_200_tentativas_bloqueadas_e_isola_20_contas[cycle-09]",
+                                      "tempo_s":  1.02,
+                                      "resultado":  "aprovado"
+                                  },
+                                  {
+                                      "grupo":  "testes.integration.drivers.test_driver05_rate_limiting",
+                                      "caso":  "test_driver05_rejeita_200_tentativas_bloqueadas_e_isola_20_contas[cycle-10]",
+                                      "tempo_s":  1.138,
+                                      "resultado":  "aprovado"
+                                  },
+                                  {
+                                      "grupo":  "testes.integration.drivers.test_driver05_rate_limiting",
+                                      "caso":  "test_driver05_rejeita_200_tentativas_bloqueadas_e_isola_20_contas[cycle-11]",
+                                      "tempo_s":  1.057,
+                                      "resultado":  "aprovado"
+                                  },
+                                  {
+                                      "grupo":  "testes.integration.drivers.test_driver05_rate_limiting",
+                                      "caso":  "test_driver05_rejeita_200_tentativas_bloqueadas_e_isola_20_contas[cycle-12]",
+                                      "tempo_s":  1.175,
+                                      "resultado":  "aprovado"
+                                  },
+                                  {
+                                      "grupo":  "testes.integration.drivers.test_driver05_rate_limiting",
+                                      "caso":  "test_driver05_rejeita_200_tentativas_bloqueadas_e_isola_20_contas[cycle-13]",
+                                      "tempo_s":  1.084,
+                                      "resultado":  "aprovado"
+                                  },
+                                  {
+                                      "grupo":  "testes.integration.drivers.test_driver05_rate_limiting",
+                                      "caso":  "test_driver05_rejeita_200_tentativas_bloqueadas_e_isola_20_contas[cycle-14]",
+                                      "tempo_s":  1.144,
+                                      "resultado":  "aprovado"
+                                  },
+                                  {
+                                      "grupo":  "testes.integration.drivers.test_driver05_rate_limiting",
+                                      "caso":  "test_driver05_rejeita_200_tentativas_bloqueadas_e_isola_20_contas[cycle-15]",
+                                      "tempo_s":  1.043,
+                                      "resultado":  "aprovado"
+                                  },
+                                  {
+                                      "grupo":  "testes.integration.drivers.test_driver05_rate_limiting",
+                                      "caso":  "test_driver05_rejeita_200_tentativas_bloqueadas_e_isola_20_contas[cycle-16]",
+                                      "tempo_s":  1.151,
+                                      "resultado":  "aprovado"
+                                  },
+                                  {
+                                      "grupo":  "testes.integration.drivers.test_driver05_rate_limiting",
+                                      "caso":  "test_driver05_rejeita_200_tentativas_bloqueadas_e_isola_20_contas[cycle-17]",
+                                      "tempo_s":  1.158,
+                                      "resultado":  "aprovado"
+                                  },
+                                  {
+                                      "grupo":  "testes.integration.drivers.test_driver05_rate_limiting",
+                                      "caso":  "test_driver05_rejeita_200_tentativas_bloqueadas_e_isola_20_contas[cycle-18]",
+                                      "tempo_s":  1.123,
+                                      "resultado":  "aprovado"
+                                  },
+                                  {
+                                      "grupo":  "testes.integration.drivers.test_driver05_rate_limiting",
+                                      "caso":  "test_driver05_rejeita_200_tentativas_bloqueadas_e_isola_20_contas[cycle-19]",
+                                      "tempo_s":  1.081,
+                                      "resultado":  "aprovado"
+                                  },
+                                  {
+                                      "grupo":  "testes.integration.drivers.test_driver05_rate_limiting",
+                                      "caso":  "test_driver05_rejeita_200_tentativas_bloqueadas_e_isola_20_contas[cycle-20]",
+                                      "tempo_s":  1.154,
+                                      "resultado":  "aprovado"
+                                  },
+                                  {
+                                      "grupo":  "testes.integration.drivers.test_driver05_rate_limiting",
+                                      "caso":  "test_driver05_permite_login_ao_completar_15_minutos",
+                                      "tempo_s":  0.918,
+                                      "resultado":  "aprovado"
+                                  },
+                                  {
+                                      "grupo":  "testes.integration.drivers.test_driver05_rate_limiting",
+                                      "caso":  "test_driver05_conta_falhas_em_janela_movel_de_5_minutos",
+                                      "tempo_s":  1.186,
+                                      "resultado":  "aprovado"
+                                  },
+                                  {
+                                      "grupo":  "testes.integration.drivers.test_driver06_session_expiration",
+                                      "caso":  "test_driver06_sessao_invalidada_rejeita_20_tentativas",
+                                      "tempo_s":  0.588,
+                                      "resultado":  "aprovado"
+                                  },
+                                  {
+                                      "grupo":  "testes.integration.drivers.test_driver06_session_expiration",
+                                      "caso":  "test_driver06_rota_protegida_com_sessao_valida_e_invalidada",
+                                      "tempo_s":  0.451,
+                                      "resultado":  "aprovado"
+                                  },
+                                  {
+                                      "grupo":  "testes.integration.drivers.test_driver06_session_expiration",
+                                      "caso":  "test_driver06_rota_protegida_rejeita_sessao_expirada",
+                                      "tempo_s":  0.365,
+                                      "resultado":  "aprovado"
+                                  },
+                                  {
+                                      "grupo":  "testes.integration.drivers.test_driver06_session_expiration",
+                                      "caso":  "test_driver06_sessao_valida_sem_permissao_retorna_403",
+                                      "tempo_s":  0.4,
+                                      "resultado":  "aprovado"
+                                  },
+                                  {
+                                      "grupo":  "testes.integration.test_us01_auth",
+                                      "caso":  "test_login_com_credenciais_validas_cria_sessao_e_retorna_perfil",
+                                      "tempo_s":  0.402,
+                                      "resultado":  "aprovado"
+                                  },
+                                  {
+                                      "grupo":  "testes.integration.test_us01_auth",
+                                      "caso":  "test_senha_incorreta_e_rejeitada_sem_criar_sessao",
+                                      "tempo_s":  0.374,
+                                      "resultado":  "aprovado"
+                                  },
+                                  {
+                                      "grupo":  "testes.integration.test_us01_auth",
+                                      "caso":  "test_email_nao_cadastrado_retorna_mensagem_generica",
+                                      "tempo_s":  0.298,
+                                      "resultado":  "aprovado"
+                                  },
+                                  {
+                                      "grupo":  "testes.integration.test_us01_auth",
+                                      "caso":  "test_payload_invalido_nao_repete_a_senha_na_resposta",
+                                      "tempo_s":  0.335,
+                                      "resultado":  "aprovado"
+                                  },
+                                  {
+                                      "grupo":  "testes.integration.test_us01_auth",
+                                      "caso":  "test_me_sem_cookie_retorna_401",
+                                      "tempo_s":  0.383,
+                                      "resultado":  "aprovado"
+                                  },
+                                  {
+                                      "grupo":  "testes.integration.test_us01_auth",
+                                      "caso":  "test_me_com_sessao_valida_retorna_identidade_e_perfis",
+                                      "tempo_s":  0.596,
+                                      "resultado":  "aprovado"
+                                  },
+                                  {
+                                      "grupo":  "testes.integration.test_us01_auth",
+                                      "caso":  "test_me_retorna_perfil_de_operador",
+                                      "tempo_s":  0.46,
+                                      "resultado":  "aprovado"
+                                  },
+                                  {
+                                      "grupo":  "testes.integration.test_us01_auth",
+                                      "caso":  "test_me_rejeita_sessao_expirada",
+                                      "tempo_s":  0.428,
+                                      "resultado":  "aprovado"
+                                  },
+                                  {
+                                      "grupo":  "testes.integration.test_us01_auth",
+                                      "caso":  "test_logout_invalida_a_sessao",
+                                      "tempo_s":  0.408,
+                                      "resultado":  "aprovado"
+                                  },
+                                  {
+                                      "grupo":  "testes.integration.test_us02_access_control",
+                                      "caso":  "test_planejador_acessa_recurso_permitido",
+                                      "tempo_s":  0.304,
+                                      "resultado":  "aprovado"
+                                  },
+                                  {
+                                      "grupo":  "testes.integration.test_us02_access_control",
+                                      "caso":  "test_operador_nao_acessa_recurso_exclusivo_de_planejador",
+                                      "tempo_s":  0.326,
+                                      "resultado":  "aprovado"
+                                  },
+                                  {
+                                      "grupo":  "testes.integration.test_us02_access_control",
+                                      "caso":  "test_operador_acessa_recurso_permitido",
+                                      "tempo_s":  0.363,
+                                      "resultado":  "aprovado"
+                                  },
+                                  {
+                                      "grupo":  "testes.integration.test_us02_access_control",
+                                      "caso":  "test_usuario_com_multiplos_perfis_acessa_por_qualquer_perfil",
+                                      "tempo_s":  0.338,
+                                      "resultado":  "aprovado"
+                                  },
+                                  {
+                                      "grupo":  "testes.integration.test_us03_maquinas",
+                                      "caso":  "test_planejador_cadastra_maquina_com_dados_validos",
+                                      "tempo_s":  0.459,
+                                      "resultado":  "aprovado"
+                                  },
+                                  {
+                                      "grupo":  "testes.integration.test_us03_maquinas",
+                                      "caso":  "test_cadastro_normaliza_codigo_e_nome_e_aceita_descricao_opcional",
+                                      "tempo_s":  0.475,
+                                      "resultado":  "aprovado"
+                                  },
+                                  {
+                                      "grupo":  "testes.integration.test_us03_maquinas",
+                                      "caso":  "test_cadastro_de_maquina_sem_campo_obrigatorio_nao_e_aceito",
+                                      "tempo_s":  0.45,
+                                      "resultado":  "aprovado"
+                                  },
+                                  {
+                                      "grupo":  "testes.integration.test_us03_maquinas",
+                                      "caso":  "test_cadastro_de_maquina_com_nome_em_branco_nao_e_aceito",
+                                      "tempo_s":  0.529,
+                                      "resultado":  "aprovado"
+                                  },
+                                  {
+                                      "grupo":  "testes.integration.test_us03_maquinas",
+                                      "caso":  "test_cadastro_de_maquina_com_codigo_em_branco_nao_e_aceito",
+                                      "tempo_s":  0.513,
+                                      "resultado":  "aprovado"
+                                  },
+                                  {
+                                      "grupo":  "testes.integration.test_us03_maquinas",
+                                      "caso":  "test_codigo_de_maquina_nao_pode_ser_duplicado",
+                                      "tempo_s":  0.488,
+                                      "resultado":  "aprovado"
+                                  },
+                                  {
+                                      "grupo":  "testes.integration.test_us03_maquinas",
+                                      "caso":  "test_operador_nao_pode_cadastrar_maquina",
+                                      "tempo_s":  0.415,
+                                      "resultado":  "aprovado"
+                                  },
+                                  {
+                                      "grupo":  "testes.integration.test_us03_maquinas",
+                                      "caso":  "test_usuario_sem_autenticacao_nao_pode_cadastrar_maquina",
+                                      "tempo_s":  0.397,
+                                      "resultado":  "aprovado"
+                                  },
+                                  {
+                                      "grupo":  "testes.integration.test_us03_maquinas",
+                                      "caso":  "test_planejador_lista_maquinas_cadastradas",
+                                      "tempo_s":  0.595,
+                                      "resultado":  "aprovado"
+                                  },
+                                  {
+                                      "grupo":  "testes.integration.test_us03_maquinas",
+                                      "caso":  "test_operador_nao_pode_listar_maquinas",
+                                      "tempo_s":  0.49,
+                                      "resultado":  "aprovado"
+                                  },
+                                  {
+                                      "grupo":  "testes.integration.test_us03_maquinas",
+                                      "caso":  "test_planejador_edita_maquina",
+                                      "tempo_s":  0.497,
+                                      "resultado":  "aprovado"
+                                  },
+                                  {
+                                      "grupo":  "testes.integration.test_us03_maquinas",
+                                      "caso":  "test_planejador_altera_status_sem_excluir_maquina",
+                                      "tempo_s":  0.507,
+                                      "resultado":  "aprovado"
+                                  },
+                                  {
+                                      "grupo":  "testes.integration.test_us03_maquinas",
+                                      "caso":  "test_planejador_exclui_maquina_sem_vinculos",
+                                      "tempo_s":  0.504,
+                                      "resultado":  "aprovado"
+                                  },
+                                  {
+                                      "grupo":  "testes.integration.test_us03_maquinas",
+                                      "caso":  "test_exclusao_de_maquina_vinculada_e_bloqueada",
+                                      "tempo_s":  0.52,
+                                      "resultado":  "aprovado"
+                                  },
+                                  {
+                                      "grupo":  "testes.integration.test_us03_maquinas",
+                                      "caso":  "test_operador_nao_pode_alterar_maquina",
+                                      "tempo_s":  0.568,
+                                      "resultado":  "aprovado"
+                                  },
+                                  {
+                                      "grupo":  "testes.integration.test_us04_produtos",
+                                      "caso":  "test_planejador_cadastra_produto_com_dados_validos",
+                                      "tempo_s":  0.396,
+                                      "resultado":  "aprovado"
+                                  },
+                                  {
+                                      "grupo":  "testes.integration.test_us04_produtos",
+                                      "caso":  "test_cadastro_sem_campo_obrigatorio_nao_e_aceito",
+                                      "tempo_s":  0.402,
+                                      "resultado":  "aprovado"
+                                  },
+                                  {
+                                      "grupo":  "testes.integration.test_us04_produtos",
+                                      "caso":  "test_cadastro_com_campo_apenas_espacos_nao_e_aceito",
+                                      "tempo_s":  0.489,
+                                      "resultado":  "aprovado"
+                                  },
+                                  {
+                                      "grupo":  "testes.integration.test_us04_produtos",
+                                      "caso":  "test_codigo_de_produto_nao_pode_ser_duplicado",
+                                      "tempo_s":  0.497,
+                                      "resultado":  "aprovado"
+                                  },
+                                  {
+                                      "grupo":  "testes.integration.test_us04_produtos",
+                                      "caso":  "test_operador_nao_pode_cadastrar_produto",
+                                      "tempo_s":  0.437,
+                                      "resultado":  "aprovado"
+                                  },
+                                  {
+                                      "grupo":  "testes.integration.test_us04_produtos",
+                                      "caso":  "test_planejador_lista_produtos_cadastrados",
+                                      "tempo_s":  0.468,
+                                      "resultado":  "aprovado"
+                                  },
+                                  {
+                                      "grupo":  "testes.integration.test_us04_produtos",
+                                      "caso":  "test_operador_nao_pode_listar_produtos",
+                                      "tempo_s":  0.617,
+                                      "resultado":  "aprovado"
+                                  },
+                                  {
+                                      "grupo":  "testes.integration.test_us05_families",
+                                      "caso":  "test_cadastro_valido_cria_familia_para_planejador",
+                                      "tempo_s":  0.457,
+                                      "resultado":  "aprovado"
+                                  },
+                                  {
+                                      "grupo":  "testes.integration.test_us05_families",
+                                      "caso":  "test_cadastro_rejeita_campos_obrigatorios_ausentes",
+                                      "tempo_s":  0.439,
+                                      "resultado":  "aprovado"
+                                  },
+                                  {
+                                      "grupo":  "testes.integration.test_us05_families",
+                                      "caso":  "test_cadastro_rejeita_nome_em_branco",
+                                      "tempo_s":  0.433,
+                                      "resultado":  "aprovado"
+                                  },
+                                  {
+                                      "grupo":  "testes.integration.test_us05_families",
+                                      "caso":  "test_codigo_duplicado_retorna_conflito",
+                                      "tempo_s":  0.55,
+                                      "resultado":  "aprovado"
+                                  },
+                                  {
+                                      "grupo":  "testes.integration.test_us05_families",
+                                      "caso":  "test_operador_nao_pode_cadastrar_familia",
+                                      "tempo_s":  0.674,
+                                      "resultado":  "aprovado"
+                                  },
+                                  {
+                                      "grupo":  "testes.integration.test_us05_families",
+                                      "caso":  "test_cadastro_exige_usuario_autenticado",
+                                      "tempo_s":  0.478,
+                                      "resultado":  "aprovado"
+                                  },
+                                  {
+                                      "grupo":  "testes.integration.test_us05_families",
+                                      "caso":  "test_listagem_retorna_familias_cadastradas",
+                                      "tempo_s":  0.873,
+                                      "resultado":  "aprovado"
+                                  },
+                                  {
+                                      "grupo":  "testes.integration.test_us06_produto_familia",
+                                      "caso":  "test_planejador_associa_produto_a_familia",
+                                      "tempo_s":  0.856,
+                                      "resultado":  "aprovado"
+                                  },
+                                  {
+                                      "grupo":  "testes.integration.test_us06_produto_familia",
+                                      "caso":  "test_planejador_pode_trocar_familia_do_produto",
+                                      "tempo_s":  1.544,
+                                      "resultado":  "aprovado"
+                                  },
+                                  {
+                                      "grupo":  "testes.integration.test_us06_produto_familia",
+                                      "caso":  "test_planejador_remove_associacao_de_familia",
+                                      "tempo_s":  0.838,
+                                      "resultado":  "aprovado"
+                                  },
+                                  {
+                                      "grupo":  "testes.integration.test_us06_produto_familia",
+                                      "caso":  "test_associacao_rejeita_produto_inexistente",
+                                      "tempo_s":  0.539,
+                                      "resultado":  "aprovado"
+                                  },
+                                  {
+                                      "grupo":  "testes.integration.test_us06_produto_familia",
+                                      "caso":  "test_associacao_rejeita_familia_inexistente",
+                                      "tempo_s":  0.471,
+                                      "resultado":  "aprovado"
+                                  },
+                                  {
+                                      "grupo":  "testes.integration.test_us06_produto_familia",
+                                      "caso":  "test_operador_nao_pode_associar_produto_a_familia",
+                                      "tempo_s":  0.591,
+                                      "resultado":  "aprovado"
+                                  },
+                                  {
+                                      "grupo":  "testes.integration.test_us06_produto_familia",
+                                      "caso":  "test_associacao_exige_usuario_autenticado",
+                                      "tempo_s":  0.345,
+                                      "resultado":  "aprovado"
+                                  },
+                                  {
+                                      "grupo":  "testes.integration.test_us07_ordens_producao",
+                                      "caso":  "test_planejador_cadastra_ordem_com_dados_validos",
+                                      "tempo_s":  0.551,
+                                      "resultado":  "aprovado"
+                                  },
+                                  {
+                                      "grupo":  "testes.integration.test_us07_ordens_producao",
+                                      "caso":  "test_cadastro_sem_campo_obrigatorio_nao_e_aceito",
+                                      "tempo_s":  0.46,
+                                      "resultado":  "aprovado"
+                                  },
+                                  {
+                                      "grupo":  "testes.integration.test_us07_ordens_producao",
+                                      "caso":  "test_codigo_em_branco_nao_e_aceito",
+                                      "tempo_s":  0.449,
+                                      "resultado":  "aprovado"
+                                  },
+                                  {
+                                      "grupo":  "testes.integration.test_us07_ordens_producao",
+                                      "caso":  "test_quantidade_deve_ser_positiva",
+                                      "tempo_s":  0.424,
+                                      "resultado":  "aprovado"
+                                  },
+                                  {
+                                      "grupo":  "testes.integration.test_us07_ordens_producao",
+                                      "caso":  "test_nao_cadastra_ordem_com_produto_inexistente",
+                                      "tempo_s":  0.404,
+                                      "resultado":  "aprovado"
+                                  },
+                                  {
+                                      "grupo":  "testes.integration.test_us07_ordens_producao",
+                                      "caso":  "test_codigo_da_ordem_nao_pode_ser_duplicado",
+                                      "tempo_s":  0.49,
+                                      "resultado":  "aprovado"
+                                  },
+                                  {
+                                      "grupo":  "testes.integration.test_us07_ordens_producao",
+                                      "caso":  "test_operador_nao_pode_cadastrar_ordem",
+                                      "tempo_s":  0.547,
+                                      "resultado":  "aprovado"
+                                  },
+                                  {
+                                      "grupo":  "testes.integration.test_us07_ordens_producao",
+                                      "caso":  "test_planejador_lista_ordens_cadastradas",
+                                      "tempo_s":  0.535,
+                                      "resultado":  "aprovado"
+                                  },
+                                  {
+                                      "grupo":  "testes.integration.test_us07_ordens_producao",
+                                      "caso":  "test_cadastro_exige_autenticacao",
+                                      "tempo_s":  0.29,
+                                      "resultado":  "aprovado"
+                                  },
+                                  {
+                                      "grupo":  "testes.integration.test_us08_prazo_prioridade_ordem",
+                                      "caso":  "test_planejador_define_altera_e_consulta_prazo_prioridade",
+                                      "tempo_s":  0.678,
+                                      "resultado":  "aprovado"
+                                  },
+                                  {
+                                      "grupo":  "testes.integration.test_us08_prazo_prioridade_ordem",
+                                      "caso":  "test_prazo_ausente_nao_atualiza_ordem",
+                                      "tempo_s":  0.682,
+                                      "resultado":  "aprovado"
+                                  },
+                                  {
+                                      "grupo":  "testes.integration.test_us08_prazo_prioridade_ordem",
+                                      "caso":  "test_prazo_no_passado_nao_atualiza_ordem",
+                                      "tempo_s":  0.706,
+                                      "resultado":  "aprovado"
+                                  },
+                                  {
+                                      "grupo":  "testes.integration.test_us08_prazo_prioridade_ordem",
+                                      "caso":  "test_prioridade_ausente_ou_invalida_nao_atualiza_ordem",
+                                      "tempo_s":  0.66,
+                                      "resultado":  "aprovado"
+                                  },
+                                  {
+                                      "grupo":  "testes.integration.test_us08_prazo_prioridade_ordem",
+                                      "caso":  "test_ordem_inexistente_nao_e_criada_ao_tentar_atualizar",
+                                      "tempo_s":  0.525,
+                                      "resultado":  "aprovado"
+                                  },
+                                  {
+                                      "grupo":  "testes.integration.test_us08_prazo_prioridade_ordem",
+                                      "caso":  "test_operador_nao_pode_alterar_prazo_ou_prioridade",
+                                      "tempo_s":  0.633,
+                                      "resultado":  "aprovado"
+                                  },
+                                  {
+                                      "grupo":  "testes.integration.test_us08_prazo_prioridade_ordem",
+                                      "caso":  "test_prazo_igual_a_data_atual_e_aceito",
+                                      "tempo_s":  0.564,
+                                      "resultado":  "aprovado"
+                                  },
+                                  {
+                                      "grupo":  "testes.integration.test_us09_duracao_estimada",
+                                      "caso":  "test_planejador_salva_duracao_estimada_valida",
+                                      "tempo_s":  0.626,
+                                      "resultado":  "aprovado"
+                                  },
+                                  {
+                                      "grupo":  "testes.integration.test_us09_duracao_estimada",
+                                      "caso":  "test_duracao_estimada_invalida_nao_e_salva[0]",
+                                      "tempo_s":  0.588,
+                                      "resultado":  "aprovado"
+                                  },
+                                  {
+                                      "grupo":  "testes.integration.test_us09_duracao_estimada",
+                                      "caso":  "test_duracao_estimada_invalida_nao_e_salva[-1]",
+                                      "tempo_s":  0.581,
+                                      "resultado":  "aprovado"
+                                  },
+                                  {
+                                      "grupo":  "testes.integration.test_us09_duracao_estimada",
+                                      "caso":  "test_duracao_estimada_invalida_nao_e_salva[1.5]",
+                                      "tempo_s":  0.589,
+                                      "resultado":  "aprovado"
+                                  },
+                                  {
+                                      "grupo":  "testes.integration.test_us09_duracao_estimada",
+                                      "caso":  "test_duracao_estimada_invalida_nao_e_salva[inv\\xe1lida]",
+                                      "tempo_s":  0.781,
+                                      "resultado":  "aprovado"
+                                  },
+                                  {
+                                      "grupo":  "testes.integration.test_us09_duracao_estimada",
+                                      "caso":  "test_duracao_estimada_invalida_nao_e_salva[None]",
+                                      "tempo_s":  0.825,
+                                      "resultado":  "aprovado"
+                                  },
+                                  {
+                                      "grupo":  "testes.integration.test_us09_duracao_estimada",
+                                      "caso":  "test_duracao_estimada_invalida_nao_e_salva[True]",
+                                      "tempo_s":  1.033,
+                                      "resultado":  "aprovado"
+                                  },
+                                  {
+                                      "grupo":  "testes.integration.test_us09_duracao_estimada",
+                                      "caso":  "test_duracao_estimada_de_ordem_inexistente_retorna_404",
+                                      "tempo_s":  0.689,
+                                      "resultado":  "aprovado"
+                                  },
+                                  {
+                                      "grupo":  "testes.integration.test_us09_duracao_estimada",
+                                      "caso":  "test_atualizar_duracao_exige_autenticacao",
+                                      "tempo_s":  0.417,
+                                      "resultado":  "aprovado"
+                                  },
+                                  {
+                                      "grupo":  "testes.integration.test_us09_duracao_estimada",
+                                      "caso":  "test_operador_nao_pode_atualizar_duracao_estimada",
+                                      "tempo_s":  0.673,
+                                      "resultado":  "aprovado"
+                                  },
+                                  {
+                                      "grupo":  "testes.integration.test_us10_tempos_setup",
+                                      "caso":  "test_planejador_cadastra_tempo_setup_valido",
+                                      "tempo_s":  0.661,
+                                      "resultado":  "aprovado"
+                                  },
+                                  {
+                                      "grupo":  "testes.integration.test_us10_tempos_setup",
+                                      "caso":  "test_tempo_setup_invalido_nao_e_salvo[0]",
+                                      "tempo_s":  0.821,
+                                      "resultado":  "aprovado"
+                                  },
+                                  {
+                                      "grupo":  "testes.integration.test_us10_tempos_setup",
+                                      "caso":  "test_tempo_setup_invalido_nao_e_salvo[-1]",
+                                      "tempo_s":  0.65,
+                                      "resultado":  "aprovado"
+                                  },
+                                  {
+                                      "grupo":  "testes.integration.test_us10_tempos_setup",
+                                      "caso":  "test_tempo_setup_invalido_nao_e_salvo[1.5]",
+                                      "tempo_s":  0.539,
+                                      "resultado":  "aprovado"
+                                  },
+                                  {
+                                      "grupo":  "testes.integration.test_us10_tempos_setup",
+                                      "caso":  "test_tempo_setup_invalido_nao_e_salvo[inv\\xe1lido]",
+                                      "tempo_s":  0.559,
+                                      "resultado":  "aprovado"
+                                  },
+                                  {
+                                      "grupo":  "testes.integration.test_us10_tempos_setup",
+                                      "caso":  "test_tempo_setup_invalido_nao_e_salvo[None]",
+                                      "tempo_s":  0.619,
+                                      "resultado":  "aprovado"
+                                  },
+                                  {
+                                      "grupo":  "testes.integration.test_us10_tempos_setup",
+                                      "caso":  "test_tempo_setup_invalido_nao_e_salvo[True]",
+                                      "tempo_s":  0.534,
+                                      "resultado":  "aprovado"
+                                  },
+                                  {
+                                      "grupo":  "testes.integration.test_us10_tempos_setup",
+                                      "caso":  "test_familias_de_origem_e_destino_devem_ser_diferentes",
+                                      "tempo_s":  0.452,
+                                      "resultado":  "aprovado"
+                                  },
+                                  {
+                                      "grupo":  "testes.integration.test_us10_tempos_setup",
+                                      "caso":  "test_familia_inexistente_retorna_404",
+                                      "tempo_s":  0.488,
+                                      "resultado":  "aprovado"
+                                  },
+                                  {
+                                      "grupo":  "testes.integration.test_us10_tempos_setup",
+                                      "caso":  "test_combinacao_de_familias_nao_pode_ser_cadastrada_duas_vezes",
+                                      "tempo_s":  0.681,
+                                      "resultado":  "aprovado"
+                                  },
+                                  {
+                                      "grupo":  "testes.integration.test_us10_tempos_setup",
+                                      "caso":  "test_tempo_setup_e_direcional_por_combinacao_de_familias",
+                                      "tempo_s":  0.59,
+                                      "resultado":  "aprovado"
+                                  },
+                                  {
+                                      "grupo":  "testes.integration.test_us10_tempos_setup",
+                                      "caso":  "test_cadastro_de_tempo_setup_exige_autenticacao",
+                                      "tempo_s":  0.301,
+                                      "resultado":  "aprovado"
+                                  },
+                                  {
+                                      "grupo":  "testes.integration.test_us10_tempos_setup",
+                                      "caso":  "test_operador_nao_pode_cadastrar_tempo_setup",
+                                      "tempo_s":  0.516,
+                                      "resultado":  "aprovado"
+                                  },
+                                  {
+                                      "grupo":  "testes.integration.test_us10_tempos_setup",
+                                      "caso":  "test_consulta_tempos_setup_exige_autenticacao",
+                                      "tempo_s":  0.339,
+                                      "resultado":  "aprovado"
+                                  },
+                                  {
+                                      "grupo":  "testes.integration.test_us10_tempos_setup",
+                                      "caso":  "test_operador_nao_pode_consultar_tempos_setup",
+                                      "tempo_s":  0.507,
+                                      "resultado":  "aprovado"
+                                  },
+                                  {
+                                      "grupo":  "testes.integration.test_us10_tempos_setup",
+                                      "caso":  "test_familia_destino_inexistente_retorna_404",
+                                      "tempo_s":  0.472,
+                                      "resultado":  "aprovado"
+                                  },
+                                  {
+                                      "grupo":  "testes.integration.test_us12_planejamento_manual",
+                                      "caso":  "test_planejador_cria_planejamento_com_sequencia",
+                                      "tempo_s":  0.629,
+                                      "resultado":  "aprovado"
+                                  },
+                                  {
+                                      "grupo":  "testes.integration.test_us12_planejamento_manual",
+                                      "caso":  "test_planejamento_persiste_no_banco",
+                                      "tempo_s":  0.684,
+                                      "resultado":  "aprovado"
+                                  },
+                                  {
+                                      "grupo":  "testes.integration.test_us12_planejamento_manual",
+                                      "caso":  "test_planejador_lista_e_consulta_planejamento",
+                                      "tempo_s":  0.604,
+                                      "resultado":  "aprovado"
+                                  },
+                                  {
+                                      "grupo":  "testes.integration.test_us12_planejamento_manual",
+                                      "caso":  "test_nao_permite_planejamento_sem_ordens",
+                                      "tempo_s":  0.447,
+                                      "resultado":  "aprovado"
+                                  },
+                                  {
+                                      "grupo":  "testes.integration.test_us12_planejamento_manual",
+                                      "caso":  "test_nao_permite_ordens_duplicadas",
+                                      "tempo_s":  0.636,
+                                      "resultado":  "aprovado"
+                                  },
+                                  {
+                                      "grupo":  "testes.integration.test_us12_planejamento_manual",
+                                      "caso":  "test_nao_permite_ordem_inexistente",
+                                      "tempo_s":  0.493,
+                                      "resultado":  "aprovado"
+                                  },
+                                  {
+                                      "grupo":  "testes.integration.test_us12_planejamento_manual",
+                                      "caso":  "test_nao_permite_ordem_nao_pendente",
+                                      "tempo_s":  0.672,
+                                      "resultado":  "aprovado"
+                                  },
+                                  {
+                                      "grupo":  "testes.integration.test_us12_planejamento_manual",
+                                      "caso":  "test_planejamento_exige_autenticacao",
+                                      "tempo_s":  0.361,
+                                      "resultado":  "aprovado"
+                                  },
+                                  {
+                                      "grupo":  "testes.integration.test_us12_planejamento_manual",
+                                      "caso":  "test_operador_nao_pode_criar_planejamento",
+                                      "tempo_s":  0.48,
+                                      "resultado":  "aprovado"
+                                  },
+                                  {
+                                      "grupo":  "testes.integration.test_us12_planejamento_manual",
+                                      "caso":  "test_consulta_planejamento_inexistente",
+                                      "tempo_s":  0.527,
+                                      "resultado":  "aprovado"
+                                  },
+                                  {
+                                      "grupo":  "testes.integration.test_us12_planejamento_manual",
+                                      "caso":  "test_nao_permite_ordem_em_dois_planejamentos",
+                                      "tempo_s":  0.748,
+                                      "resultado":  "aprovado"
+                                  },
+                                  {
+                                      "grupo":  "testes.integration.test_us12_planejamento_manual",
+                                      "caso":  "test_planejador_altera_sequencia_do_planejamento",
+                                      "tempo_s":  0.732,
+                                      "resultado":  "aprovado"
+                                  },
+                                  {
+                                      "grupo":  "testes.integration.test_us12_planejamento_manual",
+                                      "caso":  "test_atualizacao_remove_ordem_do_planejamento",
+                                      "tempo_s":  0.672,
+                                      "resultado":  "aprovado"
+                                  },
+                                  {
+                                      "grupo":  "testes.integration.test_us12_planejamento_manual",
+                                      "caso":  "test_atualizacao_rejeita_lista_vazia",
+                                      "tempo_s":  0.73,
+                                      "resultado":  "aprovado"
+                                  },
+                                  {
+                                      "grupo":  "testes.integration.test_us12_planejamento_manual",
+                                      "caso":  "test_atualizacao_rejeita_ordem_de_outro_planejamento",
+                                      "tempo_s":  0.729,
+                                      "resultado":  "aprovado"
+                                  },
+                                  {
+                                      "grupo":  "testes.integration.test_us12_planejamento_manual",
+                                      "caso":  "test_atualizacao_de_planejamento_inexistente",
+                                      "tempo_s":  0.472,
+                                      "resultado":  "aprovado"
+                                  },
+                                  {
+                                      "grupo":  "testes.integration.test_us12_planejamento_manual",
+                                      "caso":  "test_operador_nao_pode_atualizar_planejamento",
+                                      "tempo_s":  0.548,
+                                      "resultado":  "aprovado"
+                                  },
+                                  {
+                                      "grupo":  "testes.integration.test_us13_sequencia_sugerida",
+                                      "caso":  "test_reduz_setup_direcional_sem_planejamento_manual",
+                                      "tempo_s":  1.112,
+                                      "resultado":  "aprovado"
+                                  },
+                                  {
+                                      "grupo":  "testes.integration.test_us13_sequencia_sugerida",
+                                      "caso":  "test_retorna_pendencias_e_so_persiste_depois_da_correcao",
+                                      "tempo_s":  1.281,
+                                      "resultado":  "aprovado"
+                                  },
+                                  {
+                                      "grupo":  "testes.integration.test_us13_sequencia_sugerida",
+                                      "caso":  "test_reduz_setup_direcional_com_tres_familias",
+                                      "tempo_s":  1.335,
+                                      "resultado":  "aprovado"
+                                  },
+                                  {
+                                      "grupo":  "testes.integration.test_us13_sequencia_sugerida",
+                                      "caso":  "test_ordem_nao_pendente_bloqueia_a_geracao_sem_persistencia",
+                                      "tempo_s":  1.267,
+                                      "resultado":  "aprovado"
+                                  },
+                                  {
+                                      "grupo":  "testes.integration.test_us13_sequencia_sugerida",
+                                      "caso":  "test_preserva_ordem_quando_as_alternativas_sao_iguais_ou_piores[20]",
+                                      "tempo_s":  1.277,
+                                      "resultado":  "aprovado"
+                                  },
+                                  {
+                                      "grupo":  "testes.integration.test_us13_sequencia_sugerida",
+                                      "caso":  "test_preserva_ordem_quando_as_alternativas_sao_iguais_ou_piores[30]",
+                                      "tempo_s":  1.23,
+                                      "resultado":  "aprovado"
+                                  },
+                                  {
+                                      "grupo":  "testes.integration.test_us13_sequencia_sugerida",
+                                      "caso":  "test_recupera_sugestao_do_mesmo_conjunto_e_preserva_planejamento_manual",
+                                      "tempo_s":  1.484,
+                                      "resultado":  "aprovado"
+                                  },
+                                  {
+                                      "grupo":  "testes.integration.test_us13_sequencia_sugerida",
+                                      "caso":  "test_ordem_unica_tem_setup_zero_sem_tempos_cadastrados",
+                                      "tempo_s":  1.226,
+                                      "resultado":  "aprovado"
+                                  },
+                                  {
+                                      "grupo":  "testes.integration.test_us13_sequencia_sugerida",
+                                      "caso":  "test_rejeita_selecao_vazia_duplicada_ou_inexistente",
+                                      "tempo_s":  1.362,
+                                      "resultado":  "aprovado"
+                                  },
+                                  {
+                                      "grupo":  "testes.integration.test_us13_sequencia_sugerida",
+                                      "caso":  "test_geracao_e_consulta_exigem_sessao_de_planejador",
+                                      "tempo_s":  0.632,
+                                      "resultado":  "aprovado"
+                                  },
+                                  {
+                                      "grupo":  "testes.integration.test_us14_prazos_prioridades",
+                                      "caso":  "test_ordem_prioritaria_com_prazo_restritivo",
+                                      "tempo_s":  1.23,
+                                      "resultado":  "aprovado"
+                                  },
+                                  {
+                                      "grupo":  "testes.integration.test_us14_prazos_prioridades",
+                                      "caso":  "test_prazo_influencia_ordens_de_mesma_prioridade",
+                                      "tempo_s":  1.109,
+                                      "resultado":  "aprovado"
+                                  },
+                                  {
+                                      "grupo":  "testes.integration.test_us14_prazos_prioridades",
+                                      "caso":  "test_prazo_mais_proximo_precede_setup_menor_quando_ambos_sao_viaveis",
+                                      "tempo_s":  1.028,
+                                      "resultado":  "aprovado"
+                                  },
+                                  {
+                                      "grupo":  "testes.integration.test_us14_prazos_prioridades",
+                                      "caso":  "test_setup_menor_desempata_ordens_com_mesma_prioridade_e_prazo",
+                                      "tempo_s":  0.941,
+                                      "resultado":  "aprovado"
+                                  },
+                                  {
+                                      "grupo":  "testes.integration.test_us14_prazos_prioridades",
+                                      "caso":  "test_conflito_de_prazo_prioridade_e_setup[0-30]",
+                                      "tempo_s":  0.881,
+                                      "resultado":  "aprovado"
+                                  },
+                                  {
+                                      "grupo":  "testes.integration.test_us14_prazos_prioridades",
+                                      "caso":  "test_conflito_de_prazo_prioridade_e_setup[1-5]",
+                                      "tempo_s":  0.928,
+                                      "resultado":  "aprovado"
+                                  },
+                                  {
+                                      "grupo":  "testes.integration.test_us14_prazos_prioridades",
+                                      "caso":  "test_prioridade_influencia_ordens_de_mesmo_prazo",
+                                      "tempo_s":  0.839,
+                                      "resultado":  "aprovado"
+                                  },
+                                  {
+                                      "grupo":  "testes.integration.test_us14_prazos_prioridades",
+                                      "caso":  "test_dados_incompletos_impedem_persistencia",
+                                      "tempo_s":  0.92,
+                                      "resultado":  "aprovado"
+                                  },
+                                  {
+                                      "grupo":  "testes.integration.test_us14_prazos_prioridades",
+                                      "caso":  "test_duracao_ausente_impede_persistencia",
+                                      "tempo_s":  0.897,
+                                      "resultado":  "aprovado"
+                                  },
+                                  {
+                                      "grupo":  "testes.integration.test_us14_prazos_prioridades",
+                                      "caso":  "test_prazo_e_prioridade_por_maquina_com_inicio_independente",
+                                      "tempo_s":  1.132,
+                                      "resultado":  "aprovado"
+                                  },
+                                  {
+                                      "grupo":  "testes.integration.test_us14_prazos_prioridades",
+                                      "caso":  "test_urgencia_incompleta_em_outra_maquina_impede_persistencia",
+                                      "tempo_s":  1.015,
+                                      "resultado":  "aprovado"
+                                  },
+                                  {
+                                      "grupo":  "testes.integration.test_us15_compatibilidade",
+                                      "caso":  "test_associa_maquinas_compativeis_e_persiste_sugestao",
+                                      "tempo_s":  0.741,
+                                      "resultado":  "aprovado"
+                                  },
+                                  {
+                                      "grupo":  "testes.integration.test_us15_compatibilidade",
+                                      "caso":  "test_separa_familias_quando_ha_distribuicao_viavel_sem_setup[False]",
+                                      "tempo_s":  0.788,
+                                      "resultado":  "aprovado"
+                                  },
+                                  {
+                                      "grupo":  "testes.integration.test_us15_compatibilidade",
+                                      "caso":  "test_separa_familias_quando_ha_distribuicao_viavel_sem_setup[True]",
+                                      "tempo_s":  0.732,
+                                      "resultado":  "aprovado"
+                                  },
+                                  {
+                                      "grupo":  "testes.integration.test_us15_compatibilidade",
+                                      "caso":  "test_distribui_ordens_e_desconsidera_maquina_inativa",
+                                      "tempo_s":  0.774,
+                                      "resultado":  "aprovado"
+                                  },
+                                  {
+                                      "grupo":  "testes.integration.test_us15_compatibilidade",
+                                      "caso":  "test_bloqueia_ordem_sem_maquina_compativel_ativa[False]",
+                                      "tempo_s":  0.795,
+                                      "resultado":  "aprovado"
+                                  },
+                                  {
+                                      "grupo":  "testes.integration.test_us15_compatibilidade",
+                                      "caso":  "test_bloqueia_ordem_sem_maquina_compativel_ativa[True]",
+                                      "tempo_s":  0.771,
+                                      "resultado":  "aprovado"
+                                  },
+                                  {
+                                      "grupo":  "testes.integration.test_us15_compatibilidade",
+                                      "caso":  "test_exige_setup_entre_familias_da_mesma_maquina",
+                                      "tempo_s":  0.716,
+                                      "resultado":  "aprovado"
+                                  },
+                                  {
+                                      "grupo":  "testes.integration.test_us15_compatibilidade",
+                                      "caso":  "test_preserva_maquina_da_sugestao_apos_alterar_compatibilidade",
+                                      "tempo_s":  0.782,
+                                      "resultado":  "aprovado"
+                                  },
+                                  {
+                                      "grupo":  "testes.integration.test_us16_comparacao",
+                                      "caso":  "test_compara_a_sugestao_mais_recente_com_as_mesmas_ordens",
+                                      "tempo_s":  1.035,
+                                      "resultado":  "aprovado"
+                                  },
+                                  {
+                                      "grupo":  "testes.integration.test_us16_comparacao",
+                                      "caso":  "test_requer_sugestao_para_o_conjunto_de_ordens_do_planejamento",
+                                      "tempo_s":  0.926,
+                                      "resultado":  "aprovado"
+                                  },
+                                  {
+                                      "grupo":  "testes.integration.test_us16_comparacao",
+                                      "caso":  "test_recalcula_setup_por_maquina_quando_o_manual_muda",
+                                      "tempo_s":  1.634,
+                                      "resultado":  "aprovado"
+                                  },
+                                  {
+                                      "grupo":  "testes.integration.test_us16_comparacao",
+                                      "caso":  "test_comparacao_restrita_ao_planejador",
+                                      "tempo_s":  1.099,
+                                      "resultado":  "aprovado"
+                                  },
+                                  {
+                                      "grupo":  "testes.integration.test_us17_aprovacao",
+                                      "caso":  "test_aprova_somente_a_alternativa_escolhida_e_publica_para_execucao[manual]",
+                                      "tempo_s":  1.244,
+                                      "resultado":  "aprovado"
+                                  },
+                                  {
+                                      "grupo":  "testes.integration.test_us17_aprovacao",
+                                      "caso":  "test_aprova_somente_a_alternativa_escolhida_e_publica_para_execucao[sugerida]",
+                                      "tempo_s":  1.241,
+                                      "resultado":  "aprovado"
+                                  },
+                                  {
+                                      "grupo":  "testes.integration.test_us17_aprovacao",
+                                      "caso":  "test_informa_ausencia_e_nao_registra_aprovacao",
+                                      "tempo_s":  0.554,
+                                      "resultado":  "aprovado"
+                                  },
+                                  {
+                                      "grupo":  "testes.integration.test_us17_aprovacao",
+                                      "caso":  "test_rejeita_sequencia_desatualizada_e_preserva_manual_aprovado",
+                                      "tempo_s":  1.662,
+                                      "resultado":  "aprovado"
+                                  },
+                                  {
+                                      "grupo":  "testes.integration.test_us17_aprovacao",
+                                      "caso":  "test_sugestao_independente_pode_ser_aprovada",
+                                      "tempo_s":  1.59,
+                                      "resultado":  "aprovado"
+                                  },
+                                  {
+                                      "grupo":  "testes.integration.test_us17_aprovacao",
+                                      "caso":  "test_aprovacoes_concorrentes_nao_alocam_a_mesma_ordem_duas_vezes",
+                                      "tempo_s":  2.206,
+                                      "resultado":  "aprovado"
+                                  },
+                                  {
+                                      "grupo":  "testes.integration.test_us17_aprovacao",
+                                      "caso":  "test_aprovacao_e_execucao_exigem_sessao",
+                                      "tempo_s":  1.351,
+                                      "resultado":  "aprovado"
+                                  },
+                                  {
+                                      "grupo":  "testes.integration.test_us26_produto_maquina",
+                                      "caso":  "test_planejador_associa_uma_maquina",
+                                      "tempo_s":  1.299,
+                                      "resultado":  "aprovado"
+                                  },
+                                  {
+                                      "grupo":  "testes.integration.test_us26_produto_maquina",
+                                      "caso":  "test_planejador_associa_varias_maquinas",
+                                      "tempo_s":  0.935,
+                                      "resultado":  "aprovado"
+                                  },
+                                  {
+                                      "grupo":  "testes.integration.test_us26_produto_maquina",
+                                      "caso":  "test_planejador_consulta_compatibilidades",
+                                      "tempo_s":  1.01,
+                                      "resultado":  "aprovado"
+                                  },
+                                  {
+                                      "grupo":  "testes.integration.test_us26_produto_maquina",
+                                      "caso":  "test_produto_sem_maquina_compativel",
+                                      "tempo_s":  0.62,
+                                      "resultado":  "aprovado"
+                                  },
+                                  {
+                                      "grupo":  "testes.integration.test_us26_produto_maquina",
+                                      "caso":  "test_planejador_substitui_compatibilidades",
+                                      "tempo_s":  0.894,
+                                      "resultado":  "aprovado"
+                                  },
+                                  {
+                                      "grupo":  "testes.integration.test_us26_produto_maquina",
+                                      "caso":  "test_planejador_remove_todas_compatibilidades",
+                                      "tempo_s":  0.836,
+                                      "resultado":  "aprovado"
+                                  },
+                                  {
+                                      "grupo":  "testes.integration.test_us26_produto_maquina",
+                                      "caso":  "test_compatibilidade_rejeita_produto_inexistente",
+                                      "tempo_s":  0.659,
+                                      "resultado":  "aprovado"
+                                  },
+                                  {
+                                      "grupo":  "testes.integration.test_us26_produto_maquina",
+                                      "caso":  "test_compatibilidade_rejeita_maquina_inexistente",
+                                      "tempo_s":  0.844,
+                                      "resultado":  "aprovado"
+                                  },
+                                  {
+                                      "grupo":  "testes.integration.test_us26_produto_maquina",
+                                      "caso":  "test_compatibilidade_rejeita_maquina_duplicada",
+                                      "tempo_s":  0.827,
+                                      "resultado":  "aprovado"
+                                  },
+                                  {
+                                      "grupo":  "testes.integration.test_us26_produto_maquina",
+                                      "caso":  "test_compatibilidade_rejeita_maquina_inativa",
+                                      "tempo_s":  0.868,
+                                      "resultado":  "aprovado"
+                                  },
+                                  {
+                                      "grupo":  "testes.integration.test_us26_produto_maquina",
+                                      "caso":  "test_operador_nao_pode_definir_compatibilidade",
+                                      "tempo_s":  1.024,
+                                      "resultado":  "aprovado"
+                                  },
+                                  {
+                                      "grupo":  "testes.integration.test_us26_produto_maquina",
+                                      "caso":  "test_compatibilidade_exige_autenticacao",
+                                      "tempo_s":  0.329,
+                                      "resultado":  "aprovado"
+                                  },
+                                  {
+                                      "grupo":  "testes.integration.test_us32_usuarios",
+                                      "caso":  "test_cadastro_consulta_multiplos_perfis_e_login",
+                                      "tempo_s":  1.282,
+                                      "resultado":  "aprovado"
+                                  },
+                                  {
+                                      "grupo":  "testes.integration.test_us32_usuarios",
+                                      "caso":  "test_edicao_sem_senha_aplica_permissoes_na_sessao_aberta",
+                                      "tempo_s":  1.224,
+                                      "resultado":  "aprovado"
+                                  },
+                                  {
+                                      "grupo":  "testes.integration.test_us32_usuarios",
+                                      "caso":  "test_senha_opcional_preserva_hash[]",
+                                      "tempo_s":  0.818,
+                                      "resultado":  "aprovado"
+                                  },
+                                  {
+                                      "grupo":  "testes.integration.test_us32_usuarios",
+                                      "caso":  "test_senha_opcional_preserva_hash[None]",
+                                      "tempo_s":  0.998,
+                                      "resultado":  "aprovado"
+                                  },
+                                  {
+                                      "grupo":  "testes.integration.test_us32_usuarios",
+                                      "caso":  "test_validacao_rejeita_cadastro_e_preserva_edicao[dados0-nome]",
+                                      "tempo_s":  0.876,
+                                      "resultado":  "aprovado"
+                                  },
+                                  {
+                                      "grupo":  "testes.integration.test_us32_usuarios",
+                                      "caso":  "test_validacao_rejeita_cadastro_e_preserva_edicao[dados1-nome]",
+                                      "tempo_s":  1.063,
+                                      "resultado":  "aprovado"
+                                  },
+                                  {
+                                      "grupo":  "testes.integration.test_us32_usuarios",
+                                      "caso":  "test_validacao_rejeita_cadastro_e_preserva_edicao[dados2-email]",
+                                      "tempo_s":  0.931,
+                                      "resultado":  "aprovado"
+                                  },
+                                  {
+                                      "grupo":  "testes.integration.test_us32_usuarios",
+                                      "caso":  "test_validacao_rejeita_cadastro_e_preserva_edicao[dados3-email]",
+                                      "tempo_s":  0.94,
+                                      "resultado":  "aprovado"
+                                  },
+                                  {
+                                      "grupo":  "testes.integration.test_us32_usuarios",
+                                      "caso":  "test_validacao_rejeita_cadastro_e_preserva_edicao[dados4-perfis]",
+                                      "tempo_s":  1.094,
+                                      "resultado":  "aprovado"
+                                  },
+                                  {
+                                      "grupo":  "testes.integration.test_us32_usuarios",
+                                      "caso":  "test_validacao_rejeita_cadastro_e_preserva_edicao[dados5-perfis]",
+                                      "tempo_s":  0.977,
+                                      "resultado":  "aprovado"
+                                  },
+                                  {
+                                      "grupo":  "testes.integration.test_us32_usuarios",
+                                      "caso":  "test_validacao_rejeita_cadastro_e_preserva_edicao[dados6-senha]",
+                                      "tempo_s":  1.007,
+                                      "resultado":  "aprovado"
+                                  },
+                                  {
+                                      "grupo":  "testes.integration.test_us32_usuarios",
+                                      "caso":  "test_rejeita_senha_inicial_ausente_e_vazia",
+                                      "tempo_s":  0.862,
+                                      "resultado":  "aprovado"
+                                  },
+                                  {
+                                      "grupo":  "testes.integration.test_us32_usuarios",
+                                      "caso":  "test_limites_apos_trim_e_email_254",
+                                      "tempo_s":  1.005,
+                                      "resultado":  "aprovado"
+                                  },
+                                  {
+                                      "grupo":  "testes.integration.test_us32_usuarios",
+                                      "caso":  "test_email_duplicado_em_cadastro_e_edicao[False]",
+                                      "tempo_s":  0.971,
+                                      "resultado":  "aprovado"
+                                  },
+                                  {
+                                      "grupo":  "testes.integration.test_us32_usuarios",
+                                      "caso":  "test_email_duplicado_em_cadastro_e_edicao[True]",
+                                      "tempo_s":  0.778,
+                                      "resultado":  "aprovado"
+                                  },
+                                  {
+                                      "grupo":  "testes.integration.test_us32_usuarios",
+                                      "caso":  "test_desativacao_reativacao_e_troca_senha_invalidam_todas_sessoes",
+                                      "tempo_s":  1.386,
+                                      "resultado":  "aprovado"
+                                  },
+                                  {
+                                      "grupo":  "testes.integration.test_us32_usuarios",
+                                      "caso":  "test_exclusao_remove_conta_perfis_e_sessoes",
+                                      "tempo_s":  0.727,
+                                      "resultado":  "aprovado"
+                                  },
+                                  {
+                                      "grupo":  "testes.integration.test_us32_usuarios",
+                                      "caso":  "test_historico_impede_exclusao_e_preserva_autoria[ordens de produ\\xe7\\xe3o]",
+                                      "tempo_s":  0.611,
+                                      "resultado":  "aprovado"
+                                  },
+                                  {
+                                      "grupo":  "testes.integration.test_us32_usuarios",
+                                      "caso":  "test_historico_impede_exclusao_e_preserva_autoria[planejamentos]",
+                                      "tempo_s":  0.604,
+                                      "resultado":  "aprovado"
+                                  },
+                                  {
+                                      "grupo":  "testes.integration.test_us32_usuarios",
+                                      "caso":  "test_autoria_de_sugestao_impede_exclusao",
+                                      "tempo_s":  0.867,
+                                      "resultado":  "aprovado"
+                                  },
+                                  {
+                                      "grupo":  "testes.integration.test_us32_usuarios",
+                                      "caso":  "test_aprovacao_impede_exclusao_e_preserva_historico_apos_desativacao",
+                                      "tempo_s":  0.953,
+                                      "resultado":  "aprovado"
+                                  },
+                                  {
+                                      "grupo":  "testes.integration.test_us32_usuarios",
+                                      "caso":  "test_ultimo_admin_ativo_protegido[excluir]",
+                                      "tempo_s":  0.621,
+                                      "resultado":  "aprovado"
+                                  },
+                                  {
+                                      "grupo":  "testes.integration.test_us32_usuarios",
+                                      "caso":  "test_ultimo_admin_ativo_protegido[desativar]",
+                                      "tempo_s":  0.614,
+                                      "resultado":  "aprovado"
+                                  },
+                                  {
+                                      "grupo":  "testes.integration.test_us32_usuarios",
+                                      "caso":  "test_ultimo_admin_ativo_protegido[perfil]",
+                                      "tempo_s":  0.687,
+                                      "resultado":  "aprovado"
+                                  },
+                                  {
+                                      "grupo":  "testes.integration.test_us32_usuarios",
+                                      "caso":  "test_api_requer_administrador[GET--None-False]",
+                                      "tempo_s":  0.296,
+                                      "resultado":  "aprovado"
+                                  },
+                                  {
+                                      "grupo":  "testes.integration.test_us32_usuarios",
+                                      "caso":  "test_api_requer_administrador[GET--None-True]",
+                                      "tempo_s":  0.41,
+                                      "resultado":  "aprovado"
+                                  },
+                                  {
+                                      "grupo":  "testes.integration.test_us32_usuarios",
+                                      "caso":  "test_api_requer_administrador[GET-/{id}-None-False]",
+                                      "tempo_s":  0.303,
+                                      "resultado":  "aprovado"
+                                  },
+                                  {
+                                      "grupo":  "testes.integration.test_us32_usuarios",
+                                      "caso":  "test_api_requer_administrador[GET-/{id}-None-True]",
+                                      "tempo_s":  0.524,
+                                      "resultado":  "aprovado"
+                                  },
+                                  {
+                                      "grupo":  "testes.integration.test_us32_usuarios",
+                                      "caso":  "test_api_requer_administrador[POST--body2-False]",
+                                      "tempo_s":  0.34,
+                                      "resultado":  "aprovado"
+                                  },
+                                  {
+                                      "grupo":  "testes.integration.test_us32_usuarios",
+                                      "caso":  "test_api_requer_administrador[POST--body2-True]",
+                                      "tempo_s":  0.459,
+                                      "resultado":  "aprovado"
+                                  },
+                                  {
+                                      "grupo":  "testes.integration.test_us32_usuarios",
+                                      "caso":  "test_api_requer_administrador[PUT-/{id}-body3-False]",
+                                      "tempo_s":  0.301,
+                                      "resultado":  "aprovado"
+                                  },
+                                  {
+                                      "grupo":  "testes.integration.test_us32_usuarios",
+                                      "caso":  "test_api_requer_administrador[PUT-/{id}-body3-True]",
+                                      "tempo_s":  0.446,
+                                      "resultado":  "aprovado"
+                                  },
+                                  {
+                                      "grupo":  "testes.integration.test_us32_usuarios",
+                                      "caso":  "test_api_requer_administrador[PATCH-/{id}/status-body4-False]",
+                                      "tempo_s":  0.287,
+                                      "resultado":  "aprovado"
+                                  },
+                                  {
+                                      "grupo":  "testes.integration.test_us32_usuarios",
+                                      "caso":  "test_api_requer_administrador[PATCH-/{id}/status-body4-True]",
+                                      "tempo_s":  0.481,
+                                      "resultado":  "aprovado"
+                                  },
+                                  {
+                                      "grupo":  "testes.integration.test_us32_usuarios",
+                                      "caso":  "test_api_requer_administrador[PATCH-/{id}/status-body5-False]",
+                                      "tempo_s":  0.369,
+                                      "resultado":  "aprovado"
+                                  },
+                                  {
+                                      "grupo":  "testes.integration.test_us32_usuarios",
+                                      "caso":  "test_api_requer_administrador[PATCH-/{id}/status-body5-True]",
+                                      "tempo_s":  0.605,
+                                      "resultado":  "aprovado"
+                                  },
+                                  {
+                                      "grupo":  "testes.integration.test_us32_usuarios",
+                                      "caso":  "test_api_requer_administrador[DELETE-/{id}-None-False]",
+                                      "tempo_s":  0.336,
+                                      "resultado":  "aprovado"
+                                  },
+                                  {
+                                      "grupo":  "testes.integration.test_us32_usuarios",
+                                      "caso":  "test_api_requer_administrador[DELETE-/{id}-None-True]",
+                                      "tempo_s":  0.689,
+                                      "resultado":  "aprovado"
+                                  },
+                                  {
+                                      "grupo":  "testes.integration.test_us32_usuarios",
+                                      "caso":  "test_cadastros_simultaneos_email_unico",
+                                      "tempo_s":  1.167,
+                                      "resultado":  "aprovado"
+                                  },
+                                  {
+                                      "grupo":  "testes.integration.test_us32_usuarios",
+                                      "caso":  "test_dois_ultimos_admins_em_solicitacoes_simultaneas[excluir]",
+                                      "tempo_s":  1.919,
+                                      "resultado":  "aprovado"
+                                  },
+                                  {
+                                      "grupo":  "testes.integration.test_us32_usuarios",
+                                      "caso":  "test_dois_ultimos_admins_em_solicitacoes_simultaneas[desativar]",
+                                      "tempo_s":  1.152,
+                                      "resultado":  "aprovado"
+                                  },
+                                  {
+                                      "grupo":  "testes.integration.test_us32_usuarios",
+                                      "caso":  "test_dois_ultimos_admins_em_solicitacoes_simultaneas[perfil]",
+                                      "tempo_s":  0.923,
+                                      "resultado":  "aprovado"
+                                  },
+                                  {
+                                      "grupo":  "testes.integration.test_us32_usuarios",
+                                      "caso":  "test_script_cria_primeiro_administrador",
+                                      "tempo_s":  0.649,
+                                      "resultado":  "aprovado"
+                                  },
+                                  {
+                                      "grupo":  "testes.integration.test_us32_usuarios",
+                                      "caso":  "test_ids_inexistentes",
+                                      "tempo_s":  0.497,
+                                      "resultado":  "aprovado"
+                                  },
+                                  {
+                                      "grupo":  "testes.unit.test_seed_e2e",
+                                      "caso":  "test_fixture_recusa_banco_antes_de_abrir_conexao[]",
+                                      "tempo_s":  0.001,
+                                      "resultado":  "aprovado"
+                                  },
+                                  {
+                                      "grupo":  "testes.unit.test_seed_e2e",
+                                      "caso":  "test_fixture_recusa_banco_antes_de_abrir_conexao[URL inv\\xe1lida]",
+                                      "tempo_s":  0.001,
+                                      "resultado":  "aprovado"
+                                  },
+                                  {
+                                      "grupo":  "testes.unit.test_seed_e2e",
+                                      "caso":  "test_fixture_recusa_banco_antes_de_abrir_conexao[sqlite:///setupflow_e2e_test]",
+                                      "tempo_s":  0.001,
+                                      "resultado":  "aprovado"
+                                  },
+                                  {
+                                      "grupo":  "testes.unit.test_seed_e2e",
+                                      "caso":  "test_fixture_recusa_banco_antes_de_abrir_conexao[postgresql://user:password@localhost/setupflow_dev]",
+                                      "tempo_s":  0.001,
+                                      "resultado":  "aprovado"
+                                  },
+                                  {
+                                      "grupo":  "testes.unit.test_seed_e2e",
+                                      "caso":  "test_fixture_recusa_banco_antes_de_abrir_conexao[postgresql://user:password@localhost/setupflow_test]",
+                                      "tempo_s":  0.001,
+                                      "resultado":  "aprovado"
+                                  },
+                                  {
+                                      "grupo":  "testes.unit.test_seed_e2e",
+                                      "caso":  "test_fixture_recusa_banco_antes_de_abrir_conexao[postgresql://user:password@localhost/setupflow_e2e_test_copia]",
+                                      "tempo_s":  0.001,
+                                      "resultado":  "aprovado"
+                                  },
+                                  {
+                                      "grupo":  "testes.unit.test_us14_sequenciamento",
+                                      "caso":  "test_prioridade_alta_pode_justificar_setup_maior",
+                                      "tempo_s":  0.001,
+                                      "resultado":  "aprovado"
+                                  },
+                                  {
+                                      "grupo":  "testes.unit.test_us14_sequenciamento",
+                                      "caso":  "test_prazo_restritivo_pode_antecipar_ordem_de_prioridade_baixa",
+                                      "tempo_s":  0.001,
+                                      "resultado":  "aprovado"
+                                  },
+                                  {
+                                      "grupo":  "testes.unit.test_us14_sequenciamento",
+                                      "caso":  "test_preserva_ordem_alta_mesmo_quando_antecipar_baixas_evitaria_mais_atrasos[45]",
+                                      "tempo_s":  0.001,
+                                      "resultado":  "aprovado"
+                                  },
+                                  {
+                                      "grupo":  "testes.unit.test_us14_sequenciamento",
+                                      "caso":  "test_preserva_ordem_alta_mesmo_quando_antecipar_baixas_evitaria_mais_atrasos[70]",
+                                      "tempo_s":  0.001,
+                                      "resultado":  "aprovado"
+                                  },
+                                  {
+                                      "grupo":  "testes.unit.test_us14_sequenciamento",
+                                      "caso":  "test_antecipa_apenas_a_baixa_que_consegue_cumprir_o_prazo",
+                                      "tempo_s":  0.001,
+                                      "resultado":  "aprovado"
+                                  },
+                                  {
+                                      "grupo":  "testes.unit.test_us14_sequenciamento",
+                                      "caso":  "test_prioridade_influencia_sem_risco_de_atraso",
+                                      "tempo_s":  0.001,
+                                      "resultado":  "aprovado"
+                                  },
+                                  {
+                                      "grupo":  "testes.unit.test_us14_sequenciamento",
+                                      "caso":  "test_sem_dados_de_urgencia_preserva_us13",
+                                      "tempo_s":  0.001,
+                                      "resultado":  "aprovado"
+                                  },
+                                  {
+                                      "grupo":  "testes.unit.test_us15_sequenciamento",
+                                      "caso":  "test_ordem_atribuida_a_unica_maquina_compativel",
+                                      "tempo_s":  0.001,
+                                      "resultado":  "aprovado"
+                                  },
+                                  {
+                                      "grupo":  "testes.unit.test_us15_sequenciamento",
+                                      "caso":  "test_distribuicao_entre_maquinas_compativeis",
+                                      "tempo_s":  0.001,
+                                      "resultado":  "aprovado"
+                                  },
+                                  {
+                                      "grupo":  "testes.unit.test_us15_sequenciamento",
+                                      "caso":  "test_ordem_sem_maquina_compativel",
+                                      "tempo_s":  0.001,
+                                      "resultado":  "aprovado"
+                                  },
+                                  {
+                                      "grupo":  "testes.unit.test_us15_sequenciamento",
+                                      "caso":  "test_redistribui_ao_reconsiderar_escolha_que_bloqueia_outra_familia",
+                                      "tempo_s":  0.001,
+                                      "resultado":  "aprovado"
+                                  },
+                                  {
+                                      "grupo":  "testes.unit.test_us15_sequenciamento",
+                                      "caso":  "test_nao_calcula_setup_entre_maquinas_diferentes",
+                                      "tempo_s":  0.001,
+                                      "resultado":  "aprovado"
+                                  },
+                                  {
+                                      "grupo":  "testes.unit.test_us15_sequenciamento",
+                                      "caso":  "test_otimiza_setup_individualmente_por_maquina",
+                                      "tempo_s":  0.001,
+                                      "resultado":  "aprovado"
+                                  },
+                                  {
+                                      "grupo":  "testes.unit.test_us15_sequenciamento",
+                                      "caso":  "test_rejeita_ordem_sem_maquina_atribuida",
+                                      "tempo_s":  0.001,
+                                      "resultado":  "aprovado"
+                                  },
+                                  {
+                                      "grupo":  "testes.unit.test_us15_sequenciamento",
+                                      "caso":  "test_urgencia_independente_por_maquina",
+                                      "tempo_s":  0.001,
+                                      "resultado":  "aprovado"
+                                  },
+                                  {
+                                      "grupo":  "testes.unit.test_us15_sequenciamento",
+                                      "caso":  "test_rejeita_dados_de_urgencia_incompletos[False]",
+                                      "tempo_s":  0.001,
+                                      "resultado":  "aprovado"
+                                  },
+                                  {
+                                      "grupo":  "testes.unit.test_us15_sequenciamento",
+                                      "caso":  "test_rejeita_dados_de_urgencia_incompletos[True]",
+                                      "tempo_s":  0.005,
+                                      "resultado":  "aprovado"
+                                  }
+                              ]
+                },
+    "driver04":  {
+                     "total":  36,
+                     "falhas":  0,
+                     "erros":  0,
+                     "ignorados":  0,
+                     "tempo_s":  32.212,
+                     "casos":  [
+                                   {
+                                       "grupo":  "docs.qualidade.release-2.evidencias-driver04.reavaliacao-20c7bc4.matriz-qa",
+                                       "caso":  "test_matriz_driver04[CT-130-listar-maquinas]",
+                                       "tempo_s":  2.075,
+                                       "resultado":  "aprovado"
+                                   },
+                                   {
+                                       "grupo":  "docs.qualidade.release-2.evidencias-driver04.reavaliacao-20c7bc4.matriz-qa",
+                                       "caso":  "test_matriz_driver04[CT-130-cadastrar-maquina]",
+                                       "tempo_s":  0.922,
+                                       "resultado":  "aprovado"
+                                   },
+                                   {
+                                       "grupo":  "docs.qualidade.release-2.evidencias-driver04.reavaliacao-20c7bc4.matriz-qa",
+                                       "caso":  "test_matriz_driver04[CT-130-editar-maquina]",
+                                       "tempo_s":  0.841,
+                                       "resultado":  "aprovado"
+                                   },
+                                   {
+                                       "grupo":  "docs.qualidade.release-2.evidencias-driver04.reavaliacao-20c7bc4.matriz-qa",
+                                       "caso":  "test_matriz_driver04[CT-130-alterar-status-maquina]",
+                                       "tempo_s":  0.881,
+                                       "resultado":  "aprovado"
+                                   },
+                                   {
+                                       "grupo":  "docs.qualidade.release-2.evidencias-driver04.reavaliacao-20c7bc4.matriz-qa",
+                                       "caso":  "test_matriz_driver04[CT-130-excluir-maquina-livre]",
+                                       "tempo_s":  0.829,
+                                       "resultado":  "aprovado"
+                                   },
+                                   {
+                                       "grupo":  "docs.qualidade.release-2.evidencias-driver04.reavaliacao-20c7bc4.matriz-qa",
+                                       "caso":  "test_matriz_driver04[CT-130-listar-setups]",
+                                       "tempo_s":  0.825,
+                                       "resultado":  "aprovado"
+                                   },
+                                   {
+                                       "grupo":  "docs.qualidade.release-2.evidencias-driver04.reavaliacao-20c7bc4.matriz-qa",
+                                       "caso":  "test_matriz_driver04[CT-130-cadastrar-setup]",
+                                       "tempo_s":  0.812,
+                                       "resultado":  "aprovado"
+                                   },
+                                   {
+                                       "grupo":  "docs.qualidade.release-2.evidencias-driver04.reavaliacao-20c7bc4.matriz-qa",
+                                       "caso":  "test_matriz_driver04[CT-130-gerar-sugestao]",
+                                       "tempo_s":  0.835,
+                                       "resultado":  "aprovado"
+                                   },
+                                   {
+                                       "grupo":  "docs.qualidade.release-2.evidencias-driver04.reavaliacao-20c7bc4.matriz-qa",
+                                       "caso":  "test_matriz_driver04[CT-130-consultar-sugestao]",
+                                       "tempo_s":  0.758,
+                                       "resultado":  "aprovado"
+                                   },
+                                   {
+                                       "grupo":  "docs.qualidade.release-2.evidencias-driver04.reavaliacao-20c7bc4.matriz-qa",
+                                       "caso":  "test_matriz_driver04[CT-130-comparar-sequencias]",
+                                       "tempo_s":  0.837,
+                                       "resultado":  "aprovado"
+                                   },
+                                   {
+                                       "grupo":  "docs.qualidade.release-2.evidencias-driver04.reavaliacao-20c7bc4.matriz-qa",
+                                       "caso":  "test_matriz_driver04[CT-130-consultar-plano]",
+                                       "tempo_s":  0.846,
+                                       "resultado":  "aprovado"
+                                   },
+                                   {
+                                       "grupo":  "docs.qualidade.release-2.evidencias-driver04.reavaliacao-20c7bc4.matriz-qa",
+                                       "caso":  "test_matriz_driver04[CT-130-reordenar-manual]",
+                                       "tempo_s":  0.847,
+                                       "resultado":  "aprovado"
+                                   },
+                                   {
+                                       "grupo":  "docs.qualidade.release-2.evidencias-driver04.reavaliacao-20c7bc4.matriz-qa",
+                                       "caso":  "test_matriz_driver04[CT-131-listar-maquinas]",
+                                       "tempo_s":  0.725,
+                                       "resultado":  "aprovado"
+                                   },
+                                   {
+                                       "grupo":  "docs.qualidade.release-2.evidencias-driver04.reavaliacao-20c7bc4.matriz-qa",
+                                       "caso":  "test_matriz_driver04[CT-131-cadastrar-maquina]",
+                                       "tempo_s":  0.775,
+                                       "resultado":  "aprovado"
+                                   },
+                                   {
+                                       "grupo":  "docs.qualidade.release-2.evidencias-driver04.reavaliacao-20c7bc4.matriz-qa",
+                                       "caso":  "test_matriz_driver04[CT-131-editar-maquina]",
+                                       "tempo_s":  0.703,
+                                       "resultado":  "aprovado"
+                                   },
+                                   {
+                                       "grupo":  "docs.qualidade.release-2.evidencias-driver04.reavaliacao-20c7bc4.matriz-qa",
+                                       "caso":  "test_matriz_driver04[CT-131-alterar-status-maquina]",
+                                       "tempo_s":  0.722,
+                                       "resultado":  "aprovado"
+                                   },
+                                   {
+                                       "grupo":  "docs.qualidade.release-2.evidencias-driver04.reavaliacao-20c7bc4.matriz-qa",
+                                       "caso":  "test_matriz_driver04[CT-131-excluir-maquina-livre]",
+                                       "tempo_s":  0.72,
+                                       "resultado":  "aprovado"
+                                   },
+                                   {
+                                       "grupo":  "docs.qualidade.release-2.evidencias-driver04.reavaliacao-20c7bc4.matriz-qa",
+                                       "caso":  "test_matriz_driver04[CT-131-listar-setups]",
+                                       "tempo_s":  0.755,
+                                       "resultado":  "aprovado"
+                                   },
+                                   {
+                                       "grupo":  "docs.qualidade.release-2.evidencias-driver04.reavaliacao-20c7bc4.matriz-qa",
+                                       "caso":  "test_matriz_driver04[CT-131-cadastrar-setup]",
+                                       "tempo_s":  0.83,
+                                       "resultado":  "aprovado"
+                                   },
+                                   {
+                                       "grupo":  "docs.qualidade.release-2.evidencias-driver04.reavaliacao-20c7bc4.matriz-qa",
+                                       "caso":  "test_matriz_driver04[CT-131-gerar-sugestao]",
+                                       "tempo_s":  0.871,
+                                       "resultado":  "aprovado"
+                                   },
+                                   {
+                                       "grupo":  "docs.qualidade.release-2.evidencias-driver04.reavaliacao-20c7bc4.matriz-qa",
+                                       "caso":  "test_matriz_driver04[CT-131-consultar-sugestao]",
+                                       "tempo_s":  0.856,
+                                       "resultado":  "aprovado"
+                                   },
+                                   {
+                                       "grupo":  "docs.qualidade.release-2.evidencias-driver04.reavaliacao-20c7bc4.matriz-qa",
+                                       "caso":  "test_matriz_driver04[CT-131-comparar-sequencias]",
+                                       "tempo_s":  0.896,
+                                       "resultado":  "aprovado"
+                                   },
+                                   {
+                                       "grupo":  "docs.qualidade.release-2.evidencias-driver04.reavaliacao-20c7bc4.matriz-qa",
+                                       "caso":  "test_matriz_driver04[CT-131-consultar-plano]",
+                                       "tempo_s":  0.813,
+                                       "resultado":  "aprovado"
+                                   },
+                                   {
+                                       "grupo":  "docs.qualidade.release-2.evidencias-driver04.reavaliacao-20c7bc4.matriz-qa",
+                                       "caso":  "test_matriz_driver04[CT-131-reordenar-manual]",
+                                       "tempo_s":  0.893,
+                                       "resultado":  "aprovado"
+                                   },
+                                   {
+                                       "grupo":  "docs.qualidade.release-2.evidencias-driver04.reavaliacao-20c7bc4.matriz-qa",
+                                       "caso":  "test_matriz_driver04[CT-132-listar-maquinas]",
+                                       "tempo_s":  0.974,
+                                       "resultado":  "aprovado"
+                                   },
+                                   {
+                                       "grupo":  "docs.qualidade.release-2.evidencias-driver04.reavaliacao-20c7bc4.matriz-qa",
+                                       "caso":  "test_matriz_driver04[CT-132-cadastrar-maquina]",
+                                       "tempo_s":  0.884,
+                                       "resultado":  "aprovado"
+                                   },
+                                   {
+                                       "grupo":  "docs.qualidade.release-2.evidencias-driver04.reavaliacao-20c7bc4.matriz-qa",
+                                       "caso":  "test_matriz_driver04[CT-132-editar-maquina]",
+                                       "tempo_s":  0.862,
+                                       "resultado":  "aprovado"
+                                   },
+                                   {
+                                       "grupo":  "docs.qualidade.release-2.evidencias-driver04.reavaliacao-20c7bc4.matriz-qa",
+                                       "caso":  "test_matriz_driver04[CT-132-alterar-status-maquina]",
+                                       "tempo_s":  0.875,
+                                       "resultado":  "aprovado"
+                                   },
+                                   {
+                                       "grupo":  "docs.qualidade.release-2.evidencias-driver04.reavaliacao-20c7bc4.matriz-qa",
+                                       "caso":  "test_matriz_driver04[CT-132-excluir-maquina-livre]",
+                                       "tempo_s":  0.879,
+                                       "resultado":  "aprovado"
+                                   },
+                                   {
+                                       "grupo":  "docs.qualidade.release-2.evidencias-driver04.reavaliacao-20c7bc4.matriz-qa",
+                                       "caso":  "test_matriz_driver04[CT-132-listar-setups]",
+                                       "tempo_s":  0.846,
+                                       "resultado":  "aprovado"
+                                   },
+                                   {
+                                       "grupo":  "docs.qualidade.release-2.evidencias-driver04.reavaliacao-20c7bc4.matriz-qa",
+                                       "caso":  "test_matriz_driver04[CT-132-cadastrar-setup]",
+                                       "tempo_s":  0.889,
+                                       "resultado":  "aprovado"
+                                   },
+                                   {
+                                       "grupo":  "docs.qualidade.release-2.evidencias-driver04.reavaliacao-20c7bc4.matriz-qa",
+                                       "caso":  "test_matriz_driver04[CT-132-gerar-sugestao]",
+                                       "tempo_s":  0.995,
+                                       "resultado":  "aprovado"
+                                   },
+                                   {
+                                       "grupo":  "docs.qualidade.release-2.evidencias-driver04.reavaliacao-20c7bc4.matriz-qa",
+                                       "caso":  "test_matriz_driver04[CT-132-consultar-sugestao]",
+                                       "tempo_s":  0.833,
+                                       "resultado":  "aprovado"
+                                   },
+                                   {
+                                       "grupo":  "docs.qualidade.release-2.evidencias-driver04.reavaliacao-20c7bc4.matriz-qa",
+                                       "caso":  "test_matriz_driver04[CT-132-comparar-sequencias]",
+                                       "tempo_s":  0.871,
+                                       "resultado":  "aprovado"
+                                   },
+                                   {
+                                       "grupo":  "docs.qualidade.release-2.evidencias-driver04.reavaliacao-20c7bc4.matriz-qa",
+                                       "caso":  "test_matriz_driver04[CT-132-consultar-plano]",
+                                       "tempo_s":  1.042,
+                                       "resultado":  "aprovado"
+                                   },
+                                   {
+                                       "grupo":  "docs.qualidade.release-2.evidencias-driver04.reavaliacao-20c7bc4.matriz-qa",
+                                       "caso":  "test_matriz_driver04[CT-132-reordenar-manual]",
+                                       "tempo_s":  1.304,
+                                       "resultado":  "aprovado"
+                                   }
+                               ]
+                 },
+    "driver06":  {
+                     "total":  6,
+                     "falhas":  0,
+                     "erros":  0,
+                     "ignorados":  0,
+                     "tempo_s":  8.269,
+                     "casos":  [
+                                   {
+                                       "grupo":  ".tmp.qa-release2-08a62f5.test_qa_driver06_http",
+                                       "caso":  "test_qa_http_20_tentativas_por_estado[invalidada]",
+                                       "tempo_s":  4.151,
+                                       "resultado":  "aprovado"
+                                   },
+                                   {
+                                       "grupo":  ".tmp.qa-release2-08a62f5.test_qa_driver06_http",
+                                       "caso":  "test_qa_http_20_tentativas_por_estado[expirada]",
+                                       "tempo_s":  0.802,
+                                       "resultado":  "aprovado"
+                                   },
+                                   {
+                                       "grupo":  ".tmp.qa-release2-08a62f5.test_qa_driver06_http",
+                                       "caso":  "test_qa_http_20_tentativas_por_estado[desconhecida]",
+                                       "tempo_s":  1.032,
+                                       "resultado":  "aprovado"
+                                   },
+                                   {
+                                       "grupo":  ".tmp.qa-release2-08a62f5.test_qa_driver06_limites",
+                                       "caso":  "test_qa_fronteira_expiracao[-1-200]",
+                                       "tempo_s":  0.719,
+                                       "resultado":  "aprovado"
+                                   },
+                                   {
+                                       "grupo":  ".tmp.qa-release2-08a62f5.test_qa_driver06_limites",
+                                       "caso":  "test_qa_fronteira_expiracao[0-401]",
+                                       "tempo_s":  0.371,
+                                       "resultado":  "aprovado"
+                                   },
+                                   {
+                                       "grupo":  ".tmp.qa-release2-08a62f5.test_qa_driver06_limites",
+                                       "caso":  "test_qa_fronteira_expiracao[1-401]",
+                                       "tempo_s":  0.478,
+                                       "resultado":  "aprovado"
+                                   }
+                               ]
+                 },
+    "driver04_aprovacao":  {
+                               "total":  6,
+                               "falhas":  0,
+                               "erros":  0,
+                               "ignorados":  0,
+                               "tempo_s":  12.796,
+                               "casos":  [
+                                             {
+                                                 "grupo":  "docs.qualidade.release-2.auditoria-bugs.evidencias.test_qa_aprovacao_permissoes",
+                                                 "caso":  "test_qa_acesso_aprovacao_com_sugestao_disponivel[listar-candidatos-operador-403]",
+                                                 "tempo_s":  4.951,
+                                                 "resultado":  "aprovado"
+                                             },
+                                             {
+                                                 "grupo":  "docs.qualidade.release-2.auditoria-bugs.evidencias.test_qa_aprovacao_permissoes",
+                                                 "caso":  "test_qa_acesso_aprovacao_com_sugestao_disponivel[listar-candidatos-sem-sessao-401]",
+                                                 "tempo_s":  1.466,
+                                                 "resultado":  "aprovado"
+                                             },
+                                             {
+                                                 "grupo":  "docs.qualidade.release-2.auditoria-bugs.evidencias.test_qa_aprovacao_permissoes",
+                                                 "caso":  "test_qa_acesso_aprovacao_com_sugestao_disponivel[listar-candidatos-planejador-200]",
+                                                 "tempo_s":  1.667,
+                                                 "resultado":  "aprovado"
+                                             },
+                                             {
+                                                 "grupo":  "docs.qualidade.release-2.auditoria-bugs.evidencias.test_qa_aprovacao_permissoes",
+                                                 "caso":  "test_qa_acesso_aprovacao_com_sugestao_disponivel[aprovar-sugestao-operador-403]",
+                                                 "tempo_s":  1.736,
+                                                 "resultado":  "aprovado"
+                                             },
+                                             {
+                                                 "grupo":  "docs.qualidade.release-2.auditoria-bugs.evidencias.test_qa_aprovacao_permissoes",
+                                                 "caso":  "test_qa_acesso_aprovacao_com_sugestao_disponivel[aprovar-sugestao-sem-sessao-401]",
+                                                 "tempo_s":  1.609,
+                                                 "resultado":  "aprovado"
+                                             },
+                                             {
+                                                 "grupo":  "docs.qualidade.release-2.auditoria-bugs.evidencias.test_qa_aprovacao_permissoes",
+                                                 "caso":  "test_qa_acesso_aprovacao_com_sugestao_disponivel[aprovar-sugestao-planejador-200]",
+                                                 "tempo_s":  1.207,
+                                                 "resultado":  "aprovado"
+                                             }
+                                         ]
+                           }
+}

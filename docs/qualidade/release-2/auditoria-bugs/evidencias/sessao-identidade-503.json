@@ -1,0 +1,27 @@
+{
+  "versao": "Chrome/158.0.8127.38",
+  "autenticacaoHttp": 200,
+  "amostras": [
+    {
+      "tentativa": 1,
+      "falhaInicialSimuladaHttp": 503,
+      "identidadeRealHttp": 200,
+      "loginAposRecuperacaoEFoco": true,
+      "painelAposRecarregarSemNovoLogin": true
+    },
+    {
+      "tentativa": 2,
+      "falhaInicialSimuladaHttp": 503,
+      "identidadeRealHttp": 200,
+      "loginAposRecuperacaoEFoco": true,
+      "painelAposRecarregarSemNovoLogin": true
+    },
+    {
+      "tentativa": 3,
+      "falhaInicialSimuladaHttp": 503,
+      "identidadeRealHttp": 200,
+      "loginAposRecuperacaoEFoco": true,
+      "painelAposRecarregarSemNovoLogin": true
+    }
+  ]
+}

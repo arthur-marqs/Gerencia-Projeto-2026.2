@@ -1,0 +1,71 @@
+{
+  "startedAt": "2026-11-26T14:54:49.351Z",
+  "branch": "docs/qualidade",
+  "commit": "7bf75c9f938cd1c0d99b136d5380906ca76175f5",
+  "dirty": true,
+  "sourceSha256": "17a6d1d4b672d74d99e2e71c95c9f1e8d6a0cd064ed06022c3ae70eb70404732",
+  "browser": "chrome",
+  "configFile": "cypress.config.cjs",
+  "tags": "(@US15 or @US16 or @US17) and not @wip",
+  "node": "v26.13.0",
+  "platform": "win32 10.0.26300",
+  "finishedAt": "2026-11-26T14:56:21.101Z",
+  "browserVersion": "158.0.8127.38",
+  "cypressVersion": "16.3.0",
+  "total": 12,
+  "passed": 12,
+  "failed": 0,
+  "pending": 0,
+  "skipped": 0,
+  "durationMs": 69895,
+  "tests": [
+    {
+      "title": "Aprovar planejamento de produção / CT-123 Disponibilizar o planejamento aprovado para execução",
+      "state": "passed"
+    },
+    {
+      "title": "Aprovar planejamento de produção / CT-124 Informar que não há planejamento disponível",
+      "state": "passed"
+    },
+    {
+      "title": "Aprovar planejamento de produção / CT-125 Aprovar a sequência sugerida escolhida sem modificar as origens",
+      "state": "passed"
+    },
+    {
+      "title": "Comparar sequência manual e sequência sugerida / CT-120 Exibir as duas sequências e as diferenças",
+      "state": "passed"
+    },
+    {
+      "title": "Comparar sequência manual e sequência sugerida / CT-121 Orientar a geração quando falta sequência sugerida",
+      "state": "passed"
+    },
+    {
+      "title": "Comparar sequência manual e sequência sugerida / CT-122 Preservar os registros ao consultar a comparação",
+      "state": "passed"
+    },
+    {
+      "title": "Comparar sequência manual e sequência sugerida / Comparar o planejamento quando o catálogo de máquinas responde 503",
+      "state": "passed"
+    },
+    {
+      "title": "Considerar compatibilidade entre produtos e máquinas / Atribuir ordens a máquinas compatíveis diferentes",
+      "state": "passed"
+    },
+    {
+      "title": "Considerar compatibilidade entre produtos e máquinas / Distribuir ordens entre máquinas compatíveis",
+      "state": "passed"
+    },
+    {
+      "title": "Considerar compatibilidade entre produtos e máquinas / Bloquear ordem sem máquina compatível",
+      "state": "passed"
+    },
+    {
+      "title": "Considerar compatibilidade entre produtos e máquinas / Bloquear ordem compatível somente com máquina inativa",
+      "state": "passed"
+    },
+    {
+      "title": "Considerar compatibilidade entre produtos e máquinas / Separar famílias entre máquinas compatíveis sem setup cadastrado",
+      "state": "passed"
+    }
+  ]
+}

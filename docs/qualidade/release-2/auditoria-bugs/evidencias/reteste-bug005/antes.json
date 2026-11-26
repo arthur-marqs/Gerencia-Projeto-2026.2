@@ -1,0 +1,43 @@
+{
+  "startedAt": "2026-11-26T15:34:23.747Z",
+  "branch": "docs/qualidade",
+  "commit": "2279fabdeec88d8f8f4eaf2ad7fe7ed22cf36aba",
+  "dirty": true,
+  "sourceSha256": "d4675ef42efcedd829d9a07b956b375820b83b1b17fd43b14439ffdd75eb1054",
+  "browser": "chrome",
+  "configFile": "cypress.config.ts",
+  "tags": "@BUG005",
+  "node": "v26.13.0",
+  "platform": "win32 10.0.26300",
+  "finishedAt": "2026-11-26T15:35:00.975Z",
+  "browserVersion": "158.0.8127.38",
+  "cypressVersion": "16.3.0",
+  "total": 5,
+  "passed": 0,
+  "failed": 5,
+  "pending": 0,
+  "skipped": 0,
+  "durationMs": 23695,
+  "tests": [
+    {
+      "title": "Recuperar a verificação da sessão / Recuperar a sessão após \"503\" na abertura (example #1)",
+      "state": "failed"
+    },
+    {
+      "title": "Recuperar a verificação da sessão / Recuperar a sessão após \"rede\" na abertura (example #2)",
+      "state": "failed"
+    },
+    {
+      "title": "Recuperar a verificação da sessão / Solicitar login quando a nova verificação retorna 401",
+      "state": "failed"
+    },
+    {
+      "title": "Recuperar a verificação da sessão / Permitir outra tentativa enquanto a identidade estiver indisponível",
+      "state": "failed"
+    },
+    {
+      "title": "Recuperar a verificação da sessão / Recuperar a identificação depois de um login bem-sucedido",
+      "state": "failed"
+    }
+  ]
+}

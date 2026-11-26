@@ -1,5 +1,7 @@
 # Relatório de alinhamento ao plano — US-32 / SC-66
 
+**Situação da entrega em 26/11/2026 · Aprovada pelo PO e integrada à `main`.** A US32 entrou pelo PR #15 em `5cf655e`. [Integração](https://github.com/arthur-marqs/Gerencia-Projeto-2026.2/pull/15) · [Definition of Done concluída](../../../status-projeto.md#definition-of-done-dod)
+
 **Data:** 11/11/2026 · **Release:** R2 · **Sprint:** 2.
 
 Execução automatizada local assistida, com API real e bancos PostgreSQL
@@ -93,10 +95,9 @@ pelo documento; os resultados técnicos e as evidências permanecem neste relat�
 
 ## CI, defeitos e aceite
 
-O workflow foi ampliado para executar o aceite no Chrome e no Electron a cada
-push/PR, publicando relatórios, capturas e vídeos mesmo em falha. A execução
-local confirma os cenários, mas **não há uma execução remota deste novo workflow
-registrada neste relatório**. Adicionar o link do GitHub Actions após a execução.
+O workflow executa o aceite no Chrome e no Electron a cada push e PR e publica
+relatórios, capturas e vídeos mesmo em falha. A versão integrada passou nos
+dois navegadores. [Execução da main](https://github.com/arthur-marqs/Gerencia-Projeto-2026.2/actions/runs/45827103972)
 
 Durante a validação da configuração foram corrigidas a herança de
 `ELECTRON_RUN_AS_NODE` do terminal e a passagem das tags ao preprocessor do
@@ -104,5 +105,4 @@ Cypress 16 por `expose`. Os resultados acima pertencem às execuções finais ap
 essas correções. Não houve falha nos testes finais; a situação de bugs no Jira
 não foi consultada, e não se declara ausência de bugs críticos/altos no projeto.
 
-Pendências de processo: revisão do QA, exploração manual quando aplicável,
-vinculação de evidências ao SC-66, execução remota do CI e aceite do PO.
+O registro de evidências também documenta a conferência manual concluída. [Evidências da US32](evidencias/us32/README.md)

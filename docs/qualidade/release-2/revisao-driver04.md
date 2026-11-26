@@ -1,5 +1,9 @@
 # Relatório de revisão e validação — Driver04: Controle de acesso às operações
 
+**Situação da entrega em 26/11/2026 · Aprovado pelo PO e integrado à `main`.** [PR #29](https://github.com/arthur-marqs/Gerencia-Projeto-2026.2/pull/29) (`08a62f5`). Os sete critérios do DoD estão concluídos para o incremento aceito. [Definition of Done](../../status-projeto.md#definition-of-done-dod)
+
+A auditoria integrada também exercitou as rotas de aprovação e ampliou a matriz para 28 recusas e 14 controles positivos. Os resultados abaixo pertencem à revisão de `20c7bc4`. [Auditoria integrada](auditoria-bugs/relatorio-validacao.md#drivers)
+
 | Informação | Detalhe |
 |---|---|
 | Projeto | SetupFlow |
@@ -7,11 +11,11 @@
 | Responsável pelo QA | Leonardo Istamilo |
 | Data da revisão | 26/11/2026, America/Sao_Paulo |
 | Item avaliado | Driver04 — Controle de acesso às operações. Definição fornecida na solicitação. A issue oficial não foi localizada. |
-| Pull Request | Nenhum PR localizado para o head da branch na consulta de 26/11/2026. |
+| Pull Request | [PR #29](https://github.com/arthur-marqs/Gerencia-Projeto-2026.2/pull/29), integrado após a revisão. |
 | Branch | `feature/driver04-controle-acesso` |
 | Commit avaliado | [`20c7bc44de3778491652552743dcb01558b44f03`](https://github.com/arthur-marqs/Gerencia-Projeto-2026.2/commit/20c7bc44de3778491652552743dcb01558b44f03) |
 | Ambiente | Matriz local com Windows, Python 3.11, FastAPI TestClient e PostgreSQL 18.6 em instância descartável. A CI do commit usou Ubuntu, PostgreSQL 18, Chrome 157 e Electron 150. |
-| Parecer do QA | **Validação inconclusiva para aceite.** A meta técnica foi comprovada na matriz avaliada. A conclusão depende das pendências de integração, cobertura e DoD registradas neste relatório. |
+| Parecer de QA da revisão original | **Validação inconclusiva para aceite.** A meta técnica foi comprovada na matriz avaliada. A conclusão depende das pendências de integração, cobertura e DoD registradas neste relatório. |
 
 ## 1. Objetivo e escopo
 
@@ -125,7 +129,7 @@ Cada linha foi executada nas três condições de acesso. Foram utilizadas conta
 
 **Situação do levantamento** — Nenhum bug funcional observado nos casos executados. Os achados registrados dizem respeito à cobertura, aos requisitos e às condições de entrega.
 
-## 5. Verificação da Definition of Done
+## 5. DoD na avaliação de `20c7bc4`
 
 **Referência** — Critérios de saída do plano de testes da Release 2 / Sprint 3 e checklist da revisão anterior. A DoD formal específica do Driver04 ficou sem comprovação nas fontes consultadas.
 
@@ -173,7 +177,7 @@ python -m pytest -q -p testes.integration.conftest -o junit_family=xunit1 --juni
 
 Os três casos são CT-130, CT-131 e CT-132. As combinações da matriz, os controles de navegador e as execuções de regressão são detalhados nas seções anteriores.
 
-## 8. Parecer do QA
+## 8. Parecer de QA anterior à integração
 
 **Parecer — Validação inconclusiva para aceite.**
 

@@ -1,5 +1,9 @@
 # Relatório de revisão e validação — US17: Aprovar planejamento de produção
 
+**Situação da entrega em 26/11/2026 · Aprovada pelo PO e integrada à `main`.** [PR #28](https://github.com/arthur-marqs/Gerencia-Projeto-2026.2/pull/28) (`5772ec0`). Os sete critérios do DoD estão concluídos para o incremento aceito. [Definition of Done](../../status-projeto.md#definition-of-done-dod)
+
+O parecer abaixo corresponde à avaliação de `40e0afd`, anterior ao merge. A correção posterior do BUG-004 foi retestada em `docs/qualidade` e aguarda integração.
+
 | Informação | Detalhe |
 |---|---|
 | Projeto | SetupFlow |
@@ -7,11 +11,11 @@
 | Responsável pelo QA | Leonardo Istamilo, conforme os papéis da Release 2 |
 | Data da revisão | 25/11/2026 |
 | História de usuário | US17 — Aprovar planejamento de produção. Link oficial da issue não localizado. |
-| Pull Request | Nenhum PR localizado para o head da branch na consulta ao GitHub. |
+| Pull Request | [PR #28](https://github.com/arthur-marqs/Gerencia-Projeto-2026.2/pull/28), integrado após a revisão. |
 | Branch | `feature/US17---Aprovar-planejamento-de-produção` |
 | Commit avaliado | [`40e0afd6973b36683a2c72a80ee893a6d7b782a8`](https://github.com/arthur-marqs/Gerencia-Projeto-2026.2/commit/40e0afd6973b36683a2c72a80ee893a6d7b782a8) |
 | Ambiente | Local com Windows e Chrome 158. GitHub Actions com Ubuntu, PostgreSQL 18, Chrome 157 e Electron 150. |
-| Parecer do QA | **Validação inconclusiva para aceite.** Os três casos do plano passaram. Permanecem pendentes a revisão e a integração via PR, a confirmação da exigência de homologação e o aceite do PO. |
+| Parecer de QA da revisão original | **Validação inconclusiva para aceite.** Os três casos do plano passaram. Permanecem pendentes a revisão e a integração via PR, a confirmação da exigência de homologação e o aceite do PO. |
 
 ## 1. Objetivo e escopo
 
@@ -113,7 +117,7 @@ Verificar os critérios de aceite da US17 e a Definition of Done, com rastreabil
 
 **Situação do levantamento** — Nenhum bug identificado no escopo executado. As pendências registradas referem-se à DoD.
 
-## 5. Verificação da Definition of Done
+## 5. DoD na avaliação de `40e0afd`
 
 **Referência** — DoD fornecida na definição da US17, Release 2 / Sprint 3.
 
@@ -155,7 +159,7 @@ Verificar os critérios de aceite da US17 e a Definition of Done, com rastreabil
 
 Os indicadores contam CT-123, CT-124 e CT-125 uma vez cada. Os totais de regressão são registrados por execução na seção 6.
 
-## 8. Parecer do QA
+## 8. Parecer de QA anterior à integração
 
 **Parecer — Validação inconclusiva para aceite.**
 
@@ -181,3 +185,7 @@ Os indicadores contam CT-123, CT-124 e CT-125 uma vez cada. Os totais de regress
 |---|---|---|---|
 | 25/11/2026 | Validação local da implementação | `65a1d24` com as alterações da US17 | 280 testes de backend e 9 cenários no Chrome passaram. A migração preservou as sequências da massa de teste. |
 | 25/11/2026 | CI e revisão de QA | `40e0afd6973b36683a2c72a80ee893a6d7b782a8` | CT-123, CT-124 e CT-125 passaram no Chrome e no Electron. A CI concluiu com sucesso. O aceite permanece inconclusivo pelas pendências da DoD. |
+
+## Acompanhamento do BUG-004
+
+Em 26/11/2026, o reteste local do [BUG-004 / issue #30](https://github.com/arthur-marqs/Gerencia-Projeto-2026.2/issues/30) confirmou a recusa de aprovação quando a máquina fica inativa ou perde a compatibilidade após a geração. CT-123, CT-124 e CT-125 passaram novamente no Chrome. O resultado se aplica ao código da correção, com integração à `main` pendente. [Relatório de reteste](auditoria-bugs/reteste-bug004.md)

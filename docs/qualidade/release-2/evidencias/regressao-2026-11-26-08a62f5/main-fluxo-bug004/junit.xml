@@ -1,0 +1,51 @@
+<?xml version='1.0' encoding='utf-8'?>
+<testsuites name="pytest tests">
+  <testsuite name="pytest" errors="0" failures="2" skipped="0" tests="3" time="3.983" timestamp="2026-11-26T15:32:52.732436-03:00" hostname="DESKTOP-PHDJQ09">
+    <testcase classname="test_qa_ciclo" name="test_fluxo_planejar_comparar_aprovar_consultar" file="test_qa_ciclo.py" line="22" time="2.056">
+      <properties>
+        <property name="caso" value="RG-01" />
+        <property name="manual_min" value="50" />
+        <property name="sugerido_min" value="20" />
+        <property name="diferenca_min" value="-30" />
+        <property name="itens_persistidos" value="3" />
+        <property name="consulta_operador_http" value="200" />
+      </properties>
+    </testcase>
+    <testcase classname="test_qa_ciclo" name="test_bug004_recusa_nova_aprovacao_desatualizada[maquina-inativa]" file="test_qa_ciclo.py" line="60" time="0.862">
+      <properties>
+        <property name="caso" value="BUG-004" />
+        <property name="alteracao" value="maquina-inativa" />
+        <property name="candidato_presente" value="True" />
+        <property name="aprovacao_http" value="201" />
+        <property name="aprovacoes" value="1" />
+        <property name="itens" value="1" />
+        <property name="publicados_operador" value="1" />
+        <property name="historico_preservado" value="True" />
+      </properties>
+      <failure message="assert (True, 201, 1, 1, 1, True) == (False, 409, 0, 0, 0, True)&#10;  &#10;  At index 0 diff: True != False&#10;  Use -v to get more diff">..\..\test_qa_ciclo.py:91: in test_bug004_recusa_nova_aprovacao_desatualizada
+    assert (presente, resposta.status_code, aprovacoes, itens, publicados, historico_preservado) == (
+E   assert (True, 201, 1, 1, 1, True) == (False, 409, 0, 0, 0, True)
+E
+E     At index 0 diff: True != False
+E     Use -v to get more diff</failure>
+    </testcase>
+    <testcase classname="test_qa_ciclo" name="test_bug004_recusa_nova_aprovacao_desatualizada[vinculo-removido]" file="test_qa_ciclo.py" line="60" time="0.743">
+      <properties>
+        <property name="caso" value="BUG-004" />
+        <property name="alteracao" value="vinculo-removido" />
+        <property name="candidato_presente" value="True" />
+        <property name="aprovacao_http" value="201" />
+        <property name="aprovacoes" value="1" />
+        <property name="itens" value="1" />
+        <property name="publicados_operador" value="1" />
+        <property name="historico_preservado" value="True" />
+      </properties>
+      <failure message="assert (True, 201, 1, 1, 1, True) == (False, 409, 0, 0, 0, True)&#10;  &#10;  At index 0 diff: True != False&#10;  Use -v to get more diff">..\..\test_qa_ciclo.py:91: in test_bug004_recusa_nova_aprovacao_desatualizada
+    assert (presente, resposta.status_code, aprovacoes, itens, publicados, historico_preservado) == (
+E   assert (True, 201, 1, 1, 1, True) == (False, 409, 0, 0, 0, True)
+E
+E     At index 0 diff: True != False
+E     Use -v to get more diff</failure>
+    </testcase>
+  </testsuite>
+</testsuites>

@@ -1,0 +1,48 @@
+﻿{
+    "bug":  "BUG-004",
+    "issue":  "https://github.com/arthur-marqs/Gerencia-Projeto-2026.2/issues/30",
+    "data":  "2026-11-26",
+    "fuso":  "America/Sao_Paulo",
+    "branch":  "docs/qualidade",
+    "base_testada":  "7bf75c9f938cd1c0d99b136d5380906ca76175f5",
+    "commit_correcao":  "b6c72f2beb9c4ba92a4c7871547c895574c8afd2",
+    "associacao_com_commit":  "O reteste ocorreu com alterações locais. A impressão digital do código e das suítes coincide com a registrada pelo executor do Cypress.",
+    "cypress_source_sha256":  "17a6d1d4b672d74d99e2e71c95c9f1e8d6a0cd064ed06022c3ae70eb70404732",
+    "ambiente":  {
+                     "os":  "Windows 11 26H2 (26300)",
+                     "python":  "3.11.9",
+                     "postgres":  "18.6 isolado em loopback",
+                     "chrome":  "158.0.8127.38",
+                     "cypress":  "16.3.0"
+                 },
+    "antes":  {
+                  "executados":  5,
+                  "reprovados":  5,
+                  "casos":  [
+                                "test_recusa_sugestao_com_maquina_inelegivel_sem_alterar_historico[maquina-inativa]",
+                                "test_recusa_sugestao_com_maquina_inelegivel_sem_alterar_historico[compatibilidade-removida]",
+                                "test_recusa_sugestao_com_maquina_inelegivel_sem_alterar_historico[sugestao-legada]",
+                                "test_nova_aprovacao_aguarda_alteracao_de_elegibilidade_em_curso[maquina-inativa]",
+                                "test_nova_aprovacao_aguarda_alteracao_de_elegibilidade_em_curso[compatibilidade-removida]"
+                            ]
+              },
+    "execucao_paralela_inicial":  {
+                                      "backend":  {
+                                                      "testes":  331,
+                                                      "falhas":  2,
+                                                      "erros":  7
+                                                  },
+                                      "chrome":  {
+                                                     "testes":  12,
+                                                     "falhas":  2
+                                                 },
+                                      "observado":  "Falha de alocação do Argon2, falhas de autenticação de fixtures e timeout de carregamento no Chrome. As repetições sequenciais passaram."
+                                  },
+    "reteste":  {
+                    "api":  13,
+                    "chrome":  2,
+                    "regressao_backend":  331,
+                    "regressao_chrome":  12
+                },
+    "tratamento_de_evidencia":  "JUnit com nome do host e credenciais de exemplo nos identificadores removidos."
+}

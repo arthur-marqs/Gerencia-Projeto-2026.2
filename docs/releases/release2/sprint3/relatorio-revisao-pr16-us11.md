@@ -1,5 +1,9 @@
 # Relatório de revisão e validação — US11: Visualizar matriz de setup
 
+**Situação da entrega em 26/11/2026 · Aprovada pelo PO e integrada à `main`.** [PR #16](https://github.com/arthur-marqs/Gerencia-Projeto-2026.2/pull/16) (`8d654d3`) e [PR #21](https://github.com/arthur-marqs/Gerencia-Projeto-2026.2/pull/21) (`8f992a1`). Os sete critérios do DoD estão concluídos para o incremento aceito. [Definition of Done](../../../status-projeto.md#definition-of-done-dod)
+
+O BUG-001 foi retestado nas duas variantes na versão integrada. As rodadas abaixo registram as evidências e os pareceres de 22 e 23/11/2026. [Reteste na main](../../../qualidade/release-2/auditoria-bugs/relatorio-validacao.md#7-reteste-dos-três-bugs-históricos)
+
 | Informação | Detalhe |
 |---|---|
 | Projeto | SetupFlow |
@@ -11,9 +15,9 @@
 | Branch | `feature/US11-matriz-setup` |
 | Commit avaliado | `5abd06aa481e55828e8ce41680ea38aad5c3bc65`; anterior: `4a50a6a7d29cb1f31d73d9983ff5f6b4f0fb88b4`; inicial: `8de6f4adedc15782694c679d9643c20ef83b3993` |
 | Ambiente | Local, Windows 10.0.26200, Chrome 157.0.8103.79 headless, Cypress 16.3.0, Python 3.11.9, Node 26.13.0, npm 11.20.0, PostgreSQL 18.6 exclusivo de QA; detalhes em 6.2 |
-| Parecer do QA | **Pendente de ajustes — conclusão da DoD**. BUG-001 resolvido e verificado; limitações essenciais de evidência descritas em 8.2. |
+| Parecer de QA em 23/11/2026 | **Pendente de ajustes — conclusão da DoD**. BUG-001 resolvido e verificado; limitações essenciais de evidência descritas em 8.2. |
 
-**Leitura do histórico:** os resultados de 22/11/2026 foram mantidos nas subseções históricas. O estado vigente é o da reavaliação de **23/11/2026, commit `5abd06a`**, nas subseções acrescentadas. Os rótulos `CT-US11-01` a `CT-US11-04` são aliases históricos deste relatório, não IDs oficiais do plano.
+**Leitura do histórico:** os resultados de 22/11/2026 foram mantidos nas subseções históricas. As subseções da reavaliação registram a situação observada em **23/11/2026, commit `5abd06a`**, antes da integração. Os rótulos `CT-US11-01` a `CT-US11-04` são aliases históricos deste relatório, não IDs oficiais do plano.
 
 ## 1. Objetivo e escopo
 
@@ -154,7 +158,7 @@ Nos dois retestes, somente A ou somente B veio de `/api/families`, enquanto `/ap
 | Documentação atualizada | Atendido | Matriz e testes documentados nos READMEs do frontend e do Cypress. |
 | Aceita pelo PO | Não verificado | Aceite sem evidência no PR consultado. |
 
-### 5.2. Checklist atual — `5abd06a`
+### 5.2. Checklist da reavaliação — `5abd06a`
 
 Mantidos os sete critérios herdados da avaliação anterior; a fonte específica vigente permanece a confirmar, conforme seção 1.
 
@@ -288,7 +292,7 @@ Cada cenário US11 é contado uma vez pelo resultado mais recente. A repetição
 
 **Limitação remanescente:** o BUG-001 foi reproduzido com respostas simuladas. O aceite do PO segue pendente.
 
-### 8.2. Parecer vigente — `5abd06a`
+### 8.2. Parecer da reavaliação — `5abd06a`
 
 **Pendente de ajustes — conclusão da DoD.** O BUG-001 está **resolvido e verificado** nas duas variantes do comportamento da interface; os quatro cenários existentes da US11 e a regressão selecionada passaram. O motivo funcional que sustentava o parecer anterior deixou de ser reproduzido. Não foi encontrada falha funcional impeditiva nos cenários executados.
 

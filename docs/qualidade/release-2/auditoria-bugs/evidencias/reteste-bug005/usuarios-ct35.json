@@ -1,0 +1,27 @@
+{
+  "startedAt": "2026-11-26T15:46:22.489Z",
+  "branch": "docs/qualidade",
+  "commit": "8978fc110480f363b65873443c072bcc4469cfd6",
+  "dirty": true,
+  "sourceSha256": "2a208517d3e775daf3fe4d2c73b37b46dee0056af444a94ee0814eb25c88a7a6",
+  "browser": "chrome",
+  "configFile": "cypress.config.cjs",
+  "tags": "(@CT35) and not @wip",
+  "node": "v26.13.0",
+  "platform": "win32 10.0.26300",
+  "finishedAt": "2026-11-26T15:46:42.447Z",
+  "browserVersion": "158.0.8127.38",
+  "cypressVersion": "16.3.0",
+  "total": 1,
+  "passed": 1,
+  "failed": 0,
+  "pending": 0,
+  "skipped": 0,
+  "durationMs": 7983,
+  "tests": [
+    {
+      "title": "Gerenciar usuários e preservar seus acessos e autoria / CT35 - Cancelar a exclusão e depois confirmar a remoção de uma conta sem vínculos",
+      "state": "passed"
+    }
+  ]
+}

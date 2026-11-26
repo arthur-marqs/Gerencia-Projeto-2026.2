@@ -1,0 +1,16 @@
+{
+  "commit": "08a62f5d1d164c7ee2cfbb0282aa7f9784baaf8f",
+  "confirmacao": "2 variantes reproduziram o defeito em 2 executadas, em 3,00 s, com TestClient e PostgreSQL real",
+  "amostras": [
+    {
+      "alteracao": "maquina-inativa",
+      "alteracao_http": 200,
+      "nova_sugestao_http": 422,
+      "aprovacao_http": 201,
+      "execucao_http": 200,
+      "candidato_permaneceu_disponivel": true,
+      "sugestao_historica_preservada": true,
+      "maquina_inelegivel_persistida_e_exibida_ao_operador": true
+    }
+  ]
+}

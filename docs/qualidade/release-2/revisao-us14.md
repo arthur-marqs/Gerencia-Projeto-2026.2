@@ -1,5 +1,9 @@
 # Revisão de QA da US-14 — Prazos e prioridades no sequenciamento
 
+**Situação da entrega em 26/11/2026 · Aprovada pelo PO e integrada à `main`.** [PR #23](https://github.com/arthur-marqs/Gerencia-Projeto-2026.2/pull/23) (`39ab129`). Os sete critérios do DoD estão concluídos para o incremento aceito. [Definition of Done](../../status-projeto.md#definition-of-done-dod)
+
+A reavaliação documenta a regra de sequenciamento aprovada e os testes no Chrome e no Electron. A reversão da migração com dados permanece como risco operacional. [Auditoria integrada](auditoria-bugs/relatorio-validacao.md#6-suspeitas-lacunas-e-riscos-operacionais)
+
 As seções 1 a 9 preservam a revisão do commit `879a025`. A [reavaliação após a decisão do PO](#reavaliação-após-a-decisão-do-po) registra a aplicação da regra e o novo reteste.
 
 ## 1. Identificação
@@ -104,7 +108,7 @@ npm run test:e2e:regressao -- --browser electron
 
 **Acompanhamento.** A busca nas issues abertas e fechadas por US14, US-14, SC-31, sequenciamento e migration não encontrou registro equivalente. As issues de regressão [#18, US11](https://github.com/arthur-marqs/Gerencia-Projeto-2026.2/issues/18) e [#19, Driver06](https://github.com/arthur-marqs/Gerencia-Projeto-2026.2/issues/19) estavam fechadas e descrevem outros comportamentos. O downgrade já consta no PR #23. Use esse registro para acompanhar o risco e verifique a SC-31 antes de registrar eventual issue separada.
 
-## 6. Verificação da DoD
+## 6. DoD na avaliação de `879a025`
 
 **DoD formal vigente da SC-31 — Não verificado.** A tabela avalia cada condição publicada na seção 7 do [relatório do item](../../releases/release2/sprint3/relatorio-testes-us14.md#L129), à luz da seção 7 do plano anexado e dos resultados auditados.
 
@@ -138,7 +142,7 @@ Para o encerramento dos testes deste item conforme o plano, as execuções e a r
 | Reversão do banco | Definir com DevOps o procedimento para sugestões US-14 já gravadas. Ensaiá-lo com o roteiro da seção 5 e anexar o resultado ao registro da implantação. |
 | Homologação e integração | Quando aplicável, identificar o commit implantado e repetir os fluxos principal, negativo e de perfil com dados de teste. Registrar a revisão e integração do PR e validar a versão candidata. |
 
-## 9. Parecer final
+## 9. Parecer de QA da avaliação original
 
 **Pendente de ajustes.** A automação do PR #23 passou, inclusive a persistência de sugestões com setup maior. O CT-115 foi exercitado e aguarda confirmação da regra esperada. A falha de downgrade foi reproduzida, e a integração via PR continua pendente. A conclusão do aceite exige comprovar os critérios oficiais da SC-31 e a DoD aplicável. O parecer de QA não substitui o aceite do PO.
 
@@ -161,4 +165,4 @@ Em 25/11/2026, o QA informou a aprovação do PO para a regra de sequenciamento.
 
 **Resultado de navegador local.** O Cypress 16.3.0 registrou **6/6 aprovados no Chrome 158.0.8127.38** e **6/6 no Electron 150.0.7871.250**, incluindo os dois exemplos do CT-115. A execução usou o frontend compilado, a API real e outro banco PostgreSQL isolado. O comando foi `npm run test:e2e -- --browser chrome --tags "@US14 and not @wip"`, repetido com `--browser electron`. Os dois resumos registraram o mesmo hash das fontes testadas, `93a2f2f87f01153eff565775a62610bd28e70534020bf2be5654c615ba4af297`.
 
-**Pendências para concluir o aceite da história.** O risco de downgrade descrito na revisão original segue em aberto. A comprovação da DoD vigente, a homologação quando exigida e a integração do PR continuam pendentes. A execução de CI citada nas seções anteriores corresponde à revisão original.
+**Risco operacional registrado.** O downgrade descrito na revisão original segue em aberto. A execução de CI citada nas seções anteriores corresponde àquela revisão.

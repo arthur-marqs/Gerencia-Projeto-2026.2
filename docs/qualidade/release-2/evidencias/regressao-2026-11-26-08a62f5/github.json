@@ -1,0 +1,262 @@
+{
+  "consultaLocal": "2026-11-26, America/Sao_Paulo",
+  "remoto": "https://github.com/arthur-marqs/Gerencia-Projeto-2026.2.git",
+  "referenciasRemotas": [
+    [
+      "refs/heads/main",
+      "08a62f5d1d164c7ee2cfbb0282aa7f9784baaf8f"
+    ],
+    [
+      "refs/heads/docs/qualidade",
+      "ee2a4a88aea0018cb451c8f9988346fe25551e7a"
+    ],
+    [
+      "refs/tags/v0.1.0",
+      "5d5981697c781bb30351ccb9272d05ef9fea0d4e"
+    ]
+  ],
+  "metodo": [
+    "GitHub em leitura para issues, comentários, PRs, revisões, e GitHub Actions",
+    "git ls-remote para branches e tags; git merge-base --is-ancestor para ancestralidade"
+  ],
+  "issues": [
+    {
+      "numero": 18,
+      "estado": "closed",
+      "razao": "completed",
+      "url": "https://github.com/arthur-marqs/Gerencia-Projeto-2026.2/issues/18",
+      "severidade": "Média",
+      "fix": "47c63d6/bbf29c4",
+      "pr": 16,
+      "fixNaMain": true,
+      "comentariosConsultados": [
+        "https://github.com/arthur-marqs/Gerencia-Projeto-2026.2/issues/18#issuecomment-7109530230"
+      ]
+    },
+    {
+      "numero": 19,
+      "estado": "closed",
+      "razao": "completed",
+      "url": "https://github.com/arthur-marqs/Gerencia-Projeto-2026.2/issues/19",
+      "severidade": "Média",
+      "fix": "67fa646",
+      "pr": 17,
+      "fixNaMain": true,
+      "comentariosConsultados": [
+        "https://github.com/arthur-marqs/Gerencia-Projeto-2026.2/issues/19#issuecomment-7112231551"
+      ]
+    },
+    {
+      "numero": 25,
+      "estado": "closed",
+      "razao": "completed",
+      "url": "https://github.com/arthur-marqs/Gerencia-Projeto-2026.2/issues/25",
+      "severidade": "Média",
+      "fix": "ae8ae27",
+      "pr": 24,
+      "fixNaMain": true,
+      "comentariosConsultados": [
+        "https://github.com/arthur-marqs/Gerencia-Projeto-2026.2/issues/25#issuecomment-7176630592",
+        "https://github.com/arthur-marqs/Gerencia-Projeto-2026.2/issues/25#issuecomment-7176836133"
+      ]
+    },
+    {
+      "numero": 30,
+      "estado": "open",
+      "razao": "reopened",
+      "url": "https://github.com/arthur-marqs/Gerencia-Projeto-2026.2/issues/30",
+      "severidade": "Alta",
+      "fix": "b6c72f2",
+      "pr": null,
+      "fixNaMain": false,
+      "comentariosConsultados": [
+        "https://github.com/arthur-marqs/Gerencia-Projeto-2026.2/issues/30#issuecomment-7196326907"
+      ]
+    },
+    {
+      "numero": 31,
+      "estado": "open",
+      "razao": "reopened",
+      "url": "https://github.com/arthur-marqs/Gerencia-Projeto-2026.2/issues/31",
+      "severidade": "Média",
+      "fix": "8978fc1",
+      "pr": null,
+      "fixNaMain": false,
+      "comentariosConsultados": [
+        "https://github.com/arthur-marqs/Gerencia-Projeto-2026.2/issues/31#issuecomment-7196850158"
+      ]
+    }
+  ],
+  "pullRequests": [
+    {
+      "numero": 9,
+      "merge": "a3b6fb2",
+      "integradoEm": "2026-11-05T08:02:02-03:00",
+      "revisoes": [],
+      "revisaoAnterior": false
+    },
+    {
+      "numero": 10,
+      "merge": "08627f2",
+      "integradoEm": "2026-11-06T21:47:44-03:00",
+      "revisoes": [
+        {
+          "estado": "APPROVED",
+          "submetidaEm": "2026-11-07T00:47:18Z"
+        }
+      ],
+      "revisaoAnterior": true
+    },
+    {
+      "numero": 11,
+      "merge": "7f93ea6",
+      "integradoEm": "2026-11-09T08:25:31-03:00",
+      "revisoes": [],
+      "revisaoAnterior": false
+    },
+    {
+      "numero": 12,
+      "merge": "49e19c9",
+      "integradoEm": "2026-11-09T09:23:16-03:00",
+      "revisoes": [],
+      "revisaoAnterior": false
+    },
+    {
+      "numero": 13,
+      "merge": "aae2669",
+      "integradoEm": "2026-11-10T17:03:53-03:00",
+      "revisoes": [],
+      "revisaoAnterior": false
+    },
+    {
+      "numero": 15,
+      "merge": "5cf655e",
+      "integradoEm": "2026-11-11T20:36:38-03:00",
+      "revisoes": [],
+      "revisaoAnterior": false
+    },
+    {
+      "numero": 16,
+      "merge": "8d654d3",
+      "integradoEm": "2026-11-23T14:28:53-03:00",
+      "revisoes": [],
+      "revisaoAnterior": false
+    },
+    {
+      "numero": 17,
+      "merge": "a118dcd",
+      "integradoEm": "2026-11-23T22:39:44-03:00",
+      "revisoes": [],
+      "revisaoAnterior": false
+    },
+    {
+      "numero": 21,
+      "merge": "8f992a1",
+      "integradoEm": "2026-11-23T14:49:19-03:00",
+      "revisoes": [],
+      "revisaoAnterior": false
+    },
+    {
+      "numero": 22,
+      "merge": "e5d73f1",
+      "integradoEm": "2026-11-24T23:33:43-03:00",
+      "revisoes": [
+        {
+          "estado": "APPROVED",
+          "submetidaEm": "2026-11-25T02:33:27Z"
+        }
+      ],
+      "revisaoAnterior": true
+    },
+    {
+      "numero": 23,
+      "merge": "39ab129",
+      "integradoEm": "2026-11-25T15:02:48-03:00",
+      "revisoes": [],
+      "revisaoAnterior": false
+    },
+    {
+      "numero": 24,
+      "merge": "db73ab8",
+      "integradoEm": "2026-11-25T19:50:31-03:00",
+      "revisoes": [],
+      "revisaoAnterior": false
+    },
+    {
+      "numero": 26,
+      "merge": "65a1d24",
+      "integradoEm": "2026-11-25T21:22:47-03:00",
+      "revisoes": [],
+      "revisaoAnterior": false
+    },
+    {
+      "numero": 27,
+      "merge": "10cdd8a",
+      "integradoEm": "2026-11-25T21:14:28-03:00",
+      "revisoes": [
+        {
+          "estado": "APPROVED",
+          "submetidaEm": "2026-11-26T00:14:05Z"
+        }
+      ],
+      "revisaoAnterior": true
+    },
+    {
+      "numero": 28,
+      "merge": "5772ec0",
+      "integradoEm": "2026-11-25T22:35:53-03:00",
+      "revisoes": [
+        {
+          "estado": "APPROVED",
+          "submetidaEm": "2026-11-26T01:32:14Z"
+        }
+      ],
+      "revisaoAnterior": true
+    },
+    {
+      "numero": 29,
+      "merge": "08a62f5",
+      "integradoEm": "2026-11-26T10:07:20-03:00",
+      "revisoes": [],
+      "revisaoAnterior": false
+    }
+  ],
+  "ci": {
+    "runId": 45827103972,
+    "commit": "08a62f5d1d164c7ee2cfbb0282aa7f9784baaf8f",
+    "jobs": [
+      {
+        "id": 139933974837,
+        "nome": "Backend pytest",
+        "conclusao": "success"
+      },
+      {
+        "id": 139933975196,
+        "nome": "Acceptance BDD - US11, US13 e US32 (electron)",
+        "conclusao": "success"
+      },
+      {
+        "id": 139933975286,
+        "nome": "Frontend Cypress BDD",
+        "conclusao": "success"
+      },
+      {
+        "id": 139933975362,
+        "nome": "Acceptance BDD - US11, US13 e US32 (chrome)",
+        "conclusao": "success"
+      },
+      {
+        "id": 139933975439,
+        "nome": "Frontend lint and build",
+        "conclusao": "success"
+      }
+    ]
+  },
+  "issuesPublicasEncontradas": [
+    31,
+    30,
+    25,
+    19,
+    18
+  ]
+}

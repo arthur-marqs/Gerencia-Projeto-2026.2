@@ -3,6 +3,8 @@
 **Release 2 / Sprint 2.** A conferência manual foi concluída, conforme informado
 pelo responsável. Os resultados automatizados estão registrados nos arquivos abaixo.
 
+**Entrega aprovada pelo PO e integrada.** [PR #15](https://github.com/arthur-marqs/Gerencia-Projeto-2026.2/pull/15) · [Definition of Done](../../../../../status-projeto.md#definition-of-done-dod)
+
 ## Documentação
 
 - [Roteiro dos testes manuais e automatizados](../../roteiro-testes-us32.md).

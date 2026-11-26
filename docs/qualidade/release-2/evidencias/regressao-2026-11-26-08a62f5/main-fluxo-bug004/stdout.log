@@ -1,0 +1,47 @@
+{"caso": "RG-01", "manual_min": 50, "sugerido_min": 20, "diferenca_min": -30, "itens_persistidos": 3, "consulta_operador_http": 200}
+
+.{"caso": "BUG-004", "alteracao": "maquina-inativa", "candidato_presente": true, "aprovacao_http": 201, "aprovacoes": 1, "itens": 1, "publicados_operador": 1, "historico_preservado": true}
+
+F{"caso": "BUG-004", "alteracao": "vinculo-removido", "candidato_presente": true, "aprovacao_http": 201, "aprovacoes": 1, "itens": 1, "publicados_operador": 1, "historico_preservado": true}
+
+F
+
+================================== FAILURES ===================================
+
+______ test_bug004_recusa_nova_aprovacao_desatualizada[maquina-inativa] _______
+
+..\..\test_qa_ciclo.py:91: in test_bug004_recusa_nova_aprovacao_desatualizada
+
+    assert (presente, resposta.status_code, aprovacoes, itens, publicados, historico_preservado) == (
+
+E   assert (True, 201, 1, 1, 1, True) == (False, 409, 0, 0, 0, True)
+
+E
+
+E     At index 0 diff: True != False
+
+E     Use -v to get more diff
+
+______ test_bug004_recusa_nova_aprovacao_desatualizada[vinculo-removido] ______
+
+..\..\test_qa_ciclo.py:91: in test_bug004_recusa_nova_aprovacao_desatualizada
+
+    assert (presente, resposta.status_code, aprovacoes, itens, publicados, historico_preservado) == (
+
+E   assert (True, 201, 1, 1, 1, True) == (False, 409, 0, 0, 0, True)
+
+E
+
+E     At index 0 diff: True != False
+
+E     Use -v to get more diff
+
+- generated xml file: <ciclo>\run\main-fluxo-bug004\junit.xml -
+
+=========================== short test summary info ===========================
+
+FAILED ..\..\test_qa_ciclo.py::test_bug004_recusa_nova_aprovacao_desatualizada[maquina-inativa]
+
+FAILED ..\..\test_qa_ciclo.py::test_bug004_recusa_nova_aprovacao_desatualizada[vinculo-removido]
+
+2 failed, 1 passed in 3.98s

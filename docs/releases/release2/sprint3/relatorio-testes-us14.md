@@ -9,8 +9,8 @@
 | Data | 25/11/2026 |
 | História de usuário | US14 |
 | Branch | `feature/us14-prazos-prioridades` |
-| Pull Request | Pendente |
-| Situação | Testes locais aprovados |
+| Pull Request | [PR #23](https://github.com/arthur-marqs/Gerencia-Projeto-2026.2/pull/23), integrado à `main` em `39ab129` |
+| Situação da entrega | **Aprovada pelo PO e integrada** |
 
 ## 1. Objetivo e escopo
 
@@ -128,17 +128,13 @@ Os bancos utilizados nos testes são separados do banco de desenvolvimento.
 
 ## 7. Definition of Done
 
-| Critério | Situação |
-|---|---|
-| Implementação da história de usuário | Concluída |
-| Testes automatizados escritos e aprovados | Concluído |
-| Validação funcional local | Concluída |
-| Evidências de testes registradas | Concluído |
-| Documentação técnica atualizada | Em andamento |
-| Revisão e integração via Pull Request | Pendente |
-| Pipeline de CI sem falhas | Pendente |
-| Homologação, quando exigida | Pendente de confirmação |
-| Aceite do Product Owner | Pendente |
+- [x] Código revisado e integrado via Pull Request
+- [x] Critérios de aceite atendidos e validados pelo QA
+- [x] Testes escritos e passando
+- [x] Pipeline de CI sem falhas
+- [x] Implantado em ambiente de homologação, quando exigido na release
+- [x] Documentação atualizada
+- [x] Aceita pelo PO
 
 ## 8. Conclusão
 
@@ -146,4 +142,4 @@ Os testes realizados demonstraram que o sequenciamento passou a considerar prazo
 
 A regressão do backend apresentou 222 testes aprovados, enquanto a regressão do Cypress no Chrome apresentou 53 cenários aprovados, sem falhas.
 
-A implementação está apta para seguir para a revisão de código. A validação no Electron, a execução da CI, a revisão pelos demais integrantes e o aceite do Product Owner ainda estão pendentes.
+A revisão de QA registra o reteste da regra aprovada pelo PO e o risco de reversão da migração. [Revisão de QA](../../../qualidade/release-2/revisao-us14.md)

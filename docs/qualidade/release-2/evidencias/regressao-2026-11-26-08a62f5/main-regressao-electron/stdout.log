@@ -1,0 +1,550 @@
+
+> frontend@0.0.0 test:e2e:regressao
+> node scripts/run-e2e.mjs --tags "@regressao and not @wip" --browser electron
+
+
+
+
+====================================================================================================
+
+  (Run Starting)
+
+  ┌────────────────────────────────────────────────────────────────────────────────────────────────┐
+  │ Cypress:        16.3.0                                                                         │
+  │ Browser:        Electron 150 (headless) (deprecated)                                           │
+  │ Node Version:   v26.13.0 (C:\Program Files\nodejs\node.exe)                                    │
+  │ Specs:          7 found (aprovacao.feature, comparacao.feature, compatibilidade.feature, matri │
+  │                 z-setup.feature, prazos-prioridades.feature, sugestao.feature, usuarios.featur │
+  │                 e)                                                                             │
+  │ Searched:       <ciclo> │
+  │                 /main/frontend/cypress/e2e/aprovacao.feature, H:/PROGRAMACAO/Gerencia-Projeto- │
+  │                 2026.2/.tmp/qa-release2-final-20261126-08a62f5/main/frontend/cypress/e2e/compa │
+  │                 racao.feature, <repositorio>/.tmp/qa-release2-final-2 │
+  │                 0261126-08a62f5/main/frontend/cypress/e2e/compatibilidade.feature, H:/PROGRAMA │
+  │                 CAO/Gerencia-Projeto-2026.2/.tmp/qa-release2-final-20261126-08a62f5/main/front │
+  │                 end/cypress/e2e/matriz-setup.feature, <repositorio>/. │
+  │                 tmp/qa-release2-final-20261126-08a62f5/main/frontend/cypress/e2e/prazos-priori │
+  │                 dades.feature, <repositorio>/.tmp/qa-release2-final-2 │
+  │                 0261126-08a62f5/main/frontend/cypress/e2e/sugestao.feature, H:/PROGRAMACAO/Ger │
+  │                 encia-Projeto-2026.2/.tmp/qa-release2-final-20261126-08a62f5/main/frontend/cyp │
+  │                 ress/e2e/usuarios.feature                                                      │
+  └────────────────────────────────────────────────────────────────────────────────────────────────┘
+
+Warning: The Electron browser is deprecated as a test browser and will be removed in a future version of Cypress.
+
+Switch to Chrome or another installed browser to avoid a breaking change when you upgrade.
+
+Read more about supported browsers: https://on.cypress.io/launching-browsers
+
+
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+  Running:  aprovacao.feature                                                               (1 of 7)
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites name="Mocha Tests" time="14.512" tests="3" failures="0">
+  <testsuite name="Root Suite" timestamp="2026-11-26T18:46:28" tests="0" file="cypress\e2e\aprovacao.feature" time="0.000" failures="0">
+  </testsuite>
+  <testsuite name="Aprovar planejamento de produção" timestamp="2026-11-26T18:46:28" tests="3" time="14.511" failures="0">
+    <testcase name="Aprovar planejamento de produção CT-123 Disponibilizar o planejamento aprovado para execução" time="6.207" classname="CT-123 Disponibilizar o planejamento aprovado para execução">
+    </testcase>
+    <testcase name="Aprovar planejamento de produção CT-124 Informar que não há planejamento disponível" time="2.729" classname="CT-124 Informar que não há planejamento disponível">
+    </testcase>
+    <testcase name="Aprovar planejamento de produção CT-125 Aprovar a sequência sugerida escolhida sem modificar as origens" time="5.396" classname="CT-125 Aprovar a sequência sugerida escolhida sem modificar as origens">
+    </testcase>
+  </testsuite>
+</testsuites>
+
+  (Results)
+
+  ┌────────────────────────────────────────────────────────────────────────────────────────────────┐
+  │ Tests:        3                                                                                │
+  │ Passing:      3                                                                                │
+  │ Failing:      0                                                                                │
+  │ Pending:      0                                                                                │
+  │ Skipped:      0                                                                                │
+  │ Screenshots:  0                                                                                │
+  │ Video:        false                                                                            │
+  │ Duration:     14 seconds                                                                       │
+  │ Spec Ran:     aprovacao.feature                                                                │
+  └────────────────────────────────────────────────────────────────────────────────────────────────┘
+
+
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+  Running:  comparacao.feature                                                              (2 of 7)
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites name="Mocha Tests" time="20.832" tests="4" failures="0">
+  <testsuite name="Root Suite" timestamp="2026-11-26T18:46:46" tests="0" file="cypress\e2e\comparacao.feature" time="0.000" failures="0">
+  </testsuite>
+  <testsuite name="Comparar sequência manual e sequência sugerida" timestamp="2026-11-26T18:46:46" tests="4" time="20.775" failures="0">
+    <testcase name="Comparar sequência manual e sequência sugerida CT-120 Exibir as duas sequências e as diferenças" time="5.760" classname="CT-120 Exibir as duas sequências e as diferenças">
+    </testcase>
+    <testcase name="Comparar sequência manual e sequência sugerida CT-121 Orientar a geração quando falta sequência sugerida" time="5.522" classname="CT-121 Orientar a geração quando falta sequência sugerida">
+    </testcase>
+    <testcase name="Comparar sequência manual e sequência sugerida CT-122 Preservar os registros ao consultar a comparação" time="5.564" classname="CT-122 Preservar os registros ao consultar a comparação">
+    </testcase>
+    <testcase name="Comparar sequência manual e sequência sugerida Comparar o planejamento quando o catálogo de máquinas responde 503" time="3.718" classname="Comparar o planejamento quando o catálogo de máquinas responde 503">
+    </testcase>
+  </testsuite>
+</testsuites>
+
+  (Results)
+
+  ┌────────────────────────────────────────────────────────────────────────────────────────────────┐
+  │ Tests:        4                                                                                │
+  │ Passing:      4                                                                                │
+  │ Failing:      0                                                                                │
+  │ Pending:      0                                                                                │
+  │ Skipped:      0                                                                                │
+  │ Screenshots:  0                                                                                │
+  │ Video:        false                                                                            │
+  │ Duration:     20 seconds                                                                       │
+  │ Spec Ran:     comparacao.feature                                                               │
+  └────────────────────────────────────────────────────────────────────────────────────────────────┘
+
+
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+  Running:  compatibilidade.feature                                                         (3 of 7)
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites name="Mocha Tests" time="26.375" tests="5" failures="0">
+  <testsuite name="Root Suite" timestamp="2026-11-26T18:47:10" tests="0" file="cypress\e2e\compatibilidade.feature" time="0.000" failures="0">
+  </testsuite>
+  <testsuite name="Considerar compatibilidade entre produtos e máquinas" timestamp="2026-11-26T18:47:10" tests="5" time="26.374" failures="0">
+    <testcase name="Considerar compatibilidade entre produtos e máquinas Atribuir ordens a máquinas compatíveis diferentes" time="7.653" classname="Atribuir ordens a máquinas compatíveis diferentes">
+    </testcase>
+    <testcase name="Considerar compatibilidade entre produtos e máquinas Distribuir ordens entre máquinas compatíveis" time="5.310" classname="Distribuir ordens entre máquinas compatíveis">
+    </testcase>
+    <testcase name="Considerar compatibilidade entre produtos e máquinas Bloquear ordem sem máquina compatível" time="4.088" classname="Bloquear ordem sem máquina compatível">
+    </testcase>
+    <testcase name="Considerar compatibilidade entre produtos e máquinas Bloquear ordem compatível somente com máquina inativa" time="4.492" classname="Bloquear ordem compatível somente com máquina inativa">
+    </testcase>
+    <testcase name="Considerar compatibilidade entre produtos e máquinas Separar famílias entre máquinas compatíveis sem setup cadastrado" time="4.663" classname="Separar famílias entre máquinas compatíveis sem setup cadastrado">
+    </testcase>
+  </testsuite>
+</testsuites>
+
+  (Results)
+
+  ┌────────────────────────────────────────────────────────────────────────────────────────────────┐
+  │ Tests:        5                                                                                │
+  │ Passing:      5                                                                                │
+  │ Failing:      0                                                                                │
+  │ Pending:      0                                                                                │
+  │ Skipped:      0                                                                                │
+  │ Screenshots:  5                                                                                │
+  │ Video:        false                                                                            │
+  │ Duration:     26 seconds                                                                       │
+  │ Spec Ran:     compatibilidade.feature                                                          │
+  └────────────────────────────────────────────────────────────────────────────────────────────────┘
+
+
+  (Screenshots)
+
+  -  <ciclo>\r    (1440x1000)
+     un\main-regressao-electron\screenshots\compatibilidade.feature\US15_CT01.png
+  -  <ciclo>\r    (1440x1000)
+     un\main-regressao-electron\screenshots\compatibilidade.feature\US15_CT02.png
+  -  <ciclo>\r    (1440x1000)
+     un\main-regressao-electron\screenshots\compatibilidade.feature\US15_CT03.png
+  -  <ciclo>\r    (1440x1000)
+     un\main-regressao-electron\screenshots\compatibilidade.feature\US15_CT04.png
+  -  <ciclo>\r    (1440x1000)
+     un\main-regressao-electron\screenshots\compatibilidade.feature\US15_CT05.png
+
+
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+  Running:  matriz-setup.feature                                                            (4 of 7)
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites name="Mocha Tests" time="15.861" tests="4" failures="0">
+  <testsuite name="Root Suite" timestamp="2026-11-26T18:47:39" tests="0" file="cypress\e2e\matriz-setup.feature" time="0.000" failures="0">
+  </testsuite>
+  <testsuite name="Consultar matriz de setup entre famílias de produtos" timestamp="2026-11-26T18:47:39" tests="4" time="15.860" failures="0">
+    <testcase name="Consultar matriz de setup entre famílias de produtos Consultar tempos de setup diferentes em cada direção" time="3.723" classname="Consultar tempos de setup diferentes em cada direção">
+    </testcase>
+    <testcase name="Consultar matriz de setup entre famílias de produtos Consultar matriz sem configurações de setup" time="4.168" classname="Consultar matriz sem configurações de setup">
+    </testcase>
+    <testcase name="Consultar matriz de setup entre famílias de produtos Exibir família de destino ausente na lista de famílias" time="3.789" classname="Exibir família de destino ausente na lista de famílias">
+    </testcase>
+    <testcase name="Consultar matriz de setup entre famílias de produtos Exibir família de origem ausente na lista de famílias" time="4.037" classname="Exibir família de origem ausente na lista de famílias">
+    </testcase>
+  </testsuite>
+</testsuites>
+
+  (Results)
+
+  ┌────────────────────────────────────────────────────────────────────────────────────────────────┐
+  │ Tests:        4                                                                                │
+  │ Passing:      4                                                                                │
+  │ Failing:      0                                                                                │
+  │ Pending:      0                                                                                │
+  │ Skipped:      0                                                                                │
+  │ Screenshots:  0                                                                                │
+  │ Video:        false                                                                            │
+  │ Duration:     15 seconds                                                                       │
+  │ Spec Ran:     matriz-setup.feature                                                             │
+  └────────────────────────────────────────────────────────────────────────────────────────────────┘
+
+
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+  Running:  prazos-prioridades.feature                                                      (5 of 7)
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites name="Mocha Tests" time="34.857" tests="6" failures="0">
+  <testsuite name="Root Suite" timestamp="2026-11-26T18:47:57" tests="0" file="cypress\e2e\prazos-prioridades.feature" time="0.000" failures="0">
+  </testsuite>
+  <testsuite name="Considerar prazos e prioridades no sequenciamento" timestamp="2026-11-26T18:47:57" tests="6" time="34.854" failures="0">
+    <testcase name="Considerar prazos e prioridades no sequenciamento Priorizar uma ordem urgente mesmo com aumento de setup" time="6.808" classname="Priorizar uma ordem urgente mesmo com aumento de setup">
+    </testcase>
+    <testcase name="Considerar prazos e prioridades no sequenciamento Considerar o prazo antes do setup em ordens de mesma prioridade" time="3.524" classname="Considerar o prazo antes do setup em ordens de mesma prioridade">
+    </testcase>
+    <testcase name="Considerar prazos e prioridades no sequenciamento Considerar prioridades diferentes em ordens de mesmo prazo" time="3.734" classname="Considerar prioridades diferentes em ordens de mesmo prazo">
+    </testcase>
+    <testcase name="Considerar prazos e prioridades no sequenciamento Informar dados de planejamento incompletos" time="5.363" classname="Informar dados de planejamento incompletos">
+    </testcase>
+    <testcase name="Considerar prazos e prioridades no sequenciamento Resolver o conflito entre prazo, prioridade e setup (example #1)" time="8.211" classname="Resolver o conflito entre prazo, prioridade e setup (example #1)">
+    </testcase>
+    <testcase name="Considerar prazos e prioridades no sequenciamento Resolver o conflito entre prazo, prioridade e setup (example #2)" time="6.975" classname="Resolver o conflito entre prazo, prioridade e setup (example #2)">
+    </testcase>
+  </testsuite>
+</testsuites>
+
+  (Results)
+
+  ┌────────────────────────────────────────────────────────────────────────────────────────────────┐
+  │ Tests:        6                                                                                │
+  │ Passing:      6                                                                                │
+  │ Failing:      0                                                                                │
+  │ Pending:      0                                                                                │
+  │ Skipped:      0                                                                                │
+  │ Screenshots:  6                                                                                │
+  │ Video:        false                                                                            │
+  │ Duration:     34 seconds                                                                       │
+  │ Spec Ran:     prazos-prioridades.feature                                                       │
+  └────────────────────────────────────────────────────────────────────────────────────────────────┘
+
+
+  (Screenshots)
+
+  -  <ciclo>\r    (1440x1000)
+     un\main-regressao-electron\screenshots\prazos-prioridades.feature\US14_CT01.png
+  -  <ciclo>\r    (1440x1000)
+     un\main-regressao-electron\screenshots\prazos-prioridades.feature\US14_CT02.png
+  -  <ciclo>\r    (1440x1000)
+     un\main-regressao-electron\screenshots\prazos-prioridades.feature\US14_CT03.png
+  -  <ciclo>\r    (1440x1000)
+     un\main-regressao-electron\screenshots\prazos-prioridades.feature\US14_CT04.png
+  -  <ciclo>\r    (1440x1000)
+     un\main-regressao-electron\screenshots\prazos-prioridades.feature\US14_CT05.png
+  -  <ciclo>\r    (1440x1000)
+     un\main-regressao-electron\screenshots\prazos-prioridades.feature\US14_CT05 (1).
+     png
+
+
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+  Running:  sugestao.feature                                                                (6 of 7)
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites name="Mocha Tests" time="68.421" tests="13" failures="0">
+  <testsuite name="Root Suite" timestamp="2026-11-26T18:48:36" tests="0" file="cypress\e2e\sugestao.feature" time="0.000" failures="0">
+  </testsuite>
+  <testsuite name="Gerar sequência sugerida de produção" timestamp="2026-11-26T18:48:36" tests="13" time="68.420" failures="0">
+    <testcase name="Gerar sequência sugerida de produção CT-79 Reduzir o setup entre famílias com tempos direcionais" time="7.105" classname="CT-79 Reduzir o setup entre famílias com tempos direcionais">
+    </testcase>
+    <testcase name="Gerar sequência sugerida de produção CT-80 Gerar sugestão para uma única ordem" time="3.904" classname="CT-80 Gerar sugestão para uma única ordem">
+    </testcase>
+    <testcase name="Gerar sequência sugerida de produção CT-81 Sugerir somente as ordens do subconjunto selecionado" time="3.355" classname="CT-81 Sugerir somente as ordens do subconjunto selecionado">
+    </testcase>
+    <testcase name="Gerar sequência sugerida de produção CT-82 Bloquear a geração quando o produto não tem família" time="5.244" classname="CT-82 Bloquear a geração quando o produto não tem família">
+    </testcase>
+    <testcase name="Gerar sequência sugerida de produção CT-83 Bloquear a geração quando falta um sentido da troca" time="5.215" classname="CT-83 Bloquear a geração quando falta um sentido da troca">
+    </testcase>
+    <testcase name="Gerar sequência sugerida de produção CT-84 Gerar sugestão após corrigir as pendências" time="6.886" classname="CT-84 Gerar sugestão após corrigir as pendências">
+    </testcase>
+    <testcase name="Gerar sequência sugerida de produção CT-85 Negar a solicitação direta à API para o Operador" time="4.850" classname="CT-85 Negar a solicitação direta à API para o Operador">
+    </testcase>
+    <testcase name="Gerar sequência sugerida de produção CT-107 Gerar uma sugestão antes de salvar o planejamento manual" time="4.036" classname="CT-107 Gerar uma sugestão antes de salvar o planejamento manual">
+    </testcase>
+    <testcase name="Gerar sequência sugerida de produção CT-108 Preservar a seleção que já tem o menor setup" time="4.099" classname="CT-108 Preservar a seleção que já tem o menor setup">
+    </testcase>
+    <testcase name="Gerar sequência sugerida de produção CT-109 Preservar a seleção no empate entre os sentidos" time="3.704" classname="CT-109 Preservar a seleção no empate entre os sentidos">
+    </testcase>
+    <testcase name="Gerar sequência sugerida de produção CT-110 Recuperar a sugestão e preservar o planejamento manual" time="4.562" classname="CT-110 Recuperar a sugestão e preservar o planejamento manual">
+    </testcase>
+    <testcase name="Gerar sequência sugerida de produção CT-111 Bloquear a geração sem ordens selecionadas" time="9.117" classname="CT-111 Bloquear a geração sem ordens selecionadas">
+    </testcase>
+    <testcase name="Gerar sequência sugerida de produção CT-112 Manter a seleção de várias ordens da mesma família" time="5.786" classname="CT-112 Manter a seleção de várias ordens da mesma família">
+    </testcase>
+  </testsuite>
+</testsuites>
+
+  (Results)
+
+  ┌────────────────────────────────────────────────────────────────────────────────────────────────┐
+  │ Tests:        13                                                                               │
+  │ Passing:      13                                                                               │
+  │ Failing:      0                                                                                │
+  │ Pending:      0                                                                                │
+  │ Skipped:      0                                                                                │
+  │ Screenshots:  12                                                                               │
+  │ Video:        false                                                                            │
+  │ Duration:     1 minute, 8 seconds                                                              │
+  │ Spec Ran:     sugestao.feature                                                                 │
+  └────────────────────────────────────────────────────────────────────────────────────────────────┘
+
+
+  (Screenshots)
+
+  -  <ciclo>\r    (1440x1000)
+     un\main-regressao-electron\screenshots\sugestao.feature\CT-79.png
+  -  <ciclo>\r    (1440x1000)
+     un\main-regressao-electron\screenshots\sugestao.feature\CT-80.png
+  -  <ciclo>\r    (1440x1000)
+     un\main-regressao-electron\screenshots\sugestao.feature\CT-81.png
+  -  <ciclo>\r    (1440x1000)
+     un\main-regressao-electron\screenshots\sugestao.feature\CT-82.png
+  -  <ciclo>\r    (1440x1000)
+     un\main-regressao-electron\screenshots\sugestao.feature\CT-83.png
+  -  <ciclo>\r    (1440x1000)
+     un\main-regressao-electron\screenshots\sugestao.feature\CT-84.png
+  -  <ciclo>\r    (1440x1000)
+     un\main-regressao-electron\screenshots\sugestao.feature\CT-107.png
+  -  <ciclo>\r    (1440x1000)
+     un\main-regressao-electron\screenshots\sugestao.feature\CT-108.png
+  -  <ciclo>\r    (1440x1000)
+     un\main-regressao-electron\screenshots\sugestao.feature\CT-109.png
+  -  <ciclo>\r    (1440x1000)
+     un\main-regressao-electron\screenshots\sugestao.feature\CT-110.png
+  -  <ciclo>\r    (1440x1000)
+     un\main-regressao-electron\screenshots\sugestao.feature\CT-111.png
+  -  <ciclo>\r    (1440x1000)
+     un\main-regressao-electron\screenshots\sugestao.feature\CT-112.png
+
+
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+  Running:  usuarios.feature                                                                (7 of 7)
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites name="Mocha Tests" time="208.416" tests="32" failures="0">
+  <testsuite name="Root Suite" timestamp="2026-11-26T18:49:49" tests="0" file="cypress\e2e\usuarios.feature" time="0.000" failures="0">
+  </testsuite>
+  <testsuite name="Gerenciar usuários e preservar seus acessos e autoria" timestamp="2026-11-26T18:49:49" tests="32" time="208.409" failures="0">
+    <testcase name="Gerenciar usuários e preservar seus acessos e autoria CT32 - Cadastrar uma conta ativa e permitir login com os perfis atribuídos" time="7.370" classname="CT32 - Cadastrar uma conta ativa e permitir login com os perfis atribuídos">
+    </testcase>
+    <testcase name="Gerenciar usuários e preservar seus acessos e autoria CT33 - Consultar usuários ativos e inativos sem expor senha ou hash" time="4.530" classname="CT33 - Consultar usuários ativos e inativos sem expor senha ou hash">
+    </testcase>
+    <testcase name="Gerenciar usuários e preservar seus acessos e autoria CT34 - Editar dados e substituir perfis mantendo a senha e aplicando novas permissões" time="4.544" classname="CT34 - Editar dados e substituir perfis mantendo a senha e aplicando novas permissões">
+    </testcase>
+    <testcase name="Gerenciar usuários e preservar seus acessos e autoria CT35 - Cancelar a exclusão e depois confirmar a remoção de uma conta sem vínculos" time="4.698" classname="CT35 - Cancelar a exclusão e depois confirmar a remoção de uma conta sem vínculos">
+    </testcase>
+    <testcase name="Gerenciar usuários e preservar seus acessos e autoria CT36 - Identificar todos os campos inválidos e preservar os dados anteriores na edição" time="4.460" classname="CT36 - Identificar todos os campos inválidos e preservar os dados anteriores na edição">
+    </testcase>
+    <testcase name="Gerenciar usuários e preservar seus acessos e autoria CT36 - Rejeitar perfis inexistentes enviados diretamente à API" time="2.855" classname="CT36 - Rejeitar perfis inexistentes enviados diretamente à API">
+    </testcase>
+    <testcase name="Gerenciar usuários e preservar seus acessos e autoria CT37 - Recusar e-mail duplicado de conta ativa durante cadastro (example #1)" time="6.338" classname="CT37 - Recusar e-mail duplicado de conta ativa durante cadastro (example #1)">
+    </testcase>
+    <testcase name="Gerenciar usuários e preservar seus acessos e autoria CT37 - Recusar e-mail duplicado de conta inativa durante cadastro (example #2)" time="6.686" classname="CT37 - Recusar e-mail duplicado de conta inativa durante cadastro (example #2)">
+    </testcase>
+    <testcase name="Gerenciar usuários e preservar seus acessos e autoria CT37 - Recusar e-mail duplicado de conta ativa durante edição (example #3)" time="6.662" classname="CT37 - Recusar e-mail duplicado de conta ativa durante edição (example #3)">
+    </testcase>
+    <testcase name="Gerenciar usuários e preservar seus acessos e autoria CT37 - Recusar e-mail duplicado de conta inativa durante edição (example #4)" time="7.849" classname="CT37 - Recusar e-mail duplicado de conta inativa durante edição (example #4)">
+    </testcase>
+    <testcase name="Gerenciar usuários e preservar seus acessos e autoria CT38 - Desativar e reativar sem recuperar as sessões antigas" time="6.320" classname="CT38 - Desativar e reativar sem recuperar as sessões antigas">
+    </testcase>
+    <testcase name="Gerenciar usuários e preservar seus acessos e autoria CT39 - Preservar autoria ao recusar exclusão por ordens de produção (example #1)" time="7.604" classname="CT39 - Preservar autoria ao recusar exclusão por ordens de produção (example #1)">
+    </testcase>
+    <testcase name="Gerenciar usuários e preservar seus acessos e autoria CT39 - Preservar autoria ao recusar exclusão por planejamentos (example #2)" time="7.631" classname="CT39 - Preservar autoria ao recusar exclusão por planejamentos (example #2)">
+    </testcase>
+    <testcase name="Gerenciar usuários e preservar seus acessos e autoria CT40 - Preservar o último administrador ativo ao tentar excluir (example #1)" time="3.936" classname="CT40 - Preservar o último administrador ativo ao tentar excluir (example #1)">
+    </testcase>
+    <testcase name="Gerenciar usuários e preservar seus acessos e autoria CT40 - Preservar o último administrador ativo ao tentar desativar (example #2)" time="3.235" classname="CT40 - Preservar o último administrador ativo ao tentar desativar (example #2)">
+    </testcase>
+    <testcase name="Gerenciar usuários e preservar seus acessos e autoria CT40 - Preservar o último administrador ativo ao tentar remover o perfil (example #3)" time="3.572" classname="CT40 - Preservar o último administrador ativo ao tentar remover o perfil (example #3)">
+    </testcase>
+    <testcase name="Gerenciar usuários e preservar seus acessos e autoria CT41 - Recusar listar quando o acesso está sem sessão (example #1)" time="5.998" classname="CT41 - Recusar listar quando o acesso está sem sessão (example #1)">
+    </testcase>
+    <testcase name="Gerenciar usuários e preservar seus acessos e autoria CT41 - Recusar consultar quando o acesso está sem sessão (example #2)" time="5.629" classname="CT41 - Recusar consultar quando o acesso está sem sessão (example #2)">
+    </testcase>
+    <testcase name="Gerenciar usuários e preservar seus acessos e autoria CT41 - Recusar cadastrar quando o acesso está sem sessão (example #3)" time="5.299" classname="CT41 - Recusar cadastrar quando o acesso está sem sessão (example #3)">
+    </testcase>
+    <testcase name="Gerenciar usuários e preservar seus acessos e autoria CT41 - Recusar editar quando o acesso está sem sessão (example #4)" time="5.334" classname="CT41 - Recusar editar quando o acesso está sem sessão (example #4)">
+    </testcase>
+    <testcase name="Gerenciar usuários e preservar seus acessos e autoria CT41 - Recusar desativar quando o acesso está sem sessão (example #5)" time="6.343" classname="CT41 - Recusar desativar quando o acesso está sem sessão (example #5)">
+    </testcase>
+    <testcase name="Gerenciar usuários e preservar seus acessos e autoria CT41 - Recusar reativar quando o acesso está sem sessão (example #6)" time="6.687" classname="CT41 - Recusar reativar quando o acesso está sem sessão (example #6)">
+    </testcase>
+    <testcase name="Gerenciar usuários e preservar seus acessos e autoria CT41 - Recusar excluir quando o acesso está sem sessão (example #7)" time="7.359" classname="CT41 - Recusar excluir quando o acesso está sem sessão (example #7)">
+    </testcase>
+    <testcase name="Gerenciar usuários e preservar seus acessos e autoria CT41 - Recusar listar quando o acesso está operador (example #8)" time="10.504" classname="CT41 - Recusar listar quando o acesso está operador (example #8)">
+    </testcase>
+    <testcase name="Gerenciar usuários e preservar seus acessos e autoria CT41 - Recusar consultar quando o acesso está operador (example #9)" time="7.457" classname="CT41 - Recusar consultar quando o acesso está operador (example #9)">
+    </testcase>
+    <testcase name="Gerenciar usuários e preservar seus acessos e autoria CT41 - Recusar cadastrar quando o acesso está operador (example #10)" time="6.936" classname="CT41 - Recusar cadastrar quando o acesso está operador (example #10)">
+    </testcase>
+    <testcase name="Gerenciar usuários e preservar seus acessos e autoria CT41 - Recusar editar quando o acesso está operador (example #11)" time="6.673" classname="CT41 - Recusar editar quando o acesso está operador (example #11)">
+    </testcase>
+    <testcase name="Gerenciar usuários e preservar seus acessos e autoria CT41 - Recusar desativar quando o acesso está operador (example #12)" time="8.247" classname="CT41 - Recusar desativar quando o acesso está operador (example #12)">
+    </testcase>
+    <testcase name="Gerenciar usuários e preservar seus acessos e autoria CT41 - Recusar reativar quando o acesso está operador (example #13)" time="7.997" classname="CT41 - Recusar reativar quando o acesso está operador (example #13)">
+    </testcase>
+    <testcase name="Gerenciar usuários e preservar seus acessos e autoria CT41 - Recusar excluir quando o acesso está operador (example #14)" time="8.833" classname="CT41 - Recusar excluir quando o acesso está operador (example #14)">
+    </testcase>
+    <testcase name="Gerenciar usuários e preservar seus acessos e autoria CT42 - Substituir a senha e encerrar as sessões anteriores" time="7.304" classname="CT42 - Substituir a senha e encerrar as sessões anteriores">
+    </testcase>
+    <testcase name="Gerenciar usuários e preservar seus acessos e autoria CT43 - Criar o primeiro administrador pelo script e cadastrar a segunda conta pela interface" time="11.997" classname="CT43 - Criar o primeiro administrador pelo script e cadastrar a segunda conta pela interface">
+    </testcase>
+  </testsuite>
+</testsuites>
+
+  (Results)
+
+  ┌────────────────────────────────────────────────────────────────────────────────────────────────┐
+  │ Tests:        32                                                                               │
+  │ Passing:      32                                                                               │
+  │ Failing:      0                                                                                │
+  │ Pending:      0                                                                                │
+  │ Skipped:      0                                                                                │
+  │ Screenshots:  36                                                                               │
+  │ Video:        false                                                                            │
+  │ Duration:     3 minutes, 28 seconds                                                            │
+  │ Spec Ran:     usuarios.feature                                                                 │
+  └────────────────────────────────────────────────────────────────────────────────────────────────┘
+
+
+  (Screenshots)
+
+  -  <ciclo>\r    (1440x1000)
+     un\main-regressao-electron\screenshots\usuarios.feature\CT32 - Cadastrar uma con
+     ta ativa e permitir login com os perfis atribuidos.png
+  -  <ciclo>\r    (1440x1000)
+     un\main-regressao-electron\screenshots\usuarios.feature\CT33 - Consultar usuario
+     s ativos e inativos sem expor senha ou hash.png
+  -  <ciclo>\r    (1440x1000)
+     un\main-regressao-electron\screenshots\usuarios.feature\CT34 - Editar dados e su
+     bstituir perfis mantendo a senha e aplicando novas permissoes.png
+  -  <ciclo>\r    (1440x1000)
+     un\main-regressao-electron\screenshots\usuarios.feature\CT35-confirmacao-antes-d
+     o-cancelamento.png
+  -  <ciclo>\r    (1440x1000)
+     un\main-regressao-electron\screenshots\usuarios.feature\CT35 - Cancelar a exclus
+     ao e depois confirmar a remocao de uma conta sem vinculos.png
+  -  <ciclo>\r    (1440x1000)
+     un\main-regressao-electron\screenshots\usuarios.feature\CT36 - Identificar todos
+      os campos invalidos e preservar os dados anteriores na edicao.png
+  -  <ciclo>\r    (1440x1000)
+     un\main-regressao-electron\screenshots\usuarios.feature\CT36 - Rejeitar perfis i
+     nexistentes enviados diretamente a API.png
+  -  <ciclo>\r    (1440x1000)
+     un\main-regressao-electron\screenshots\usuarios.feature\CT37 - Recusar e-mail du
+     plicado de conta ativa durante cadastro example 1.png
+  -  <ciclo>\r    (1440x1000)
+     un\main-regressao-electron\screenshots\usuarios.feature\CT37 - Recusar e-mail du
+     plicado de conta inativa durante cadastro example 2.png
+  -  <ciclo>\r    (1440x1000)
+     un\main-regressao-electron\screenshots\usuarios.feature\CT37 - Recusar e-mail du
+     plicado de conta ativa durante edicao example 3.png
+  -  <ciclo>\r    (1440x1000)
+     un\main-regressao-electron\screenshots\usuarios.feature\CT37 - Recusar e-mail du
+     plicado de conta inativa durante edicao example 4.png
+  -  <ciclo>\r    (1440x1000)
+     un\main-regressao-electron\screenshots\usuarios.feature\CT38-conta-desativada.pn
+     g
+  -  <ciclo>\r    (1440x1000)
+     un\main-regressao-electron\screenshots\usuarios.feature\CT38 - Desativar e reati
+     var sem recuperar as sessoes antigas.png
+  -  <ciclo>\r    (1440x1000)
+     un\main-regressao-electron\screenshots\usuarios.feature\CT39-bloqueio-ordens de
+     produção.png
+  -  <ciclo>\r    (1440x1000)
+     un\main-regressao-electron\screenshots\usuarios.feature\CT39 - Preservar autoria
+      ao recusar exclusao por ordens de producao example 1.png
+  -  <ciclo>\r    (1440x1000)
+     un\main-regressao-electron\screenshots\usuarios.feature\CT39-bloqueio-planejamen
+     tos.png
+  -  <ciclo>\r    (1440x1000)
+     un\main-regressao-electron\screenshots\usuarios.feature\CT39 - Preservar autoria
+      ao recusar exclusao por planejamentos example 2.png
+  -  <ciclo>\r    (1440x1000)
+     un\main-regressao-electron\screenshots\usuarios.feature\CT40 - Preservar o ultim
+     o administrador ativo ao tentar excluir example 1.png
+  -  <ciclo>\r    (1440x1000)
+     un\main-regressao-electron\screenshots\usuarios.feature\CT40 - Preservar o ultim
+     o administrador ativo ao tentar desativar example 2.png
+  -  <ciclo>\r    (1440x1000)
+     un\main-regressao-electron\screenshots\usuarios.feature\CT40 - Preservar o ultim
+     o administrador ativo ao tentar remover o perfil example 3.png
+  -  <ciclo>\r    (1440x1000)
+     un\main-regressao-electron\screenshots\usuarios.feature\CT41 - Recusar listar qu
+     ando o acesso esta sem sessao example 1.png
+  -  <ciclo>\r    (1440x1000)
+     un\main-regressao-electron\screenshots\usuarios.feature\CT41 - Recusar consultar
+      quando o acesso esta sem sessao example 2.png
+  -  <ciclo>\r    (1440x1000)
+     un\main-regressao-electron\screenshots\usuarios.feature\CT41 - Recusar cadastrar
+      quando o acesso esta sem sessao example 3.png
+  -  <ciclo>\r    (1440x1000)
+     un\main-regressao-electron\screenshots\usuarios.feature\CT41 - Recusar editar qu
+     ando o acesso esta sem sessao example 4.png
+  -  <ciclo>\r    (1440x1000)
+     un\main-regressao-electron\screenshots\usuarios.feature\CT41 - Recusar desativar
+      quando o acesso esta sem sessao example 5.png
+  -  <ciclo>\r    (1440x1000)
+     un\main-regressao-electron\screenshots\usuarios.feature\CT41 - Recusar reativar
+     quando o acesso esta sem sessao example 6.png
+  -  <ciclo>\r    (1440x1000)
+     un\main-regressao-electron\screenshots\usuarios.feature\CT41 - Recusar excluir q
+     uando o acesso esta sem sessao example 7.png
+  -  <ciclo>\r    (1440x1000)
+     un\main-regressao-electron\screenshots\usuarios.feature\CT41 - Recusar listar qu
+     ando o acesso esta operador example 8.png
+  -  <ciclo>\r    (1440x1000)
+     un\main-regressao-electron\screenshots\usuarios.feature\CT41 - Recusar consultar
+      quando o acesso esta operador example 9.png
+  -  <ciclo>\r    (1440x1000)
+     un\main-regressao-electron\screenshots\usuarios.feature\CT41 - Recusar cadastrar
+      quando o acesso esta operador example 10.png
+  -  <ciclo>\r    (1440x1000)
+     un\main-regressao-electron\screenshots\usuarios.feature\CT41 - Recusar editar qu
+     ando o acesso esta operador example 11.png
+  -  <ciclo>\r    (1440x1000)
+     un\main-regressao-electron\screenshots\usuarios.feature\CT41 - Recusar desativar
+      quando o acesso esta operador example 12.png
+  -  <ciclo>\r    (1440x1000)
+     un\main-regressao-electron\screenshots\usuarios.feature\CT41 - Recusar reativar
+     quando o acesso esta operador example 13.png
+  -  <ciclo>\r    (1440x1000)
+     un\main-regressao-electron\screenshots\usuarios.feature\CT41 - Recusar excluir q
+     uando o acesso esta operador example 14.png
+  -  <ciclo>\r    (1440x1000)
+     un\main-regressao-electron\screenshots\usuarios.feature\CT42 - Substituir a senh
+     a e encerrar as sessoes anteriores.png
+  -  <ciclo>\r    (1440x1000)
+     un\main-regressao-electron\screenshots\usuarios.feature\CT43 - Criar o primeiro
+     administrador pelo script e cadastrar a segunda conta pela interface.png
+
+
+====================================================================================================
+
+  (Run Finished)
+
+
+       Spec                                              Tests  Passing  Failing  Pending  Skipped
+  ┌────────────────────────────────────────────────────────────────────────────────────────────────┐
+  │ √  aprovacao.feature                        00:14        3        3        -        -        - │
+  ├────────────────────────────────────────────────────────────────────────────────────────────────┤
+  │ √  comparacao.feature                       00:20        4        4        -        -        - │
+  ├────────────────────────────────────────────────────────────────────────────────────────────────┤
+  │ √  compatibilidade.feature                  00:26        5        5        -        -        - │
+  ├────────────────────────────────────────────────────────────────────────────────────────────────┤
+  │ √  matriz-setup.feature                     00:15        4        4        -        -        - │
+  ├────────────────────────────────────────────────────────────────────────────────────────────────┤
+  │ √  prazos-prioridades.feature               00:34        6        6        -        -        - │
+  ├────────────────────────────────────────────────────────────────────────────────────────────────┤
+  │ √  sugestao.feature                         01:08       13       13        -        -        - │
+  ├────────────────────────────────────────────────────────────────────────────────────────────────┤
+  │ √  usuarios.feature                         03:28       32       32        -        -        - │
+  └────────────────────────────────────────────────────────────────────────────────────────────────┘
+    √  All specs passed!                        06:29       67       67        -        -        -
+
+Evidências Cypress: <ciclo>\run\main-regressao-electron

@@ -1,0 +1,46 @@
+﻿{
+    "bug":  "BUG-005",
+    "issue":  "https://github.com/arthur-marqs/Gerencia-Projeto-2026.2/issues/31",
+    "data":  "2026-11-26",
+    "fuso":  "America/Sao_Paulo",
+    "branch":  "docs/qualidade",
+    "commit_correcao":  "8978fc110480f363b65873443c072bcc4469cfd6",
+    "fonte_sha256":  "2a208517d3e775daf3fe4d2c73b37b46dee0056af444a94ee0814eb25c88a7a6",
+    "ambiente":  {
+                     "os":  "Windows 11 26H2 (26300)",
+                     "chrome":  "158.0.8127.38",
+                     "cypress":  "16.3.0",
+                     "postgres":  "18.6 isolado em loopback",
+                     "frontend":  "Build Vite",
+                     "api":  "FastAPI em Uvicorn local"
+                 },
+    "antes":  {
+                  "commit_base":  "2279fabdeec88d8f8f4eaf2ad7fe7ed22cf36aba",
+                  "suites_locais_novas":  true,
+                  "executados":  5,
+                  "reprovados":  5
+              },
+    "autenticacao":  {
+                         "tipo":  "Cypress com respostas simuladas",
+                         "novos":  5,
+                         "driver06":  7,
+                         "login":  5,
+                         "aprovados":  17
+                     },
+    "integrado":  {
+                      "aprovados":  3,
+                      "condicoes":  "Sessão de fixture e API reais. O primeiro 503 e a identidade atrasada foram controlados no navegador. O 401 após a expiração veio da API.",
+                      "resultado":  "200 restaura sessão sem novo login/recarga; 401 retorna ao login; um 200 atrasado não reabre a área protegida."
+                  },
+    "us32":  {
+                 "suite_total":  32,
+                 "aprovados_na_suite":  31,
+                 "ct35_reexecucao":  1,
+                 "erro_ct35_na_suite":  "argon2.exceptions.HashingError: Memory allocation error durante a preparação da fixture"
+             },
+    "outras_execucoes":  "Uma execução anterior de usuários foi interrompida pelo Chrome. A primeira sondagem integrada reaplicou o 503 por erro no interceptor, restrito à primeira consulta no reteste final.",
+    "verificacoes_frontend":  {
+                                  "lint":  "npm run lint: aprovado",
+                                  "build":  "npm run build: aprovado"
+                              }
+}

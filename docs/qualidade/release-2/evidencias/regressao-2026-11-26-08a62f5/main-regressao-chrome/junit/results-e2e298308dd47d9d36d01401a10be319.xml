@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='utf-8'?>
+<testsuites name="Mocha Tests" time="20.342" tests="3" failures="0">
+  <testsuite name="Root Suite" timestamp="2026-11-26T18:35:34" tests="0" file="cypress\e2e\aprovacao.feature" time="0.000" failures="0">
+  </testsuite>
+  <testsuite name="Aprovar planejamento de produção" timestamp="2026-11-26T18:35:34" tests="3" time="20.340" failures="0">
+    <testcase name="Aprovar planejamento de produção CT-123 Disponibilizar o planejamento aprovado para execução" time="9.261" classname="CT-123 Disponibilizar o planejamento aprovado para execução">
+    </testcase>
+    <testcase name="Aprovar planejamento de produção CT-124 Informar que não há planejamento disponível" time="5.722" classname="CT-124 Informar que não há planejamento disponível">
+    </testcase>
+    <testcase name="Aprovar planejamento de produção CT-125 Aprovar a sequência sugerida escolhida sem modificar as origens" time="5.209" classname="CT-125 Aprovar a sequência sugerida escolhida sem modificar as origens">
+    </testcase>
+  </testsuite>
+</testsuites>
