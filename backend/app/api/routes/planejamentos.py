@@ -7,7 +7,9 @@ from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm import Session, selectinload
 
 from app.api.deps import get_db, require_profiles
+from app.api.routes.aprovacoes_planejamento import router as aprovacoes_router
 from app.api.routes.sugestoes_planejamento import router as sugestoes_router
+from app.models.aprovacao_planejamento import AprovacaoPlanejamento
 from app.models.item_planejamento import ItemPlanejamento
 from app.models.ordem_producao import OrdemProducao
 from app.models.planejamento import Planejamento
@@ -20,6 +22,7 @@ from app.schemas.planejamento import (
 
 
 router = APIRouter()
+router.include_router(aprovacoes_router)
 router.include_router(sugestoes_router)
 
 
@@ -155,6 +158,7 @@ def atualizar_planejamento(
         select(Planejamento)
         .options(selectinload(Planejamento.itens))
         .where(Planejamento.id_planejamento == id_planejamento)
+        .with_for_update()
     )
 
     if planejamento is None:
@@ -162,6 +166,12 @@ def atualizar_planejamento(
             status_code=status.HTTP_404_NOT_FOUND,
             detail="Planejamento não encontrado.",
         )
+
+    if db.scalar(
+        select(AprovacaoPlanejamento.id_aprovacao)
+        .where(AprovacaoPlanejamento.planejamento_id == id_planejamento)
+    ) is not None:
+        raise HTTPException(409, "Um planejamento aprovado não pode ser editado.")
 
     ordens = list(
         db.scalars(

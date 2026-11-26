@@ -1,4 +1,5 @@
 from datetime import datetime
+from typing import TYPE_CHECKING
 from uuid import UUID
 
 from sqlalchemy import (
@@ -15,6 +16,10 @@ from sqlalchemy.dialects.postgresql import UUID as PG_UUID
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from app.db.base import Base
+
+if TYPE_CHECKING:
+    from app.models.maquina import Maquina
+    from app.models.ordem_producao import OrdemProducao
 
 
 class SugestaoPlanejamento(Base):
@@ -63,6 +68,8 @@ class ItemSugestaoPlanejamento(Base):
     posicao: Mapped[int] = mapped_column(Integer)
     posicao_original: Mapped[int] = mapped_column(Integer)
     setup_minutos: Mapped[int] = mapped_column(Integer)
+    ordem: Mapped["OrdemProducao"] = relationship()
+    maquina: Mapped["Maquina | None"] = relationship()
 
     __table_args__ = (
         UniqueConstraint("sugestao_id", "posicao", name="uq_item_sugestao_posicao"),
