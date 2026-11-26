@@ -1,7 +1,24 @@
 from datetime import datetime
 from uuid import UUID
 
-from app.services.sequenciamento import DadosSequenciamento, sugerir_sequencia
+from app.services.sequenciamento import DadosSequenciamento, calcular_setups, sugerir_sequencia
+
+
+def calcular_setup_por_maquina(
+    sequencia: list[UUID],
+    familias_por_ordem: dict[UUID, UUID],
+    maquinas_por_ordem: dict[UUID, UUID | None],
+    tempos: dict[tuple[UUID, UUID], int],
+) -> int:
+    ordens_por_maquina: dict[UUID | None, list[UUID]] = {}
+    for ordem_id in sequencia:
+        maquina_id = maquinas_por_ordem[ordem_id]
+        ordens_por_maquina.setdefault(maquina_id, []).append(ordem_id)
+
+    return sum(
+        sum(calcular_setups(ordens, familias_por_ordem, tempos))
+        for ordens in ordens_por_maquina.values()
+    )
 
 
 def sugerir_sequencia_por_maquina(

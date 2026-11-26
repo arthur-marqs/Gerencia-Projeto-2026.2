@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites name="Mocha Tests" time="3.568" tests="1" failures="0">
+  <testsuite name="Root Suite" timestamp="2026-11-25T23:22:42" tests="0" file=".tmp\qa-us16-review\catalogo-sondagem.cy.js" time="0.000" failures="0">
+  </testsuite>
+  <testsuite name="Sondagem temporária da US16 — catálogo de máquinas indisponível" timestamp="2026-11-25T23:22:42" tests="1" time="3.562" failures="0">
+    <testcase name="Sondagem temporária da US16 — catálogo de máquinas indisponível reproduz a perda de acesso à comparação pelo cartão quando somente o catálogo recebe 503" time="3.472" classname="reproduz a perda de acesso à comparação pelo cartão quando somente o catálogo recebe 503">
+    </testcase>
+  </testsuite>
+</testsuites>

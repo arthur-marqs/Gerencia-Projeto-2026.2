@@ -6,6 +6,10 @@ const SENHA = 'SenhaE2E!2026'
 const NOME_PLANO = 'Planejamento manual US13'
 const PAINEL = '[aria-labelledby="titulo-sugestao"]'
 const BOTAO_GERAR = '[data-cy="gerar-sugestao"]'
+const COMPARACAO = '[data-cy="comparacao-sequencias"]'
+const MANUAL = '[data-cy="sequencia-manual"]'
+const SUGERIDA = '[data-cy="sequencia-sugerida"]'
+const AVISO_CATALOGO = '[data-cy="aviso-catalogo-maquinas"]'
 
 let estado
 let planejamentoManual
@@ -70,7 +74,7 @@ function verificarGeracao(minutos, verificarOrdens) {
   })
 }
 
-Before({ tags: '@US13 or @US14 or @US15' }, () => {
+Before({ tags: '@US13 or @US14 or @US15 or @US16' }, () => {
   planejamentoManual = undefined
   sugestaoGerada = undefined
   respostaOperador = undefined
@@ -201,6 +205,78 @@ Then('a mesma sugestão deve ser recuperada com as ordens manuais preservadas', 
   })
   return requisitar('GET', `/planejamentos/${planejamentoManual.id_planejamento}`)
     .should('deep.equal', planejamentoManual)
+})
+
+When('solicitar a comparação do planejamento', () => {
+  cy.intercept('GET', `**/api/planejamentos/${planejamentoManual.id_planejamento}/comparacao`).as('comparar')
+  abrirPlanejamento()
+  return cardDoPlano().find('[data-cy="comparar-sequencias"]').click()
+})
+
+Given('que o catálogo de máquinas responde 503', () => (
+  cy.intercept('GET', '**/api/maquinas', {
+    statusCode: 503,
+    body: { detail: 'Indisponibilidade simulada do catálogo.' },
+  }).as('catalogoIndisponivel')
+))
+
+When('o catálogo voltar a ficar disponível', () => (
+  cy.intercept('GET', '**/api/maquinas', (pedido) => pedido.continue()).as('catalogoRestaurado')
+))
+
+Then('o Planejador deve ver o aviso do catálogo e a ordem pendente {string}', (codigo) => {
+  cy.wait('@catalogoIndisponivel').its('response.statusCode').should('eq', 503)
+  cy.get(AVISO_CATALOGO).should('be.visible').and('contain.text', 'Catálogo de máquinas indisponível.')
+  cy.contains('label', new RegExp(`^${codigo}$`)).find('input[type="checkbox"]').should('be.enabled')
+  const maquinaId = sugestaoGerada.itens[0].maquina_id
+  cy.get(SUGERIDA).should('contain.text', `Máquina ${maquinaId.slice(0, 8)}`)
+})
+
+Then('a comparação deve voltar a mostrar a máquina {string} pelo nome', (codigoMaquina) => {
+  cy.wait('@catalogoRestaurado').its('response.statusCode').should('eq', 200)
+  cy.get(AVISO_CATALOGO).should('not.exist')
+  cy.get(COMPARACAO).find(SUGERIDA).should('contain.text', `${codigoMaquina} — Máquina ${codigoMaquina}`)
+})
+
+Then('a comparação deve exibir a sequência manual {string} e a sugerida {string}', (manual, sugerida) => {
+  cy.wait('@comparar').its('response.statusCode').should('eq', 200)
+  cy.get(COMPARACAO).should('be.visible').and('contain.text', NOME_PLANO)
+  for (const [seletor, lista] of [[MANUAL, manual], [SUGERIDA, sugerida]]) {
+    cy.get(COMPARACAO).find(seletor).find('[data-cy="ordem-comparada"]').should(($ordens) => {
+      expect($ordens.toArray().map((ordem) => ordem.textContent)).to.deep.equal(codigos(lista))
+    })
+  }
+})
+
+Then('deve destacar as duas ordens que mudaram de posição', () => {
+  cy.get(COMPARACAO).find('[role="status"]').should('have.text', '2 de 3 ordens mudaram de posição.')
+  cy.get(MANUAL).find('[data-cy="posicao-alternativa"]').should(($posicoes) => {
+    expect($posicoes.toArray().map((posicao) => posicao.textContent)).to.deep.equal([
+      '3º na sugerida', '2º na sugerida',
+    ])
+  })
+})
+
+Then('deve mostrar {int} minutos de setup manual e {int} minutos de setup sugerido', (manual, sugerido) => {
+  cy.get(COMPARACAO).find('[data-cy="setup-manual"]').should('have.text', `${manual} min`)
+  cy.get(COMPARACAO).find('[data-cy="setup-sugerido"]').should('have.text', `${sugerido} min`)
+  cy.get(COMPARACAO).find('[data-cy="diferenca-setup"]').should('have.text', `${manual - sugerido} min a menos`)
+})
+
+Then('a comparação deve pedir que a sequência sugerida seja gerada', () => {
+  const mensagem = 'Gere uma sequência sugerida para este planejamento antes de comparar.'
+  cy.wait('@comparar').its('response').then(({ statusCode, body }) => {
+    expect(statusCode).to.equal(404)
+    expect(body).to.deep.equal({ detail: mensagem })
+  })
+  cy.get('main [role="alert"]').should('be.visible').and('have.text', mensagem)
+  cy.get(COMPARACAO).should('not.exist')
+})
+
+Then('os registros do planejamento manual e da sugestão devem permanecer iguais', () => {
+  requisitar('GET', `/planejamentos/${planejamentoManual.id_planejamento}`)
+    .should('deep.equal', planejamentoManual)
+  return requisitar('GET', `${SUGESTOES}/${sugestaoGerada.id_sugestao}`).should('deep.equal', sugestaoGerada)
 })
 
 Then('a API deve negar a geração, preservar os registros e retornar somente a mensagem de acesso negado', () => {

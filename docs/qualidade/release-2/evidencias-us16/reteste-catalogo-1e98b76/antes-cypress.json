@@ -1,0 +1,27 @@
+{
+  "startedAt": "2026-11-25T23:32:26.586Z",
+  "branch": "feature/US16---Comparar-sequência-manual-e-sequência-sugerida",
+  "commit": "03cffaef12376435d52eaf6da862662a8639c8cd",
+  "dirty": true,
+  "sourceSha256": "7df700beda5310a7b9849798eb95734320b7c06866588a2c67c6417f0d4beb00",
+  "browser": "chrome",
+  "configFile": "cypress.config.cjs",
+  "tags": "@US16_Catalogo",
+  "node": "v26.13.0",
+  "platform": "win32 10.0.26300",
+  "finishedAt": "2026-11-25T23:32:55.153Z",
+  "browserVersion": "158.0.8127.38",
+  "cypressVersion": "16.3.0",
+  "total": 1,
+  "passed": 0,
+  "failed": 1,
+  "pending": 0,
+  "skipped": 0,
+  "durationMs": 11342,
+  "tests": [
+    {
+      "title": "Comparar sequência manual e sequência sugerida / Comparar o planejamento quando o catálogo de máquinas responde 503",
+      "state": "failed"
+    }
+  ]
+}

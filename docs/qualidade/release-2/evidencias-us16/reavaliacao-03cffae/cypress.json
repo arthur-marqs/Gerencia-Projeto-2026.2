@@ -1,0 +1,83 @@
+{
+  "startedAt": "2026-11-25T23:19:58.272Z",
+  "branch": "feature/US16---Comparar-sequência-manual-e-sequência-sugerida",
+  "commit": "03cffaef12376435d52eaf6da862662a8639c8cd",
+  "dirty": false,
+  "sourceSha256": "ca423fe73a477ed00b2ef8e58193c752600ad453b749ff4861e4e322e4f07eaa",
+  "browser": "chrome",
+  "configFile": "cypress.config.cjs",
+  "tags": "(@US11 or @CT110 or @CT115 or @US15 or @US16) and not @wip",
+  "node": "v26.13.0",
+  "platform": "win32 10.0.26300",
+  "finishedAt": "2026-11-25T23:21:42.169Z",
+  "browserVersion": "158.0.8127.38",
+  "cypressVersion": "16.3.0",
+  "total": 15,
+  "passed": 15,
+  "failed": 0,
+  "pending": 0,
+  "skipped": 0,
+  "durationMs": 74943,
+  "tests": [
+    {
+      "title": "Comparar sequência manual e sequência sugerida / CT-120 Exibir as duas sequências e as diferenças",
+      "state": "passed"
+    },
+    {
+      "title": "Comparar sequência manual e sequência sugerida / CT-121 Orientar a geração quando falta sequência sugerida",
+      "state": "passed"
+    },
+    {
+      "title": "Comparar sequência manual e sequência sugerida / CT-122 Preservar os registros ao consultar a comparação",
+      "state": "passed"
+    },
+    {
+      "title": "Considerar compatibilidade entre produtos e máquinas / Atribuir ordens a máquinas compatíveis diferentes",
+      "state": "passed"
+    },
+    {
+      "title": "Considerar compatibilidade entre produtos e máquinas / Distribuir ordens entre máquinas compatíveis",
+      "state": "passed"
+    },
+    {
+      "title": "Considerar compatibilidade entre produtos e máquinas / Bloquear ordem sem máquina compatível",
+      "state": "passed"
+    },
+    {
+      "title": "Considerar compatibilidade entre produtos e máquinas / Bloquear ordem compatível somente com máquina inativa",
+      "state": "passed"
+    },
+    {
+      "title": "Considerar compatibilidade entre produtos e máquinas / Separar famílias entre máquinas compatíveis sem setup cadastrado",
+      "state": "passed"
+    },
+    {
+      "title": "Consultar matriz de setup entre famílias de produtos / Consultar tempos de setup diferentes em cada direção",
+      "state": "passed"
+    },
+    {
+      "title": "Consultar matriz de setup entre famílias de produtos / Consultar matriz sem configurações de setup",
+      "state": "passed"
+    },
+    {
+      "title": "Consultar matriz de setup entre famílias de produtos / Exibir família de destino ausente na lista de famílias",
+      "state": "passed"
+    },
+    {
+      "title": "Consultar matriz de setup entre famílias de produtos / Exibir família de origem ausente na lista de famílias",
+      "state": "passed"
+    },
+    {
+      "title": "Considerar prazos e prioridades no sequenciamento / Resolver o conflito entre prazo, prioridade e setup (example #1)",
+      "state": "passed"
+    },
+    {
+      "title": "Considerar prazos e prioridades no sequenciamento / Resolver o conflito entre prazo, prioridade e setup (example #2)",
+      "state": "passed"
+    },
+    {
+      "title": "Gerar sequência sugerida de produção / CT-110 Recuperar a sugestão e preservar o planejamento manual",
+      "state": "passed"
+    }
+  ]
+}

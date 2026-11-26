@@ -1,0 +1,151 @@
+{
+  "startedAt": "2026-11-25T23:35:59.764Z",
+  "branch": "feature/US16---Comparar-sequência-manual-e-sequência-sugerida",
+  "commit": "1e98b763e7fedfe195f4d9c1dd3f95665187bea9",
+  "dirty": false,
+  "sourceSha256": "82371680a912387cfbe3f7169bbb0007e6bbae9247b9d84dcb2cbf588bcd71ab",
+  "browser": "chrome",
+  "configFile": "cypress.config.cjs",
+  "tags": "(@US11 or @US13 or @US14 or @US15 or @US16) and not @wip",
+  "node": "v26.13.0",
+  "platform": "win32 10.0.26300",
+  "finishedAt": "2026-11-25T23:41:21.334Z",
+  "browserVersion": "158.0.8127.38",
+  "cypressVersion": "16.3.0",
+  "total": 32,
+  "passed": 31,
+  "failed": 1,
+  "pending": 0,
+  "skipped": 0,
+  "durationMs": 276928,
+  "tests": [
+    {
+      "title": "Comparar sequência manual e sequência sugerida / CT-120 Exibir as duas sequências e as diferenças",
+      "state": "passed"
+    },
+    {
+      "title": "Comparar sequência manual e sequência sugerida / CT-121 Orientar a geração quando falta sequência sugerida",
+      "state": "passed"
+    },
+    {
+      "title": "Comparar sequência manual e sequência sugerida / CT-122 Preservar os registros ao consultar a comparação",
+      "state": "passed"
+    },
+    {
+      "title": "Comparar sequência manual e sequência sugerida / Comparar o planejamento quando o catálogo de máquinas responde 503",
+      "state": "passed"
+    },
+    {
+      "title": "Considerar compatibilidade entre produtos e máquinas / Atribuir ordens a máquinas compatíveis diferentes",
+      "state": "passed"
+    },
+    {
+      "title": "Considerar compatibilidade entre produtos e máquinas / Distribuir ordens entre máquinas compatíveis",
+      "state": "passed"
+    },
+    {
+      "title": "Considerar compatibilidade entre produtos e máquinas / Bloquear ordem sem máquina compatível",
+      "state": "passed"
+    },
+    {
+      "title": "Considerar compatibilidade entre produtos e máquinas / Bloquear ordem compatível somente com máquina inativa",
+      "state": "passed"
+    },
+    {
+      "title": "Considerar compatibilidade entre produtos e máquinas / Separar famílias entre máquinas compatíveis sem setup cadastrado",
+      "state": "passed"
+    },
+    {
+      "title": "Consultar matriz de setup entre famílias de produtos / Consultar tempos de setup diferentes em cada direção",
+      "state": "passed"
+    },
+    {
+      "title": "Consultar matriz de setup entre famílias de produtos / Consultar matriz sem configurações de setup",
+      "state": "passed"
+    },
+    {
+      "title": "Consultar matriz de setup entre famílias de produtos / Exibir família de destino ausente na lista de famílias",
+      "state": "passed"
+    },
+    {
+      "title": "Consultar matriz de setup entre famílias de produtos / Exibir família de origem ausente na lista de famílias",
+      "state": "passed"
+    },
+    {
+      "title": "Considerar prazos e prioridades no sequenciamento / Priorizar uma ordem urgente mesmo com aumento de setup",
+      "state": "passed"
+    },
+    {
+      "title": "Considerar prazos e prioridades no sequenciamento / Considerar o prazo antes do setup em ordens de mesma prioridade",
+      "state": "passed"
+    },
+    {
+      "title": "Considerar prazos e prioridades no sequenciamento / Considerar prioridades diferentes em ordens de mesmo prazo",
+      "state": "passed"
+    },
+    {
+      "title": "Considerar prazos e prioridades no sequenciamento / Informar dados de planejamento incompletos",
+      "state": "passed"
+    },
+    {
+      "title": "Considerar prazos e prioridades no sequenciamento / Resolver o conflito entre prazo, prioridade e setup (example #1)",
+      "state": "passed"
+    },
+    {
+      "title": "Considerar prazos e prioridades no sequenciamento / Resolver o conflito entre prazo, prioridade e setup (example #2)",
+      "state": "passed"
+    },
+    {
+      "title": "Gerar sequência sugerida de produção / CT-79 Reduzir o setup entre famílias com tempos direcionais",
+      "state": "passed"
+    },
+    {
+      "title": "Gerar sequência sugerida de produção / CT-80 Gerar sugestão para uma única ordem",
+      "state": "passed"
+    },
+    {
+      "title": "Gerar sequência sugerida de produção / CT-81 Sugerir somente as ordens do subconjunto selecionado",
+      "state": "passed"
+    },
+    {
+      "title": "Gerar sequência sugerida de produção / CT-82 Bloquear a geração quando o produto não tem família",
+      "state": "passed"
+    },
+    {
+      "title": "Gerar sequência sugerida de produção / CT-83 Bloquear a geração quando falta um sentido da troca",
+      "state": "passed"
+    },
+    {
+      "title": "Gerar sequência sugerida de produção / CT-84 Gerar sugestão após corrigir as pendências",
+      "state": "passed"
+    },
+    {
+      "title": "Gerar sequência sugerida de produção / CT-85 Negar a solicitação direta à API para o Operador",
+      "state": "failed"
+    },
+    {
+      "title": "Gerar sequência sugerida de produção / CT-107 Gerar uma sugestão antes de salvar o planejamento manual",
+      "state": "passed"
+    },
+    {
+      "title": "Gerar sequência sugerida de produção / CT-108 Preservar a seleção que já tem o menor setup",
+      "state": "passed"
+    },
+    {
+      "title": "Gerar sequência sugerida de produção / CT-109 Preservar a seleção no empate entre os sentidos",
+      "state": "passed"
+    },
+    {
+      "title": "Gerar sequência sugerida de produção / CT-110 Recuperar a sugestão e preservar o planejamento manual",
+      "state": "passed"
+    },
+    {
+      "title": "Gerar sequência sugerida de produção / CT-111 Bloquear a geração sem ordens selecionadas",
+      "state": "passed"
+    },
+    {
+      "title": "Gerar sequência sugerida de produção / CT-112 Manter a seleção de várias ordens da mesma família",
+      "state": "passed"
+    }
+  ]
+}

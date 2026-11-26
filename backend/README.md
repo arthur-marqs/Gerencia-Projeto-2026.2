@@ -316,6 +316,27 @@ incompatibilidade ou inatividade, os setups independentes, a persistência e a
 integração com as regras da US14. Os resultados locais estão no
 [relatório de testes da US15](../docs/releases/release2/sprint3/relatorio-testes-us15.md).
 
+## US16 — Comparação de sequências
+
+Em **Planejamento manual**, use **Comparar sequências** no cartão de um
+planejamento salvo. A comparação exibe as duas sequências, as mudanças de
+posição das ordens e a diferença de setup estimado. Se faltar uma sugestão,
+abra o planejamento em **Editar** e use **Gerar sequência sugerida**.
+
+`GET /api/planejamentos/{id_planejamento}/comparacao` é restrita ao perfil
+`PLANEJADOR`. A consulta usa a sugestão mais recente para o mesmo conjunto
+de ordens e retorna `planejamento`, `sugestao` e `setup` sem gravar dados.
+A API retorna 404 se o planejamento não existe ou se ainda não há sugestão
+para suas ordens. Cada situação tem uma mensagem própria.
+
+Os totais comparam as duas sequências usando a distribuição por máquina da
+sugestão. `diferenca_minutos` é o total sugerido menos o manual. Quando a
+ordem manual coincide com a seleção original, a resposta usa os tempos
+registrados na geração. Se a ordem manual mudou, recalcula ambos os totais
+com os cadastros atuais. Quando falta uma família ou um tempo de troca
+necessário ao recálculo, `setup` é `null` e as duas sequências continuam
+disponíveis.
+
 ## US-32 — Gerenciamento de usuários
 
 Para testar pela interface e organizar os prints dos critérios de aceite, siga o

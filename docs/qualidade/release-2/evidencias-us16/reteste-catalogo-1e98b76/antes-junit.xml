@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites name="Mocha Tests" time="11.302" tests="1" failures="1">
+  <testsuite name="Root Suite" timestamp="2026-11-25T23:32:43" tests="0" file="cypress\e2e\comparacao.feature" time="0.000" failures="0">
+  </testsuite>
+  <testsuite name="Comparar sequência manual e sequência sugerida" timestamp="2026-11-25T23:32:43" tests="1" time="11.296" failures="1">
+    <testcase name="Comparar sequência manual e sequência sugerida Comparar o planejamento quando o catálogo de máquinas responde 503" time="0.000" classname="Comparar o planejamento quando o catálogo de máquinas responde 503">
+      <failure message="Timed out retrying after 4000ms: Expected to find content: &apos;Planejamento manual US13&apos; within the selector: &apos;[data-cy=&quot;planejamento-card&quot;]&apos; but never did." type="AssertionError"><![CDATA[AssertionError: Timed out retrying after 4000ms: Expected to find content: 'Planejamento manual US13' within the selector: '[data-cy="planejamento-card"]' but never did.
+    at cardDoPlano (http://localhost:5173/__cypress/tests?p=cypress\e2e\comparacao.feature:14028:30)
+    at Context.eval (http://localhost:5173/__cypress/tests?p=cypress\e2e\comparacao.feature:14125:16)
+    at Registry.runStepDefinition (http://localhost:5173/__cypress/tests?p=cypress\e2e\comparacao.feature:9411:48)
+    at Object.fn (http://localhost:5173/__cypress/tests?p=cypress\e2e\comparacao.feature:12640:42)
+    at runStepWithLogGroup (http://localhost:5173/__cypress/tests?p=cypress\e2e\comparacao.feature:11370:29)
+    at Context.eval (http://localhost:5173/__cypress/tests?p=cypress\e2e\comparacao.feature:12633:60)
+    at getRet (http://localhost:5173/__cypress/runner/cypress_runner.js:122309:22)
+    at tryCatcher (http://localhost:5173/__cypress/runner/cypress_runner.js:1776:23)
+    at Promise.attempt.Promise.try (http://localhost:5173/__cypress/runner/cypress_runner.js:4284:29)]]></failure>
+    </testcase>
+  </testsuite>
+</testsuites>

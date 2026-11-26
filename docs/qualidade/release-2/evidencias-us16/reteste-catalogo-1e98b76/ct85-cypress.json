@@ -1,0 +1,27 @@
+{
+  "startedAt": "2026-11-25T23:42:01.479Z",
+  "branch": "feature/US16---Comparar-sequência-manual-e-sequência-sugerida",
+  "commit": "1e98b763e7fedfe195f4d9c1dd3f95665187bea9",
+  "dirty": true,
+  "sourceSha256": "82371680a912387cfbe3f7169bbb0007e6bbae9247b9d84dcb2cbf588bcd71ab",
+  "browser": "chrome",
+  "configFile": "cypress.config.cjs",
+  "tags": "@CT85",
+  "node": "v26.13.0",
+  "platform": "win32 10.0.26300",
+  "finishedAt": "2026-11-25T23:42:32.855Z",
+  "browserVersion": "158.0.8127.38",
+  "cypressVersion": "16.3.0",
+  "total": 1,
+  "passed": 1,
+  "failed": 0,
+  "pending": 0,
+  "skipped": 0,
+  "durationMs": 8863,
+  "tests": [
+    {
+      "title": "Gerar sequência sugerida de produção / CT-85 Negar a solicitação direta à API para o Operador",
+      "state": "passed"
+    }
+  ]
+}

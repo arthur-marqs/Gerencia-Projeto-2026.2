@@ -15,15 +15,41 @@ from app.models.produto import Produto
 from app.models.sugestao_planejamento import ItemSugestaoPlanejamento, SugestaoPlanejamento
 from app.models.tempo_setup_familia import TempoSetupFamilia
 from app.models.usuario import Usuario
-from app.schemas.planejamento import SugestaoPlanejamentoCreate, SugestaoPlanejamentoResponse
+from app.schemas.planejamento import (
+    ComparacaoPlanejamentoResponse,
+    ComparacaoSetupResponse,
+    SugestaoPlanejamentoCreate,
+    SugestaoPlanejamentoResponse,
+)
 from app.services.distribuicao_maquinas import (
     distribuir_ordens,
     redistribuir_com_setups_cadastrados,
 )
 from app.services.sequenciamento import DadosSequenciamento
-from app.services.sequenciamento_maquinas import sugerir_sequencia_por_maquina
+from app.services.sequenciamento_maquinas import (
+    calcular_setup_por_maquina,
+    sugerir_sequencia_por_maquina,
+)
 
 router = APIRouter()
+
+
+def _carregar_tempos_setup(
+    db: Session, familias: list[UUID],
+) -> dict[tuple[UUID, UUID], int]:
+    return {
+        (origem, destino): minutos
+        for origem, destino, minutos in db.execute(
+            select(
+                TempoSetupFamilia.familia_origem_id,
+                TempoSetupFamilia.familia_destino_id,
+                TempoSetupFamilia.tempo_setup_minutos,
+            ).where(
+                TempoSetupFamilia.familia_origem_id.in_(familias),
+                TempoSetupFamilia.familia_destino_id.in_(familias),
+            )
+        )
+    }
 
 
 @router.post(
@@ -118,21 +144,7 @@ def gerar_sugestao(
     tempos: dict[tuple[UUID, UUID], int] = {}
 
     if pares_necessarios:
-        familias = list(codigos_familias)
-
-        tempos = {
-            (origem, destino): minutos
-            for origem, destino, minutos in db.execute(
-                select(
-                    TempoSetupFamilia.familia_origem_id,
-                    TempoSetupFamilia.familia_destino_id,
-                    TempoSetupFamilia.tempo_setup_minutos,
-                ).where(
-                    TempoSetupFamilia.familia_origem_id.in_(familias),
-                    TempoSetupFamilia.familia_destino_id.in_(familias),
-                )
-            )
-        }
+        tempos = _carregar_tempos_setup(db, list(codigos_familias))
 
         setups_ausentes = [par for par in pares_necessarios if par not in tempos]
         if setups_ausentes and not pendencias:
@@ -252,13 +264,22 @@ def consultar_sugestao_do_planejamento(
     if not ordens_ids and db.get(Planejamento, id_planejamento) is None:
         raise HTTPException(404, "Planejamento não encontrado.")
 
+    sugestao = _buscar_sugestao_para_ordens(db, list(ordens_ids))
+    if sugestao is None:
+        raise HTTPException(404, "Nenhuma sugestão foi gerada para as ordens deste planejamento.")
+    return sugestao
+
+
+def _buscar_sugestao_para_ordens(
+    db: Session, ordens_ids: list[UUID],
+) -> SugestaoPlanejamento | None:
     sugestoes_com_todas_as_ordens = (
         select(ItemSugestaoPlanejamento.sugestao_id)
         .where(ItemSugestaoPlanejamento.ordem_id.in_(ordens_ids))
         .group_by(ItemSugestaoPlanejamento.sugestao_id)
         .having(func.count() == len(ordens_ids))
     )
-    sugestao = db.scalar(
+    return db.scalar(
         select(SugestaoPlanejamento)
         .options(selectinload(SugestaoPlanejamento.itens))
         .where(
@@ -268,6 +289,77 @@ def consultar_sugestao_do_planejamento(
         .order_by(SugestaoPlanejamento.criado_em.desc(), SugestaoPlanejamento.id_sugestao.desc())
         .limit(1)
     )
+
+
+def _comparar_setups(
+    db: Session, manual: list[UUID], sugestao: SugestaoPlanejamento,
+) -> ComparacaoSetupResponse | None:
+    original = [
+        item.ordem_id
+        for item in sorted(sugestao.itens, key=lambda item: item.posicao_original)
+    ]
+    if manual == original:
+        total_manual = sugestao.tempo_setup_original_minutos
+        total_sugerido = sugestao.tempo_setup_total_minutos
+        return ComparacaoSetupResponse(
+            manual_minutos=total_manual,
+            sugerido_minutos=total_sugerido,
+            diferenca_minutos=total_sugerido - total_manual,
+            referencia="registrado",
+        )
+
+    familias_por_ordem = {
+        ordem: familia
+        for ordem, familia in db.execute(
+            select(OrdemProducao.id_ordem, Produto.family_id)
+            .join(OrdemProducao.produto)
+            .where(OrdemProducao.id_ordem.in_(manual), Produto.family_id.is_not(None))
+        )
+    }
+    if len(familias_por_ordem) != len(manual):
+        return None
+
+    maquinas_por_ordem = {item.ordem_id: item.maquina_id for item in sugestao.itens}
+    sugerida = [item.ordem_id for item in sugestao.itens]
+    tempos = _carregar_tempos_setup(db, list(set(familias_por_ordem.values())))
+    try:
+        total_manual = calcular_setup_por_maquina(
+            manual, familias_por_ordem, maquinas_por_ordem, tempos,
+        )
+        total_sugerido = calcular_setup_por_maquina(
+            sugerida, familias_por_ordem, maquinas_por_ordem, tempos,
+        )
+    except KeyError:
+        return None
+    return ComparacaoSetupResponse(
+        manual_minutos=total_manual,
+        sugerido_minutos=total_sugerido,
+        diferenca_minutos=total_sugerido - total_manual,
+        referencia="atual",
+    )
+
+
+@router.get("/{id_planejamento}/comparacao", response_model=ComparacaoPlanejamentoResponse)
+def comparar_planejamento(
+    id_planejamento: UUID,
+    db: Session = Depends(get_db),
+    _usuario: Usuario = Depends(require_profiles("PLANEJADOR")),
+):
+    planejamento = db.get(
+        Planejamento, id_planejamento, options=[selectinload(Planejamento.itens)],
+    )
+    if planejamento is None:
+        raise HTTPException(404, "Planejamento não encontrado.")
+
+    manual = [item.ordem_id for item in planejamento.itens]
+    sugestao = _buscar_sugestao_para_ordens(db, manual)
     if sugestao is None:
-        raise HTTPException(404, "Nenhuma sugestão foi gerada para as ordens deste planejamento.")
-    return sugestao
+        raise HTTPException(
+            404, "Gere uma sequência sugerida para este planejamento antes de comparar.",
+        )
+
+    return {
+        "planejamento": planejamento,
+        "sugestao": sugestao,
+        "setup": _comparar_setups(db, manual, sugestao),
+    }

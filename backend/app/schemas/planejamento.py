@@ -1,5 +1,6 @@
 
 from datetime import datetime
+from typing import Literal
 from uuid import UUID
 
 from pydantic import BaseModel, ConfigDict, Field, field_validator
@@ -74,3 +75,16 @@ class SugestaoPlanejamentoResponse(BaseModel):
     tempo_setup_original_minutos: int
     tempo_setup_total_minutos: int
     itens: list[ItemSugestaoPlanejamentoResponse]
+
+
+class ComparacaoSetupResponse(BaseModel):
+    manual_minutos: int
+    sugerido_minutos: int
+    diferenca_minutos: int
+    referencia: Literal["registrado", "atual"]
+
+
+class ComparacaoPlanejamentoResponse(BaseModel):
+    planejamento: PlanejamentoResponse
+    sugestao: SugestaoPlanejamentoResponse
+    setup: ComparacaoSetupResponse | None
