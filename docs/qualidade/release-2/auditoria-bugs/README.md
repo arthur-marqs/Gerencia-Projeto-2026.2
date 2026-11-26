@@ -1,5 +1,7 @@
 # Auditoria de bugs — SetupFlow Release 2
 
+O [ciclo de regressão de 26/11/2026](../regressao-release-2.md) atualiza a verificação da integração, repete os retestes e registra as novas medições. [Relatório de Qualidade da Release 2](../../../releases/release2/relatorio-qualidade-release-2.md)
+
 Avaliação original em 26/11/2026, Sprints 2 e 3, na versão integrada [`08a62f5d1d164c7ee2cfbb0282aa7f9784baaf8f`](https://github.com/arthur-marqs/Gerencia-Projeto-2026.2/commit/08a62f5d1d164c7ee2cfbb0282aa7f9784baaf8f).
 
 As histórias e os drivers integrados foram aceitos pelo PO, com a DoD concluída por item. [Estado das entregas](../../../status-projeto.md)
