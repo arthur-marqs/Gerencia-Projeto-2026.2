@@ -479,6 +479,26 @@ Execute a suíte do Driver02, que verifica 20 operações cujo commit é confirm
 
 As duas suítes também podem ser executadas juntas com `.\.venv\Scripts\python.exe -m pytest -v --junitxml=junit.xml testes`.
 
+## Integridade da gravação de ordens (Driver01)
+
+O tratamento de falhas de persistência cobre três operações permitidas ao perfil `PLANEJADOR`.
+
+| Método e rota | Gravação |
+| --- | --- |
+| `POST /api/ordens-producao` | Cadastro da ordem e da operação vinculada à `Idempotency-Key`. |
+| `PATCH /api/ordens-producao/{ordem_id}/duracao-estimada` | Atualização da duração estimada. |
+| `PUT /api/ordens-producao/{id_ordem}` | Atualização do prazo e da prioridade. |
+
+Diante de um erro de comunicação detectado durante essas gravações, a API tenta desfazer a transação e retorna HTTP `503` com orientação para atualizar a consulta. Consulte o estado persistido antes de reenviar. Ao repetir o mesmo cadastro com os mesmos dados, mantenha a `Idempotency-Key` da primeira tentativa.
+
+Na pasta `backend`, configure `TEST_DATABASE_URL` para um banco PostgreSQL descartável com nome terminado em `_test`. Execute os 20 testes do driver com o comando abaixo. A suíte injeta exceções no SQLAlchemy após escritas reais e verifica por nova conexão que não ficaram ordens, chaves ou alterações parciais.
+
+```powershell
+.\.venv\Scripts\python.exe -m pytest -v testes\integration\drivers\test_driver01_integridade_ordens.py
+```
+
+O registro do andamento da execução, como iniciar ou concluir a produção de uma ordem, permanece indisponível neste incremento. Sua validação está pendente nos cenários CT-127, CT-128 e CT-129. O relatório contém a medição com desconexões reais e o inventário da API e do banco usados para verificar essa disponibilidade. [Relatório de QA do Driver01](../docs/qualidade/release-2/revisao-driver01.md)
+
 
 ## Cobertura dos testes do backend
 

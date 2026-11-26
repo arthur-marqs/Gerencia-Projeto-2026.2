@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites name="Mocha Tests" time="3.814" tests="3" failures="0">
+  <testsuite name="Root Suite" timestamp="2026-11-26T00:07:14" tests="3" file="qa_interface.cy.js" time="3.810" failures="0">
+    <testcase name="informa falha no cadastro e confirma somente a resposta de sucesso" time="1.800" classname="informa falha no cadastro e confirma somente a resposta de sucesso">
+    </testcase>
+    <testcase name="informa falha na duração e confirma somente a resposta de sucesso" time="0.828" classname="informa falha na duração e confirma somente a resposta de sucesso">
+    </testcase>
+    <testcase name="informa falha no prazo e na prioridade e confirma somente a resposta de sucesso" time="1.027" classname="informa falha no prazo e na prioridade e confirma somente a resposta de sucesso">
+    </testcase>
+  </testsuite>
+</testsuites>
