@@ -15,6 +15,7 @@ from app.models.planejamento import Planejamento
 from app.models.item_planejamento import ItemPlanejamento
 from app.models.sugestao_planejamento import ItemSugestaoPlanejamento, SugestaoPlanejamento
 from app.models.tempo_setup_familia import TempoSetupFamilia
+from app.models.aprovacao_planejamento import AprovacaoPlanejamento, ItemAprovacaoPlanejamento
 
 __all__ = [
     "Family",
@@ -34,4 +35,6 @@ __all__ = [
     "ItemPlanejamento",
     "SugestaoPlanejamento",
     "ItemSugestaoPlanejamento",
+    "AprovacaoPlanejamento",
+    "ItemAprovacaoPlanejamento",
 ]
