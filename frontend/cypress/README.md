@@ -1,4 +1,4 @@
-# Aceite BDD das US11, US13, US14, US15, US16 e US32
+# Aceite BDD das US11, US13, US14, US15, US16, US17 e US32
 
 A suíte utiliza Cypress 16 + Cucumber/Gherkin em português, API FastAPI real e PostgreSQL exclusivo para testes.
 
@@ -12,6 +12,9 @@ em [`compatibilidade.feature`](e2e/compatibilidade.feature).
 
 A US16 automatiza a consulta comparativa em [`comparacao.feature`](e2e/comparacao.feature).
 O mesmo arquivo cobre a comparação durante falha do catálogo de máquinas.
+
+A US17 automatiza os cenários de aprovação e consulta da sequência para
+execução em [`aprovacao.feature`](e2e/aprovacao.feature).
 
 O smoke usa `@smoke` e a regressão usa `@regressao`. Na US13, o smoke inclui o CT-107 e o CT-110.
 
@@ -156,6 +159,14 @@ histórias de sequenciamento usa `@US13 or @US14 or @US15`.
 | CT-122 | Preservação das sequências gravadas após a consulta |
 | `@US16_Catalogo` | Comparação e ordens disponíveis com HTTP 503 simulado no catálogo, aviso específico e retorno da identificação nominal |
 
+### Cenários da US17
+
+| Caso | Cobertura |
+| --- | --- |
+| CT-123 | Aprovar o manual, recarregar e conferir a sequência persistida com o Planejador e o Operador |
+| CT-124 | Informar ausência de planejamento e verificar que nenhuma aprovação foi registrada |
+| CT-125 | Escolher explicitamente a sugestão entre duas sequências e preservar os registros de origem |
+
 ### Cenários da US32
 
 O CT43 começa sem contas e chama o script inicial com entradas controladas;
@@ -171,7 +182,7 @@ as variáveis `DB_*`/`E2E_DATABASE_URL` corretas. Não é necessário para execu
 
 ## Tags e comandos
 
-`cypress.config.cjs` descobre as features de aceite em `cypress/e2e/*.feature` e executa os cenários das US11, US13, US14, US15, US16 e US32 filtrados pelas tags, com API e banco reais. `cypress.config.ts` executa os cenários de autenticação.
+`cypress.config.cjs` descobre as features de aceite em `cypress/e2e/*.feature` e executa os cenários das US11, US13, US14, US15, US16, US17 e US32 filtrados pelas tags, com API e banco reais. `cypress.config.ts` executa os cenários de autenticação.
 
 
 | Comando | Seleção |
@@ -182,6 +193,7 @@ as variáveis `DB_*`/`E2E_DATABASE_URL` corretas. Não é necessário para execu
 | `npm run test:e2e -- --browser chrome --tags "@US14 and not @wip"` | Os seis casos de prazos e prioridades |
 | `npm run test:e2e -- --browser chrome --tags "@US15" --suite us15` | Os cinco cenários de compatibilidade |
 | `npm run test:e2e -- --browser chrome --tags "@US16" --suite us16` | Casos da comparação e regressão do catálogo |
+| `npm run test:e2e -- --browser chrome --tags "@US17" --suite us17` | CT-123 a CT-125 da aprovação de planejamento |
 | `npm run test:e2e -- --browser chrome --tags "@US13 or @US14 or @US15" --suite us15-integrada` | Regressão direcionada das três histórias de sequenciamento |
 | `npm run test:e2e -- --browser chrome --tags "@CT110"` | Recuperação da sugestão e preservação do planejamento manual |
 | `npm run test:e2e -- --browser chrome --tags "@CT39"` | Somente bloqueios por vínculos |

@@ -337,6 +337,30 @@ com os cadastros atuais. Quando falta uma família ou um tempo de troca
 necessário ao recálculo, `setup` é `null` e as duas sequências continuam
 disponíveis.
 
+## US17 — Aprovar planejamento de produção
+
+Em **Execução da produção**, o Planejador pode selecionar e conferir uma
+sequência manual salva ou uma sugestão gerada antes de aprová-la. Na mesma
+tela, Planejador e Operador podem consultar as sequências aprovadas.
+
+| API | Perfil | Comportamento |
+| --- | --- | --- |
+| `GET /api/planejamentos/aprovacoes/candidatos` | `PLANEJADOR` | Lista sequências com ordens pendentes e ainda disponíveis para aprovação. |
+| `POST /api/planejamentos/aprovacoes` | `PLANEJADOR` | Aprova a origem `manual` ou `sugerida` identificada por `origem_id`. A interface envia `ordens_ids` na ordem conferida para detectar uma edição concorrente. |
+| `GET /api/planejamentos/aprovacoes` | `PLANEJADOR`, `OPERADOR` | Lista os planejamentos aprovados com suas ordens, posições e máquinas atribuídas. |
+
+A aprovação guarda a origem escolhida, o responsável, a data e a sequência
+de ordens e máquinas em uma transação. A sequência manual pode ter itens
+sem máquina atribuída. As alternativas permanecem cadastradas e o manual
+aprovado fica protegido contra edição. A mesma ordem só pode integrar uma
+aprovação. Reenviar a aprovação da mesma origem retorna o registro existente.
+A tentativa sem planejamento retorna 404 com uma mensagem específica.
+
+Aplique `alembic upgrade head` para incluir as tabelas da revisão
+`8d17b4f2c306`. As sequências existentes continuam disponíveis para seleção.
+Os testes da API estão em `testes/integration/test_us17_aprovacao.py` e os
+casos CT-123 a CT-125 estão no [guia do Cypress](../frontend/cypress/README.md#cenários-da-us17).
+
 ## US-32 — Gerenciamento de usuários
 
 Para testar pela interface e organizar os prints dos critérios de aceite, siga o
