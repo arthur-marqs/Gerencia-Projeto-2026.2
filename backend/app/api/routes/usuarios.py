@@ -9,6 +9,7 @@ from sqlalchemy.orm import Session
 
 from app.api.deps import get_current_user, get_db, require_profiles
 from app.core.security import hash_password
+from app.models.aprovacao_planejamento import AprovacaoPlanejamento
 from app.models.ordem_producao import OrdemProducao
 from app.models.ordem_producao_operacao import OrdemProducaoOperacao
 from app.models.perfil import Perfil
@@ -195,6 +196,7 @@ def excluir(usuario_id: UUID, db: Session = Depends(get_db),
         (OrdemProducao.criado_por, "ordens de produção"),
         (Planejamento.criado_por, "planejamentos"),
         (SugestaoPlanejamento.criado_por, "sugestões de planejamento"),
+        (AprovacaoPlanejamento.aprovado_por, "aprovações de planejamento"),
         (OrdemProducaoOperacao.usuario_id, "operações de ordens de produção"),
     ):
         if db.scalar(select(campo).where(campo == usuario_id).limit(1)) is not None:

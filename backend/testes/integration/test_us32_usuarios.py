@@ -8,6 +8,8 @@ from fastapi.testclient import TestClient
 from sqlalchemy import text
 from sqlalchemy.orm import sessionmaker
 
+from testes.integration.test_us12_planejamento_manual import _criar_ordens, _criar_planejamento
+
 
 API = "/api/usuarios"
 SENHA = "SenhaUS32!2026"
@@ -227,6 +229,48 @@ def test_autoria_de_sugestao_impede_exclusao(admin, auth_state):
     assert consulta.status_code == 200
     assert consulta.json() == sugestao
     assert consulta.json()["criado_por"] == autor["id"]
+
+
+def test_aprovacao_impede_exclusao_e_preserva_historico_apos_desativacao(admin, auth_state):
+    aprovador = criar(admin)
+    ordens_ids = _criar_ordens(admin)
+    resposta_plano = _criar_planejamento(admin, ordens_ids, nome="Plano US17")
+    assert resposta_plano.status_code == 201, resposta_plano.text
+    plano = resposta_plano.json()
+    assert plano["criado_por"] == str(auth_state.user_id)
+    rota_usuario = f"{API}/{aprovador['id']}"
+    rota_aprovacoes = "/api/planejamentos/aprovacoes"
+
+    with TestClient(auth_state.app, client=("192.0.2.32", 50000)) as planejador:
+        assert login(planejador, aprovador["email"]).status_code == 200
+        resposta = planejador.post(rota_aprovacoes, json={
+            "origem": "manual",
+            "origem_id": plano["id_planejamento"],
+            "ordens_ids": ordens_ids,
+        })
+        assert resposta.status_code == 201, resposta.text
+        aprovacao = resposta.json()
+        assert aprovacao["aprovado_por"] == aprovador["id"]
+        assert aprovacao["status"] == "APROVADO"
+
+        exclusao = admin.delete(rota_usuario)
+        assert exclusao.status_code == 409, exclusao.text
+        assert exclusao.json()["detail"] == {
+            "mensagem": "Exclusão impedida por vínculos com aprovações de planejamento.",
+            "vinculos": ["aprovações de planejamento"],
+            "pode_desativar": True,
+        }
+        assert admin.get(rota_usuario).json() == aprovador
+
+        desativacao = admin.patch(f"{rota_usuario}/status", json={"ativo": False})
+        assert desativacao.status_code == 200, desativacao.text
+        assert desativacao.json() == {**aprovador, "ativo": False}
+        assert planejador.get("/api/auth/me").status_code == 401
+
+    nova_exclusao = admin.delete(rota_usuario)
+    assert nova_exclusao.status_code == 409, nova_exclusao.text
+    assert nova_exclusao.json()["detail"]["pode_desativar"] is False
+    assert admin.get(rota_aprovacoes).json() == [aprovacao]
 
 
 @pytest.mark.parametrize("acao", ["excluir", "desativar", "perfil"])

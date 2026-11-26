@@ -407,10 +407,10 @@ para preservar essa regra entre solicitações simultâneas. A unicidade do e-ma
 também é garantida por constraint do banco. O login bloqueia a conta durante a
 criação da sessão para coordená-la com trocas de senha e desativações.
 
-Vínculos de autoria em ordens, planejamentos, sugestões de planejamento e
-operações de cadastro de ordens bloqueiam a exclusão da conta. A API retorna 409
-com os tipos de vínculo e a indicação `pode_desativar`. A interface oferece a
-desativação quando permitida e a autoria continua registrada.
+Vínculos de autoria em ordens, planejamentos, sugestões, aprovações de
+planejamento e operações de cadastro de ordens bloqueiam a exclusão da conta.
+A API retorna 409 com os tipos de vínculo e a indicação `pode_desativar`.
+A interface oferece a desativação quando permitida e a autoria continua registrada.
 Dados inválidos retornam 422, e-mail em uso retorna 409, conta inexistente retorna
 404, sessão ausente/inválida retorna 401 e perfil insuficiente retorna 403.
 Nenhuma resposta de gerenciamento, incluindo erros de validação, retorna a senha
