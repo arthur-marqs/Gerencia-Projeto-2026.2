@@ -4,6 +4,8 @@
 
 A Release 1 entrega a base web do SetupFlow para autenticação de usuários e manutenção de dados usados no planejamento da produção. Inclui uma interface React, uma API FastAPI e persistência em PostgreSQL.
 
+A publicação da Release 1 está na tag [v0.1.0](https://github.com/arthur-marqs/Gerencia-Projeto-2026.2/releases/tag/v0.1.0). As histórias US01 a US08 e o Driver05 foram aprovados pelo PO e integrados. [Entregas e Definition of Done](../../status-projeto.md#release-1)
+
 ## Funcionalidades incluídas
 
 - **Autenticação e sessão:** login, validação de credenciais, sessão persistida, consulta do usuário autenticado e logout.
@@ -18,13 +20,11 @@ A Release 1 entrega a base web do SetupFlow para autenticação de usuários e m
 
 A integração contínua executa os testes do backend e as verificações de lint e build de produção do frontend. A [execução da pipeline da Release 1](https://github.com/arthur-marqs/Gerencia-Projeto-2026.2/actions/runs/40959460641) foi concluída com sucesso. Consulte o [relatório da pipeline](relatorio_pipeline.md) para os detalhes e a evidência JUnit.
 
-## Limitações conhecidas
+## Evolução após a Release 1
 
-- A geração automática de sequências de produção ainda não está disponível.
-- A prevenção de duplicidade no reenvio de ordens (Driver02) não está implementada.
-- O histórico de alterações (US30) não está implementado.
-- A Release 1 ainda não possui tag Git nem publicação de Release no GitHub.
+- A geração automática de sequências (US13) e a prevenção de duplicidade no reenvio de ordens (Driver02) foram integradas e aceitas na Release 2.
+- O histórico de alterações (US30) segue previsto no escopo de evolução. [Estado das entregas](../../status-projeto.md)
 
 ## Execução local
 
-Consulte o [README principal](../../../README.md), o [guia de configuração do backend](../../../backend/README.md) e o [guia do frontend](../../../frontend/README.md) para configurar o PostgreSQL, instalar dependências, iniciar a aplicação e executar os testes.
+Consulte o [README principal](../../../README.md), o [guia de configuração do backend](../../../backend/README.md) e o [guia do frontend](../../../frontend/README.MD) para configurar o PostgreSQL, instalar dependências, iniciar a aplicação e executar os testes.

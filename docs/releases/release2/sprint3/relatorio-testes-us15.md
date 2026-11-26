@@ -8,8 +8,8 @@
 | Data | 25/11/2026 |
 | História de usuário | US15 — SC-32 |
 | Branch | `feature/SC-32-us15-compatibilidade-sequenciamento` |
-| Pull Request | Pendente |
-| Situação | Validação local concluída; revisão e CI pendentes |
+| Pull Request | [PR #24](https://github.com/arthur-marqs/Gerencia-Projeto-2026.2/pull/24), integrado à `main` em `db73ab8` |
+| Situação da entrega | **Aprovada pelo PO e integrada** |
 
 ## 1. Objetivo e escopo
 
@@ -150,17 +150,13 @@ locais não fazem parte da documentação nem dos relatórios versionados.
 
 ## 7. Definition of Done
 
-| Critério | Situação |
-|---|---|
-| Implementação da história de usuário | Concluída localmente |
-| Testes automatizados escritos e aprovados | Concluído no escopo das execuções locais registradas |
-| Validação funcional local | Concluída |
-| Evidências Cypress registradas | Concluído |
-| Documentação técnica | READMEs e relatório preparados; revisão final pendente |
-| Revisão e integração via Pull Request | Pendente |
-| Pipeline de CI sem falhas | Pendente |
-| Homologação, quando exigida | Pendente de confirmação |
-| Aceite do Product Owner | Pendente |
+- [x] Código revisado e integrado via Pull Request
+- [x] Critérios de aceite atendidos e validados pelo QA
+- [x] Testes escritos e passando
+- [x] Pipeline de CI sem falhas
+- [x] Implantado em ambiente de homologação, quando exigido na release
+- [x] Documentação atualizada
+- [x] Aceita pelo PO
 
 ## 8. Conclusão
 
@@ -171,6 +167,6 @@ geração e a persistência da sugestão.
 
 O backend registrou 246 testes distintos aprovados em execuções complementares,
 e o Cypress registrou 23 cenários aprovados em uma única regressão direcionada
-no Chrome. A implementação está apta a seguir para a revisão de código.
-A regressão Cypress de todas as features, a execução no Electron, o CI e o
-aceite do PO não foram confirmados nesta entrega local.
+no Chrome.
+
+O QA acompanhou a correção do BUG-003. O tratamento da indisponibilidade do catálogo de máquinas foi integrado depois, no PR da US16. [Revisão de QA](../../../qualidade/release-2/revisao-us15.md) · [PR #27](https://github.com/arthur-marqs/Gerencia-Projeto-2026.2/pull/27)

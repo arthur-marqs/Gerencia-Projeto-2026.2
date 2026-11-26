@@ -1,6 +1,8 @@
 # Revisão de QA da US16 — Comparar sequência manual e sequência sugerida
 
-> **Situação atual — falha do catálogo resolvida e verificada localmente em `1e98b76`.** O Planejador consegue abrir a comparação durante o 503 do catálogo. **Parecer de QA da US16 — Validação inconclusiva para aceite**, com evidência de CI do commit corrigido, DoD vigente, integração e aceite do PO ainda pendentes. A aplicabilidade da homologação continua em aberto.
+**Situação da entrega em 26/11/2026 · Aprovada pelo PO e integrada à `main`.** [PR #27](https://github.com/arthur-marqs/Gerencia-Projeto-2026.2/pull/27) (`10cdd8a`). Os sete critérios do DoD estão concluídos para o incremento aceito. [Definition of Done](../../status-projeto.md#definition-of-done-dod)
+
+A correção do catálogo foi integrada com a história. O reteste de `1e98b76` confirma que o Planejador consegue abrir a comparação durante um 503 do catálogo.
 
 ## Reteste da correção do catálogo
 
@@ -97,7 +99,7 @@ npm run test:e2e -- --browser chrome --tags '(@US11 or @CT110 or @CT115 or @US15
 
 **Resultado obtido.** A tela exibiu «Não foi possível carregar os dados» e ocultou o cartão e o botão de comparação. A consulta direta da comparação devolveu HTTP 200 com o plano e a sugestão. O reteste usou uma resposta 503 injetada em laboratório. [Captura com 503](evidencias-us16/reavaliacao-03cffae/cartao-ausente-com-catalogo-503.png) · [JUnit da sondagem](evidencias-us16/reavaliacao-03cffae/sondagem-ui.xml)
 
-## 6. Definição de pronto e condições de entrega
+## 6. DoD na avaliação de `03cffae`
 
 DoD formal da US16 — **Não verificado**. A tabela registra as condições observáveis do plano, do template de PR e da revisão. A release pode ter outras condições acordadas pela equipe.
 

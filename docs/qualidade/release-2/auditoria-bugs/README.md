@@ -2,7 +2,9 @@
 
 Avaliação original em 26/11/2026, Sprints 2 e 3, na versão integrada [`08a62f5d1d164c7ee2cfbb0282aa7f9784baaf8f`](https://github.com/arthur-marqs/Gerencia-Projeto-2026.2/commit/08a62f5d1d164c7ee2cfbb0282aa7f9784baaf8f).
 
-**Parecer da auditoria original — Pendente de ajustes.** Foram confirmados dois bugs, um de severidade alta e um de severidade média. As correções do BUG-004 e do BUG-005 foram validadas localmente em 26/11/2026 e aguardam integração. [Reteste do BUG-004](reteste-bug004.md) · [Reteste do BUG-005](reteste-bug005.md)
+As histórias e os drivers integrados foram aceitos pelo PO, com a DoD concluída por item. [Estado das entregas](../../../status-projeto.md)
+
+**Acompanhamento dos defeitos em 26/11/2026.** A auditoria encontrou dois bugs no código integrado. As correções foram validadas em `docs/qualidade` e aguardam integração à `main`. [Reteste do BUG-004](reteste-bug004.md) · [Reteste do BUG-005](reteste-bug005.md)
 
 | Ordem sugerida | Achado | Severidade | Prioridade sugerida | Situação | Issue |
 |---|---|---|---|---|---|

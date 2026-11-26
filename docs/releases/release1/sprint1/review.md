@@ -1,5 +1,7 @@
 # Sprint Review das US - Feita pelo PO — Sprint 1
 
+Esta ata registra a decisão da Sprint 1 em 29/10/2026. Os nove itens aceitos na sprint estão integrados e com o DoD concluído. A US09 e o Driver02 foram integrados e aceitos na Release 2. [Estado das entregas](../../../status-projeto.md)
+
 ## Sprint Goal definido na Planning
 Permitir que o usuário entre no sistema, cadastre os dados essenciais e registre ordens prontas para serem planejadas.
 
@@ -9,7 +11,7 @@ Permitir que o usuário entre no sistema, cadastre os dados essenciais e registr
 - **Ordens de produção:** cadastro de ordens com prazo e prioridade definidos (US07 e US08).
 - **Proteção de login:** prevenção contra tentativas repetidas de autenticação (Driver05).
 - O repositório contém telas do frontend e rotas da API para esses fluxos, além de testes de integração para as histórias US01 a US08 e para o Driver05.
-- **Itens não concluídos na sprint:** Informar a duração estimada da ordem (US09) e prevenir duplicidade no reenvio de ordens (Driver02) não foram concluidas nessa sprint e ficarão para a sprint 2.
+- **Itens que avançaram para a Sprint 2.** Informar a duração estimada da ordem (US09) e prevenir duplicidade no reenvio de ordens (Driver02).
 
 ## Avaliação do PO
 - Meta atingida? Parcialmente
@@ -65,20 +67,20 @@ Permitir que o usuário entre no sistema, cadastre os dados essenciais e registr
 - Evidências: [SC-25](https://gerencia-team-arthur-leo-luiz.atlassian.net/browse/SC-25) · [testes de prazo e prioridade](../../../../backend/testes/integration/test_us08_prazo_prioridade_ordem.py)
 - Data: 29/10/2026
 
-### US09 —  Informar duração estimada da ordem de produção
-- Resultado: **Reprovada**
-- Justificativa: User Story não iniciado.
-- Evidências: [SC-26](https://gerencia-team-arthur-leo-luiz.atlassian.net/browse/SC-25) · [testes de prazo e prioridade]
+### US09 — Informar duração estimada da ordem de produção
+- Resultado na Sprint 1: **Reprovada**
+- Justificativa: história ainda por iniciar na data da review.
+- Situação atual: **Aprovada e integrada na Release 2**. [SC-26](https://gerencia-team-arthur-leo-luiz.atlassian.net/browse/SC-26) · [PR #10](https://github.com/arthur-marqs/Gerencia-Projeto-2026.2/pull/10) · [Testes de duração estimada](../../../../backend/testes/integration/test_us09_duracao_estimada.py)
 
 
 ### Driver02 — Prevenção de duplicidade no reenvio de ordens
-- Resultado: **Reprovado**
-- Justificativa: driver não concluído;
-- Evidências: [SC-55](https://gerencia-team-arthur-leo-luiz.atlassian.net/browse/SC-55) · [testes do Driver02]
+- Resultado na Sprint 1: **Reprovado**
+- Justificativa: implementação em aberto na data da review.
+- Situação atual: **Aprovado e integrado na Release 2**. [SC-55](https://gerencia-team-arthur-leo-luiz.atlassian.net/browse/SC-55) · [PR #13](https://github.com/arthur-marqs/Gerencia-Projeto-2026.2/pull/13) · [Testes do Driver02](../../../../backend/testes/integration/drivers/test_driver02_idempotency_ordens.py)
 - Data: 29/10/2026
 
 ### Driver05 — Proteção contra tentativas repetidas de login
-- Resultado: **Aprovada**
+- Resultado: **Aprovado**
 - Justificativa: driver concluído; a proteção contra tentativas repetidas possui testes de integração específicos.
 - Evidências: [SC-56](https://gerencia-team-arthur-leo-luiz.atlassian.net/browse/SC-56) · [testes do Driver05](../../../../backend/testes/integration/drivers/test_driver05_rate_limiting.py)
 - Data: 29/10/2026

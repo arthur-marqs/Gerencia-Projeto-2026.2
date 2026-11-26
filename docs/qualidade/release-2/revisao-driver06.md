@@ -1,10 +1,12 @@
 # Revisão de QA — Driver06: expiração e invalidação de sessão
 
-> **Situação atual — reavaliação de 23/11/2026, commit `c17288606ebbd0afedf18e7a6b6be73923a3ac60`: Validação inconclusiva para aceite.** BUG002 resolvido e verificado nos cenários retestados; testes funcionais e medições locais aprovados. Falta comprovar a DoD vigente e confirmar os requisitos/planejamento no Jira. Há uma sinalização de integração do PR a esclarecer. A avaliação inicial e suas reprovações estão integralmente preservadas no histórico ao final.
+**Situação da entrega em 26/11/2026 · Aprovado pelo PO e integrado à `main`.** [PR #17](https://github.com/arthur-marqs/Gerencia-Projeto-2026.2/pull/17) (`a118dcd`). Os sete critérios do DoD estão concluídos para o incremento aceito. [Definition of Done](../../status-projeto.md#definition-of-done-dod)
+
+O BUG002 foi retestado e a issue #19 está fechada. A reavaliação abaixo é de 23/11/2026 e descreve as condições verificadas naquela data. [Reteste na main](auditoria-bugs/relatorio-validacao.md#7-reteste-dos-três-bugs-históricos)
 
 **Acompanhamento em 26/11/2026** — O [BUG-005 / issue #31](https://github.com/arthur-marqs/Gerencia-Projeto-2026.2/issues/31) trata da consulta inicial de identidade indisponível. No reteste local, a nova consulta com sessão válida restaurou a navegação, e a resposta 401 manteve o fluxo de login. O reteste também verificou que um 200 atrasado não reabre o painel após a recusa de um recurso protegido. [Relatório de reteste](auditoria-bugs/reteste-bug005.md)
 
-## 1. Identificação — versão atual
+## 1. Identificação — reavaliação de 23/11/2026
 
 | Campo | Reavaliação |
 | --- | --- |
@@ -32,7 +34,7 @@ Evidências novas ficam em [reavaliacao-c172886](evidencias-driver06/reavaliacao
 
 **BUG002 resolvido e verificado no escopo executado.** Em `App.tsx:97–98`, o evento de sessão expirada limpa diretamente o usuário. Famílias passou a usar `apiFetch` em `FamiliesPage.tsx:66,92,136`. A nova execução confirmou o login e a remoção da navegação após 401, sem depender de uma reconsulta de identidade. Também confirmou que uma resposta de identidade antiga não restaura a área autenticada nos ensaios realizados.
 
-**Parecer atual: Validação inconclusiva para aceite**, por falta de evidência da DoD vigente e da versão atual dos requisitos/planejamento no Jira. Não há falha funcional confirmada nos testes conclusivos desta reavaliação. O GitHub também informa `mergeable=false` e `mergeable_state=dirty`; essa sinalização exige esclarecimento e validação da combinação final, mas não foi tratada como conflito reproduzido nem como bug funcional.
+**Parecer da reavaliação: Validação inconclusiva para aceite**, por falta de evidência da DoD vigente e da versão atual dos requisitos/planejamento no Jira. Não há falha funcional confirmada nos testes conclusivos desta reavaliação. O GitHub também informa `mergeable=false` e `mergeable_state=dirty`; essa sinalização exige esclarecimento e validação da combinação final, mas não foi tratada como conflito reproduzido nem como bug funcional.
 
 Resumo quantitativo, usando o resultado mais recente de cada caso deste escopo:
 
@@ -49,7 +51,7 @@ Resumo quantitativo, usando o resultado mais recente de cada caso deste escopo:
 | CI atual consultada | **Sucesso**, execução de push #136 no head exato | Logs confirmam 202 testes backend e 10 cenários de autenticação. Não somados às execuções locais. |
 | DoD / métricas de toda a release | **Não verificado** | Denominadores e documentos atuais não levantados; não representados como zero. |
 
-## 3. Rastreabilidade atual
+## 3. Rastreabilidade da reavaliação
 
 Os nomes são os nomes efetivos dos testes e cenários; não foram criados IDs fictícios de plano. Casos sob a pasta de evidências são instrumentos adicionais de QA.
 
@@ -67,7 +69,7 @@ Os nomes são os nomes efetivos dos testes e cenários; não foram criados IDs f
 | Limite exato da expiração | `test_qa_fronteira_expiracao[-1-200/0-401/1-401]`; comparação estrita de `deps.py:44` | [Teste](evidencias-driver06/reavaliacao-c172886/test_qa_driver06_limites.py), [JUnit](evidencias-driver06/reavaliacao-c172886/pytest-limites.xml) | 3/3 aprovados; microssegundos relativos a `expira_em`, relógio controlado |
 | Meta de 100% de ≥20 recusas, cada resposta ≤2 s | Teste oficial de 20 e três condições do ensaio HTTP adicional | Medições individuais na seção 4 | Atendida para resposta da API no ambiente local; não extrapolada para homologação ou duração completa da navegação |
 
-## 4. Execuções atuais, comandos e medidas
+## 4. Execuções da reavaliação, comandos e medidas
 
 ### Condições e resultados do driver
 
@@ -163,7 +165,7 @@ Os [metadados e trechos dos logs](evidencias-driver06/reavaliacao-c172886/github
 
 **Novo achado — sinalização de integração a esclarecer:** classificação **suspeita a validar / pendência de integração**, sem severidade funcional atribuída. Reprodução da consulta: `GET /repos/arthur-marqs/Gerencia-Projeto-2026.2/pulls/17` retorna os campos acima. Esperado para concluir integração: combinação alvo identificada e validável. Obtido: GitHub sinaliza `dirty`, mas a base `5cf655ee...` é ancestral do head (`git merge-base --is-ancestor`, saída 0) e `git merge-tree <base> HEAD <base>` não apresenta conflito. Evidência: metadados preservados. Não foi reproduzido conflito e não há arquivo/linha de defeito atribuível. Critério de encerramento: confirmar os SHAs reais da combinação, esclarecer a sinalização e executar os checks aplicáveis na versão integrada. Não foi criado bug duplicado ou inferida falha do produto dessa inconsistência.
 
-## 6. DoD e checklist — situação atual
+## 6. DoD e checklist na reavaliação de 23/11/2026
 
 **DoD vigente: Não verificado.** O impedimento documental persiste. Os critérios abaixo são do checklist do PR já disponível, não uma DoD inventada. Não se declara a release pronta nem se atribui “Não se aplica” a critérios desconhecidos.
 
@@ -182,7 +184,7 @@ Os [metadados e trechos dos logs](evidencias-driver06/reavaliacao-c172886/github
 
 Os indicadores Q-01 a Q-09 do plano disponível continuam sem conclusão global para a Release 2. Não se recalcula taxa da release somando o mesmo caso local, CI e reteste; não há inventário completo do Jira para Q-03, nem denominador integral de casos para Q-01/Q-02. A medição de recusas do Driver06 não comprova p95 de todas as operações (Q-07). O tratamento específico de 401/503 anteriormente falho agora tem evidência favorável para Q-09.
 
-## 7. Reteste e regressão atuais
+## 7. Reteste e regressão da reavaliação
 
 **Reteste da correção:** cenário original do BUG002 em Famílias/Máquinas executado e aprovado; as duas falhas históricas não foram apagadas. O novo comportamento dispensa a consulta subsequente, portanto a aprovação considera o resultado de login/retirada da navegação, não a existência da estratégia antiga. Foram acrescidos seis cenários de identidade em voo, incluindo observação do login enquanto a resposta estava retida e liberação posterior de 503, erro de rede ou 200.
 
@@ -201,9 +203,9 @@ No frontend, selecionados login, sessão válida, 401, 403/500, dois módulos co
 
 Os executores adicionais copiam somente specs temporárias para a pasta Cypress e as removem ao finalizar; recusam sobrescrever arquivo existente. Os scripts de banco limitam a preparação/mutação ao banco E2E exclusivo desta coleta. A API, o Vite e o PostgreSQL criados para QA foram encerrados após as execuções. Não houve alteração de implementação, requisito, teste oficial, configuração do produto, issue ou comentário; não houve commit, push, aprovação ou merge.
 
-## 9. Parecer atual e histórico
+## 9. Parecer da reavaliação e histórico
 
-**Validação inconclusiva para aceite — commit `c17288606ebbd0afedf18e7a6b6be73923a3ac60`.** O BUG002 está resolvido e verificado nos cenários executados; os critérios fornecidos e a meta da API passaram no ambiente local. Falta comprovar a DoD e a definição/planejamento vigentes; o estado de integração do PR também precisa ser esclarecido. O parecer atual não equivale ao aceite do PO.
+**Validação inconclusiva para aceite — commit `c17288606ebbd0afedf18e7a6b6be73923a3ac60`.** O BUG002 está resolvido e verificado nos cenários executados; os critérios fornecidos e a meta da API passaram no ambiente local. Falta comprovar a DoD e a definição/planejamento vigentes; o estado de integração do PR também precisa ser esclarecido. Esse parecer foi emitido durante a reavaliação de 23/11/2026.
 
 | Data | Commit testado | Resultado e evidência |
 | --- | --- | --- |

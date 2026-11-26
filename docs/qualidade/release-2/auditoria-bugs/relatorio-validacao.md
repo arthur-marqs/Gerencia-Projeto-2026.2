@@ -1,6 +1,6 @@
 # Relatório de validação e auditoria de bugs — SetupFlow R2
 
-**Parecer de QA — Pendente de ajustes.** A versão integrada aprovou e publicou uma sequência que apontava para uma máquina que já não podia executá-la. Também foi reproduzido um bloqueio na interface de autenticação durante uma falha temporária de identidade. A aprovação deve ser corrigida primeiro pelo impacto no plano disponibilizado à produção.
+**Estado em 26/11/2026.** O PO aceitou as histórias e os drivers já integrados à `main`. A auditoria deste commit encontrou dois defeitos. As correções passaram nos retestes em `docs/qualidade` e aguardam integração. [Estado das entregas e DoD](../../../status-projeto.md) · [Acompanhamento dos defeitos](README.md)
 
 **Atualização em 26/11/2026** — As correções do BUG-004 e do BUG-005 foram validadas localmente nos códigos de `b6c72f2` e `8978fc1`. O parecer acima continua associado ao commit da auditoria original. [Reteste do BUG-004](reteste-bug004.md) · [Reteste do BUG-005](reteste-bug005.md)
 
@@ -123,12 +123,12 @@ As três issues permanecem fechadas. A busca pública por registros equivalentes
 |---|---|
 | Qualidade da release | Q-01 e Q-02 precisam do inventário completo dos casos do plano, incluindo os manuais. A amostra de CI valida o SHA e não mede a estabilidade histórica de Q-06. Q-07 exige p95 das operações principais em condições de carga próprias, diferente da medição de recusas do Driver06. O ACHADO-02 é uma falha observada no tratamento de erros de Q-09. |
 | Severidade e triagem | O plano Q-03 exige zero bugs altos ou críticos em aberto no fechamento. Existe um defeito alto confirmado nesta auditoria. O contador oficial do Jira permanece sem verificação. |
-| DoD da integração e da entrega | A regressão e a CI foram verificadas no código integrado. A consulta de revisões registradas encontrou aprovação nos PRs #22, #27 e #28 do subconjunto auditado. Em outros PRs consultados, a integração está comprovada pelo merge e a revisão formal está sem registro público. A tag pública encontrada é a `v0.1.0`. Demo, implantação da R2 e aceite formal do PO estão sem evidência. [Inventário GitHub](evidencias/github-integracao.json) |
+| DoD da integração e da entrega | A regressão e a CI foram verificadas no código integrado. A consulta à época encontrou revisões de aprovação nos PRs #22, #27 e #28 do subconjunto auditado. A DoD das entregas integradas e o aceite do PO constam do registro de entregas. [Inventário GitHub](evidencias/github-integracao.json) · [DoD das entregas](../../../status-projeto.md#definition-of-done-dod) |
 | Homologação e fluxos pendentes | Executar smoke com a versão publicada, validar o procedimento de reversão em banco isolado e completar Driver01/04 quando o andamento e o replanejamento estiverem disponíveis. Confirmar com o PO o marco de medição do Driver06. |
 
-## 10. Parecer final
+## 10. Parecer da auditoria original
 
-**Pendente de ajustes** para `08a62f5d1d164c7ee2cfbb0282aa7f9784baaf8f`. Corrigir primeiro a aprovação com máquina inelegível. Em seguida, corrigir a recuperação da identidade e reexecutar a regressão de expiração de sessão. A conclusão da R2 também depende das evidências de homologação e dos itens de DoD em aberto. O aceite formal cabe ao PO.
+**Pendente de ajustes em `08a62f5d` na data da auditoria.** O parecer recomendou corrigir a aprovação com máquina inelegível e a recuperação da identidade e retestar a expiração de sessão. Os resultados dos retestes estão nas seções seguintes.
 
 ## 11. Reteste do BUG-004
 

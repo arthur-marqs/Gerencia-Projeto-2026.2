@@ -1,5 +1,9 @@
 # Revisão de QA — Driver01 | Integridade dos dados
 
+**Situação da entrega em 26/11/2026 · Aprovado pelo PO e integrado à `main`.** [PR #26](https://github.com/arthur-marqs/Gerencia-Projeto-2026.2/pull/26) (`65a1d24`). Os sete critérios do DoD estão concluídos para o incremento aceito. [Definition of Done](../../status-projeto.md#definition-of-done-dod)
+
+O aceite abrange cadastro, duração estimada, prazo e prioridade. A cobertura de gravações de andamento acompanha a futura implementação da execução. Os resultados e pareceres abaixo correspondem à rodada anterior ao merge.
+
 ## 1. Identificação
 
 | Campo | Registro |
@@ -96,7 +100,7 @@ As evidências abaixo foram consultadas com o PR aberto e no head `70ea1d4`. Sã
 | Homologação, se exigida | Consultar a configuração da CI e o registro de implantação da release. O workflow observado executa testes, lint e build. A regra de obrigatoriedade e evidência de implantação não foram localizadas. [Workflow](../../../.github/workflows/ci.yml) | A release registra a aplicabilidade. Se exigida, o ambiente e a versão implantada estão identificados e a execução de homologação está vinculada. |
 | Aceite do PO | Verificar decisão no PR ou na issue oficial. O PR está sem aceite registrado e sem issue vinculada. [PR #26](https://github.com/arthur-marqs/Gerencia-Projeto-2026.2/pull/26) | Existe decisão do PO rastreável à versão candidata e às evidências de aceite. |
 
-## 6. Verificação da DoD
+## 6. DoD na avaliação anterior ao merge
 
 | Critério vigente | Estado | Evidência e justificativa |
 | --- | --- | --- |
@@ -122,6 +126,6 @@ As evidências abaixo foram consultadas com o PR aberto e no head `70ea1d4`. Sã
 - A suíte oficial cobre reenvios simultâneos no Driver02. O ensaio de desconexão não combinou essa condição com duas atualizações concorrentes da mesma ordem.
 - Falta validar o fluxo do andamento da produção, incluir o guia atualizado na versão candidata e registrar revisão, integração e decisão do PO. Confirmar a exigência de homologação e vincular a execução, se aplicável.
 
-## 9. Parecer final
+## 9. Parecer de QA anterior à integração
 
 **Pendente de ajustes.** O incremento preservou a integridade em **20/20 desconexões reais antes do `COMMIT`** nas operações disponíveis. A ausência do registro de andamento impede validar o driver integralmente e a DoD da entrega continua incompleta. O aceite do item cabe ao PO.
