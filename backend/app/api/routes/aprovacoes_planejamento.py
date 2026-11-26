@@ -1,15 +1,17 @@
 from uuid import UUID
 
 from fastapi import APIRouter, Depends, HTTPException, Response, status
-from sqlalchemy import select
+from sqlalchemy import and_, select
 from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm import Session, joinedload, selectinload
 
 from app.api.deps import get_db, require_profiles
 from app.models.aprovacao_planejamento import AprovacaoPlanejamento, ItemAprovacaoPlanejamento
 from app.models.item_planejamento import ItemPlanejamento
+from app.models.maquina import Maquina
 from app.models.ordem_producao import OrdemProducao
 from app.models.planejamento import Planejamento
+from app.models.produto_maquina import produto_maquina
 from app.models.sugestao_planejamento import ItemSugestaoPlanejamento, SugestaoPlanejamento
 from app.models.usuario import Usuario
 from app.schemas.aprovacao_planejamento import (
@@ -22,6 +24,10 @@ router = APIRouter(prefix="/aprovacoes")
 
 SEM_PLANEJAMENTO = "Não existe planejamento disponível para aprovação."
 ORDENS_JA_APROVADAS = "Uma ou mais ordens já fazem parte de um planejamento aprovado."
+SUGESTAO_INDISPONIVEL = (
+    "A sugestão ficou indisponível para aprovação. "
+    "Gere uma sequência sugerida atualizada."
+)
 ITENS_MANUAIS = selectinload(Planejamento.itens).joinedload(ItemPlanejamento.ordem)
 ITENS_SUGERIDOS = selectinload(SugestaoPlanejamento.itens).options(
     joinedload(ItemSugestaoPlanejamento.ordem),
@@ -31,6 +37,14 @@ ITENS_APROVADOS = selectinload(AprovacaoPlanejamento.itens).options(
     joinedload(ItemAprovacaoPlanejamento.ordem),
     joinedload(ItemAprovacaoPlanejamento.maquina),
 )
+
+
+def _vinculos_com_maquinas_ativas():
+    return (
+        select(produto_maquina.c.id_maquina)
+        .join(Maquina, Maquina.id_maquina == produto_maquina.c.id_maquina)
+        .where(Maquina.ativo.is_(True))
+    )
 
 
 def _candidato(fonte: Planejamento | SugestaoPlanejamento) -> CandidatoAprovacaoResponse:
@@ -65,7 +79,22 @@ def listar_candidatos(
 ):
     ocupadas = set(db.scalars(select(ItemAprovacaoPlanejamento.ordem_id)))
     manuais = db.scalars(select(Planejamento).options(ITENS_MANUAIS))
-    sugeridas = db.scalars(select(SugestaoPlanejamento).options(ITENS_SUGERIDOS))
+    vinculo_elegivel = _vinculos_com_maquinas_ativas().where(
+        produto_maquina.c.id_produto == OrdemProducao.produto_id,
+        produto_maquina.c.id_maquina == ItemSugestaoPlanejamento.maquina_id,
+    ).exists()
+    tem_item_inelegivel = (
+        select(ItemSugestaoPlanejamento.ordem_id)
+        .join(ItemSugestaoPlanejamento.ordem)
+        .where(
+            ItemSugestaoPlanejamento.sugestao_id == SugestaoPlanejamento.id_sugestao,
+            ~vinculo_elegivel,
+        )
+        .exists()
+    )
+    sugeridas = db.scalars(
+        select(SugestaoPlanejamento).options(ITENS_SUGERIDOS).where(~tem_item_inelegivel)
+    )
     candidatos = [
         _candidato(fonte)
         for fontes in (manuais, sugeridas)
@@ -145,6 +174,21 @@ def aprovar_planejamento(
     )
     if ordem_aprovada is not None:
         raise HTTPException(409, ORDENS_JA_APROVADAS)
+
+    if isinstance(fonte, SugestaoPlanejamento):
+        vinculos = (
+            _vinculos_com_maquinas_ativas()
+            .join(OrdemProducao, OrdemProducao.produto_id == produto_maquina.c.id_produto)
+            .join(ItemSugestaoPlanejamento, and_(
+                ItemSugestaoPlanejamento.ordem_id == OrdemProducao.id_ordem,
+                ItemSugestaoPlanejamento.maquina_id == produto_maquina.c.id_maquina,
+            ))
+            .where(ItemSugestaoPlanejamento.sugestao_id == fonte.id_sugestao)
+            # Mantém máquinas e compatibilidades válidas até o commit da aprovação.
+            .with_for_update(read=True, of=[Maquina, produto_maquina])
+        )
+        if len(db.scalars(vinculos).all()) != len(fonte.itens):
+            raise HTTPException(409, SUGESTAO_INDISPONIVEL)
 
     aprovacao = AprovacaoPlanejamento(
         planejamento_id=fonte.id_planejamento if isinstance(fonte, Planejamento) else None,

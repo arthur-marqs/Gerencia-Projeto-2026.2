@@ -345,7 +345,7 @@ tela, Planejador e Operador podem consultar as sequências aprovadas.
 
 | API | Perfil | Comportamento |
 | --- | --- | --- |
-| `GET /api/planejamentos/aprovacoes/candidatos` | `PLANEJADOR` | Lista sequências com ordens pendentes e ainda disponíveis para aprovação. |
+| `GET /api/planejamentos/aprovacoes/candidatos` | `PLANEJADOR` | Lista sequências com ordens pendentes e disponíveis para aprovação. Para sugestões, todas as máquinas atribuídas devem estar ativas e compatíveis com os produtos das ordens. |
 | `POST /api/planejamentos/aprovacoes` | `PLANEJADOR` | Aprova a origem `manual` ou `sugerida` identificada por `origem_id`. A interface envia `ordens_ids` na ordem conferida para detectar uma edição concorrente. |
 | `GET /api/planejamentos/aprovacoes` | `PLANEJADOR`, `OPERADOR` | Lista os planejamentos aprovados com suas ordens, posições e máquinas atribuídas. |
 
@@ -356,8 +356,13 @@ aprovado fica protegido contra edição. A mesma ordem só pode integrar uma
 aprovação. Reenviar a aprovação da mesma origem retorna o registro existente.
 A tentativa sem planejamento retorna 404 com uma mensagem específica.
 
+Para uma nova aprovação de sugestão, a API revalida as atribuições na
+transação da aprovação. Se uma máquina ficar inativa, perder o vínculo com o
+produto ou faltar em um item legado, a API retorna 409 e orienta a gerar uma
+sugestão atualizada. A sugestão original continua disponível para consulta.
+
 Aplique `alembic upgrade head` para incluir as tabelas da revisão
-`8d17b4f2c306`. As sequências existentes continuam disponíveis para seleção.
+`8d17b4f2c306`.
 Os testes da API estão em `testes/integration/test_us17_aprovacao.py` e os
 casos CT-123 a CT-125 estão no [guia do Cypress](../frontend/cypress/README.md#cenários-da-us17).
 
