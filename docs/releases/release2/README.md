@@ -11,6 +11,9 @@
 
 ## Sprint 3
 
+- [Ata da Sprint Review 3](sprint3/Ata%20%E2%80%93%20Sprint%20Review%203.docx)
+- [Ata da Sprint 3 / Release 2 Retrospective](sprint3/Ata%20%E2%80%93%20Sprint%203%20_%20Release%202%20Retrospective.docx)
+- [Burndown e Velocity da Sprint 3](sprint3/SetupFlow_Metricas_Sprint_3.pdf)
 - [Revisão e reteste da US11](sprint3/relatorio-revisao-pr16-us11.md)
 - [Relatório de testes da US14](sprint3/relatorio-testes-us14.md)
 - [Relatório de testes da US15](sprint3/relatorio-testes-us15.md)
