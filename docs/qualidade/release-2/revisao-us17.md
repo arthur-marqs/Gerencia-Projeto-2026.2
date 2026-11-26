@@ -181,3 +181,7 @@ Os indicadores contam CT-123, CT-124 e CT-125 uma vez cada. Os totais de regress
 |---|---|---|---|
 | 25/11/2026 | Validação local da implementação | `65a1d24` com as alterações da US17 | 280 testes de backend e 9 cenários no Chrome passaram. A migração preservou as sequências da massa de teste. |
 | 25/11/2026 | CI e revisão de QA | `40e0afd6973b36683a2c72a80ee893a6d7b782a8` | CT-123, CT-124 e CT-125 passaram no Chrome e no Electron. A CI concluiu com sucesso. O aceite permanece inconclusivo pelas pendências da DoD. |
+
+## Acompanhamento do BUG-004
+
+Em 26/11/2026, o reteste local do [BUG-004 / issue #30](https://github.com/arthur-marqs/Gerencia-Projeto-2026.2/issues/30) confirmou a recusa de aprovação quando a máquina fica inativa ou perde a compatibilidade após a geração. CT-123, CT-124 e CT-125 passaram novamente no Chrome. O resultado se aplica ao código da correção, com integração à `main` pendente. [Relatório de reteste](auditoria-bugs/reteste-bug004.md)

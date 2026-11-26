@@ -2,6 +2,8 @@
 
 **Parecer de QA — Pendente de ajustes.** A versão integrada aprovou e publicou uma sequência que apontava para uma máquina que já não podia executá-la. Também foi reproduzido um bloqueio na interface de autenticação durante uma falha temporária de identidade. A aprovação deve ser corrigida primeiro pelo impacto no plano disponibilizado à produção.
 
+**Atualização em 26/11/2026** — A correção do BUG-004 foi validada localmente no código de `b6c72f2`. O parecer acima continua associado ao commit da auditoria original. [Reteste do BUG-004](reteste-bug004.md)
+
 ## 1. Escopo e fontes
 
 A auditoria cobre as Sprints 2 e 3 da Release 2. O escopo de teste inclui duração estimada, configuração e matriz de setup, planejamento manual, sugestão, compatibilidade produto–máquina, prazos e prioridades, comparação, aprovação e gestão de usuários. Foram avaliados os Drivers01, 02, 04 e 06 e as regressões pertinentes da R1, incluindo autenticação, perfis, cadastros, ordens e Driver05. Na execução da produção, o escopo entregue é a consulta às sequências aprovadas. O registro de andamento e o replanejamento completo seguem pendentes de cobertura conforme o plano. A execução de indicadores e os itens de R3/R4 ficaram fora do escopo.
@@ -91,13 +93,13 @@ O ensaio adicional no navegador usa o script [qa-sessao.mjs](evidencias/qa-sessa
 
 | Referência | Severidade e prioridade sugeridas | Confirmação | Impacto |
 |---|---|---|---|
-| ACHADO-01 | Alta e Alta | Duas variantes, 2/2, por API integrada e consulta independente ao PostgreSQL. | Uma nova aprovação grava e disponibiliza para execução uma atribuição inviável. [Proposta de issue](bug-aprovacao-maquina-inelegivel.md) |
+| ACHADO-01 / BUG-004 | Alta e Alta | Duas variantes, 2/2, por API integrada e consulta independente ao PostgreSQL. | Na versão auditada, uma nova aprovação gravava e disponibilizava uma atribuição inviável. [Issue #30](https://github.com/arthur-marqs/Gerencia-Projeto-2026.2/issues/30) · [Registro original](bug-aprovacao-maquina-inelegivel.md) · [Reteste](reteste-bug004.md) |
 | ACHADO-02 | Média e Média | Três tentativas, 3/3, no Chrome com sessão real e 503 inicial simulado. | O Planejador perde o acesso à navegação no carregamento e precisa recarregar para recuperar a sessão sem fazer login novamente. [Proposta de issue](bug-restauracao-sessao-indisponivel.md) |
 
 ## 6. Suspeitas, lacunas e riscos operacionais
 
 - O downgrade da US14 segue como risco histórico registrado no PR #23. A revisão original reproduziu falha ao recriar a restrição antiga com uma sugestão válida de setup 30/5 já gravada. O upgrade da versão atual passou. O downgrade com dados foi deixado para o ensaio do procedimento de reversão da release. [Revisão US14](../revisao-us14.md#downgrade-falha-após-gravar-sugestão-válida-com-aumento-de-setup) · [PR #23](https://github.com/arthur-marqs/Gerencia-Projeto-2026.2/pull/23)
-- A regra operacional para planos **já aprovados** quando uma máquina muda de estado e o comportamento sob concorrência entre mudança de elegibilidade e aprovação continuam sem validação. O ACHADO-01 demonstra a nova aprovação após a mudança.
+- Na auditoria original, o ACHADO-01 demonstrou uma nova aprovação após a mudança de elegibilidade. O reteste posterior também confirmou a recusa quando a transação de cadastro estava em andamento. A política operacional para planos **já aprovados** continua fora do escopo dessa correção. [Reteste](reteste-bug004.md)
 - O catálogo público consultado não contém registro de homologação da R2, e a versão implantada segue não verificada. O checkout integrado e a execução local estão identificados pelo SHA. [Inventário de integração](evidencias/github-integracao.json)
 
 ## 7. Reteste dos três bugs históricos
@@ -112,7 +114,7 @@ As três issues permanecem fechadas. A busca pública por registros equivalentes
 
 ## 8. Causa provável, correção e regressão após o ajuste
 
-- **ACHADO-01.** A geração verifica a compatibilidade atual e descarta máquinas inativas. Na aprovação, a lista de candidatos filtra ordens pendentes e ainda livres. O POST verifica origem, ordem e conflito com outra aprovação, depois copia a máquina da sugestão para a aprovação. A reprodução confirma que basta alterar o cadastro após a geração para chegar ao `201`. Validar elegibilidade atual no POST, na mesma transação usada para criar a aprovação, e sinalizar a sugestão indisponível na listagem de candidatos. Preservar a fonte histórica e a repetição idempotente de aprovações já existentes. O teste de regressão deve fazer a nova aprovação recusar as duas variantes, manter vazias as tabelas de aprovação e impedir sua exibição ao Operador. Retestar aprovação manual, sugestão elegível, conflitos de concorrência e catálogo atualizado. [Geração](../../../../backend/app/api/routes/sugestoes_planejamento.py#L91-L120) · [Aprovação](../../../../backend/app/api/routes/aprovacoes_planejamento.py#L124-L166)
+- **ACHADO-01.** A geração verifica a compatibilidade atual e descarta máquinas inativas. Na aprovação, a lista de candidatos filtra ordens pendentes e ainda livres. O POST verifica origem, ordem e conflito com outra aprovação, depois copia a máquina da sugestão para a aprovação. A reprodução confirma que basta alterar o cadastro após a geração para chegar ao `201`. Validar elegibilidade atual no POST, na mesma transação usada para criar a aprovação, e sinalizar a sugestão indisponível na listagem de candidatos. Preservar a fonte histórica e a repetição idempotente de aprovações já existentes. O teste de regressão deve fazer a nova aprovação recusar as duas variantes, manter vazias as tabelas de aprovação e impedir sua exibição ao Operador. Retestar aprovação manual, sugestão elegível, conflitos de concorrência e catálogo atualizado. [Geração](../../../../backend/app/api/routes/sugestoes_planejamento.py#L91-L120) · [Aprovação na versão auditada](https://github.com/arthur-marqs/Gerencia-Projeto-2026.2/blob/08a62f5d1d164c7ee2cfbb0282aa7f9784baaf8f/backend/app/api/routes/aprovacoes_planejamento.py#L124-L166)
 - **ACHADO-02.** `buscarUsuarioAutenticado` distingue 401 de outros erros, mas `restaurarSessao` termina no estado de login ao capturar qualquer falha. A sincronização periódica só existe enquanto há usuário no estado da aplicação. Acrescentar um estado recuperável para falha temporária de identidade e uma ação explícita de nova consulta, com mensagem própria. Manter bloqueada a área protegida até obter identidade válida. O teste de regressão deve falhar se um 503 inicial mostrar diretamente o formulário sem opção de recuperar a sessão, e passar quando a nova consulta 200 restaurar a navegação. Retestar também o 401 inicial, expiração com navegação aberta, logout e os dois cenários da issue #19. [Restauração](../../../../frontend/src/App.tsx#L33-L85) · [Reação ao 401](../../../../frontend/src/lib/apiFetch.ts#L1-L12)
 
 ## 9. Limitações e ações para o fechamento
@@ -127,3 +129,7 @@ As três issues permanecem fechadas. A busca pública por registros equivalentes
 ## 10. Parecer final
 
 **Pendente de ajustes** para `08a62f5d1d164c7ee2cfbb0282aa7f9784baaf8f`. Corrigir primeiro a aprovação com máquina inelegível. Em seguida, corrigir a recuperação da identidade e reexecutar a regressão de expiração de sessão. A conclusão da R2 também depende das evidências de homologação e dos itens de DoD em aberto. O aceite formal cabe ao PO.
+
+## 11. Reteste do BUG-004
+
+Em 26/11/2026, a correção do [BUG-004](https://github.com/arthur-marqs/Gerencia-Projeto-2026.2/issues/30) foi validada localmente nas duas variantes. A API recusou a aprovação com HTTP 409, preservou a sugestão para consulta e manteve vazia a execução do Operador. A regressão final passou com 331 testes de backend e 12 cenários no Chrome. O parecer se aplica ao código de [`b6c72f2`](https://github.com/arthur-marqs/Gerencia-Projeto-2026.2/commit/b6c72f2beb9c4ba92a4c7871547c895574c8afd2), com integração à `main` pendente. [Relatório e evidências](reteste-bug004.md)
