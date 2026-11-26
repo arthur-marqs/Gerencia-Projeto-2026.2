@@ -239,6 +239,23 @@ pelo Node. O limite do Cypress pode ser configurado localmente com
 `$env:CYPRESS_taskTimeout = '150000'` no PowerShell. Isso não altera o limite
 interno do processo Python. Use sempre o banco exclusivo de E2E.
 
+## Autenticação e recuperação de sessão
+
+Com o frontend disponível em `http://localhost:5173`, execute na pasta
+`frontend` a suíte de login e Driver06. Ela simula as respostas da API para
+verificar a interface.
+
+```sh
+npm run test:e2e:login -- --browser chrome
+npm run test:e2e:login -- --browser chrome --tags '@BUG005'
+```
+
+A tag `@BUG005` cobre HTTP 503, falha de rede, nova tentativa com a API ainda
+indisponível e recuperação após o login. O botão **Tentar novamente** repete
+a consulta de identidade. HTTP 200 restaura a navegação com a sessão existente
+e HTTP 401 exibe o formulário de login. Os cenários do Driver06 verificam
+também a remoção da área autenticada quando uma operação protegida retorna 401.
+
 ## Referências de configuração
 
 - [Preprocessor Cucumber — configuração oficial](https://github.com/badeball/cypress-cucumber-preprocessor/blob/master/docs/quick-start.md).
