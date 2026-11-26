@@ -1,0 +1,160 @@
+{
+  "commit": "70ea1d43f19f43bdf0b8b0d832f4488c92a62814",
+  "data_hora": "2026-11-25T21:17:22.840131-03:00",
+  "openapi_http": 200,
+  "consulta_api": "FastAPI TestClient (sem mocks), GET /openapi.json",
+  "api_ordens": {
+    "/api/ordens-producao": {
+      "GET": "listar_ordens_producao_api_ordens_producao_get",
+      "POST": "cadastrar_ordem_producao_api_ordens_producao_post"
+    },
+    "/api/ordens-producao/{id_ordem}": {
+      "GET": "consultar_ordem_producao_api_ordens_producao__id_ordem__get",
+      "PUT": "atualizar_prazo_prioridade_ordem_api_ordens_producao__id_ordem__put"
+    },
+    "/api/ordens-producao/{ordem_id}/duracao-estimada": {
+      "PATCH": "atualizar_duracao_estimada_api_ordens_producao__ordem_id__duracao_estimada_patch"
+    }
+  },
+  "api_gravacoes_e_acoes": {
+    "/api/usuarios": [
+      "POST"
+    ],
+    "/api/usuarios/{usuario_id}": [
+      "PUT",
+      "DELETE"
+    ],
+    "/api/usuarios/{usuario_id}/status": [
+      "PATCH"
+    ],
+    "/api/auth/login": [
+      "POST"
+    ],
+    "/api/auth/logout": [
+      "POST"
+    ],
+    "/api/produtos": [
+      "POST"
+    ],
+    "/api/produtos/{produto_id}/familia": [
+      "PATCH"
+    ],
+    "/api/produtos/{produto_id}/maquinas": [
+      "PUT"
+    ],
+    "/api/maquinas": [
+      "POST"
+    ],
+    "/api/maquinas/{id_maquina}": [
+      "PUT",
+      "DELETE"
+    ],
+    "/api/maquinas/{id_maquina}/status": [
+      "PATCH"
+    ],
+    "/api/families": [
+      "POST"
+    ],
+    "/api/tempos-setup": [
+      "POST"
+    ],
+    "/api/ordens-producao": [
+      "POST"
+    ],
+    "/api/ordens-producao/{id_ordem}": [
+      "PUT"
+    ],
+    "/api/ordens-producao/{ordem_id}/duracao-estimada": [
+      "PATCH"
+    ],
+    "/api/planejamentos/sugestoes": [
+      "POST"
+    ],
+    "/api/planejamentos": [
+      "POST"
+    ],
+    "/api/planejamentos/{id_planejamento}": [
+      "PUT"
+    ]
+  },
+  "postgresql": "18.6",
+  "banco_descartavel": "qa_driver01_andamento_test",
+  "revisao_alembic": "6b14a2e9c703",
+  "tabelas_publicas": [
+    "alembic_version",
+    "controle_tentativas_login",
+    "falhas_login",
+    "families",
+    "itens_planejamento",
+    "itens_sugestao_planejamento",
+    "maquinas",
+    "ordens_producao",
+    "ordens_producao_operacoes",
+    "perfis",
+    "planejamentos",
+    "produto_maquina",
+    "produtos",
+    "sessoes",
+    "sugestoes_planejamento",
+    "tempos_setup_familias",
+    "usuario_perfil",
+    "usuarios"
+  ],
+  "colunas_ordens_producao": [
+    {
+      "coluna": "id_ordem",
+      "tipo": "uuid",
+      "padrao": "gen_random_uuid()"
+    },
+    {
+      "coluna": "codigo",
+      "tipo": "character varying",
+      "padrao": null
+    },
+    {
+      "coluna": "produto_id",
+      "tipo": "uuid",
+      "padrao": null
+    },
+    {
+      "coluna": "quantidade",
+      "tipo": "numeric",
+      "padrao": null
+    },
+    {
+      "coluna": "status",
+      "tipo": "character varying",
+      "padrao": "'PENDENTE'::character varying"
+    },
+    {
+      "coluna": "criado_por",
+      "tipo": "uuid",
+      "padrao": null
+    },
+    {
+      "coluna": "criado_em",
+      "tipo": "timestamp with time zone",
+      "padrao": "CURRENT_TIMESTAMP"
+    },
+    {
+      "coluna": "prazo",
+      "tipo": "date",
+      "padrao": null
+    },
+    {
+      "coluna": "prioridade",
+      "tipo": "character varying",
+      "padrao": null
+    },
+    {
+      "coluna": "duracao_estimada_minutos",
+      "tipo": "integer",
+      "padrao": null
+    },
+    {
+      "coluna": "operacao_id",
+      "tipo": "uuid",
+      "padrao": null
+    }
+  ]
+}
