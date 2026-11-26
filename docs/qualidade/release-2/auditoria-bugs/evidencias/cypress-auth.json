@@ -1,0 +1,71 @@
+{
+  "startedAt": "2026-11-26T13:49:26.853Z",
+  "branch": "docs/qualidade",
+  "commit": "08a62f5d1d164c7ee2cfbb0282aa7f9784baaf8f",
+  "dirty": true,
+  "sourceSha256": "24d58440db4af6bc3ed481af81aff8deb4c9a50838377fc7642be8545199426a",
+  "browser": "chrome",
+  "configFile": "cypress.config.ts",
+  "tags": "@regressao and not @wip",
+  "node": "v26.13.0",
+  "platform": "win32 10.0.26300",
+  "finishedAt": "2026-11-26T13:49:50.582Z",
+  "browserVersion": "158.0.8127.38",
+  "cypressVersion": "16.3.0",
+  "total": 12,
+  "passed": 12,
+  "failed": 0,
+  "pending": 0,
+  "skipped": 0,
+  "durationMs": 8278,
+  "tests": [
+    {
+      "title": "Expiração e invalidação de sessão / Permitir acesso com sessão válida",
+      "state": "passed"
+    },
+    {
+      "title": "Expiração e invalidação de sessão / Retornar ao login após a sessão expirar",
+      "state": "passed"
+    },
+    {
+      "title": "Expiração e invalidação de sessão / Retornar ao login quando a sessão for invalidada em outra funcionalidade",
+      "state": "passed"
+    },
+    {
+      "title": "Expiração e invalidação de sessão / Voltar ao login em Famílias após 401 mesmo se a identidade responder 503",
+      "state": "passed"
+    },
+    {
+      "title": "Expiração e invalidação de sessão / Voltar ao login em Máquinas após 401 mesmo se a identidade responder 503",
+      "state": "passed"
+    },
+    {
+      "title": "Expiração e invalidação de sessão / Voltar ao login quando uma consulta da matriz rejeitar a sessão (example #1)",
+      "state": "passed"
+    },
+    {
+      "title": "Expiração e invalidação de sessão / Voltar ao login quando uma consulta da matriz rejeitar a sessão (example #2)",
+      "state": "passed"
+    },
+    {
+      "title": "Autenticação no SetupFlow / Exibir a tela de login",
+      "state": "passed"
+    },
+    {
+      "title": "Autenticação no SetupFlow / Tentar entrar com os campos vazios",
+      "state": "passed"
+    },
+    {
+      "title": "Autenticação no SetupFlow / Tentar entrar com e-mail inválido",
+      "state": "passed"
+    },
+    {
+      "title": "Autenticação no SetupFlow / Tentar entrar sem informar a senha",
+      "state": "passed"
+    },
+    {
+      "title": "Autenticação no SetupFlow / Tentar entrar com credenciais incorretas",
+      "state": "passed"
+    }
+  ]
+}
