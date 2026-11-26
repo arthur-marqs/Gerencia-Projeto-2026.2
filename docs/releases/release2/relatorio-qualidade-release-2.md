@@ -146,11 +146,54 @@ Cinco bugs com issue pública identificada. Distribuição **1 alta, 4 médias**
 | Q-04 Critérios definidos antes da sprint | 100% das histórias | **Não verificado**. DoR e histórico do Jira indisponíveis. |
 | Q-05 Revisão antes do merge | 100% dos PRs | **25,00% com revisão formal identificada** (4/16 PRs de entrega R2). O PR de cobertura #14 não integra o denominador de entregas por US/driver. |
 | Q-06 Pipeline principal | Aprovado | **Atendido para `08a62f5`**, cinco jobs verdes. O [pipeline do SHA de merge](https://github.com/arthur-marqs/Gerencia-Projeto-2026.2/actions/runs/45882475010) estava em execução na consulta. |
-| Q-07 Tempo de resposta das operações principais | p95 ≤2 s | **Não medido**. O Driver06 usa limite por recusa e escopo próprios. |
+| Q-07 Tempo de resposta das operações principais | p95 ≤2 s | **Atendeu nas condições testadas.** Maior p95 de 1083,27 ms no ensaio local. Resultado anterior: não medido. [Ensaio Q-07](#q-07--teste-de-carga-e-tempo-de-resposta) |
 | Q-08 Autorização por perfis | 100% dos perfis | A API exercitou permissões de Planejador, Operador e Administrador. A matriz de negativas e controles positivos consta no Driver04, e as suítes US02/US32 cobrem os perfis disponíveis. [Pytest][backend] |
 | Q-09 Tratamento dos fluxos principais | 100% | **Não atendido no recorte**, pois há cenários de exceção com falha observada. A taxa global ficou **Não levantada**. |
 
 O [plano de qualidade](../../qualidade/Plano-de-Qualidade-SetupFlow.xlsx) é a versão 1.1 de 29/10/2026 disponível no repositório. A coluna R2 estava em branco. As metas usadas são da aba **Plano de qualidade**, itens Q-01 a Q-09. Exemplos do catálogo não foram promovidos a metas da release.
+
+### Q-07 — Teste de carga e tempo de resposta
+
+**Resultado anterior.** Não medido no ciclo de regressão funcional. A meta do plano é p95 ≤ 2.000 ms para as principais operações. Este ensaio avalia sete chamadas HTTP da API, por operação e por rodada.
+
+**Versão e ambiente.** Execução automatizada em 26/11/2026, no fuso America/Sao_Paulo (UTC−03:00), com código de produção limpo em `c43587c653ede3d3438bdf780657e1c15624a6bc` da `main`, em checkout destacado. A branch de trabalho dos instrumentos era `docs/relatorios_QA` em `1047e96`. Windows x64 build 26300, Intel Core i5-1035G1, oito CPUs lógicas, 7,80 GiB de RAM, Python 3.11.9, k6 v2.4.0, Uvicorn com um worker e PostgreSQL 18.6 com 128MB de shared buffers e limite de 100 conexões. Gerador, API e banco compartilhavam a máquina, acessados somente pelo loopback.
+
+**Massa.** Cada rodada partiu de um clone da mesma base descartável com 10 contas fictícias de Planejador, 2 máquinas, 2 famílias, 4 produtos compatíveis, 2.280 ordens, 2 tempos de setup (8 e 13 min), 10 planos manuais e 2.240 sugestões reservadas às aprovações. Cada VU gerou e comparou sequências com quatro ordens próprias. Cada aprovação usou uma sugestão exclusiva de uma ordem e exigiu HTTP 201 e persistência visível na consulta.
+
+**Protocolo.** Smoke de 10 s com 1 VU. Rodadas sequenciais com 5 e 10 VUs, cada uma com 30 s de aquecimento e 3 min de medição. Cada VU fez uma pausa de 1 s ao fim do ciclo. Aquecimento, preparação e logins ficaram fora dos resultados abaixo. O tempo HTTP medido pelo k6 soma envio, espera e recebimento, sem renderização. A matriz usa duas requisições paralelas, reportadas individualmente. A consulta de aprovados foi incluída por servir à execução da produção. A listagem de candidatos à aprovação ficou fora do escopo.
+
+**Critérios.** Cada operação precisava de pelo menos 100 amostras por rodada, p95 ≤ 2.000 ms e respostas válidas para o cenário. O k6 contabilizou falhas de transporte, status e validação do conteúdo. A distribuição inclui as tentativas medidas, com falhas separadas. A condição de sucesso dos fluxos pertence a este protocolo.
+
+| Fase | Horário BRT | Duração do comando (s) | Saída |
+| --- | --- | ---: | ---: |
+| smoke-1-vus | 17:13:05–17:13:16 | 11,09 | 0 |
+| aquecimento-5-vus | 17:13:18–17:13:49 | 31,23 | 0 |
+| medicao-5-vus | 17:13:49–17:16:51 | 181,70 | 0 |
+| aquecimento-10-vus | 17:16:53–17:17:25 | 31,73 | 0 |
+| medicao-10-vus | 17:17:25–17:20:28 | 183,17 | 0 |
+
+| Operação | Usuários virtuais | Amostras | p50 (ms) | p95 (ms) | Máximo (ms) | Falhas de requisição/validação | Meta p95 | Resultado |
+| --- | ---: | ---: | ---: | ---: | ---: | ---: | --- | --- |
+| Consultar ordens | 5 | 594 | 139,12 | 331,07 | 572,21 | 0 | ≤ 2.000 ms | Atendeu nas condições testadas |
+| Matriz — famílias | 5 | 594 | 27,34 | 213,82 | 463,19 | 0 | ≤ 2.000 ms | Atendeu nas condições testadas |
+| Matriz — tempos | 5 | 594 | 27,06 | 185,26 | 450,73 | 0 | ≤ 2.000 ms | Atendeu nas condições testadas |
+| Gerar sugestão | 5 | 594 | 60,14 | 227,30 | 449,68 | 0 | ≤ 2.000 ms | Atendeu nas condições testadas |
+| Comparar manual e sugerido | 5 | 594 | 31,14 | 135,48 | 287,17 | 0 | ≤ 2.000 ms | Atendeu nas condições testadas |
+| Aprovar sugestão | 5 | 594 | 43,34 | 175,80 | 327,17 | 0 | ≤ 2.000 ms | Atendeu nas condições testadas |
+| Consultar aprovados | 5 | 594 | 66,70 | 188,91 | 328,28 | 0 | ≤ 2.000 ms | Atendeu nas condições testadas |
+| Consultar ordens | 10 | 649 | 406,24 | 1083,27 | 1462,02 | 0 | ≤ 2.000 ms | Atendeu nas condições testadas |
+| Matriz — famílias | 10 | 649 | 185,99 | 589,03 | 1434,36 | 0 | ≤ 2.000 ms | Atendeu nas condições testadas |
+| Matriz — tempos | 10 | 649 | 193,37 | 610,95 | 1773,27 | 0 | ≤ 2.000 ms | Atendeu nas condições testadas |
+| Gerar sugestão | 10 | 649 | 305,37 | 661,63 | 1677,22 | 0 | ≤ 2.000 ms | Atendeu nas condições testadas |
+| Comparar manual e sugerido | 10 | 649 | 167,41 | 466,95 | 1403,19 | 0 | ≤ 2.000 ms | Atendeu nas condições testadas |
+| Aprovar sugestão | 10 | 649 | 209,90 | 521,39 | 1029,00 | 0 | ≤ 2.000 ms | Atendeu nas condições testadas |
+| Consultar aprovados | 10 | 649 | 236,82 | 590,21 | 1679,74 | 0 | ≤ 2.000 ms | Atendeu nas condições testadas |
+
+**Falhas e reexecuções.** O smoke, os aquecimentos e as duas rodadas terminaram com código 0, sem reexecução. As respostas medidas passaram nas verificações de status e conteúdo. Os avisos de token restrito do Windows ocorreram durante o preparo do cluster e a API ficou disponível por inicialização local direta. Os encerramentos da API entre bancos foram feitos pelo executor ao fim da fase.
+
+**Conclusão.** **Atendeu nas condições testadas.** Foram coletadas pelo menos 594 e 649 amostras por operação nas rodadas de 5 e 10 VUs, respectivamente. O maior p95 observado foi **1083,27 ms**. O resultado representa este perfil local e a massa documentada. A UI, a latência de rede externa e a capacidade de produção ficam fora da medição.
+
+[Manifesto e comandos](../../qualidade/release-2/evidencias/q07/2026-11-26-c43587c/manifesto.json) · [Resultados com 5 VUs](../../qualidade/release-2/evidencias/q07/2026-11-26-c43587c/resultados-medicao-5-vus.json) · [Resultados com 10 VUs](../../qualidade/release-2/evidencias/q07/2026-11-26-c43587c/resultados-medicao-10-vus.json) · [Amostras com 5 VUs](../../qualidade/release-2/evidencias/q07/2026-11-26-c43587c/amostras-medicao-5-vus.csv) · [Amostras com 10 VUs](../../qualidade/release-2/evidencias/q07/2026-11-26-c43587c/amostras-medicao-10-vus.csv) · [Log de execução](../../qualidade/release-2/evidencias/q07/2026-11-26-c43587c/execucao.log) · [Guia de reprodução](../../../tests/performance/README.md)
 
 ## 10. Riscos e limitações
 
@@ -161,7 +204,7 @@ O [plano de qualidade](../../qualidade/Plano-de-Qualidade-SetupFlow.xlsx) é a v
 | Falhas intermitentes de ambiente | Histórico de memória do Argon2, incluindo CT-85 e CT-35, e timeout do Chrome em execução anterior. As reexecuções sequenciais históricas passaram. Os logs deste ciclo não registraram nova falha de memória do Argon2 nem timeout operacional do navegador. O timeout de asserção do BUG-005 correspondeu à ausência do aviso esperado. | QA e DevOps, manter execução sequencial e preservar logs da primeira falha antes de repetir. |
 | Regra do CT-119, escopo de andamento e marco de 2 s | Lote misto é bloqueado no produto. O plano citado pede confirmação do PO. Andamento e replanejamento não estão disponíveis neste incremento. | PO e QA, recuperar o plano vigente e registrar a política do lote, o alcance das variantes e o marco da medida. |
 | Reversão da migração da US14 | A revisão histórica reproduziu falha de downgrade após sugestão com aumento de setup. A migração de subida faz parte deste ciclo. | DevOps, validar a reversão em banco descartável com dados representativos. [Revisão](../../qualidade/release-2/revisao-us14.md#downgrade-falha-após-gravar-sugestão-válida-com-aumento-de-setup) |
-| Homologação, desempenho e rastreabilidade | Candidato homologado, denominador global da sprint, Q-07 e revisões/documentação oficial do Jira indisponíveis. | PO confirma homologação e disponibiliza o plano. DevOps identifica ambiente e SHA. QA confirma casos planejados, evidências humanas e desempenho. |
+| Homologação, desempenho e rastreabilidade | Candidato homologado, denominador global da sprint e documentação oficial do Jira indisponíveis. A Q-07 foi medida em loopback para o perfil descrito acima. | PO confirma homologação e disponibiliza o plano. DevOps identifica ambiente e SHA. QA confirma casos planejados, evidências humanas e desempenho. |
 
 [Matriz de riscos](../../qualidade/GP-RiscoBaseadoDefeitos-SetupFlow.xlsx) · [Auditoria da Release 2](../../qualidade/release-2/auditoria-bugs/relatorio-validacao.md)
 
@@ -179,6 +222,7 @@ O [plano de qualidade](../../qualidade/Plano-de-Qualidade-SetupFlow.xlsx) é a v
 | --- | --- | --- |
 | 26/11/2026 | 1.0 | Ciclo R2-REG-20261126-08a62f5, medições dos drivers e conferência da integração das correções. |
 | 26/11/2026 | 1.1 | Estado pós-merge dos BUG-004 e BUG-005. Evidências e parecer do ciclo associados aos SHAs executados. |
+| 26/11/2026 | 1.2 | Ensaio local de carga e resultados da Q-07 no SHA integrado. |
 
 [main]: https://github.com/arthur-marqs/Gerencia-Projeto-2026.2/commit/08a62f5d1d164c7ee2cfbb0282aa7f9784baaf8f
 [corrigida]: https://github.com/arthur-marqs/Gerencia-Projeto-2026.2/commit/ee2a4a88aea0018cb451c8f9988346fe25551e7a

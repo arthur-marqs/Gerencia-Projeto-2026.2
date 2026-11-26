@@ -1,0 +1,233 @@
+{
+  "inicio": "2026-11-26T17:12:55-03:00",
+  "fuso": "America/Sao_Paulo",
+  "commit": "c43587c653ede3d3438bdf780657e1c15624a6bc",
+  "branch": "main (checkout destacado)",
+  "alteracoes_locais": "Código de produção limpo; instrumentos de teste no workspace",
+  "sistema": "Windows-10-10.0.26300-SP0",
+  "cpu_logicas": 8,
+  "python": "3.11.9",
+  "api": {
+    "host": "127.0.0.1",
+    "porta": 8017,
+    "uvicorn_workers": 1,
+    "cookie_secure": false,
+    "log_de_acesso": false
+  },
+  "gerador_na_mesma_maquina": true,
+  "execucoes": [
+    {
+      "nome": "k6-versao",
+      "comando": [
+        "k6.exe",
+        "version"
+      ],
+      "inicio": "2026-11-26T17:12:56-03:00",
+      "fim": "2026-11-26T17:12:56-03:00",
+      "duracao_s": 0.063,
+      "codigo": 0,
+      "log": "k6-versao.log"
+    },
+    {
+      "nome": "migracao",
+      "comando": [
+        "python.exe",
+        "-m",
+        "alembic",
+        "upgrade",
+        "head"
+      ],
+      "inicio": "2026-11-26T17:12:56-03:00",
+      "fim": "2026-11-26T17:12:58-03:00",
+      "duracao_s": 1.921,
+      "codigo": 0,
+      "log": "migracao.log"
+    },
+    {
+      "nome": "massa",
+      "comando": [
+        "python.exe",
+        "<repo>\\tests\\performance\\seed_q07.py"
+      ],
+      "inicio": "2026-11-26T17:12:58-03:00",
+      "fim": "2026-11-26T17:13:01-03:00",
+      "duracao_s": 3.047,
+      "codigo": 0,
+      "log": "massa.log"
+    },
+    {
+      "nome": "smoke-1-vus",
+      "comando": [
+        "k6.exe",
+        "run",
+        "--out",
+        "json=<ciclo>\\execucao-1\\raw-smoke-1-vus.json",
+        "<repo>\\tests\\performance\\q07.js"
+      ],
+      "inicio": "2026-11-26T17:13:05-03:00",
+      "fim": "2026-11-26T17:13:16-03:00",
+      "duracao_s": 11.093,
+      "codigo": 0,
+      "log": "smoke-1-vus.log"
+    },
+    {
+      "nome": "api-q07_smoke_test",
+      "comando": [
+        "python.exe",
+        "-m",
+        "uvicorn",
+        "app.main:app",
+        "--host",
+        "127.0.0.1",
+        "--port",
+        "8017",
+        "--workers",
+        "1",
+        "--no-access-log"
+      ],
+      "inicio": "2026-11-26T17:13:03-03:00",
+      "fim": "2026-11-26T17:13:16-03:00",
+      "codigo": 1,
+      "observacao": "Processo encerrado ao final da fase.",
+      "log": "api-q07_smoke_test.log"
+    },
+    {
+      "nome": "aquecimento-5-vus",
+      "comando": [
+        "k6.exe",
+        "run",
+        "--out",
+        "json=<ciclo>\\execucao-1\\raw-aquecimento-5-vus.json",
+        "<repo>\\tests\\performance\\q07.js"
+      ],
+      "inicio": "2026-11-26T17:13:18-03:00",
+      "fim": "2026-11-26T17:13:49-03:00",
+      "duracao_s": 31.234,
+      "codigo": 0,
+      "log": "aquecimento-5-vus.log"
+    },
+    {
+      "nome": "medicao-5-vus",
+      "comando": [
+        "k6.exe",
+        "run",
+        "--out",
+        "json=<ciclo>\\execucao-1\\raw-medicao-5-vus.json",
+        "<repo>\\tests\\performance\\q07.js"
+      ],
+      "inicio": "2026-11-26T17:13:49-03:00",
+      "fim": "2026-11-26T17:16:51-03:00",
+      "duracao_s": 181.703,
+      "codigo": 0,
+      "log": "medicao-5-vus.log"
+    },
+    {
+      "nome": "api-q07_5_test",
+      "comando": [
+        "python.exe",
+        "-m",
+        "uvicorn",
+        "app.main:app",
+        "--host",
+        "127.0.0.1",
+        "--port",
+        "8017",
+        "--workers",
+        "1",
+        "--no-access-log"
+      ],
+      "inicio": "2026-11-26T17:13:16-03:00",
+      "fim": "2026-11-26T17:16:51-03:00",
+      "codigo": 1,
+      "observacao": "Processo encerrado ao final da fase.",
+      "log": "api-q07_5_test.log"
+    },
+    {
+      "nome": "aquecimento-10-vus",
+      "comando": [
+        "k6.exe",
+        "run",
+        "--out",
+        "json=<ciclo>\\execucao-1\\raw-aquecimento-10-vus.json",
+        "<repo>\\tests\\performance\\q07.js"
+      ],
+      "inicio": "2026-11-26T17:16:53-03:00",
+      "fim": "2026-11-26T17:17:25-03:00",
+      "duracao_s": 31.734,
+      "codigo": 0,
+      "log": "aquecimento-10-vus.log"
+    },
+    {
+      "nome": "medicao-10-vus",
+      "comando": [
+        "k6.exe",
+        "run",
+        "--out",
+        "json=<ciclo>\\execucao-1\\raw-medicao-10-vus.json",
+        "<repo>\\tests\\performance\\q07.js"
+      ],
+      "inicio": "2026-11-26T17:17:25-03:00",
+      "fim": "2026-11-26T17:20:28-03:00",
+      "duracao_s": 183.172,
+      "codigo": 0,
+      "log": "medicao-10-vus.log"
+    },
+    {
+      "nome": "api-q07_10_test",
+      "comando": [
+        "python.exe",
+        "-m",
+        "uvicorn",
+        "app.main:app",
+        "--host",
+        "127.0.0.1",
+        "--port",
+        "8017",
+        "--workers",
+        "1",
+        "--no-access-log"
+      ],
+      "inicio": "2026-11-26T17:16:51-03:00",
+      "fim": "2026-11-26T17:20:29-03:00",
+      "codigo": 1,
+      "observacao": "Processo encerrado ao final da fase.",
+      "log": "api-q07_10_test.log"
+    }
+  ],
+  "postgresql": {
+    "versao": "18.6",
+    "max_connections": "100",
+    "shared_buffers": "128MB",
+    "porta": 55484
+  },
+  "massa": {
+    "usuarios": 10,
+    "maquinas": 2,
+    "familias": 2,
+    "produtos": 4,
+    "ordens": 2280,
+    "setups_direcionais": 2,
+    "planos_manuais": 10,
+    "sugestoes_para_aprovacao": 2240,
+    "ordens_por_geracao": 4,
+    "ordens_por_aprovacao": 1,
+    "prazo": "2026-12-10"
+  },
+  "fim": "2026-11-26T17:20:29-03:00",
+  "codigo": 0,
+  "k6": {
+    "version": "v2.4.0",
+    "asset": "https://github.com/grafana/k6/releases/download/v2.4.0/k6-v2.4.0-windows-amd64.zip",
+    "sha256": "aaa90b3afc336faf90172c7addf45c4f41305f6f188e3d564f79466e80ac68e3",
+    "digestVerificado": true
+  },
+  "local": {
+    "branch_de_trabalho": "docs/relatorios_QA",
+    "head_docs": "1047e96",
+    "cpu": "Intel Core i5-1035G1",
+    "cpu_logicas_disponiveis": 8,
+    "memoria_bytes": 8375230464,
+    "windows_build": "10.0.26300"
+  },
+  "preparacao_postgresql": "initdb concluiu com código 0. Avisos de token restrito do Windows não impediram a criação, e a inicialização direta do postgres em loopback ficou disponível."
+}

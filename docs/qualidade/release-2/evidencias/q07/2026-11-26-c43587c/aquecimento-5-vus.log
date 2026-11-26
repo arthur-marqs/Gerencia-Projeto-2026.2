@@ -1,0 +1,196 @@
+
+         /\      Grafana   /‾‾/
+    /\  /  \     |\  __   /  /
+   /  \/    \    | |/ /  /   ‾‾\
+  /          \   |   (  |  (‾)  |
+ / __________ \  |_|\_\  \_____/
+
+
+     execution: local
+        script: <repo>\tests\performance\q07.js
+        output: json (<ciclo>\execucao-1\raw-aquecimento-5-vus.json)
+
+     scenarios: (100.00%) 1 scenario, 5 max VUs, 1m15s max duration (incl. graceful stop):
+              * q07: 5 looping VUs for 30s (gracefulStop: 45s)
+
+
+running (0m01.0s), 5/5 VUs, 0 complete and 0 interrupted iterations
+q07    [   1% ] 5 VUs  00.4s/30s
+
+running (0m02.0s), 5/5 VUs, 0 complete and 0 interrupted iterations
+q07    [   5% ] 5 VUs  01.4s/30s
+
+running (0m03.0s), 5/5 VUs, 5 complete and 0 interrupted iterations
+q07    [   8% ] 5 VUs  02.4s/30s
+
+running (0m04.0s), 5/5 VUs, 5 complete and 0 interrupted iterations
+q07    [  11% ] 5 VUs  03.4s/30s
+
+running (0m05.0s), 5/5 VUs, 10 complete and 0 interrupted iterations
+q07    [  15% ] 5 VUs  04.4s/30s
+
+running (0m06.0s), 5/5 VUs, 10 complete and 0 interrupted iterations
+q07    [  18% ] 5 VUs  05.4s/30s
+
+running (0m07.0s), 5/5 VUs, 15 complete and 0 interrupted iterations
+q07    [  21% ] 5 VUs  06.4s/30s
+
+running (0m08.0s), 5/5 VUs, 20 complete and 0 interrupted iterations
+q07    [  25% ] 5 VUs  07.4s/30s
+
+running (0m09.0s), 5/5 VUs, 20 complete and 0 interrupted iterations
+q07    [  28% ] 5 VUs  08.4s/30s
+
+running (0m10.0s), 5/5 VUs, 25 complete and 0 interrupted iterations
+q07    [  31% ] 5 VUs  09.4s/30s
+
+running (0m11.0s), 5/5 VUs, 25 complete and 0 interrupted iterations
+q07    [  35% ] 5 VUs  10.4s/30s
+
+running (0m12.0s), 5/5 VUs, 30 complete and 0 interrupted iterations
+q07    [  38% ] 5 VUs  11.4s/30s
+
+running (0m13.0s), 5/5 VUs, 35 complete and 0 interrupted iterations
+q07    [  41% ] 5 VUs  12.4s/30s
+
+running (0m14.0s), 5/5 VUs, 35 complete and 0 interrupted iterations
+q07    [  45% ] 5 VUs  13.4s/30s
+
+running (0m15.0s), 5/5 VUs, 40 complete and 0 interrupted iterations
+q07    [  48% ] 5 VUs  14.4s/30s
+
+running (0m16.0s), 5/5 VUs, 40 complete and 0 interrupted iterations
+q07    [  51% ] 5 VUs  15.4s/30s
+
+running (0m17.0s), 5/5 VUs, 45 complete and 0 interrupted iterations
+q07    [  55% ] 5 VUs  16.4s/30s
+
+running (0m18.0s), 5/5 VUs, 45 complete and 0 interrupted iterations
+q07    [  58% ] 5 VUs  17.4s/30s
+
+running (0m19.0s), 5/5 VUs, 50 complete and 0 interrupted iterations
+q07    [  61% ] 5 VUs  18.4s/30s
+
+running (0m20.0s), 5/5 VUs, 55 complete and 0 interrupted iterations
+q07    [  65% ] 5 VUs  19.4s/30s
+
+running (0m21.0s), 5/5 VUs, 55 complete and 0 interrupted iterations
+q07    [  68% ] 5 VUs  20.4s/30s
+
+running (0m22.0s), 5/5 VUs, 60 complete and 0 interrupted iterations
+q07    [  71% ] 5 VUs  21.4s/30s
+
+running (0m23.0s), 5/5 VUs, 61 complete and 0 interrupted iterations
+q07    [  75% ] 5 VUs  22.4s/30s
+
+running (0m24.0s), 5/5 VUs, 65 complete and 0 interrupted iterations
+q07    [  78% ] 5 VUs  23.4s/30s
+
+running (0m25.0s), 5/5 VUs, 70 complete and 0 interrupted iterations
+q07    [  81% ] 5 VUs  24.4s/30s
+
+running (0m26.0s), 5/5 VUs, 71 complete and 0 interrupted iterations
+q07    [  85% ] 5 VUs  25.4s/30s
+
+running (0m27.0s), 5/5 VUs, 76 complete and 0 interrupted iterations
+q07    [  88% ] 5 VUs  26.4s/30s
+
+running (0m28.0s), 5/5 VUs, 81 complete and 0 interrupted iterations
+q07    [  91% ] 5 VUs  27.4s/30s
+
+running (0m29.0s), 5/5 VUs, 82 complete and 0 interrupted iterations
+q07    [  95% ] 5 VUs  28.4s/30s
+
+running (0m30.0s), 5/5 VUs, 87 complete and 0 interrupted iterations
+q07    [  98% ] 5 VUs  29.4s/30s
+
+running (0m31.0s), 2/5 VUs, 90 complete and 0 interrupted iterations
+q07  ↓ [ 100% ] 5 VUs  30s
+{
+  "fase": "aquecimento",
+  "vus": 5,
+  "duracao": "30s",
+  "massa": {
+    "usuarios": 10,
+    "maquinas": 2,
+    "familias": 2,
+    "produtos": 4,
+    "ordens": 2280,
+    "setups_direcionais": 2,
+    "planos_manuais": 10,
+    "sugestoes_para_aprovacao": 2240,
+    "ordens_por_geracao": 4,
+    "ordens_por_aprovacao": 1,
+    "prazo": "2026-12-10"
+  },
+  "resultados": [
+    {
+      "operacao": "ordens",
+      "amostras": 92,
+      "p50_ms": 214.1538,
+      "p95_ms": 433.58802,
+      "max_ms": 571.9777,
+      "min_ms": 62.7007,
+      "falhas": 0
+    },
+    {
+      "operacao": "matriz_familias",
+      "amostras": 92,
+      "p50_ms": 106.6414,
+      "p95_ms": 338.8533750000001,
+      "max_ms": 394.0565,
+      "min_ms": 6.6697,
+      "falhas": 0
+    },
+    {
+      "operacao": "matriz_tempos",
+      "amostras": 92,
+      "p50_ms": 90.98750000000001,
+      "p95_ms": 312.039345,
+      "max_ms": 409.8048,
+      "min_ms": 6.6697,
+      "falhas": 0
+    },
+    {
+      "operacao": "geracao",
+      "amostras": 92,
+      "p50_ms": 75.8243,
+      "p95_ms": 237.86459500000004,
+      "max_ms": 352.602,
+      "min_ms": 12.1087,
+      "falhas": 0
+    },
+    {
+      "operacao": "comparacao",
+      "amostras": 92,
+      "p50_ms": 36.30435,
+      "p95_ms": 77.15754000000001,
+      "max_ms": 96.2675,
+      "min_ms": 5.2835,
+      "falhas": 0
+    },
+    {
+      "operacao": "aprovacao",
+      "amostras": 92,
+      "p50_ms": 57.0375,
+      "p95_ms": 113.06565500000002,
+      "max_ms": 225.1066,
+      "min_ms": 13.1735,
+      "falhas": 0
+    },
+    {
+      "operacao": "aprovados",
+      "amostras": 92,
+      "p50_ms": 29.576500000000003,
+      "p95_ms": 60.224790000000006,
+      "max_ms": 314.2012,
+      "min_ms": 8.3667,
+      "falhas": 0
+    }
+  ],
+  "iteracoes": 92,
+  "duracao_total_ms": 31086.4316
+}
+
+running (0m31.1s), 0/5 VUs, 92 complete and 0 interrupted iterations
+q07  ✓ [ 100% ] 5 VUs  30s

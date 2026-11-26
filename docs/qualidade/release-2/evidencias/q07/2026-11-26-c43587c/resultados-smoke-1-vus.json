@@ -1,0 +1,85 @@
+{
+  "fase": "smoke",
+  "vus": 1,
+  "duracao": "10s",
+  "massa": {
+    "usuarios": 10,
+    "maquinas": 2,
+    "familias": 2,
+    "produtos": 4,
+    "ordens": 2280,
+    "setups_direcionais": 2,
+    "planos_manuais": 10,
+    "sugestoes_para_aprovacao": 2240,
+    "ordens_por_geracao": 4,
+    "ordens_por_aprovacao": 1,
+    "prazo": "2026-12-10"
+  },
+  "resultados": [
+    {
+      "operacao": "ordens",
+      "amostras": 9,
+      "p50_ms": 84.1272,
+      "p95_ms": 163.3473,
+      "max_ms": 178.5815,
+      "min_ms": 60.5258,
+      "falhas": 0
+    },
+    {
+      "operacao": "matriz_familias",
+      "amostras": 9,
+      "p50_ms": 11.2421,
+      "p95_ms": 14.586799999999998,
+      "max_ms": 16.5154,
+      "min_ms": 9.0823,
+      "falhas": 0
+    },
+    {
+      "operacao": "matriz_tempos",
+      "amostras": 9,
+      "p50_ms": 11.6309,
+      "p95_ms": 51.03435999999998,
+      "max_ms": 76.5178,
+      "min_ms": 9.581,
+      "falhas": 0
+    },
+    {
+      "operacao": "geracao",
+      "amostras": 9,
+      "p50_ms": 18.4937,
+      "p95_ms": 51.64785999999998,
+      "max_ms": 72.4667,
+      "min_ms": 12.9607,
+      "falhas": 0
+    },
+    {
+      "operacao": "comparacao",
+      "amostras": 9,
+      "p50_ms": 12.0711,
+      "p95_ms": 26.079459999999997,
+      "max_ms": 30.1219,
+      "min_ms": 7.7976,
+      "falhas": 0
+    },
+    {
+      "operacao": "aprovacao",
+      "amostras": 9,
+      "p50_ms": 16.3637,
+      "p95_ms": 44.43553999999999,
+      "max_ms": 57.0171,
+      "min_ms": 12.6563,
+      "falhas": 0
+    },
+    {
+      "operacao": "aprovados",
+      "amostras": 9,
+      "p50_ms": 7.7276,
+      "p95_ms": 16.230379999999997,
+      "max_ms": 21.3291,
+      "min_ms": 6.9467,
+      "falhas": 0
+    }
+  ],
+  "iteracoes": 9,
+  "duracao_total_ms": 10971.1037
+}

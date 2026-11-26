@@ -1,0 +1,85 @@
+{
+  "fase": "medicao",
+  "vus": 5,
+  "duracao": "3m",
+  "massa": {
+    "usuarios": 10,
+    "maquinas": 2,
+    "familias": 2,
+    "produtos": 4,
+    "ordens": 2280,
+    "setups_direcionais": 2,
+    "planos_manuais": 10,
+    "sugestoes_para_aprovacao": 2240,
+    "ordens_por_geracao": 4,
+    "ordens_por_aprovacao": 1,
+    "prazo": "2026-12-10"
+  },
+  "resultados": [
+    {
+      "operacao": "ordens",
+      "amostras": 594,
+      "p50_ms": 139.11675,
+      "p95_ms": 331.06561999999997,
+      "max_ms": 572.2061,
+      "min_ms": 61.736,
+      "falhas": 0
+    },
+    {
+      "operacao": "matriz_familias",
+      "amostras": 594,
+      "p50_ms": 27.3369,
+      "p95_ms": 213.82421500000004,
+      "max_ms": 463.191,
+      "min_ms": 2.1371,
+      "falhas": 0
+    },
+    {
+      "operacao": "matriz_tempos",
+      "amostras": 594,
+      "p50_ms": 27.0562,
+      "p95_ms": 185.25919000000002,
+      "max_ms": 450.728,
+      "min_ms": 4.6418,
+      "falhas": 0
+    },
+    {
+      "operacao": "geracao",
+      "amostras": 594,
+      "p50_ms": 60.14055,
+      "p95_ms": 227.30416000000008,
+      "max_ms": 449.6832,
+      "min_ms": 9.8568,
+      "falhas": 0
+    },
+    {
+      "operacao": "comparacao",
+      "amostras": 594,
+      "p50_ms": 31.139,
+      "p95_ms": 135.47688,
+      "max_ms": 287.1674,
+      "min_ms": 1.5842,
+      "falhas": 0
+    },
+    {
+      "operacao": "aprovacao",
+      "amostras": 594,
+      "p50_ms": 43.342,
+      "p95_ms": 175.79808500000001,
+      "max_ms": 327.1653,
+      "min_ms": 9.1701,
+      "falhas": 0
+    },
+    {
+      "operacao": "aprovados",
+      "amostras": 594,
+      "p50_ms": 66.6966,
+      "p95_ms": 188.91242500000007,
+      "max_ms": 328.2812,
+      "min_ms": 12.8176,
+      "falhas": 0
+    }
+  ],
+  "iteracoes": 594,
+  "duracao_total_ms": 181485.2421
+}
