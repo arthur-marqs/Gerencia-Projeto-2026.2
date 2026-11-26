@@ -1,179 +1,202 @@
-﻿# Revisão de QA — Driver04 | Controle de acesso às operações
+# Relatório de revisão e validação — Driver04: Controle de acesso às operações
 
-## 1. Identificação
+| Informação | Detalhe |
+|---|---|
+| Projeto | SetupFlow |
+| Release / Sprint | Release 2 / Sprint 3 |
+| Responsável pelo QA | Leonardo Istamilo |
+| Data da revisão | 26/11/2026, America/Sao_Paulo |
+| Item avaliado | Driver04 — Controle de acesso às operações. Definição fornecida na solicitação. A issue oficial não foi localizada. |
+| Pull Request | Nenhum PR localizado para o head da branch na consulta de 26/11/2026. |
+| Branch | `feature/driver04-controle-acesso` |
+| Commit avaliado | [`20c7bc44de3778491652552743dcb01558b44f03`](https://github.com/arthur-marqs/Gerencia-Projeto-2026.2/commit/20c7bc44de3778491652552743dcb01558b44f03) |
+| Ambiente | Matriz local com Windows, Python 3.11, FastAPI TestClient e PostgreSQL 18.6 em instância descartável. A CI do commit usou Ubuntu, PostgreSQL 18, Chrome 157 e Electron 150. |
+| Parecer do QA | **Validação inconclusiva para aceite.** A meta técnica foi comprovada na matriz avaliada. A conclusão depende das pendências de integração, cobertura e DoD registradas neste relatório. |
+
+## 1. Objetivo e escopo
+
+Verificar se a API autentica e autoriza o usuário antes de atender operações restritas ao Planejador. A medida exige **100% de rejeição em pelo menos 20 tentativas distintas não autorizadas**, sem exposição de dados protegidos e sem alterações indevidas no banco. O plano de testes da Sprint 3, revisão 2.4, exige ao menos dez combinações para cada condição, dados de negócio válidos e controle positivo separado.
+
+**Funcionalidades avaliadas** — Consultas e operações de máquinas, tempos de setup, geração e consulta de sugestões, comparação de sequências e consulta e edição de planejamento manual. O estímulo foi aplicado por chamadas à API com usuário de teste autenticado como `OPERADOR` ou com a sessão ausente.
+
+**Drivers relacionados** — Driver06, pela dependência comum de sessão. Expiração, invalidação e tempo de resposta do Driver06 pertencem a avaliação própria.
+
+**Limitações** — O commit avaliado deriva de `65a1d24`. A aprovação de planejamento já constava em `main` no commit `5772ec0` via PR #28, porém a rota não existe no head do Driver04. A edição manual foi exercitada. O fluxo de replanejamento com nova revisão ficou pendente conforme o plano. A matriz usa o perfil `OPERADOR`, que existe no produto. A necessidade de um perfil `SUPERVISOR` separado aguarda confirmação. [Integração da US17](https://github.com/arthur-marqs/Gerencia-Projeto-2026.2/pull/28)
+
+A DoR foi informada como concluída na solicitação. Os estados da DoD são avaliados na seção 5.
+
+## 2. Revisão da implementação
+
+| Aspecto | Situação | Observações / evidências |
+|---|---|---|
+| Comportamento previsto no driver | Conforme | A matriz obteve HTTP 403 com Operador e HTTP 401 sem sessão. Foram 24 respostas com somente o `detail` esperado e 24 comparações das linhas das tabelas sem diferença. [JUnit da matriz](evidencias-driver04/reavaliacao-20c7bc4/matriz-pytest.xml) |
+| Regras de negócio | Conforme | Cada operação da matriz também foi solicitada por Planejador, em massa de teste equivalente. As cinco leituras retornaram dados e as sete escritas produziram diferenças na comparação do banco. [Matriz de QA](evidencias-driver04/reavaliacao-20c7bc4/matriz-qa.py) |
+| Permissões de acesso | Conforme | `get_current_user` valida sessão e usuário ativo. `require_profiles` verifica os perfis associados antes da operação protegida. A verificação foi exercitada na API. [Dependências da API](https://github.com/arthur-marqs/Gerencia-Projeto-2026.2/blob/20c7bc44de3778491652552743dcb01558b44f03/backend/app/api/deps.py) |
+| Validações e tratamento de erros | Conforme | Os corpos das respostas 401 e 403 corresponderam exatamente às mensagens esperadas. Dados e identificadores válidos foram corroborados por controles positivos na mesma matriz. [JUnit da matriz](evidencias-driver04/reavaliacao-20c7bc4/matriz-pytest.xml) |
+| Estados da interface — carregamento, vazio e erro | Não se aplica à medida | A medida do Driver04 verifica requisições diretas ao servidor. O navegador foi usado nos controles positivos de planejamento. |
+| Testes automatizados relacionados | Conforme na revisão | A suíte oficial passou em 44 casos na CI. A matriz complementar supera a lacuna dos corpos vazios e IDs inexistentes nessa suíte. A execução complementar ocorreu localmente. [Suíte oficial](https://github.com/arthur-marqs/Gerencia-Projeto-2026.2/blob/20c7bc44de3778491652552743dcb01558b44f03/backend/testes/integration/drivers/test_driver04_controle_acesso.py) |
+| Documentação exigida | Conforme no escopo consultado | A matriz, os comandos, as evidências e a cobertura pendente estão registrados neste relatório. A versão anterior está preservada no commit avaliado. [Relatório anterior](https://github.com/arthur-marqs/Gerencia-Projeto-2026.2/blob/20c7bc44de3778491652552743dcb01558b44f03/docs/qualidade/release-2/revisao-driver04.md) |
+
+## 3. Validação dos critérios de aceite
+
+| Critério / cenário | Caso de teste | Execução | Resultado | Evidência / bug |
+|---|---|---|---|---|
+| C1 — Negar operações do Planejador ao Operador | CT-130 | Pytest/API com PostgreSQL real | **Aprovado — 12/12** | HTTP 403, somente `detail` e dados persistidos idênticos antes e depois em todos os casos. [JUnit](evidencias-driver04/reavaliacao-20c7bc4/matriz-pytest.xml) |
+| C2 — Negar acesso direto sem autenticação | CT-131 | Pytest/API com PostgreSQL real | **Aprovado — 12/12** | HTTP 401, somente `detail` e dados persistidos idênticos antes e depois em todos os casos. [JUnit](evidencias-driver04/reavaliacao-20c7bc4/matriz-pytest.xml) |
+| Controle positivo — Planejador com dados válidos | CT-132 | Pytest/API local e Cypress na CI do mesmo SHA | **Aprovado** | 12/12 controles da matriz. CT-110, CT-120 e o cenário de máquinas compatíveis também passaram no Chrome da CI. [JUnit](evidencias-driver04/reavaliacao-20c7bc4/matriz-pytest.xml) · [Chrome](https://github.com/arthur-marqs/Gerencia-Projeto-2026.2/actions/runs/45745796620/job/139661419106) |
+
+### 3.1. Matriz e dados válidos
+
+Cada linha foi executada nas três condições de acesso. Foram utilizadas contas fictícias e fixtures isoladas, com máquinas M01 e M02, famílias A/B/C, ordens OP01/OP02/OP03, plano manual e sugestão persistidos. As máquinas referenciadas e os identificadores do plano e da sugestão existiam na massa. A exclusão autorizada usou M02, cadastrada para teste e sem vínculos.
+
+| Operação | Dados ou condição do controle | CT-130 | CT-131 | CT-132 |
+|---|---|---:|---:|---:|
+| GET máquinas | Catálogo preenchido | 403 | 401 | 200 |
+| POST máquina | Código MQA e nome válidos | 403 | 401 | 201 |
+| PUT máquina | M01 existente e novo nome | 403 | 401 | 200 |
+| PATCH status de máquina | M01 ativa, alteração para inativa | 403 | 401 | 200 |
+| DELETE máquina | M02 existente, sem vínculos | 403 | 401 | 204 |
+| GET tempos de setup | Matriz com trocas A→B e B→A | 403 | 401 | 200 |
+| POST tempo de setup | A→C com 15 min e sem cadastro anterior | 403 | 401 | 201 |
+| POST sugestão | OP01, OP02 e OP03 elegíveis | 403 | 401 | 201 |
+| GET sugestão por ID | Sugestão existente | 403 | 401 | 200 |
+| GET comparação | Plano e sugestão das mesmas ordens | 403 | 401 | 200 |
+| GET planejamento por ID | Plano manual existente | 403 | 401 | 200 |
+| PUT planejamento | Inversão da ordem das operações do plano manual | 403 | 401 | 200 |
+
+### 3.2. Registro de execução — CT-130
 
 | Campo | Registro |
-| --- | --- |
-| Item | Driver04 — Controle de acesso às operações |
-| Release / Sprint | Release 2; sprint a confirmar no planejamento oficial |
-| Repositório | arthur-marqs/Gerencia-Projeto-2026.2 |
-| Issue | Não informada nesta avaliação. |
-| PR / branch | PR ainda não criada. Branch local: `feature/driver04-controle-acesso`. |
-| Commit avaliado | Alteração ainda não commitada. Branch criada sobre a `main` atualizada em `65a1d24`. |
-| Data | 25/11/2026 |
-| Ambiente | Windows, PowerShell, Python do ambiente virtual do backend, Pytest e PostgreSQL local. |
-| Banco de testes | `setupflow_test`, confirmado por `TEST_DATABASE_URL`. |
+|---|---|
+| Data / responsável | 26/11/2026 · matriz local de QA |
+| Commit testado | `20c7bc44de3778491652552743dcb01558b44f03`, extraído em cópia isolada |
+| Pré-condições e dados | Massa da seção 3.1 e conta ativa autenticada com perfil `OPERADOR`. |
+| Resultado esperado | 403 em cada operação, resposta de acesso negado e preservação dos dados. |
+| Resultado obtido | 12/12 respostas 403. Em todas, o corpo foi somente `{"detail": "Acesso não autorizado para este perfil."}` e a comparação do banco foi idêntica. |
+| Resultado do teste | **Aprovado** |
+| Evidência / bug | [JUnit da matriz](evidencias-driver04/reavaliacao-20c7bc4/matriz-pytest.xml). Nenhum bug observado. |
 
-A avaliação considera os critérios fornecidos para o Driver04: verificar identidade e permissão antes da execução de operações protegidas, rejeitar acessos não autorizados, não expor dados protegidos e preservar os dados persistidos.
+1. Preparar os dados e autenticar o Operador de teste.
+2. Registrar a impressão digital das linhas das tabelas após o login e enviar a operação.
+3. Conferir resposta e repetir a leitura das tabelas após a requisição.
 
-## 2. Parecer resumido
+### 3.3. Registro de execução — CT-131
 
-**Resultado técnico positivo no escopo exercitado.** A suíte específica executou 44 casos, todos aprovados. Foram avaliadas 22 operações protegidas em dois cenários: ausência de sessão e sessão válida de usuário com perfil `OPERADOR`.
+| Campo | Registro |
+|---|---|
+| Data / responsável | 26/11/2026 · matriz local de QA |
+| Commit testado | `20c7bc44de3778491652552743dcb01558b44f03`, extraído em cópia isolada |
+| Pré-condições e dados | Massa da seção 3.1 e cliente de teste sem cookie de sessão. |
+| Resultado esperado | 401 em cada operação, resposta de sessão inválida e preservação dos dados. |
+| Resultado obtido | 12/12 respostas 401. Em todas, o corpo foi somente `{"detail": "Sessão inválida ou expirada."}` e a comparação do banco foi idêntica. |
+| Resultado do teste | **Aprovado** |
+| Evidência / bug | [JUnit da matriz](evidencias-driver04/reavaliacao-20c7bc4/matriz-pytest.xml). Nenhum bug observado. |
 
-As 22 tentativas sem sessão retornaram HTTP `401`. As 22 tentativas autenticadas como operador retornaram HTTP `403`. Em todas as 44 tentativas, a comparação do conteúdo das tabelas inspecionadas antes e depois da requisição não identificou alteração.
+1. Preparar os dados e limpar os cookies do cliente de teste.
+2. Registrar a impressão digital das linhas das tabelas e enviar a operação.
+3. Conferir resposta e repetir a leitura das tabelas após a requisição.
 
-A regressão completa do backend também foi aprovada: **317 testes passaram em 304,90 segundos**.
+### 3.4. Registro de execução — CT-132
 
-A implementação de autenticação e autorização já existia nas rotas e dependências do sistema. O incremento específico desta tarefa foi a criação de uma suíte de testes dedicada ao Driver04; não houve alteração no código de produção.
+| Campo | Registro |
+|---|---|
+| Data / responsável | 26/11/2026 · matriz local de QA e auditoria dos logs da CI |
+| Commit testado | `20c7bc44de3778491652552743dcb01558b44f03` |
+| Pré-condições e dados | Massa da seção 3.1 e sessão ativa de Planejador. |
+| Resultado esperado | Permitir as operações válidas de leitura e escrita. |
+| Resultado obtido | 12/12 controles API passaram com HTTP 200, 201 ou 204 conforme a operação. As cinco leituras preservaram as linhas, as sete escritas alteraram o estado de teste e os controles de geração, consulta, comparação e compatibilidade passaram no navegador. |
+| Resultado do teste | **Aprovado** |
+| Evidência / bug | [JUnit da matriz](evidencias-driver04/reavaliacao-20c7bc4/matriz-pytest.xml) · [Chrome na CI](https://github.com/arthur-marqs/Gerencia-Projeto-2026.2/actions/runs/45745796620/job/139661419106). Nenhum bug observado. |
 
-O resultado é local e ainda depende de commit, PR, CI, revisão e aceite para concluir a integração da entrega.
+1. Repetir as operações com o perfil Planejador autenticado.
+2. Verificar as respostas válidas e o efeito correspondente no banco.
+3. Conferir na CI a execução dos cenários existentes CT-110, CT-120 e US15_CT01 como evidência de navegador.
 
-## 3. Rastreabilidade dos critérios
+**Medição** — **24/24 tentativas não autorizadas rejeitadas, 100%**, com zero exposição de dados protegidos e zero diferenças nas linhas das tabelas inspecionadas. Foram 12 operações em cada condição, superando o mínimo de 10 por condição e de 20 no total. Os 12 controles positivos e as 44 verificações da suíte oficial são registrados separadamente.
 
-| Critério | Verificação | Resultado |
-| --- | --- | --- |
-| Identificar usuário sem sessão | 22 operações protegidas, sem cookie de sessão | 22/22 retornaram HTTP 401 |
-| Identificar usuário autenticado sem permissão | 22 operações protegidas com perfil `OPERADOR` | 22/22 retornaram HTTP 403 |
-| Não expor dados protegidos | Comparação exata do corpo das respostas de acesso negado | 44/44 retornaram somente o campo `detail` esperado |
-| Preservar os dados | Snapshot das linhas das tabelas inspecionadas antes e depois de cada tentativa | 44/44 comparações sem diferença |
-| Meta de pelo menos 20 tentativas | Suíte com 44 casos parametrizados | Atendida no escopo avaliado |
+## 4. Bugs e pendências
 
-### 3.1. Operações incluídas na suíte
+| Issue / referência | Descrição | Classificação | Severidade | Status | Impacto no aceite |
+|---|---|---|---|---|---|
+| CT-130 a CT-132 | A suíte oficial usa corpos vazios e IDs inexistentes em parte dos casos. A reavaliação cobriu dados válidos com uma matriz complementar local. | Pendência de cobertura | — | Parcialmente resolvida | A medida local foi comprovada. Falta incorporar à CI a cobertura com dados válidos. |
+| Integração do Driver04 | A branch está publicada, com CI de push verde. O head ainda está fora da ancestralidade da `main` consultada e o PR do Driver04 ainda não foi localizado. | Pendência da DoD | — | Pendente | Falta rever e testar a versão a integrar. |
+| Aprovação e replanejamento | A aprovação da US17 já existe em `main` e precisa ser verificada na versão de integração. O replanejamento completo permanece indisponível no head avaliado. | Pendência de cobertura | — | Pendente | Esses fluxos permanecem fora da medição efetuada. |
+| Perfil Supervisor | Confirmar se a denominação Operador/Supervisor indica o perfil atual `OPERADOR` ou um perfil independente. | Pendência de requisito | — | A confirmar | A evidência de C1 se aplica ao Operador disponível. |
 
-| Categoria | Operações avaliadas | Quantidade |
-| --- | --- | ---: |
-| Máquinas | GET, POST, PUT, PATCH e DELETE | 5 |
-| Famílias | GET e POST | 2 |
-| Tempos de setup | GET e POST | 2 |
-| Produtos | GET e POST | 2 |
-| Ordens de produção | GET lista, GET por ID, POST, PATCH de duração e PUT de prazo/prioridade | 5 |
-| Planejamentos | GET lista, GET por ID, POST e PUT | 4 |
-| Sugestões de planejamento | POST e GET por ID | 2 |
-| **Total** | | **22** |
+**Situação do levantamento** — Nenhum bug funcional observado nos casos executados. Os achados registrados dizem respeito à cobertura, aos requisitos e às condições de entrega.
 
-Cada uma das 22 operações foi testada com os dois estados de acesso, resultando em 44 casos.
+## 5. Verificação da Definition of Done
 
-### 3.2. Regras de resposta verificadas
+**Referência** — Critérios de saída do plano de testes da Release 2 / Sprint 3 e checklist da revisão anterior. A DoD formal específica do Driver04 ficou sem comprovação nas fontes consultadas.
 
-| Estado de acesso | Resultado esperado | Resultado observado |
-| --- | --- | --- |
-| Sem sessão | HTTP 401 — sessão inválida ou expirada | 22/22 |
-| Sessão válida, perfil `OPERADOR` | HTTP 403 — acesso não autorizado para este perfil | 22/22 |
+| Critério observado | Situação | Evidência / pendência |
+|---|---|---|
+| Critérios técnicos e meta validados | Atendido no escopo executado | CT-130 e CT-131 com 24 negativas válidas, e CT-132 com controle positivo. |
+| Código revisado e integrado via Pull Request | Não atendido | PR do Driver04 ainda não localizado. A branch de referência já possui alterações adicionais de planejamento, incluindo a US17. |
+| Testes escritos e passando | Atendido | 44 verificações oficiais na CI e 36 execuções na matriz complementar local. A cobertura oficial com os dados válidos segue como pendência. |
+| Pipeline de CI sem falhas | Atendido | Todos os jobs do push no SHA avaliado concluíram com sucesso. [CI do commit](https://github.com/arthur-marqs/Gerencia-Projeto-2026.2/actions/runs/45745796620) |
+| Homologação quando exigida | Não verificado | Falta confirmar a exigência da release e identificar ambiente e versão implantada. |
+| Documentação atualizada | Atendido no escopo da revisão | Relatório, matriz e evidências associados ao SHA avaliado. |
+| Aceite pelo PO | Não verificado | Aceite formal sem evidência consultada. |
 
-A suíte compara o corpo recebido com a mensagem específica esperada para cada situação. Assim, uma resposta de sucesso ou com dados protegidos não satisfaz as asserções.
+## 6. Reteste e regressão
 
-### 3.3. Integridade dos dados
+**Escopo** — As operações usam as dependências de sessão e perfil compartilhadas pelas rotas de cadastro, planejamento e comparação. A regressão completa verifica os fluxos existentes. A matriz local foi produzida a partir de um arquivo do Git do SHA avaliado, com banco PostgreSQL dedicado, terminado em `_test`.
 
-O teste captura os registros das tabelas identificadas pelo inspetor SQLAlchemy antes da tentativa e repete a leitura depois da resposta HTTP.
+| Data | Tipo | Caso / fluxo | Bug relacionado | Commit | Resultado | Evidência |
+|---|---|---|---|---|---|---|
+| 25/11/2026 | Histórico local | Suíte oficial + regressão completa do backend | — | `65a1d24` com a suíte local do Driver04 | 44 e 317 testes aprovados, respectivamente | [Suíte original](evidencias-driver04/pytest-driver04.txt) · [Regressão original](evidencias-driver04/pytest-regressao.txt) |
+| 25–26/11/2026 | Regressão na CI | Backend, incluindo a suíte oficial do Driver04 | — | `20c7bc4` | 317/317 aprovados, incluindo os 44 do driver | [Backend](https://github.com/arthur-marqs/Gerencia-Projeto-2026.2/actions/runs/45745796620/job/139661419163) |
+| 25–26/11/2026 | Regressão na CI | Aceite no navegador | — | `20c7bc4` | 64/64 aprovados por navegador | [Chrome](https://github.com/arthur-marqs/Gerencia-Projeto-2026.2/actions/runs/45745796620/job/139661419106) · [Electron](https://github.com/arthur-marqs/Gerencia-Projeto-2026.2/actions/runs/45745796620/job/139661419290) |
+| 26/11/2026 | Reavaliação local | Matriz com dados válidos, CT-130 a CT-132 | — | `20c7bc4` | **36/36 aprovados** em 35,71 s | [JUnit](evidencias-driver04/reavaliacao-20c7bc4/matriz-pytest.xml) |
 
-O snapshot é realizado depois do login, quando aplicável, para que a criação legítima da sessão não seja confundida com efeito da requisição não autorizada.
+**Reteste de bug** — Não se aplica. A reavaliação complementou a cobertura sem alterar as regras de produção.
 
-Resultado: as 44 comparações foram idênticas. Não foram observadas inserções, exclusões ou atualizações nas linhas das tabelas inspecionadas.
-
-## 4. Revisão estática da proteção
-
-A inspeção do código identificou duas dependências centrais:
-
-- `get_current_user`, em `backend/app/api/deps.py`, verifica a sessão, sua validade, sua expiração e se o usuário está ativo. A ausência de identidade válida resulta em HTTP 401.
-- `require_profiles`, no mesmo módulo, consulta os perfis associados ao usuário e verifica se há interseção com os perfis autorizados. A falta de permissão resulta em HTTP 403.
-
-As rotas de máquinas, produtos, famílias, tempos de setup, ordens, planejamentos e sugestões utilizam a verificação de perfil `PLANEJADOR`.
-
-A rota de usuários possui proteção específica para o perfil `ADMINISTRADOR`.
-
-A restrição visual dos menus na interface não foi considerada mecanismo suficiente de segurança. A validação do Driver04 foi realizada diretamente na API, de modo a exercitar o controle no servidor.
-
-Arquivos de referência:
-- [Dependências de autenticação e autorização](../../../backend/app/api/deps.py)
-- [Rotas de máquinas](../../../backend/app/api/routes/maquinas.py)
-- [Rotas de famílias](../../../backend/app/api/routes/families.py)
-- [Rotas de tempos de setup](../../../backend/app/api/routes/tempos_setup.py)
-- [Rotas de produtos](../../../backend/app/api/routes/produtos.py)
-- [Rotas de ordens](../../../backend/app/api/routes/ordens_producao.py)
-- [Rotas de planejamento](../../../backend/app/api/routes/planejamentos.py)
-- [Rotas de sugestões](../../../backend/app/api/routes/sugestoes_planejamento.py)
-
-## 5. Testes executados
-
-| Nível | Execução | Resultado |
-| --- | --- | --- |
-| Testes específicos | `pytest testes\integration\drivers\test_driver04_controle_acesso.py -q` | **44 aprovados**, 61,72 s |
-| Regressão completa | `pytest testes -q` | **317 aprovados**, 304,90 s |
-| Verificação Git | `git diff --check` | Sem problemas de whitespace |
-
-A suíte específica está em:
-
-`backend/testes/integration/drivers/test_driver04_controle_acesso.py`
-
-Os resultados de console foram registrados em:
-- [Execução específica do Driver04](evidencias-driver04/pytest-driver04.txt)
-- [Regressão completa do backend](evidencias-driver04/pytest-regressao.txt)
-
-As execuções apresentadas foram feitas com `TEST_DATABASE_URL` apontando para `setupflow_test`.
-
-Não foi gerado JUnit XML nessas duas execuções. Os arquivos de evidência preservam os comandos e os resultados observados no terminal.
-
-## 6. Bugs, limitações e pendências
-
-### 6.1. Perfil SUPERVISOR não existente
-
-A especificação do cenário menciona Operador/Supervisor. No código atual, os perfis reconhecidos são `ADMINISTRADOR`, `PLANEJADOR` e `OPERADOR`, conforme `backend/app/schemas/usuario.py`.
-
-Não foi criado um perfil `SUPERVISOR` durante esta tarefa. A suíte utiliza `OPERADOR`, que é o perfil existente correspondente ao cenário de usuário sem permissão de planejamento.
-
-Caso o PO confirme que Supervisor deve ser um perfil independente, será necessário tratar essa decisão como ampliação de escopo, incluindo schema, persistência, provisionamento de perfis, regras de autorização e testes.
-
-### 6.2. Abrangência da suíte
-
-As 22 operações da suíte específica não representam todos os métodos de todas as rotas protegidas do sistema. Outras operações, como associação de produtos e compatibilidade com máquinas, já possuem verificações em testes das respectivas histórias.
-
-Esses testes fazem parte da regressão de 317 casos, mas não foram contabilizados nas 44 tentativas específicas do Driver04.
-
-### 6.3. Integração ainda pendente
-
-| Pendência | Situação | Critério de fechamento |
-| --- | --- | --- |
-| Commit da implementação de testes | Pendente | Commit exclusivo do Driver04 |
-| Pull Request | Pendente | PR criada e vinculada à branch |
-| Revisão de código | Pendente | Revisão registrada |
-| CI da branch | Pendente | Pipeline concluída com sucesso no commit avaliado |
-| Integração na `main` | Pendente | Merge aprovado |
-| Aceite do PO | Não verificado | Decisão rastreável |
-| Perfil Supervisor | A confirmar | Alinhamento com o requisito oficial |
-
-## 7. Verificação da DoD
-
-| Critério | Estado | Evidência |
-| --- | --- | --- |
-| Controle de acesso no backend | Atendido no escopo inspecionado | Dependências de autenticação e autorização nas rotas |
-| Pelo menos 20 tentativas não autorizadas | Atendido | 44 casos executados |
-| 100% das tentativas rejeitadas | Atendido | 44/44 respostas 401 ou 403 |
-| Ausência de alteração dos dados | Atendido no escopo inspecionado | 44/44 snapshots sem diferenças |
-| Testes escritos e passando | Atendido localmente | 44 testes específicos e 317 na regressão |
-| Código revisado via PR | Pendente | PR ainda não criada |
-| Pipeline de CI sem falhas | Não verificado | Execução remota ainda pendente |
-| Documentação atualizada | Pendente de integração | Relatório preparado nesta branch |
-| Homologação, quando exigida | Não verificado | Exigência não confirmada |
-| Aceite do PO | Não verificado | Decisão ainda não registrada |
-
-## 8. Reprodutibilidade
-
-Na pasta `backend`, com o ambiente virtual instalado e a variável `TEST_DATABASE_URL` apontando para o banco de testes:
+Para reproduzir a matriz, use o código do SHA avaliado, as dependências do backend e um PostgreSQL descartável indicado por `TEST_DATABASE_URL`. Execute na pasta `backend`. Há limpeza de dados de teste entre casos.
 
 ```powershell
-.\.venv\Scripts\python.exe -m pytest testes\integration\drivers\test_driver04_controle_acesso.py -q
-
-.\.venv\Scripts\python.exe -m pytest testes -q
+python -m pytest -q -p testes.integration.conftest -o junit_family=xunit1 --junitxml=matriz-pytest.xml ../docs/qualidade/release-2/evidencias-driver04/reavaliacao-20c7bc4/matriz-qa.py
 ```
 
-A fixture de integração prepara e limpa o banco de testes. Não executar esses comandos contra o banco de desenvolvimento ou produção.
+## 7. Resumo dos resultados
 
-## 9. Parecer final
+| Indicador | Quantidade |
+|---|---:|
+| Casos previstos nesta avaliação | 3 |
+| Casos aprovados | 3 |
+| Casos reprovados | 0 |
+| Casos bloqueados | 0 |
+| Casos não executados | 0 |
+| Bugs identificados nesta avaliação | 0 no escopo executado |
+| Bugs corrigidos com reteste aprovado | 0 |
+| Bugs ainda pendentes | 0 no escopo executado |
 
-**Critério técnico atendido no escopo testado; integração e aceite pendentes.**
+Os três casos são CT-130, CT-131 e CT-132. As combinações da matriz, os controles de navegador e as execuções de regressão são detalhados nas seções anteriores.
 
-As 44 tentativas não autorizadas foram rejeitadas corretamente, com distinção entre ausência de autenticação (401) e ausência de permissão (403). As comparações do conteúdo das tabelas inspecionadas não identificaram alterações após nenhuma das tentativas.
+## 8. Parecer do QA
 
-A regressão completa também foi aprovada, com 317 testes.
+**Parecer — Validação inconclusiva para aceite.**
 
-A conclusão não representa aceite final da entrega: ainda são necessários commit, PR, revisão, CI e integração. Também permanece a necessidade de confirmar com o PO se o perfil Supervisor deve existir de forma independente.
+**Commit avaliado** — `20c7bc44de3778491652552743dcb01558b44f03`.
+
+**Justificativa** — A matriz com dados válidos comprovou 24/24 rejeições, com os códigos e mensagens esperados e sem alterações indevidas nos dados inspecionados. Os controles positivos passaram e a CI do mesmo SHA concluiu com sucesso. Restam a validação da versão integrada, as pendências de cobertura e a conclusão das condições da DoD.
+
+### Pendências para conclusão
+
+| Pendência | Responsável | Referência | Situação |
+|---|---|---|---|
+| Vincular a issue e registrar revisão no PR do Driver04 | Equipe de desenvolvimento e QA | Branch do Driver04 | Pendente |
+| Incorporar à CI o controle com dados válidos e verificar as permissões da aprovação na versão integrada | Equipe de desenvolvimento e QA | CT-130 a CT-132 e US17 | Pendente |
+| Confirmar o significado de Supervisor e a cobertura de replanejamento | PO e equipe | Critérios do Driver04 e plano da Sprint 3 | A confirmar |
+| Confirmar a DoD vigente, a aplicabilidade de homologação e o aceite | PO e equipe da release | DoD / Release 2 | Não verificado |
+
+**Riscos ou limitações remanescentes** — A matriz mede o conteúdo das linhas no banco de teste sob as condições declaradas. A CI consultada é do push da branch. Aprovação e replanejamento ficaram fora da execução do head avaliado.
+
+**Aceite do PO** — Pendente de registro.
+
+## 9. Histórico da revisão
+
+| Data | Responsável | Commit avaliado | Atualização |
+|---|---|---|---|
+| 25/11/2026 | Avaliação original | `65a1d24` com alterações locais do Driver04 | 44 casos da suíte específica e 317 testes de regressão aprovados localmente. [Relatório original completo](https://github.com/arthur-marqs/Gerencia-Projeto-2026.2/blob/20c7bc44de3778491652552743dcb01558b44f03/docs/qualidade/release-2/revisao-driver04.md) |
+| 26/11/2026 | Leonardo Istamilo, QA da release | `20c7bc44de3778491652552743dcb01558b44f03` | Matriz complementar com 24 negativas e 12 controles aprovados. CI auditada pelo SHA. Parecer atualizado conforme as pendências de integração e cobertura. |
