@@ -1,0 +1,16 @@
+﻿SetupFlow — regressão completa do backend
+
+Data: 25/11/2026
+Diretório de execução: backend
+Banco: setupflow_test
+Comando:
+.\.venv\Scripts\python.exe -m pytest testes -q
+
+Saída observada:
+................................................................................................................................... [ 41%]
+................................................................................................................................... [ 82%]
+....................................................... [100%]
+317 passed in 304.90s (0:05:04)
+
+A regressão inclui a suíte específica do Driver04.
+Observação: registro textual da saída apresentada no terminal. Não foi gerado JUnit XML nessa execução.

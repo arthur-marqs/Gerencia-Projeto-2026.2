@@ -1,0 +1,16 @@
+﻿Driver04 — execução específica
+
+Data: 25/11/2026
+Diretório de execução: backend
+Banco: setupflow_test
+Comando:
+.\.venv\Scripts\python.exe -m pytest testes\integration\drivers\test_driver04_controle_acesso.py -q
+
+Saída observada:
+............................................ [100%]
+44 passed in 61.72s (0:01:01)
+
+Escopo: 22 operações protegidas, testadas sem sessão e com perfil OPERADOR.
+Resultado: 22 respostas HTTP 401, 22 respostas HTTP 403 e 44 comparações de snapshots sem diferenças.
+
+Observação: registro textual da saída apresentada no terminal. Não foi gerado JUnit XML nessa execução.
