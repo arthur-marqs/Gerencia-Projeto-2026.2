@@ -2,6 +2,8 @@
 
 A suíte utiliza Cypress 16 + Cucumber/Gherkin em português, API FastAPI real e PostgreSQL exclusivo para testes.
 
+Os PRs integrados e o DoD concluído por entrega estão no [estado das entregas](../../docs/status-projeto.md). Os resultados de recuperação após falha temporária de identidade foram obtidos em `docs/qualidade`. [Reteste do BUG-005](../../docs/qualidade/release-2/auditoria-bugs/reteste-bug005.md)
+
 A US32 cobre o gerenciamento de usuários, com os casos `@CT32` a `@CT43`. A US11 cobre a consulta da matriz de setup e a regressão de famílias ausentes. A US13 automatiza os 13 casos de geração e consulta da sequência sugerida em [`sugestao.feature`](e2e/sugestao.feature).
 
 A US14 automatiza seis execuções de sequenciamento por prazos e prioridades

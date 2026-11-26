@@ -1,18 +1,19 @@
 # SetupFlow
 
-Aplicação em desenvolvimento para planejamento e acompanhamento da produção, com interface em React e API em FastAPI.
+Interface web do SetupFlow para cadastros e planejamento da produção. [Estado das entregas e DoD](../docs/status-projeto.md)
 
 
 ## Estado atual
 
 - **Frontend:** aplicação React, TypeScript, Vite e Tailwind CSS, com tela de login e áreas autenticadas para produtos, famílias de produtos, máquinas, ordens de produção, tempos de setup, matriz de setup, planejamentos e usuários.
-- **Autenticação:** integração com a API FastAPI, sessões mantidas por cookies e controle de acesso conforme os perfis do usuário.
-- **Planejamento:** consulta dos tempos de setup entre famílias de produtos e visualização da matriz de transições direcionais.
+- **Autenticação e usuários.** Sessão por cookie, redirecionamento após expiração ou invalidação e gestão de contas pelo Administrador.
+- **Planejamento manual e matriz.** Seleção e ordenação de ordens pendentes e visualização da matriz de transições direcionais entre famílias.
 - **Sequência sugerida (US13, US14 e US15):** geração a partir das ordens selecionadas, considerando tempos de setup, prazos, prioridades, durações estimadas e máquinas compatíveis ativas, com consulta da sugestão pelo planejamento.
 - **Matriz de setup:** apresenta as famílias nas linhas e colunas, com os tempos de transição em minutos. Transições sem configuração são representadas por um traço. A tela permite atualizar os dados consultados.
 - **Backend:** API FastAPI com documentação interativa, endpoint de saúde, autenticação e rotas para os módulos da aplicação.
 - **Banco de dados:** PostgreSQL para persistência dos dados da aplicação.
-- **Testes:** testes automatizados de backend e testes de aceitação Cypress com Gherkin, incluindo os cenários das US11, US13, US14, US15 e US32.
+- **Comparação e aprovação (US16 e US17).** Comparação da sequência manual com a indicada pelo sistema, seleção da alternativa pelo Planejador e consulta da sequência aprovada pelo Operador.
+- **Testes.** A suíte Cypress com Gherkin cobre matriz, sugestão, prazos e prioridades, compatibilidade, comparação, aprovação, usuários e sessões. [Guia Cypress](cypress/README.md)
 
 
 ## Requisitos
@@ -41,7 +42,7 @@ Versões registradas no ambiente de desenvolvimento e no CI:
 | Cliente `psql` | PostgreSQL 18.6 |
 
 As versões exatas das dependências do frontend ficam registradas em `frontend/package-lock.json` e podem ser instaladas com `npm install`.
-O número de versão de `psql` identifica o cliente de linha de comando; ele não confirma a versão do servidor PostgreSQL. Docker e PostgreSQL estão instalados no ambiente, mas não são necessários para iniciar a aplicação no estado descrito neste README.
+O guia do backend descreve a configuração do servidor PostgreSQL usado pela API. Docker é opcional para a execução local. [Configuração do PostgreSQL](../backend/README.md)
 
 ## Estrutura relevante
 
@@ -126,6 +127,8 @@ A tela permite preencher e-mail e senha. Ao enviar o formulário:
 - em caso de sucesso, mostra uma saudação com o nome retornado pela API;
 - em caso de erro de autenticação ou conexão, mostra a mensagem correspondente.
 
+Uma sessão expirada ou invalidada leva ao login ao receber HTTP 401 de uma rota protegida. A recuperação de uma falha temporária ao consultar a identidade na abertura da aplicação foi retestada na branch `docs/qualidade` e aguarda integração à `main`. [Reteste do BUG-005](../docs/qualidade/release-2/auditoria-bugs/reteste-bug005.md)
+
 ## Matriz de setup
 
 A matriz de setup permite consultar os tempos necessários para realizar transições entre famílias de produtos.
@@ -139,7 +142,7 @@ A matriz de setup permite consultar os tempos necessários para realizar transi�
 
 A consulta utiliza as rotas `GET /api/families` e `GET /api/tempos-setup`, disponíveis para usuários com perfil Planejador de Produção.
 
-Os testes de aceitação da funcionalidade estão documentados em `frontend/cypress/README.md`.
+Os testes de aceitação da funcionalidade estão no [guia Cypress](cypress/README.md).
 
 ## Gerar e consultar uma sequência sugerida (US13)
 
@@ -213,6 +216,12 @@ Sugestões anteriores à US15 podem aparecer com **Máquina não atribuída**.
 
 Consulte as [regras do backend](../backend/README.md#us15--compatibilidade-entre-produtos-e-máquinas-no-sequenciamento)
 e o [relatório de testes da US15](../docs/releases/release2/sprint3/relatorio-testes-us15.md).
+
+## Comparar e aprovar o planejamento (US16 e US17)
+
+1. Como Planejador, abra **Planejamento manual** e clique em **Comparar sequências** no plano para consultar a sequência manual, a sugerida e seus tempos de setup.
+2. Em **Execução da produção**, selecione a alternativa disponível e confirme em **Aprovar planejamento**.
+3. Como Operador, abra **Execução da produção** para consultar a sequência registrada em **Planejamentos aprovados**.
 
 ## Banco de dados
 

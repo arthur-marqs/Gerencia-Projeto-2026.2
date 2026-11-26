@@ -6,7 +6,7 @@ Sistema web para apoiar o planejamento e o acompanhamento da produção em peque
 
 O SetupFlow busca auxiliar pequenas e médias indústrias no planejamento da sequência de produção.
 
-O projeto está em desenvolvimento. A versão atual inclui autenticação, controle de acesso, cadastros e planejamento da produção com geração de sugestões por tempo de setup.
+O incremento integrado da Release 2 permite cadastrar a base de produção, montar um planejamento manual, gerar e comparar sugestões e aprovar a sequência que o Operador consulta. O PO aceitou as 19 histórias e os 5 drivers integrados das Releases 1 e 2. [Status por item e Definition of Done](docs/status-projeto.md)
 
 ## Equipe
 
@@ -142,33 +142,34 @@ npm run build
 
 Inicie o frontend e a API com um banco PostgreSQL exclusivo terminado em `_e2e_test`. O guia descreve como preparar esse ambiente. [Configuração do Cypress](frontend/cypress/README.md#ambiente-local)
 
-Na pasta `frontend`, execute os 13 casos automatizados da sequência sugerida (US13).
+Na pasta `frontend`, execute a regressão ponta a ponta.
 
 ```powershell
-npm run test:e2e -- --browser chrome --tags "@US13 and not @wip"
+npm run test:e2e:regressao -- --browser chrome
 ```
 
 ### Integração contínua
 
-Em pushes e pull requests, o GitHub Actions executa Pytest, lint, build e os cenários Cypress. A regressão de aceite das US11, US13 e US32 roda em Chrome e Electron e publica relatórios e capturas por navegador.
-
-A execução do commit `82ff7d7` no PR da US13 registrou **213 testes de backend aprovados** e **49 cenários Cypress aprovados em cada navegador**, incluindo os **13 casos da US13**. [Resultados e evidências no GitHub Actions](https://github.com/arthur-marqs/Gerencia-Projeto-2026.2/actions/runs/45528957609)
+Em pushes e pull requests, o GitHub Actions executa Pytest, lint, build e cenários Cypress. A regressão de aceite roda em Chrome e Electron e publica relatórios e capturas por navegador. As suítes incluem matriz de setup, sugestão, prazos e prioridades, compatibilidade, comparação, aprovação, sessões e gerenciamento de usuários. Os cinco jobs da execução de `08a62f5` na `main` passaram. [Guia Cypress](frontend/cypress/README.md) · [Execução integrada](https://github.com/arthur-marqs/Gerencia-Projeto-2026.2/actions/runs/45827103972)
 
 ## Funcionalidades implementadas
 
-- **Autenticação e sessão (US01):** login integrado à API, senha armazenada como hash, sessão persistida no PostgreSQL, consulta da identidade autenticada e logout.
-- **Proteção contra tentativas repetidas (Driver05):** registro de falhas de login e bloqueio temporário após tentativas inválidas consecutivas.
-- **Controle de acesso por perfil (US02):** operações de cadastro são restritas ao perfil Planejador de Produção; o perfil Operador não acessa recursos exclusivos do Planejador.
-- **Gerenciamento de máquinas (US03):** cadastro, consulta, edição, ativação, inativação e exclusão quando não há registros vinculados. A tela e a API aplicam as permissões por perfil.
-- **Produtos e famílias (US04–US06):** cadastro e consulta de produtos e famílias, com associação e remoção da associação entre produto e família.
-- **Ordens de produção (US07–US08):** cadastro e consulta de ordens, além da definição e atualização de prazo e prioridade.
-- **Sequência sugerida (US13).** O planejador pode gerar uma sugestão a partir das ordens selecionadas e consultar o resultado no planejamento correspondente. [Guia de uso](frontend/README.MD#gerar-e-consultar-uma-sequência-sugerida-us13)
-- **Interface web:** telas de login, máquinas, produtos, famílias e ordens de produção conectadas à API.
+- **Acesso (US01, US02 e US32).** Login, logout, permissões por perfil e gerenciamento de usuários pelo Administrador.
+- **Cadastros (US03 a US06 e US26).** Máquinas, produtos, famílias e associações produto–família e produto–máquina.
+- **Ordens e setup (US07 a US11).** Cadastro de ordens com prazo, prioridade e duração estimada, configuração de tempos de setup direcionais e consulta da matriz entre famílias.
+- **Planejamento (US12 a US17).** Montagem manual, geração de sugestões considerando setup, prazos, prioridades e máquinas compatíveis, comparação de alternativas e aprovação da sequência disponível ao Operador.
+- **Drivers.** Integridade nas gravações de ordens (Driver01), prevenção de duplicidade no reenvio (Driver02), bloqueio de operações sem permissão (Driver04), limitação de tentativas de login (Driver05) e recusa de sessões expiradas ou invalidadas (Driver06).
 
 
 ## Documentação
 
-Consulte o [guia do backend](backend/README.md) para detalhes de configuração do PostgreSQL e execução da API, o [guia do frontend](frontend/README.MD) para requisitos e execução da interface e o [mapa visual do projeto](docs/estrutura-projeto.md) para conhecer a estrutura atual do repositório.
+| Documento | Conteúdo |
+| --- | --- |
+| [Estado das entregas](docs/status-projeto.md) | Aceite por US e driver, DoD, PRs e pendências das correções. |
+| [Backend](backend/README.md) · [Frontend](frontend/README.MD) | Configuração do ambiente, API e fluxos de uso. |
+| [Mapa do projeto](docs/estrutura-projeto.md) · [Arquitetura](docs/arquitetura/arquitetura.md) · [Modelo de dados](docs/arquitetura/modelo-de-dados.md) | Organização do código e esquema persistido. |
+| [Release 1](docs/releases/release1/release-notes.md) · [Auditoria e retestes da Release 2](docs/qualidade/release-2/auditoria-bugs/README.md) | Histórico de entrega e evidências de qualidade. |
+
 ---
 ## Organização arquitetural planejada (referência futura)
 
@@ -463,4 +464,4 @@ setupflow/
 - Segredos e arquivos `.env` não são versionados; os arquivos `.env.example` documentam as variáveis necessárias.
 - Os arquivos de dependências e seus locks são mantidos no repositório.
 - Os testes e as evidências devem ser vinculados às US e aos drivers correspondentes.
-- Quando o Jira for a fonte oficial do backlog, a documentação deve referenciá-lo para evitar versões divergentes.
+- As decisões de entrega e os PRs integrados estão no [estado das entregas](docs/status-projeto.md). Os relatórios vinculam as respectivas tarefas no Jira quando o identificador está disponível.

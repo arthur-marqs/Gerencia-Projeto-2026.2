@@ -1,17 +1,29 @@
 # Modelo de dados do SetupFlow
 
-**Versão:** 0.6 — proposta conceitual e esquemas de autenticação e sugestões de planejamento
-**Data:** 25/11/2026
-**Estado:** referência das implementações da US01, da US13, da US14 e da US15 e do modelo conceitual de evolução.
+Atualizado em 26/11/2026. Referência do esquema PostgreSQL até a aprovação do planejamento (US17) e do modelo conceitual de evolução. [Entregas integradas](../status-projeto.md)
 
 ## 1. Como ler este documento
 
 O documento apresenta o esquema aplicado e o modelo conceitual.
 
-1. **Implementado.** Esquemas PostgreSQL da autenticação da US01 e das sugestões da US13, atualizadas pelas US14 e US15, derivados dos modelos ORM e das migrations em `backend/`. [DER de autenticação](diagramas/der-autenticacao-implementado.jpeg)
-2. **Proposto.** DER conceitual para cadastros, ordens, planejamento e execução, seguido pelo mapeamento relacional de referência para a evolução do sistema.
+1. **Implementado.** Inventário das tabelas e das relações integradas, com os esquemas detalhados de autenticação e de sugestões de planejamento.
+2. **Proposto.** DER conceitual original e mapeamento relacional de referência para a evolução do sistema.
 
-As seções **Implementação atual** e as migrations são a referência para o esquema executável.
+As migrações e os modelos versionados descrevem o esquema executável. [Migrações](../../backend/migrations/versions/) · [Modelos ORM](../../backend/app/models/)
+
+## Esquema integrado
+
+A revisão Alembic `8d17b4f2c306` encerra a árvore atual de migrações.
+
+| Domínio | Tabelas | Relações e regras |
+| --- | --- | --- |
+| Autenticação e gestão de usuários | `usuarios`, `perfis`, `usuario_perfil`, `sessoes`, `controle_tentativas_login`, `falhas_login` | Usuários têm um ou mais perfis. A migração da US32 adiciona o perfil `ADMINISTRADOR`. Sessões e controle de tentativas são persistidos. |
+| Cadastros | `maquinas`, `families`, `produtos`, `produto_maquina` | Produto pode ter uma família e vínculos com várias máquinas. A compatibilidade é registrada por produto e máquina. |
+| Ordens e reenvios | `ordens_producao`, `ordens_producao_operacoes` | Ordem referencia um produto e pode ter prazo, prioridade e duração estimada. A chave de idempotência é única por usuário e vinculada à ordem criada. |
+| Tempos de setup | `tempos_setup_familias` | Cada par ordenado de famílias distintas tem no máximo um tempo positivo. |
+| Planejamento manual | `planejamentos`, `itens_planejamento` | Cada plano mantém uma sequência de ordens. Uma ordem ocorre uma vez por plano. |
+| Sugestões | `sugestoes_planejamento`, `itens_sugestao_planejamento` | A sugestão persiste a sequência, os tempos de setup e a máquina atribuída a cada ordem. |
+| Aprovações | `aprovacoes_planejamento`, `itens_aprovacao_planejamento` | Cada aprovação tem uma origem manual ou sugerida e referencia o usuário que aprovou. Cada ordem pode estar em uma única aprovação. |
 
 Os diagramas estão divididos por assunto. Uma entidade que aparece em mais de um quadro é a mesma entidade; a repetição evita cruzamentos de linhas. Cada quadro é uma visão parcial de um relacionamento, e não um banco separado. Atributos selecionados aparecem nas imagens; os demais são descritos no catálogo e no mapeamento.
 
@@ -54,7 +66,7 @@ A proposta permite cadastrar família, produto ou máquina antes de suas associa
 
 ![DER implementado de login, perfis, sessões e controle de tentativas em notação de Peter Chen](diagramas/der-autenticacao-implementado.jpeg)
 
-O diagrama representa as seis tabelas do esquema atual: `usuarios`, `perfis`, `usuario_perfil`, `sessoes`, `controle_tentativas_login` e `falhas_login`. A relação N:N USUÁRIO–PERFIL é implementada pela entidade associativa `usuario_perfil`. O controle de tentativas é identificado pela combinação de e-mail tentado e IP, e não por uma FK para um usuário: assim também são contadas tentativas com e-mail inexistente.
+O diagrama representa as seis tabelas de autenticação. A relação N:N USUÁRIO–PERFIL é implementada pela entidade associativa `usuario_perfil`. O controle de tentativas é identificado pela combinação de e-mail tentado e IP, incluindo tentativas com e-mail inexistente.
 
 ### Onde a implementação está
 
@@ -303,7 +315,7 @@ Este é um desenho conceitual anterior, não o esquema implementado. Para o mode
 | USUÁRIO — SOLICITA — REGISTRO IDEMP. | Usuário `(0,N)` | Registro `(1,1)` |
 | ORDEM — É RESULTADO — REGISTRO IDEMP. | Ordem `(0,1)` | Registro `(1,1)` |
 
-As relações USUÁRIO–CONTROLE LOGIN e REGISTRO IDEMP. abaixo são somente propostas e não existem como FKs/tabelas no banco atual. Na implementação, `controle_tentativas_login` é identificado por `(email_tentado, ip_origem)` e pode existir para um e-mail sem usuário cadastrado. REGISTRO IDEMP. significa **registro de idempotência** e permanece uma ideia futura para reenvios de ordens.
+No esquema integrado, `controle_tentativas_login` é identificado por `(email_tentado, ip_origem)` e pode existir para um e-mail sem usuário cadastrado. A idempotência do cadastro é implementada em `ordens_producao_operacoes`.
 
 ## 5. DER — planejamento
 
@@ -379,9 +391,9 @@ Esta tabela descreve o DER **proposto**, não os atributos implantados. Para os 
 | PAUSA | identificador | início, fim, motivo |
 | EVENTO AUDITORIA | identificador | ação, tipo de objeto, objeto, instante, detalhes |
 
-APROVAÇÃO é identificada pelo plano no mapeamento atual. Se for desenhada como entidade dependente sem identificador próprio, usar entidade fraca e relacionamento identificador em Chen. Ela não aparece como entidade forte nas imagens desta entrega.
+Na proposta conceitual, APROVAÇÃO é identificada pelo plano. A implementação da US17 possui a própria chave `id_aprovacao` e referencia uma origem, manual ou sugerida.
 
-Código é identificador de negócio proposto para cadastros e ordens. A implementação atual de autenticação não tem as entidades de cadastros e ordens, e usa os nomes/tipos `id_usuario`, `id_perfil`, `email` e outros descritos na seção implementada. Hash de senha e hash de token estão no esquema atual; campos de versão concorrente e detalhes de resposta continuam sendo propostas.
+O código é um identificador de negócio para cadastros e ordens. O inventário do esquema e as migrações registram as tabelas e restrições integradas.
 
 ## 8. Mapeamento relacional proposto para PostgreSQL (não implantado)
 
@@ -490,7 +502,7 @@ O vínculo com planejamento é representado pelos itens e pela aprovação da se
 
 ### 4. Proposta anterior de autenticação e idempotência — substituída para autenticação
 
-`auth_sessions` e `login_guards` são nomes e estruturas de uma proposta anterior, substituídos pelo esquema atual `sessoes`, `controle_tentativas_login` e `falhas_login` documentado no início. Não criar estas tabelas duplicadas. `idempotency_records` segue sendo uma proposta futura para operações de cadastro de ordens, que ainda não estão implementadas.
+`auth_sessions`, `login_guards` e `idempotency_records` pertencem ao mapeamento conceitual. A API integrada usa `sessoes`, `controle_tentativas_login`, `falhas_login` e `ordens_producao_operacoes`.
 
 
 #### `auth_sessions`
@@ -545,7 +557,7 @@ A ordem e o registro de idempotência são confirmados na **mesma transação**.
 
 ### 5. Evolução — planejamento e setups
 
-As entidades desta seção são previstas para as funcionalidades posteriores à base de cadastros. A release exata deve seguir o plano aprovado pela equipe.
+As entidades desta seção pertencem ao mapeamento original. O inventário do esquema integrado registra as tabelas de setup, planejamento manual, sugestões e aprovações que entraram na Release 2.
 
 
 | Entidade | Campos principais propostos | Regras |
