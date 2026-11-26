@@ -1,5 +1,7 @@
 # [BUG] Falha temporária ao restaurar sessão deixa a interface na tela de login
 
+**Acompanhamento em 26/11/2026** — Registrado na [issue #31 / BUG-005](https://github.com/arthur-marqs/Gerencia-Projeto-2026.2/issues/31). A correção foi validada localmente e aguarda integração. [Relatório de reteste](reteste-bug005.md)
+
 **RELEASE:** R2  
 **SPRINT:** 3  
 **SEVERIDADE:** Média  

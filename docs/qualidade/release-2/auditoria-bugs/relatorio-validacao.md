@@ -2,7 +2,7 @@
 
 **Parecer de QA — Pendente de ajustes.** A versão integrada aprovou e publicou uma sequência que apontava para uma máquina que já não podia executá-la. Também foi reproduzido um bloqueio na interface de autenticação durante uma falha temporária de identidade. A aprovação deve ser corrigida primeiro pelo impacto no plano disponibilizado à produção.
 
-**Atualização em 26/11/2026** — A correção do BUG-004 foi validada localmente no código de `b6c72f2`. O parecer acima continua associado ao commit da auditoria original. [Reteste do BUG-004](reteste-bug004.md)
+**Atualização em 26/11/2026** — As correções do BUG-004 e do BUG-005 foram validadas localmente nos códigos de `b6c72f2` e `8978fc1`. O parecer acima continua associado ao commit da auditoria original. [Reteste do BUG-004](reteste-bug004.md) · [Reteste do BUG-005](reteste-bug005.md)
 
 ## 1. Escopo e fontes
 
@@ -94,7 +94,7 @@ O ensaio adicional no navegador usa o script [qa-sessao.mjs](evidencias/qa-sessa
 | Referência | Severidade e prioridade sugeridas | Confirmação | Impacto |
 |---|---|---|---|
 | ACHADO-01 / BUG-004 | Alta e Alta | Duas variantes, 2/2, por API integrada e consulta independente ao PostgreSQL. | Na versão auditada, uma nova aprovação gravava e disponibilizava uma atribuição inviável. [Issue #30](https://github.com/arthur-marqs/Gerencia-Projeto-2026.2/issues/30) · [Registro original](bug-aprovacao-maquina-inelegivel.md) · [Reteste](reteste-bug004.md) |
-| ACHADO-02 | Média e Média | Três tentativas, 3/3, no Chrome com sessão real e 503 inicial simulado. | O Planejador perde o acesso à navegação no carregamento e precisa recarregar para recuperar a sessão sem fazer login novamente. [Proposta de issue](bug-restauracao-sessao-indisponivel.md) |
+| ACHADO-02 / BUG-005 | Média e Média | Três tentativas, 3/3, no Chrome com sessão real e 503 inicial simulado. | Na versão auditada, o Planejador perdia a navegação e precisava recarregar para recuperar a sessão. [Issue #31](https://github.com/arthur-marqs/Gerencia-Projeto-2026.2/issues/31) · [Registro original](bug-restauracao-sessao-indisponivel.md) · [Reteste](reteste-bug005.md) |
 
 ## 6. Suspeitas, lacunas e riscos operacionais
 
@@ -115,7 +115,7 @@ As três issues permanecem fechadas. A busca pública por registros equivalentes
 ## 8. Causa provável, correção e regressão após o ajuste
 
 - **ACHADO-01.** A geração verifica a compatibilidade atual e descarta máquinas inativas. Na aprovação, a lista de candidatos filtra ordens pendentes e ainda livres. O POST verifica origem, ordem e conflito com outra aprovação, depois copia a máquina da sugestão para a aprovação. A reprodução confirma que basta alterar o cadastro após a geração para chegar ao `201`. Validar elegibilidade atual no POST, na mesma transação usada para criar a aprovação, e sinalizar a sugestão indisponível na listagem de candidatos. Preservar a fonte histórica e a repetição idempotente de aprovações já existentes. O teste de regressão deve fazer a nova aprovação recusar as duas variantes, manter vazias as tabelas de aprovação e impedir sua exibição ao Operador. Retestar aprovação manual, sugestão elegível, conflitos de concorrência e catálogo atualizado. [Geração](../../../../backend/app/api/routes/sugestoes_planejamento.py#L91-L120) · [Aprovação na versão auditada](https://github.com/arthur-marqs/Gerencia-Projeto-2026.2/blob/08a62f5d1d164c7ee2cfbb0282aa7f9784baaf8f/backend/app/api/routes/aprovacoes_planejamento.py#L124-L166)
-- **ACHADO-02.** `buscarUsuarioAutenticado` distingue 401 de outros erros, mas `restaurarSessao` termina no estado de login ao capturar qualquer falha. A sincronização periódica só existe enquanto há usuário no estado da aplicação. Acrescentar um estado recuperável para falha temporária de identidade e uma ação explícita de nova consulta, com mensagem própria. Manter bloqueada a área protegida até obter identidade válida. O teste de regressão deve falhar se um 503 inicial mostrar diretamente o formulário sem opção de recuperar a sessão, e passar quando a nova consulta 200 restaurar a navegação. Retestar também o 401 inicial, expiração com navegação aberta, logout e os dois cenários da issue #19. [Restauração](../../../../frontend/src/App.tsx#L33-L85) · [Reação ao 401](../../../../frontend/src/lib/apiFetch.ts#L1-L12)
+- **ACHADO-02.** `buscarUsuarioAutenticado` distingue 401 de outros erros, mas `restaurarSessao` termina no estado de login ao capturar qualquer falha. A sincronização periódica só existe enquanto há usuário no estado da aplicação. Acrescentar um estado recuperável para falha temporária de identidade e uma ação explícita de nova consulta, com mensagem própria. Manter bloqueada a área protegida até obter identidade válida. O teste de regressão deve falhar se um 503 inicial mostrar diretamente o formulário sem opção de recuperar a sessão, e passar quando a nova consulta 200 restaurar a navegação. Retestar também o 401 inicial, expiração com navegação aberta, logout e os dois cenários da issue #19. [Restauração na versão auditada](https://github.com/arthur-marqs/Gerencia-Projeto-2026.2/blob/08a62f5d1d164c7ee2cfbb0282aa7f9784baaf8f/frontend/src/App.tsx#L33-L85) · [Reação ao 401](../../../../frontend/src/lib/apiFetch.ts#L1-L12)
 
 ## 9. Limitações e ações para o fechamento
 
@@ -133,3 +133,7 @@ As três issues permanecem fechadas. A busca pública por registros equivalentes
 ## 11. Reteste do BUG-004
 
 Em 26/11/2026, a correção do [BUG-004](https://github.com/arthur-marqs/Gerencia-Projeto-2026.2/issues/30) foi validada localmente nas duas variantes. A API recusou a aprovação com HTTP 409, preservou a sugestão para consulta e manteve vazia a execução do Operador. A regressão final passou com 331 testes de backend e 12 cenários no Chrome. O parecer se aplica ao código de [`b6c72f2`](https://github.com/arthur-marqs/Gerencia-Projeto-2026.2/commit/b6c72f2beb9c4ba92a4c7871547c895574c8afd2), com integração à `main` pendente. [Relatório e evidências](reteste-bug004.md)
+
+## 12. Reteste do BUG-005
+
+Em 26/11/2026, a correção do [BUG-005](https://github.com/arthur-marqs/Gerencia-Projeto-2026.2/issues/31) foi validada localmente. Após uma falha temporária de identidade, o botão **Tentar novamente** restaurou o painel quando a API respondeu 200 com a sessão válida. Uma resposta 401 real abriu o login, e uma resposta 200 atrasada após a rejeição de um recurso protegido foi descartada. O parecer se aplica ao código de [`8978fc1`](https://github.com/arthur-marqs/Gerencia-Projeto-2026.2/commit/8978fc110480f363b65873443c072bcc4469cfd6), com integração à `main` pendente. [Relatório e evidências](reteste-bug005.md)

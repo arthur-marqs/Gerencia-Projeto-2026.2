@@ -2,6 +2,8 @@
 
 > **Situação atual — reavaliação de 23/11/2026, commit `c17288606ebbd0afedf18e7a6b6be73923a3ac60`: Validação inconclusiva para aceite.** BUG002 resolvido e verificado nos cenários retestados; testes funcionais e medições locais aprovados. Falta comprovar a DoD vigente e confirmar os requisitos/planejamento no Jira. Há uma sinalização de integração do PR a esclarecer. A avaliação inicial e suas reprovações estão integralmente preservadas no histórico ao final.
 
+**Acompanhamento em 26/11/2026** — O [BUG-005 / issue #31](https://github.com/arthur-marqs/Gerencia-Projeto-2026.2/issues/31) trata da consulta inicial de identidade indisponível. No reteste local, a nova consulta com sessão válida restaurou a navegação, e a resposta 401 manteve o fluxo de login. O reteste também verificou que um 200 atrasado não reabre o painel após a recusa de um recurso protegido. [Relatório de reteste](auditoria-bugs/reteste-bug005.md)
+
 ## 1. Identificação — versão atual
 
 | Campo | Reavaliação |
