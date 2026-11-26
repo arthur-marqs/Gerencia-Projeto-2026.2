@@ -2,6 +2,8 @@
 
 ## Identificação do ciclo
 
+**Atualização pós-merge.** As correções entraram na `main` em `c43587c`. As reproduções e os retestes deste registro foram executados em `08a62f5` e `ee2a4a8`, respectivamente. [PR #32](https://github.com/arthur-marqs/Gerencia-Projeto-2026.2/pull/32)
+
 | Campo | Registro |
 | --- | --- |
 | Ciclo e fuso | R2-REG-20261126-08a62f5, 26/11/2026, America/Sao_Paulo (UTC−03:00) |
@@ -106,7 +108,7 @@ Os relatórios distinguem reprovações de produto, falhas de preparação e cas
 
 ## Conclusão e limitações
 
-**Pendente de ajustes na `main`.** O fluxo integrado nominal passou e o BUG-004 foi reproduzido. O BUG-005 também foi reproduzido na restauração. As suítes oficiais passaram em Chrome e Electron. Os retestes específicos passaram no checkout que contém os fixes. As medições locais apoiam o parecer no escopo exercitado. O ciclo não oferece o resultado da versão futura com as duas correções integradas. O fechamento exige identificar esse SHA, repetir os retestes e a regressão aplicável e confirmar homologação e rastreabilidade com PO, QA e DevOps. [Relatório de Qualidade](../../releases/release2/relatorio-qualidade-release-2.md)
+**Parecer do ciclo pré-merge em `08a62f5`: Pendente de ajustes.** O fluxo integrado nominal passou e o BUG-004 foi reproduzido. O BUG-005 também foi reproduzido na restauração. As suítes oficiais passaram em Chrome e Electron. Os retestes específicos passaram no checkout que contém os fixes. As medições locais apoiam o parecer no escopo exercitado. O PR #32 integrou as correções em `c43587c`. Este ciclo se refere às versões pré-merge. O fechamento da release depende da validação aplicável ao SHA integrado. [PR #32](https://github.com/arthur-marqs/Gerencia-Projeto-2026.2/pull/32) [Relatório de Qualidade](../../releases/release2/relatorio-qualidade-release-2.md)
 
 [evidencias]: evidencias/regressao-2026-11-26-08a62f5/README.md
 [manifesto]: evidencias/regressao-2026-11-26-08a62f5/manifesto.json

@@ -19,4 +19,4 @@
 
 **US32** — 31 cenários passaram na regressão. O CT35 foi interrompido na preparação da massa por erro de memória do Argon2 e passou no reteste isolado, completando a verificação dos 32 cenários. Lint e build do frontend passaram. [Regressão US32](https://github.com/arthur-marqs/Gerencia-Projeto-2026.2/blob/35ec52629a4aacc2f9dd57e3c527750babe298d6/docs/qualidade/release-2/auditoria-bugs/evidencias/reteste-bug005/usuarios.json) · [Reteste CT35](https://github.com/arthur-marqs/Gerencia-Projeto-2026.2/blob/35ec52629a4aacc2f9dd57e3c527750babe298d6/docs/qualidade/release-2/auditoria-bugs/evidencias/reteste-bug005/usuarios-ct35.json)
 
-**Situação da integração** — Aguardando integração à `main`. O parecer se aplica ao reteste local.
+**Situação da integração.** Correção integrada à `main` em `c43587c`. Os resultados acima se referem ao reteste local anterior ao merge. [PR #32](https://github.com/arthur-marqs/Gerencia-Projeto-2026.2/pull/32)

@@ -17,9 +17,11 @@
 
 ## 2. Resumo executivo
 
+**Estado após o merge.** Em 26/11/2026, o PR #32 integrou as correções dos BUG-004 e BUG-005 à `main` em `c43587c`. O código e as suítes do produto nesse merge correspondem aos do commit `ee2a4a8`, no qual os dois retestes passaram. A regressão documentada abaixo mantém os seus SHAs de execução. A CI do merge estava em execução na consulta. [PR #32](https://github.com/arthur-marqs/Gerencia-Projeto-2026.2/pull/32) · [CI do merge](https://github.com/arthur-marqs/Gerencia-Projeto-2026.2/actions/runs/45882475010)
+
 **Parecer de QA · Pendente de ajustes para `08a62f5`.** A regressão da versão integrada exercitou as entregas da Release 2 e voltou a encontrar o defeito de aprovação com máquina inelegível. As duas variantes deixaram a sugestão disponível, retornaram HTTP 201 e publicaram um plano que o Operador conseguiu consultar. No fluxo nominal completo, a preparação, o plano manual, a sugestão, a comparação, a aprovação e a consulta passaram na mesma execução. [Registro do ciclo][regressao] · [Evidência do BUG-004][main-bug004]
 
-As issues #18, #19 e #25 estão fechadas e seus fixes estão na `main`. As issues #30 e #31 estão reabertas e têm fixes verificados no histórico de `docs/qualidade`. Ambos os commits de correção continuam fora da versão integrada. O ciclo registrou 325 testes oficiais de backend aprovados, 67 cenários de regressão por navegador e 12 de autenticação no Chrome. As sondagens adicionais reproduziram o BUG-005 na main. Na cópia corrigida, os retestes específicos dos dois bugs passaram. [Resultados][regressao]
+As issues #18, #19, #25, #30 e #31 estão fechadas. No ciclo anterior ao merge, a regressão em `08a62f5` registrou 325 testes oficiais de backend aprovados, 67 cenários por navegador e 12 de autenticação no Chrome. Os ensaios adicionais reproduziram os BUG-004 e BUG-005 nesse SHA. Os retestes específicos passaram em `ee2a4a8`. [Resultados][regressao]
 
 ## 3. Escopo da release
 
@@ -71,8 +73,8 @@ O tempo do Driver06 é avaliado pelo máximo individual de cada condição. O pr
 | [BUG-001, #18][issue18], famílias ausentes nos eixos da matriz | Média | `47c63d6` e `bbf29c4`, [PR #16](https://github.com/arthur-marqs/Gerencia-Projeto-2026.2/pull/16), merge `8d654d3`. O PR #21 complementou o registro e as evidências | As variantes de origem e destino ausentes passaram no Chrome. [Comentário de QA](https://github.com/arthur-marqs/Gerencia-Projeto-2026.2/issues/18#issuecomment-7109530230) | Fechada |
 | [BUG-002, #19][issue19], interface após 401 com identidade indisponível | Média | `67fa646`, [PR #17](https://github.com/arthur-marqs/Gerencia-Projeto-2026.2/pull/17), merge `a118dcd` | Famílias e Máquinas passaram após HTTP 401 no Chrome. [Comentário de QA](https://github.com/arthur-marqs/Gerencia-Projeto-2026.2/issues/19#issuecomment-7112231551) | Fechada |
 | [BUG-003, #25][issue25], distribuição viável rejeitada | Média | `ae8ae27`, [PR #24](https://github.com/arthur-marqs/Gerencia-Projeto-2026.2/pull/24), merge `db73ab8` | Duas ordens de seleção aprovadas no Pytest. O cenário de redistribuição também passou no Chrome. O outro comentário da issue descreve a US11 e foi excluído desta rastreabilidade. [Comentário correto](https://github.com/arthur-marqs/Gerencia-Projeto-2026.2/issues/25#issuecomment-7176630592) | Fechada |
-| [BUG-004, #30][issue30], aprovação após mudança de elegibilidade | Alta | [`b6c72f2`](https://github.com/arthur-marqs/Gerencia-Projeto-2026.2/commit/b6c72f2), ancestral de `ee2a4a8`. Ausente da `main` avaliada | As duas variantes reprovaram na `main` com 201 e persistência. Na branch corrigida, 2/2 retornaram 409, sem publicação, e a suíte US17 passou em 13/13. [Reteste anterior](../../qualidade/release-2/auditoria-bugs/reteste-bug004.md) · [Novo ciclo][regressao] | Reaberta |
-| [BUG-005, #31][issue31], falha temporária na restauração da sessão | Média | [`8978fc1`](https://github.com/arthur-marqs/Gerencia-Projeto-2026.2/commit/8978fc1), ancestral de `ee2a4a8`. Ausente da `main` avaliada | Na main, dois casos reprovaram pela ausência do aviso e da ação de nova tentativa depois do 503. Na branch corrigida, 3/3 retestes integrados e 17/17 cenários oficiais de autenticação passaram. [Reteste anterior](../../qualidade/release-2/auditoria-bugs/reteste-bug005.md) | Reaberta |
+| [BUG-004, #30][issue30], aprovação após mudança de elegibilidade | Alta | [`b6c72f2`](https://github.com/arthur-marqs/Gerencia-Projeto-2026.2/commit/b6c72f2), validada em `ee2a4a8` e integrada em `c43587c` pelo [PR #32](https://github.com/arthur-marqs/Gerencia-Projeto-2026.2/pull/32) | As duas variantes reprovaram em `08a62f5` com 201 e persistência. Na branch corrigida, 2/2 retornaram 409, sem publicação, e a suíte US17 passou em 13/13. [Reteste anterior](../../qualidade/release-2/auditoria-bugs/reteste-bug004.md) · [Novo ciclo][regressao] | Fechada |
+| [BUG-005, #31][issue31], falha temporária na restauração da sessão | Média | [`8978fc1`](https://github.com/arthur-marqs/Gerencia-Projeto-2026.2/commit/8978fc1), validada em `ee2a4a8` e integrada em `c43587c` pelo [PR #32](https://github.com/arthur-marqs/Gerencia-Projeto-2026.2/pull/32) | Em `08a62f5`, dois casos reprovaram pela ausência do aviso e da ação de nova tentativa depois do 503. Na branch corrigida, 3/3 retestes integrados e 17/17 cenários oficiais de autenticação passaram. [Reteste anterior](../../qualidade/release-2/auditoria-bugs/reteste-bug005.md) | Fechada |
 
 **Correções internas de PR.** A falha do catálogo que ocultava o plano e impedia abrir a comparação foi corrigida na US16 por `1e98b76`, integrada no PR #27. A referência de usuários aprovadores passou a bloquear exclusão física em `c06fb94`, no PR #28, e o teste de regressão de usuários consta do Pytest. A concorrência da idempotência e a tipagem de UUID foram ajustadas em `c172886`, incluído no PR #17, e a suíte do Driver02 foi exercitada. O tratamento da recusa de sessão na geração de sugestões entrou em `0551a78`, PR #22. Esses registros internos têm rastreio no Git, sem triagem de severidade no conjunto consultado. [Revisão US16](../../qualidade/release-2/revisao-us16.md) · [Pytest][backend] · [Histórico da main][main]
 
@@ -134,16 +136,16 @@ O fluxo RG-01 e as variantes dos bugs são ensaios complementares. As medições
 
 ### C. Situação atual da release
 
-Cinco bugs com issue pública identificada. Distribuição **1 alta, 4 médias**. Três fixes estão na `main` e passaram em reteste registrado. Outros dois têm retestes aprovados na branch que contém as correções, com integração pendente. A consulta pública encontra **2 issues reabertas, uma alta e uma média**. O total do Jira e a distribuição dos registros internos sem severidade ficaram **Não levantados**.
+Cinco bugs com issue pública identificada. Distribuição **1 alta, 4 médias**. As cinco correções estão na `main`, e as cinco issues estão fechadas na consulta pós-merge. Os BUG-004 e BUG-005 passaram no reteste em `ee2a4a8`. O total no Jira e a distribuição dos registros internos sem severidade ficaram **Não levantados**. [Integração](https://github.com/arthur-marqs/Gerencia-Projeto-2026.2/pull/32)
 
 | Métrica do plano de qualidade | Meta versionada | Situação para a Release 2 |
 | --- | --- | --- |
 | Q-01 Execução | 100% dos casos das US entregues | **Não levantado** no plano completo. O ciclo usa o recorte rastreável descrito no registro. |
 | Q-02 Aprovação | ≥95% no fim da release | **Não levantado** no plano completo. Percentuais de ferramenta e do recorte estão na seção B. |
-| Q-03 Bugs altos ou críticos em aberto | 0 no fechamento da release | **Não atendido** no recorte público, com o BUG-004 alto reaberto e reproduzido na `main`. Contador Jira **Não levantado**. |
+| Q-03 Bugs altos ou críticos em aberto | 0 no fechamento da release | No ciclo de `08a62f5`, o BUG-004 alto estava aberto. Após o merge, as cinco issues públicas verificadas estão fechadas. Contador Jira **Não levantado**. |
 | Q-04 Critérios definidos antes da sprint | 100% das histórias | **Não verificado**. DoR e histórico do Jira indisponíveis. |
 | Q-05 Revisão antes do merge | 100% dos PRs | **25,00% com revisão formal identificada** (4/16 PRs de entrega R2). O PR de cobertura #14 não integra o denominador de entregas por US/driver. |
-| Q-06 Pipeline principal | Aprovado | **Atendido para `08a62f5`**, cinco jobs verdes. Reavaliar no SHA que integrar os dois fixes. |
+| Q-06 Pipeline principal | Aprovado | **Atendido para `08a62f5`**, cinco jobs verdes. O [pipeline do SHA de merge](https://github.com/arthur-marqs/Gerencia-Projeto-2026.2/actions/runs/45882475010) estava em execução na consulta. |
 | Q-07 Tempo de resposta das operações principais | p95 ≤2 s | **Não medido**. O Driver06 usa limite por recusa e escopo próprios. |
 | Q-08 Autorização por perfis | 100% dos perfis | A API exercitou permissões de Planejador, Operador e Administrador. A matriz de negativas e controles positivos consta no Driver04, e as suítes US02/US32 cobrem os perfis disponíveis. [Pytest][backend] |
 | Q-09 Tratamento dos fluxos principais | 100% | **Não atendido no recorte**, pois há cenários de exceção com falha observada. A taxa global ficou **Não levantada**. |
@@ -154,8 +156,8 @@ O [plano de qualidade](../../qualidade/Plano-de-Qualidade-SetupFlow.xlsx) é a v
 
 | Risco ou lacuna | Evidência e consequência | Responsável e ação sugerida |
 | --- | --- | --- |
-| Máquina inelegível em sequência aprovada | BUG-004 reproduzido no SHA candidato. Pode disponibilizar uma sequência impraticável ao Operador. | Desenvolvimento e DevOps, integrar a correção e repetir retestes e CI no SHA de fechamento. |
-| Restauração de sessão válida após falha temporária | BUG-005 segue aberto. O tratamento está na branch de correção. | Desenvolvimento e QA, integrar e retestar o 503 de identidade, a recusa real 401 e a resposta atrasada. |
+| Máquina inelegível em sequência aprovada | BUG-004 reproduzido no SHA candidato. Pode disponibilizar uma sequência impraticável ao Operador. | Correção integrada. QA e DevOps acompanham a CI e os retestes no SHA de fechamento. |
+| Restauração de sessão válida após falha temporária | BUG-005 reproduzido em `08a62f5`. A correção entrou em `c43587c`. | QA acompanha os retestes de 503 de identidade, recusa 401 e resposta atrasada no SHA de fechamento. |
 | Falhas intermitentes de ambiente | Histórico de memória do Argon2, incluindo CT-85 e CT-35, e timeout do Chrome em execução anterior. As reexecuções sequenciais históricas passaram. Os logs deste ciclo não registraram nova falha de memória do Argon2 nem timeout operacional do navegador. O timeout de asserção do BUG-005 correspondeu à ausência do aviso esperado. | QA e DevOps, manter execução sequencial e preservar logs da primeira falha antes de repetir. |
 | Regra do CT-119, escopo de andamento e marco de 2 s | Lote misto é bloqueado no produto. O plano citado pede confirmação do PO. Andamento e replanejamento não estão disponíveis neste incremento. | PO e QA, recuperar o plano vigente e registrar a política do lote, o alcance das variantes e o marco da medida. |
 | Reversão da migração da US14 | A revisão histórica reproduziu falha de downgrade após sugestão com aumento de setup. A migração de subida faz parte deste ciclo. | DevOps, validar a reversão em banco descartável com dados representativos. [Revisão](../../qualidade/release-2/revisao-us14.md#downgrade-falha-após-gravar-sugestão-válida-com-aumento-de-setup) |
@@ -165,7 +167,7 @@ O [plano de qualidade](../../qualidade/Plano-de-Qualidade-SetupFlow.xlsx) é a v
 
 ## 11. Parecer do QA
 
-**Pendente de ajustes para a `main` em `08a62f5d1d164c7ee2cfbb0282aa7f9784baaf8f`.** A regressão confirma as entregas nominais do incremento, inclusive o fluxo integrado de planejamento. A reprodução do BUG-004 em duas variantes e as duas correções fora desse SHA impedem o parecer de aptidão. O reteste de outra branch complementa a evidência. O fechamento depende das correções na versão integrada, dos retestes nesse SHA e das verificações de release indicadas acima. A decisão de aceite é do PO.
+**Pendente de ajustes para a `main` em `08a62f5d1d164c7ee2cfbb0282aa7f9784baaf8f`.** A regressão confirma as entregas nominais do incremento, inclusive o fluxo integrado de planejamento. A reprodução do BUG-004 em duas variantes e as duas correções fora desse SHA impedem o parecer de aptidão. O reteste de outra branch complementa a evidência. O merge `c43587c` integrou as duas correções. A reavaliação do parecer para esse SHA depende dos retestes, da CI e das verificações de release indicadas acima. [PR #32](https://github.com/arthur-marqs/Gerencia-Projeto-2026.2/pull/32) A decisão de aceite é do PO.
 
 ## 12. Referências e histórico de revisão
 
@@ -176,6 +178,7 @@ O [plano de qualidade](../../qualidade/Plano-de-Qualidade-SetupFlow.xlsx) é a v
 | Data | Revisão | Registro |
 | --- | --- | --- |
 | 26/11/2026 | 1.0 | Ciclo R2-REG-20261126-08a62f5, medições dos drivers e conferência da integração das correções. |
+| 26/11/2026 | 1.1 | Estado pós-merge dos BUG-004 e BUG-005. Evidências e parecer do ciclo associados aos SHAs executados. |
 
 [main]: https://github.com/arthur-marqs/Gerencia-Projeto-2026.2/commit/08a62f5d1d164c7ee2cfbb0282aa7f9784baaf8f
 [corrigida]: https://github.com/arthur-marqs/Gerencia-Projeto-2026.2/commit/ee2a4a88aea0018cb451c8f9988346fe25551e7a

@@ -2,7 +2,7 @@
 
 **Situação da entrega em 26/11/2026 · Aprovada pelo PO e integrada à `main`.** [PR #28](https://github.com/arthur-marqs/Gerencia-Projeto-2026.2/pull/28) (`5772ec0`). Os sete critérios do DoD estão concluídos para o incremento aceito. [Definition of Done](../../status-projeto.md#definition-of-done-dod)
 
-O parecer abaixo corresponde à avaliação de `40e0afd`, anterior ao merge. A correção posterior do BUG-004 foi retestada em `docs/qualidade` e aguarda integração.
+O parecer abaixo corresponde à avaliação de `40e0afd`, anterior ao merge. A correção posterior do BUG-004 passou no reteste em `docs/qualidade` e entrou na `main` em `c43587c`. [PR #32](https://github.com/arthur-marqs/Gerencia-Projeto-2026.2/pull/32)
 
 | Informação | Detalhe |
 |---|---|
@@ -188,4 +188,4 @@ Os indicadores contam CT-123, CT-124 e CT-125 uma vez cada. Os totais de regress
 
 ## Acompanhamento do BUG-004
 
-Em 26/11/2026, o reteste local do [BUG-004 / issue #30](https://github.com/arthur-marqs/Gerencia-Projeto-2026.2/issues/30) confirmou a recusa de aprovação quando a máquina fica inativa ou perde a compatibilidade após a geração. CT-123, CT-124 e CT-125 passaram novamente no Chrome. O resultado se aplica ao código da correção, com integração à `main` pendente. [Relatório de reteste](auditoria-bugs/reteste-bug004.md)
+Em 26/11/2026, o reteste local do [BUG-004 / issue #30](https://github.com/arthur-marqs/Gerencia-Projeto-2026.2/issues/30) confirmou a recusa de aprovação quando a máquina fica inativa ou perde a compatibilidade após a geração. CT-123, CT-124 e CT-125 passaram novamente no Chrome. O resultado se aplica ao código da correção antes do merge em `c43587c`. [PR #32](https://github.com/arthur-marqs/Gerencia-Projeto-2026.2/pull/32) [Relatório de reteste](auditoria-bugs/reteste-bug004.md)
