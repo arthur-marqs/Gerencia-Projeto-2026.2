@@ -53,7 +53,7 @@ As decisões da primeira sprint estão na [Sprint Review da Release 1](releases/
 ## Acompanhamento
 
 - O Driver01 cobre cadastro e atualização de campos de planejamento das ordens. A validação de gravações de andamento acompanha a futura implementação da execução. O Driver04 cobre as operações protegidas disponíveis, incluindo a aprovação avaliada na auditoria integrada. [Cobertura dos drivers](qualidade/release-2/auditoria-bugs/relatorio-validacao.md#4-cobertura-funcional-e-dos-drivers)
-- As correções do BUG-004 (máquina que deixou de ser elegível antes da aprovação) e do BUG-005 (recuperação da sessão após falha temporária) foram validadas na branch `docs/qualidade` e aguardam integração à `main`. [Auditoria e retestes](qualidade/release-2/auditoria-bugs/README.md)
+- As correções do BUG-004 (elegibilidade da máquina na aprovação) e do BUG-005 (recuperação da sessão após falha temporária) passaram nos retestes em `ee2a4a8` e entraram na `main` em `c43587c`. [PR #32](https://github.com/arthur-marqs/Gerencia-Projeto-2026.2/pull/32) · [Auditoria e retestes](qualidade/release-2/auditoria-bugs/README.md)
 - O registro de execução das ordens, o replanejamento, o histórico de alterações e os indicadores de produção fazem parte da evolução do projeto. [Arquitetura](arquitetura/arquitetura.md#sequenciamento-e-execução)
 
 [pr1]: https://github.com/arthur-marqs/Gerencia-Projeto-2026.2/pull/1

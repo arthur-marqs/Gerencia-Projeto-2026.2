@@ -357,11 +357,7 @@ aprovado fica protegido contra edição. A mesma ordem só pode integrar uma
 aprovação. Reenviar a aprovação da mesma origem retorna o registro existente.
 A tentativa sem planejamento retorna 404 com uma mensagem específica.
 
-A correção do BUG-004, validada em `docs/qualidade`, filtra os candidatos e
-revalida as atribuições na transação da aprovação. Se uma máquina ficar inativa,
-perder o vínculo com o produto ou faltar em um item legado, a API retorna 409
-e orienta a gerar uma sugestão atualizada. A sugestão original continua
-disponível para consulta. A correção aguarda integração à `main`. [Reteste do BUG-004](../docs/qualidade/release-2/auditoria-bugs/reteste-bug004.md)
+A versão integrada filtra os candidatos e revalida as atribuições na transação da aprovação. Se uma máquina ficar inativa, perder o vínculo com o produto ou faltar em um item legado, uma nova aprovação retorna HTTP 409 e orienta a gerar outra sugestão. A sugestão original permanece disponível para consulta. [Integração do BUG-004](https://github.com/arthur-marqs/Gerencia-Projeto-2026.2/pull/32) · [Reteste do BUG-004](../docs/qualidade/release-2/auditoria-bugs/reteste-bug004.md)
 
 Aplique `alembic upgrade head` para incluir as tabelas da revisão
 `8d17b4f2c306`.

@@ -127,7 +127,7 @@ A tela permite preencher e-mail e senha. Ao enviar o formulário:
 - em caso de sucesso, mostra uma saudação com o nome retornado pela API;
 - em caso de erro de autenticação ou conexão, mostra a mensagem correspondente.
 
-Uma sessão expirada ou invalidada leva ao login ao receber HTTP 401 de uma rota protegida. A recuperação de uma falha temporária ao consultar a identidade na abertura da aplicação foi retestada na branch `docs/qualidade` e aguarda integração à `main`. [Reteste do BUG-005](../docs/qualidade/release-2/auditoria-bugs/reteste-bug005.md)
+Uma sessão expirada ou invalidada leva ao login ao receber HTTP 401 de uma rota protegida. Se a consulta de identidade falhar temporariamente ao abrir o SetupFlow, a interface oferece **Tentar novamente**. Uma resposta 200 com a sessão ainda válida restaura o painel sem novo login. [Integração do BUG-005](https://github.com/arthur-marqs/Gerencia-Projeto-2026.2/pull/32) · [Reteste do BUG-005](../docs/qualidade/release-2/auditoria-bugs/reteste-bug005.md)
 
 ## Matriz de setup
 

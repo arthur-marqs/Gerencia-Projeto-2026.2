@@ -168,7 +168,7 @@ Em pushes e pull requests, o GitHub Actions executa Pytest, lint, build e cenár
 | [Estado das entregas](docs/status-projeto.md) | Aceite por US e driver, DoD, PRs e pendências das correções. |
 | [Backend](backend/README.md) · [Frontend](frontend/README.MD) | Configuração do ambiente, API e fluxos de uso. |
 | [Mapa do projeto](docs/estrutura-projeto.md) · [Arquitetura](docs/arquitetura/arquitetura.md) · [Modelo de dados](docs/arquitetura/modelo-de-dados.md) | Organização do código e esquema persistido. |
-| [Release 1](docs/releases/release1/release-notes.md) · [Auditoria e retestes da Release 2](docs/qualidade/release-2/auditoria-bugs/README.md) | Histórico de entrega e evidências de qualidade. |
+| [Release 1](docs/releases/release1/release-notes.md) · [Release 2](docs/releases/release2/README.md) | Histórico de entrega, relatório de qualidade e evidências dos retestes. |
 
 ---
 ## Organização arquitetural planejada (referência futura)
