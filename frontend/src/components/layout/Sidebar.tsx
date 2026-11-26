@@ -8,6 +8,7 @@ type Pagina =
   | 'tempos-setup'
   | 'matriz-setup'
   | 'planejamentos'
+  | 'execucao'
   | 'usuarios'
 
 type SidebarProps = {
@@ -120,6 +121,17 @@ function Sidebar({ perfis, paginaAtual, onNavigate }: SidebarProps) {
               Máquinas
             </button>
           </>
+        )}
+        {(ehPlanejador || perfis.includes('OPERADOR')) && (
+          <button
+            type="button"
+            data-cy="menu-execucao"
+            aria-current={paginaAtual === 'execucao' ? 'page' : undefined}
+            onClick={() => onNavigate('execucao')}
+            className={classeItem('execucao')}
+          >
+            Execução da produção
+          </button>
         )}
         {perfis.includes('ADMINISTRADOR') && (
           <button type="button" data-cy="menu-usuarios"

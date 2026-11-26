@@ -10,6 +10,7 @@ import ProdutosPage from '../../produtos/pages/ProdutosPage'
 import TemposSetupPage from '../../tempos-setup/pages/TemposSetupPage'
 import UsuariosPage from '../../usuarios/pages/UsuariosPage'
 import MatrizSetupPage from '../../matriz-setup/pages/MatrizSetupPage'
+import AprovacoesPlanejamentoPage from '../../planejamentos/pages/AprovacoesPlanejamentoPage'
 
 type Pagina =
   | 'dashboard'
@@ -20,6 +21,7 @@ type Pagina =
   | 'tempos-setup'
   | 'matriz-setup'
   | 'planejamentos'
+  | 'execucao'
   | 'usuarios'
 
 type AuthenticatedPageProps = {
@@ -37,6 +39,7 @@ function AuthenticatedPage({
 }: AuthenticatedPageProps) {
   const [paginaAtual, setPaginaAtual] = useState<Pagina>('dashboard')
   const ehPlanejador = perfis.includes('PLANEJADOR')
+  const podeConsultarExecucao = ehPlanejador || perfis.includes('OPERADOR')
 
   return (
     <div className="min-h-screen bg-slate-100">
@@ -69,6 +72,11 @@ function AuthenticatedPage({
           <MatrizSetupPage />
         ) : paginaAtual === 'planejamentos' && ehPlanejador ? (
           <PlanejamentosPage />
+        ) : paginaAtual === 'execucao' && podeConsultarExecucao ? (
+          <AprovacoesPlanejamentoPage
+            podeAprovar={ehPlanejador}
+            voltarAoDashboard={() => setPaginaAtual('dashboard')}
+          />
         ) : (
           <main className="px-4 py-5 pt-[100px] sm:px-6 lg:px-7 xl:px-8">
             <div className="mx-auto max-w-[1500px]">
@@ -92,6 +100,12 @@ function AuthenticatedPage({
                   <p className="mt-3 max-w-xl text-sm leading-6 text-slate-500 sm:text-base">
                     Acesse as funcionalidades disponíveis para sua conta.
                   </p>
+                  {podeConsultarExecucao && (
+                    <button type="button" onClick={() => setPaginaAtual('execucao')}
+                      className="mt-4 rounded-lg bg-blue-600 px-4 py-2 text-sm font-semibold text-white lg:hidden">
+                      Execução da produção
+                    </button>
+                  )}
                 </div>
               </section>
             </div>

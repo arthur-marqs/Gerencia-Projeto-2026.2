@@ -10,11 +10,15 @@ const COMPARACAO = '[data-cy="comparacao-sequencias"]'
 const MANUAL = '[data-cy="sequencia-manual"]'
 const SUGERIDA = '[data-cy="sequencia-sugerida"]'
 const AVISO_CATALOGO = '[data-cy="aviso-catalogo-maquinas"]'
+const APROVACOES = '/planejamentos/aprovacoes'
+const BOTAO_APROVAR = '[data-cy="aprovar-planejamento"]'
+const APROVADO = '[data-cy="planejamento-aprovado"]'
 
 let estado
 let planejamentoManual
 let sugestaoGerada
 let respostaOperador
+let aprovacaoGerada
 
 const codigos = (lista) => lista.split(',').map((codigo) => codigo.trim())
 const idsDasOrdens = (lista) => codigos(lista).map((codigo) => estado.ordens[codigo].id)
@@ -74,10 +78,11 @@ function verificarGeracao(minutos, verificarOrdens) {
   })
 }
 
-Before({ tags: '@US13 or @US14 or @US15 or @US16' }, () => {
+Before({ tags: '@US13 or @US14 or @US15 or @US16 or @US17' }, () => {
   planejamentoManual = undefined
   sugestaoGerada = undefined
   respostaOperador = undefined
+  aprovacaoGerada = undefined
   return cy.task('e2e:reset', 'sugestao', { log: false }).then((dados) => { estado = dados })
 })
 
@@ -277,6 +282,85 @@ Then('os registros do planejamento manual e da sugestão devem permanecer iguais
   requisitar('GET', `/planejamentos/${planejamentoManual.id_planejamento}`)
     .should('deep.equal', planejamentoManual)
   return requisitar('GET', `${SUGESTOES}/${sugestaoGerada.id_sugestao}`).should('deep.equal', sugestaoGerada)
+})
+
+function navegarAExecucao() {
+  cy.get('[data-cy="menu-execucao"]').click()
+}
+
+function conferirOrdensDaSequencia(seletor, lista) {
+  return cy.get(seletor).find('[data-cy="ordem-sequenciada"]').should(($ordens) => {
+    expect($ordens.toArray().map((ordem) => ordem.textContent)).to.deep.equal(codigos(lista))
+  })
+}
+
+When('abrir a execução da produção', () => {
+  cy.intercept('POST', `**/api${APROVACOES}`).as('aprovarPlano')
+  cy.visit('/')
+  navegarAExecucao()
+})
+
+When('recarregar e consultar a execução da produção', () => {
+  cy.reload()
+  navegarAExecucao()
+})
+
+When('o Operador consultar a execução da produção', () => {
+  autenticar('operador')
+  cy.visit('/')
+  navegarAExecucao()
+})
+
+When('selecionar a sequência {string} para aprovação', (origem) => (
+  cy.get(`[data-cy="candidato-${origem}"]`).check()
+))
+
+When('aprovar o planejamento selecionado', () => cy.get(BOTAO_APROVAR).click())
+
+Then('a sequência exibida para aprovação deve ser {string}', (lista) => (
+  conferirOrdensDaSequencia('[data-cy="sequencia-selecionada"]', lista)
+))
+
+Then('as alternativas manual e sugerida devem estar disponíveis sem seleção inicial', () => {
+  cy.get('[data-cy="candidato-manual"]').should('be.visible').and('not.be.checked')
+  cy.get('[data-cy="candidato-sugerida"]').should('be.visible').and('not.be.checked')
+})
+
+Then('a aprovação deve registrar a origem {string} e a sequência {string}', (origem, lista) => {
+  const origemId = origem === 'manual' ? planejamentoManual.id_planejamento : sugestaoGerada.id_sugestao
+  const ordens = idsDasOrdens(lista)
+  cy.wait('@aprovarPlano').then(({ request, response }) => {
+    expect(request.body).to.deep.equal({ origem, origem_id: origemId, ordens_ids: ordens })
+    expect(response.statusCode).to.equal(201)
+    aprovacaoGerada = response.body
+    expect(aprovacaoGerada).to.include({ origem, origem_id: origemId, status: 'APROVADO' })
+    expect(aprovacaoGerada.itens.map((item) => item.ordem_id)).to.deep.equal(ordens)
+    expect(aprovacaoGerada.itens.map((item) => item.posicao)).to.deep.equal(ordens.map((_, indice) => indice + 1))
+    if (origem === 'sugerida') {
+      expect(aprovacaoGerada.itens.map((item) => item.maquina_id))
+        .to.deep.equal(sugestaoGerada.itens.map((item) => item.maquina_id))
+    }
+  })
+  return cy.contains('[role="status"]', 'Planejamento aprovado e disponível para execução.').should('be.visible')
+})
+
+Then('o planejamento {string} deve estar aprovado para execução com {string}', (origem, lista) => {
+  cy.get(APROVADO).should('have.length', 1).and('contain.text', 'Aprovado')
+    .and('contain.text', origem === 'manual' ? 'Manual' : 'Sugerida')
+  conferirOrdensDaSequencia(APROVADO, lista)
+  return requisitar('GET', APROVACOES).should('deep.equal', [aprovacaoGerada])
+})
+
+Then('o Operador deve poder consultar sem opção de aprovar', () => cy.get(BOTAO_APROVAR).should('not.exist'))
+
+Then('a tela deve informar que não existe planejamento disponível para aprovação', () => (
+  cy.get('main [role="alert"]').should('have.text', 'Não existe planejamento disponível para aprovação.')
+))
+
+Then('nenhuma aprovação deve ter sido registrada', () => {
+  cy.get('@aprovarPlano.all').should('have.length', 0)
+  cy.get(APROVADO).should('not.exist')
+  return requisitar('GET', APROVACOES).should('deep.equal', [])
 })
 
 Then('a API deve negar a geração, preservar os registros e retornar somente a mensagem de acesso negado', () => {
