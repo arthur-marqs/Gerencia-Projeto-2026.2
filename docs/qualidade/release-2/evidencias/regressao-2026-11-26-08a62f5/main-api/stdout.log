@@ -1,0 +1,1347 @@
+INFO:     127.0.0.1:59157 - "GET /api/health HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:60821 - "POST /api/auth/login HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:60821 - "POST /api/planejamentos HTTP/1.1" 201 Created
+
+INFO:     127.0.0.1:50673 - "GET /api/auth/me HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:50673 - "GET /api/auth/me HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:58448 - "GET /api/planejamentos/aprovacoes/candidatos HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:51954 - "GET /api/planejamentos/aprovacoes HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:51954 - "POST /api/planejamentos/aprovacoes HTTP/1.1" 201 Created
+
+INFO:     127.0.0.1:51954 - "GET /api/auth/me HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:51954 - "GET /api/planejamentos/aprovacoes HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:58448 - "GET /api/planejamentos/aprovacoes/candidatos HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:60821 - "GET /api/planejamentos/aprovacoes HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:60821 - "POST /api/auth/login HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:58448 - "GET /api/auth/me HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:58448 - "GET /api/planejamentos/aprovacoes HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:60821 - "GET /api/planejamentos/aprovacoes HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:60821 - "POST /api/auth/login HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:59807 - "GET /api/auth/me HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:54808 - "GET /api/planejamentos/aprovacoes/candidatos HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:59807 - "GET /api/planejamentos/aprovacoes HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:60821 - "GET /api/planejamentos/aprovacoes HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:60821 - "POST /api/auth/login HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:60821 - "POST /api/tempos-setup HTTP/1.1" 201 Created
+
+INFO:     127.0.0.1:60821 - "POST /api/tempos-setup HTTP/1.1" 201 Created
+
+INFO:     127.0.0.1:60821 - "POST /api/planejamentos HTTP/1.1" 201 Created
+
+INFO:     127.0.0.1:60821 - "POST /api/planejamentos/sugestoes HTTP/1.1" 201 Created
+
+INFO:     127.0.0.1:59807 - "GET /api/auth/me HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:54808 - "GET /api/planejamentos/aprovacoes/candidatos HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:59807 - "GET /api/planejamentos/aprovacoes HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:59807 - "POST /api/planejamentos/aprovacoes HTTP/1.1" 201 Created
+
+INFO:     127.0.0.1:60821 - "GET /api/planejamentos/aprovacoes HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:60821 - "GET /api/planejamentos/92e014d4-d7ef-4a67-8700-f5b5b6d34dcc HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:60821 - "GET /api/planejamentos/sugestoes/3ab340b7-bbb5-4700-a6a6-7bdfffee1866 HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:52676 - "POST /api/auth/login HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:52676 - "POST /api/planejamentos HTTP/1.1" 201 Created
+
+INFO:     127.0.0.1:52676 - "POST /api/tempos-setup HTTP/1.1" 201 Created
+
+INFO:     127.0.0.1:52676 - "POST /api/tempos-setup HTTP/1.1" 201 Created
+
+INFO:     127.0.0.1:52676 - "POST /api/planejamentos/sugestoes HTTP/1.1" 201 Created
+
+INFO:     127.0.0.1:63342 - "GET /api/auth/me HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:61743 - "GET /api/maquinas HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:63342 - "GET /api/ordens-producao HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:55977 - "GET /api/auth/me HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:54604 - "GET /api/planejamentos HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:54604 - "GET /api/planejamentos/ecd36086-52d5-49f5-8cd4-3495c2ca61d7/comparacao HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:53684 - "POST /api/auth/login HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:53684 - "POST /api/planejamentos HTTP/1.1" 201 Created
+
+INFO:     127.0.0.1:54604 - "GET /api/auth/me HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:52799 - "GET /api/maquinas HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:50636 - "GET /api/planejamentos HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:54604 - "GET /api/ordens-producao HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:54604 - "GET /api/planejamentos/624b98a2-3216-422e-88eb-bbd7897c4a18/comparacao HTTP/1.1" 404 Not Found
+
+INFO:     127.0.0.1:52896 - "POST /api/auth/login HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:52896 - "POST /api/planejamentos HTTP/1.1" 201 Created
+
+INFO:     127.0.0.1:52896 - "POST /api/tempos-setup HTTP/1.1" 201 Created
+
+INFO:     127.0.0.1:52896 - "POST /api/tempos-setup HTTP/1.1" 201 Created
+
+INFO:     127.0.0.1:52896 - "POST /api/planejamentos/sugestoes HTTP/1.1" 201 Created
+
+INFO:     127.0.0.1:64509 - "GET /api/auth/me HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:56174 - "GET /api/maquinas HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:53179 - "GET /api/planejamentos HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:64509 - "GET /api/ordens-producao HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:64509 - "GET /api/planejamentos/2555f883-0491-4a0d-8b0e-f72fecf22a1f/comparacao HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:52896 - "GET /api/planejamentos/2555f883-0491-4a0d-8b0e-f72fecf22a1f HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:52896 - "GET /api/planejamentos/sugestoes/6149bfd4-8503-45e7-a99c-856165816d87 HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:61277 - "POST /api/auth/login HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:61277 - "POST /api/planejamentos HTTP/1.1" 201 Created
+
+INFO:     127.0.0.1:61277 - "POST /api/tempos-setup HTTP/1.1" 201 Created
+
+INFO:     127.0.0.1:61277 - "POST /api/tempos-setup HTTP/1.1" 201 Created
+
+INFO:     127.0.0.1:61277 - "POST /api/planejamentos/sugestoes HTTP/1.1" 201 Created
+
+INFO:     127.0.0.1:51842 - "GET /api/auth/me HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:63251 - "GET /api/planejamentos HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:51842 - "GET /api/ordens-producao HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:51842 - "GET /api/planejamentos/111afc8a-d0a8-4c3a-99a3-37ca5389cd73/comparacao HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:51842 - "GET /api/auth/me HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:51842 - "GET /api/ordens-producao HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:63251 - "GET /api/planejamentos HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:50657 - "GET /api/maquinas HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:50657 - "GET /api/planejamentos/111afc8a-d0a8-4c3a-99a3-37ca5389cd73/comparacao HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:55226 - "POST /api/auth/login HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:55226 - "POST /api/maquinas HTTP/1.1" 201 Created
+
+INFO:     127.0.0.1:55226 - "PUT /api/produtos/c3a643ef-07ce-4410-8f5c-dbe35841ce78/maquinas HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:53275 - "GET /api/auth/me HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:58933 - "GET /api/auth/me HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:57788 - "GET /api/planejamentos HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:58405 - "GET /api/maquinas HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:53275 - "GET /api/ordens-producao HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:53275 - "POST /api/planejamentos/sugestoes HTTP/1.1" 201 Created
+
+INFO:     127.0.0.1:59355 - "POST /api/auth/login HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:59355 - "POST /api/maquinas HTTP/1.1" 201 Created
+
+INFO:     127.0.0.1:59355 - "PUT /api/produtos/48799b05-049d-4a7d-9149-e221d2bdfc6a/maquinas HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:59355 - "PUT /api/produtos/58a32dd4-ae91-45e2-a679-e36cf64d844b/maquinas HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:59355 - "PUT /api/produtos/b712e4e0-d5c9-4de7-9a8f-0364aac4d9e6/maquinas HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:57916 - "GET /api/auth/me HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:58330 - "GET /api/planejamentos HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:57125 - "GET /api/maquinas HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:57916 - "GET /api/ordens-producao HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:57916 - "POST /api/planejamentos/sugestoes HTTP/1.1" 201 Created
+
+INFO:     127.0.0.1:57198 - "POST /api/auth/login HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:57198 - "PUT /api/produtos/dccc7827-8795-4879-95de-c3d836d3f815/maquinas HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:54872 - "GET /api/auth/me HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:61720 - "GET /api/planejamentos HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:49539 - "GET /api/maquinas HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:54872 - "GET /api/ordens-producao HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:54872 - "POST /api/planejamentos/sugestoes HTTP/1.1" 422 Unprocessable Entity
+
+INFO:     127.0.0.1:49642 - "POST /api/auth/login HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:49642 - "PATCH /api/maquinas/d033bac2-25a0-4693-afdd-7eb5cd21dc76/status HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:51402 - "GET /api/auth/me HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:64478 - "GET /api/maquinas HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:51402 - "GET /api/ordens-producao HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:50771 - "GET /api/planejamentos HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:50771 - "POST /api/planejamentos/sugestoes HTTP/1.1" 422 Unprocessable Entity
+
+INFO:     127.0.0.1:64542 - "POST /api/auth/login HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:64542 - "POST /api/maquinas HTTP/1.1" 201 Created
+
+INFO:     127.0.0.1:64542 - "PUT /api/produtos/0a59a1cf-7270-4339-a886-60a94facd265/maquinas HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:64542 - "PUT /api/produtos/2f59c48c-74d5-4bf9-b7cd-32dca54d7068/maquinas HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:63340 - "GET /api/auth/me HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:59351 - "GET /api/maquinas HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:63340 - "GET /api/ordens-producao HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:52671 - "GET /api/planejamentos HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:52671 - "POST /api/planejamentos/sugestoes HTTP/1.1" 201 Created
+
+INFO:     127.0.0.1:58004 - "GET /api/auth/me HTTP/1.1" 401 Unauthorized
+
+INFO:     127.0.0.1:57116 - "OPTIONS /api/auth/login HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:58004 - "POST /api/auth/login HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:58004 - "GET /api/auth/me HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:56339 - "GET /api/tempos-setup HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:58004 - "GET /api/families HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:58004 - "GET /api/auth/me HTTP/1.1" 401 Unauthorized
+
+INFO:     127.0.0.1:58004 - "POST /api/auth/login HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:58004 - "GET /api/auth/me HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:60709 - "GET /api/tempos-setup HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:58004 - "GET /api/families HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:58004 - "GET /api/families HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:60709 - "GET /api/tempos-setup HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:60709 - "GET /api/auth/me HTTP/1.1" 401 Unauthorized
+
+INFO:     127.0.0.1:60709 - "POST /api/auth/login HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:60709 - "GET /api/auth/me HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:57760 - "GET /api/auth/me HTTP/1.1" 401 Unauthorized
+
+INFO:     127.0.0.1:57760 - "POST /api/auth/login HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:57760 - "GET /api/auth/me HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:57812 - "POST /api/auth/login HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:57812 - "POST /api/tempos-setup HTTP/1.1" 201 Created
+
+INFO:     127.0.0.1:57812 - "POST /api/tempos-setup HTTP/1.1" 201 Created
+
+INFO:     127.0.0.1:57812 - "PUT /api/ordens-producao/9d0a7b50-ca93-4442-b8a0-8a210d6df495 HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:57812 - "PATCH /api/ordens-producao/9d0a7b50-ca93-4442-b8a0-8a210d6df495/duracao-estimada HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:57812 - "PUT /api/ordens-producao/7373b9d1-70f9-4c48-b8bd-2e63248422cb HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:57812 - "PATCH /api/ordens-producao/7373b9d1-70f9-4c48-b8bd-2e63248422cb/duracao-estimada HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:57812 - "PUT /api/ordens-producao/ad3f0f2e-85e6-4ce7-82a4-95c512809c36 HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:57812 - "PATCH /api/ordens-producao/ad3f0f2e-85e6-4ce7-82a4-95c512809c36/duracao-estimada HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:56555 - "GET /api/auth/me HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:49609 - "GET /api/auth/me HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:65017 - "GET /api/planejamentos HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:57688 - "GET /api/maquinas HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:56555 - "GET /api/ordens-producao HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:56555 - "POST /api/planejamentos/sugestoes HTTP/1.1" 201 Created
+
+INFO:     127.0.0.1:57691 - "POST /api/auth/login HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:57691 - "POST /api/tempos-setup HTTP/1.1" 201 Created
+
+INFO:     127.0.0.1:57691 - "POST /api/tempos-setup HTTP/1.1" 201 Created
+
+INFO:     127.0.0.1:57691 - "PUT /api/ordens-producao/90a12bc3-5c57-42b6-898e-b98b28ada5d6 HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:57691 - "PATCH /api/ordens-producao/90a12bc3-5c57-42b6-898e-b98b28ada5d6/duracao-estimada HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:57691 - "PUT /api/ordens-producao/d9023eec-5ba2-4925-9e39-fec9f0551451 HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:57691 - "PATCH /api/ordens-producao/d9023eec-5ba2-4925-9e39-fec9f0551451/duracao-estimada HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:50154 - "GET /api/auth/me HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:56694 - "GET /api/planejamentos HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:51848 - "GET /api/maquinas HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:50154 - "GET /api/ordens-producao HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:50154 - "POST /api/planejamentos/sugestoes HTTP/1.1" 201 Created
+
+INFO:     127.0.0.1:57691 - "POST /api/auth/login HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:57691 - "PUT /api/ordens-producao/0d382e9d-df53-47f1-80b4-42d86a11f89a HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:57691 - "PATCH /api/ordens-producao/0d382e9d-df53-47f1-80b4-42d86a11f89a/duracao-estimada HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:57691 - "PUT /api/ordens-producao/15a7ddd0-443e-41f3-b650-68ee2227ae8d HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:57691 - "PATCH /api/ordens-producao/15a7ddd0-443e-41f3-b650-68ee2227ae8d/duracao-estimada HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:50154 - "GET /api/auth/me HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:50154 - "GET /api/ordens-producao HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:56694 - "GET /api/maquinas HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:51848 - "GET /api/planejamentos HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:51848 - "POST /api/planejamentos/sugestoes HTTP/1.1" 201 Created
+
+INFO:     127.0.0.1:57691 - "POST /api/auth/login HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:57691 - "PUT /api/ordens-producao/132f375e-1e5c-4349-9b4a-d8e7166a6914 HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:57691 - "PATCH /api/ordens-producao/132f375e-1e5c-4349-9b4a-d8e7166a6914/duracao-estimada HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:51848 - "GET /api/auth/me HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:56694 - "GET /api/planejamentos HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:50154 - "GET /api/maquinas HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:51848 - "GET /api/ordens-producao HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:51848 - "POST /api/planejamentos/sugestoes HTTP/1.1" 422 Unprocessable Entity
+
+INFO:     127.0.0.1:51858 - "POST /api/auth/login HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:51858 - "POST /api/tempos-setup HTTP/1.1" 201 Created
+
+INFO:     127.0.0.1:51858 - "POST /api/tempos-setup HTTP/1.1" 201 Created
+
+INFO:     127.0.0.1:51858 - "PUT /api/ordens-producao/442063ff-73f0-4bc0-ab64-c9eced5c6550 HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:51858 - "PATCH /api/ordens-producao/442063ff-73f0-4bc0-ab64-c9eced5c6550/duracao-estimada HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:51858 - "PUT /api/ordens-producao/44ee818b-ef39-422e-a092-30c3a8490af2 HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:51858 - "PATCH /api/ordens-producao/44ee818b-ef39-422e-a092-30c3a8490af2/duracao-estimada HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:49317 - "GET /api/auth/me HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:52525 - "GET /api/planejamentos HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:51607 - "GET /api/maquinas HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:49317 - "GET /api/ordens-producao HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:49317 - "POST /api/planejamentos/sugestoes HTTP/1.1" 201 Created
+
+INFO:     127.0.0.1:51610 - "POST /api/auth/login HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:51610 - "POST /api/tempos-setup HTTP/1.1" 201 Created
+
+INFO:     127.0.0.1:51610 - "POST /api/tempos-setup HTTP/1.1" 201 Created
+
+INFO:     127.0.0.1:51610 - "PUT /api/ordens-producao/eb4f9615-cd7a-4f03-b3fc-7e4d672bc8b0 HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:51610 - "PATCH /api/ordens-producao/eb4f9615-cd7a-4f03-b3fc-7e4d672bc8b0/duracao-estimada HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:51610 - "PUT /api/ordens-producao/31c14d23-cc33-4692-9b3f-d3457e72c13f HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:51610 - "PATCH /api/ordens-producao/31c14d23-cc33-4692-9b3f-d3457e72c13f/duracao-estimada HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:53087 - "GET /api/auth/me HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:50594 - "GET /api/planejamentos HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:59207 - "GET /api/maquinas HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:53087 - "GET /api/ordens-producao HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:53087 - "POST /api/planejamentos/sugestoes HTTP/1.1" 201 Created
+
+INFO:     127.0.0.1:62705 - "POST /api/auth/login HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:62705 - "POST /api/tempos-setup HTTP/1.1" 201 Created
+
+INFO:     127.0.0.1:62705 - "POST /api/tempos-setup HTTP/1.1" 201 Created
+
+INFO:     127.0.0.1:62107 - "GET /api/auth/me HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:62560 - "GET /api/planejamentos HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:59455 - "GET /api/auth/me HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:62107 - "GET /api/ordens-producao HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:64623 - "GET /api/maquinas HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:64623 - "POST /api/planejamentos/sugestoes HTTP/1.1" 201 Created
+
+INFO:     127.0.0.1:62705 - "POST /api/auth/login HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:64623 - "GET /api/auth/me HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:62107 - "GET /api/planejamentos HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:59455 - "GET /api/maquinas HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:64623 - "GET /api/ordens-producao HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:64623 - "POST /api/planejamentos/sugestoes HTTP/1.1" 201 Created
+
+INFO:     127.0.0.1:62705 - "POST /api/auth/login HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:62705 - "POST /api/tempos-setup HTTP/1.1" 201 Created
+
+INFO:     127.0.0.1:62705 - "POST /api/tempos-setup HTTP/1.1" 201 Created
+
+INFO:     127.0.0.1:64623 - "GET /api/auth/me HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:64623 - "GET /api/ordens-producao HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:62107 - "GET /api/maquinas HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:59455 - "GET /api/planejamentos HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:59455 - "POST /api/planejamentos/sugestoes HTTP/1.1" 201 Created
+
+INFO:     127.0.0.1:62705 - "POST /api/auth/login HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:59455 - "GET /api/auth/me HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:64623 - "GET /api/maquinas HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:62107 - "GET /api/planejamentos HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:59455 - "GET /api/ordens-producao HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:59455 - "POST /api/planejamentos/sugestoes HTTP/1.1" 422 Unprocessable Entity
+
+INFO:     127.0.0.1:62705 - "POST /api/auth/login HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:62705 - "POST /api/tempos-setup HTTP/1.1" 201 Created
+
+INFO:     127.0.0.1:59455 - "GET /api/auth/me HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:63646 - "GET /api/planejamentos HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:59455 - "GET /api/ordens-producao HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:49171 - "GET /api/maquinas HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:49171 - "POST /api/planejamentos/sugestoes HTTP/1.1" 422 Unprocessable Entity
+
+INFO:     127.0.0.1:49177 - "POST /api/auth/login HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:49177 - "POST /api/tempos-setup HTTP/1.1" 201 Created
+
+INFO:     127.0.0.1:62929 - "GET /api/auth/me HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:62013 - "GET /api/planejamentos HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:62929 - "GET /api/ordens-producao HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:51760 - "GET /api/maquinas HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:51760 - "POST /api/planejamentos/sugestoes HTTP/1.1" 422 Unprocessable Entity
+
+INFO:     127.0.0.1:49177 - "PATCH /api/produtos/49420cfb-235f-40ca-85c7-cda3a344e8af/familia HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:49177 - "POST /api/tempos-setup HTTP/1.1" 201 Created
+
+INFO:     127.0.0.1:51760 - "POST /api/planejamentos/sugestoes HTTP/1.1" 201 Created
+
+INFO:     127.0.0.1:49177 - "POST /api/auth/login HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:49177 - "POST /api/tempos-setup HTTP/1.1" 201 Created
+
+INFO:     127.0.0.1:49177 - "POST /api/tempos-setup HTTP/1.1" 201 Created
+
+INFO:     127.0.0.1:49177 - "POST /api/planejamentos HTTP/1.1" 201 Created
+
+INFO:     127.0.0.1:49177 - "POST /api/planejamentos/sugestoes HTTP/1.1" 201 Created
+
+INFO:     127.0.0.1:49177 - "POST /api/auth/login HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:49177 - "POST /api/planejamentos/sugestoes HTTP/1.1" 403 Forbidden
+
+INFO:     127.0.0.1:49177 - "POST /api/auth/login HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:49177 - "GET /api/planejamentos HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:49177 - "GET /api/planejamentos/sugestoes/49ec5d52-6b23-49a1-9c13-f36f3c86b7c0 HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:49177 - "POST /api/auth/login HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:49177 - "POST /api/tempos-setup HTTP/1.1" 201 Created
+
+INFO:     127.0.0.1:49177 - "POST /api/tempos-setup HTTP/1.1" 201 Created
+
+INFO:     127.0.0.1:49177 - "GET /api/planejamentos HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:51830 - "GET /api/auth/me HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:59689 - "GET /api/maquinas HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:51830 - "GET /api/ordens-producao HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:54505 - "GET /api/planejamentos HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:54505 - "POST /api/planejamentos/sugestoes HTTP/1.1" 201 Created
+
+INFO:     127.0.0.1:49177 - "GET /api/planejamentos HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:49177 - "POST /api/auth/login HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:49177 - "POST /api/tempos-setup HTTP/1.1" 201 Created
+
+INFO:     127.0.0.1:49177 - "POST /api/tempos-setup HTTP/1.1" 201 Created
+
+INFO:     127.0.0.1:54505 - "GET /api/auth/me HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:51830 - "GET /api/planejamentos HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:59689 - "GET /api/maquinas HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:54505 - "GET /api/ordens-producao HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:54505 - "POST /api/planejamentos/sugestoes HTTP/1.1" 201 Created
+
+INFO:     127.0.0.1:49177 - "POST /api/auth/login HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:49177 - "POST /api/tempos-setup HTTP/1.1" 201 Created
+
+INFO:     127.0.0.1:49177 - "POST /api/tempos-setup HTTP/1.1" 201 Created
+
+INFO:     127.0.0.1:54505 - "GET /api/auth/me HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:59689 - "GET /api/planejamentos HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:51830 - "GET /api/maquinas HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:54505 - "GET /api/ordens-producao HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:54505 - "POST /api/planejamentos/sugestoes HTTP/1.1" 201 Created
+
+INFO:     127.0.0.1:49177 - "POST /api/auth/login HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:49177 - "POST /api/tempos-setup HTTP/1.1" 201 Created
+
+INFO:     127.0.0.1:49177 - "POST /api/tempos-setup HTTP/1.1" 201 Created
+
+INFO:     127.0.0.1:49177 - "POST /api/planejamentos HTTP/1.1" 201 Created
+
+INFO:     127.0.0.1:54505 - "GET /api/auth/me HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:56014 - "GET /api/maquinas HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:54505 - "GET /api/ordens-producao HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:60727 - "GET /api/planejamentos HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:60727 - "POST /api/planejamentos/sugestoes HTTP/1.1" 201 Created
+
+INFO:     127.0.0.1:60727 - "GET /api/auth/me HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:56014 - "GET /api/maquinas HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:54505 - "GET /api/planejamentos HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:60727 - "GET /api/ordens-producao HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:60727 - "GET /api/planejamentos/cf91d7a7-71d4-4f83-ad99-cd7429e7a508/sugestao HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:49177 - "GET /api/planejamentos/cf91d7a7-71d4-4f83-ad99-cd7429e7a508 HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:56018 - "POST /api/auth/login HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:62290 - "GET /api/auth/me HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:51476 - "GET /api/planejamentos HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:56927 - "GET /api/maquinas HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:62290 - "GET /api/ordens-producao HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:56933 - "POST /api/auth/login HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:56933 - "GET /api/tempos-setup HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:57344 - "GET /api/auth/me HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:53416 - "GET /api/maquinas HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:54783 - "GET /api/planejamentos HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:57344 - "GET /api/ordens-producao HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:57344 - "POST /api/planejamentos/sugestoes HTTP/1.1" 201 Created
+
+INFO:     127.0.0.1:56825 - "GET /api/auth/me HTTP/1.1" 401 Unauthorized
+
+INFO:     127.0.0.1:51837 - "OPTIONS /api/auth/login HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:56825 - "POST /api/auth/login HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:56825 - "GET /api/auth/me HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:56825 - "GET /api/usuarios HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:51837 - "OPTIONS /api/usuarios HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:56825 - "POST /api/usuarios HTTP/1.1" 201 Created
+
+INFO:     127.0.0.1:56825 - "GET /api/auth/me HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:51838 - "GET /api/usuarios HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:56825 - "GET /api/auth/me HTTP/1.1" 401 Unauthorized
+
+INFO:     127.0.0.1:56825 - "POST /api/auth/login HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:56825 - "GET /api/auth/me HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:56825 - "GET /api/produtos HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:54647 - "GET /api/families HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:51838 - "GET /api/produtos HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:54647 - "GET /api/auth/me HTTP/1.1" 401 Unauthorized
+
+INFO:     127.0.0.1:54647 - "POST /api/auth/login HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:54647 - "GET /api/auth/me HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:54647 - "GET /api/usuarios HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:54647 - "GET /api/usuarios/de6445df-1a4c-4757-9e9f-bac250d7b9f5 HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:54647 - "GET /api/usuarios/c368d05d-c8ee-45e0-8687-e31a29729b46 HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:54652 - "GET /api/usuarios HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:54652 - "GET /api/usuarios/c368d05d-c8ee-45e0-8687-e31a29729b46 HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:54647 - "GET /api/auth/me HTTP/1.1" 401 Unauthorized
+
+INFO:     127.0.0.1:54647 - "POST /api/auth/login HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:54647 - "GET /api/auth/me HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:54647 - "GET /api/usuarios HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:54660 - "POST /api/auth/login HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:54660 - "GET /api/produtos HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:54647 - "GET /api/usuarios/2497c583-817c-4ad3-8368-2f9fa345fe62 HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:56872 - "OPTIONS /api/usuarios/2497c583-817c-4ad3-8368-2f9fa345fe62 HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:54647 - "PUT /api/usuarios/2497c583-817c-4ad3-8368-2f9fa345fe62 HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:54647 - "GET /api/auth/me HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:56874 - "GET /api/usuarios/2497c583-817c-4ad3-8368-2f9fa345fe62 HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:54660 - "POST /api/auth/login HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:54660 - "GET /api/produtos HTTP/1.1" 403 Forbidden
+
+INFO:     127.0.0.1:54660 - "GET /api/auth/me HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:61179 - "GET /api/auth/me HTTP/1.1" 401 Unauthorized
+
+INFO:     127.0.0.1:61179 - "POST /api/auth/login HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:61179 - "GET /api/auth/me HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:61179 - "GET /api/usuarios HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:61179 - "GET /api/usuarios/a29f6172-ce43-4336-ac3a-49a559e6a29a HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:61181 - "POST /api/auth/login HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:61182 - "GET /api/usuarios/a29f6172-ce43-4336-ac3a-49a559e6a29a HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:61179 - "GET /api/auth/me HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:61179 - "GET /api/usuarios HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:61179 - "GET /api/usuarios/a29f6172-ce43-4336-ac3a-49a559e6a29a HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:61132 - "OPTIONS /api/usuarios/a29f6172-ce43-4336-ac3a-49a559e6a29a HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:61179 - "DELETE /api/usuarios/a29f6172-ce43-4336-ac3a-49a559e6a29a HTTP/1.1" 204 No Content
+
+INFO:     127.0.0.1:61179 - "GET /api/auth/me HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:61182 - "GET /api/usuarios/a29f6172-ce43-4336-ac3a-49a559e6a29a HTTP/1.1" 404 Not Found
+
+INFO:     127.0.0.1:61181 - "GET /api/auth/me HTTP/1.1" 401 Unauthorized
+
+INFO:     127.0.0.1:61181 - "POST /api/auth/login HTTP/1.1" 401 Unauthorized
+
+INFO:     127.0.0.1:61179 - "GET /api/auth/me HTTP/1.1" 401 Unauthorized
+
+INFO:     127.0.0.1:61179 - "POST /api/auth/login HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:61179 - "GET /api/auth/me HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:61179 - "GET /api/usuarios HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:61139 - "GET /api/usuarios HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:61179 - "GET /api/usuarios/f4c5e420-d84f-4f9a-9b45-ef75bd5d077b HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:61139 - "GET /api/usuarios/f4c5e420-d84f-4f9a-9b45-ef75bd5d077b HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:54526 - "GET /api/auth/me HTTP/1.1" 401 Unauthorized
+
+INFO:     127.0.0.1:54526 - "POST /api/auth/login HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:54526 - "GET /api/auth/me HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:54526 - "GET /api/usuarios HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:54527 - "PUT /api/usuarios/1fd319bf-4a8b-4318-815b-60dafba75e5f HTTP/1.1" 422 Unprocessable Entity
+
+INFO:     127.0.0.1:54527 - "GET /api/usuarios/1fd319bf-4a8b-4318-815b-60dafba75e5f HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:54526 - "GET /api/usuarios/1fd319bf-4a8b-4318-815b-60dafba75e5f HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:54526 - "GET /api/auth/me HTTP/1.1" 401 Unauthorized
+
+INFO:     127.0.0.1:54526 - "POST /api/auth/login HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:54526 - "GET /api/auth/me HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:54526 - "GET /api/usuarios HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:54526 - "POST /api/usuarios HTTP/1.1" 409 Conflict
+
+INFO:     127.0.0.1:54526 - "GET /api/auth/me HTTP/1.1" 401 Unauthorized
+
+INFO:     127.0.0.1:54526 - "POST /api/auth/login HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:54526 - "GET /api/auth/me HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:54526 - "GET /api/usuarios HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:54526 - "POST /api/usuarios HTTP/1.1" 409 Conflict
+
+INFO:     127.0.0.1:54526 - "GET /api/auth/me HTTP/1.1" 401 Unauthorized
+
+INFO:     127.0.0.1:54526 - "POST /api/auth/login HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:54526 - "GET /api/auth/me HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:54526 - "GET /api/usuarios HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:54526 - "GET /api/usuarios/6f8617e5-7cfe-4bfd-853b-82757ea8c165 HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:61654 - "OPTIONS /api/usuarios/6f8617e5-7cfe-4bfd-853b-82757ea8c165 HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:54526 - "PUT /api/usuarios/6f8617e5-7cfe-4bfd-853b-82757ea8c165 HTTP/1.1" 409 Conflict
+
+INFO:     127.0.0.1:60985 - "GET /api/auth/me HTTP/1.1" 401 Unauthorized
+
+INFO:     127.0.0.1:60985 - "POST /api/auth/login HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:60985 - "GET /api/auth/me HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:60985 - "GET /api/usuarios HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:60985 - "GET /api/usuarios/8ffb4fe3-60c7-431b-97cf-7c7eea3c29a1 HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:57191 - "OPTIONS /api/usuarios/8ffb4fe3-60c7-431b-97cf-7c7eea3c29a1 HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:60985 - "PUT /api/usuarios/8ffb4fe3-60c7-431b-97cf-7c7eea3c29a1 HTTP/1.1" 409 Conflict
+
+INFO:     127.0.0.1:60985 - "GET /api/auth/me HTTP/1.1" 401 Unauthorized
+
+INFO:     127.0.0.1:60985 - "POST /api/auth/login HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:60985 - "GET /api/auth/me HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:60985 - "GET /api/usuarios HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:57942 - "POST /api/auth/login HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:57942 - "GET /api/produtos HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:60985 - "GET /api/usuarios/380bab2a-cddd-40f9-9516-aa175b01ebfc HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:59106 - "OPTIONS /api/usuarios/380bab2a-cddd-40f9-9516-aa175b01ebfc/status HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:60985 - "PATCH /api/usuarios/380bab2a-cddd-40f9-9516-aa175b01ebfc/status HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:60985 - "GET /api/auth/me HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:57942 - "GET /api/auth/me HTTP/1.1" 401 Unauthorized
+
+INFO:     127.0.0.1:57942 - "POST /api/auth/login HTTP/1.1" 401 Unauthorized
+
+INFO:     127.0.0.1:60985 - "PATCH /api/usuarios/380bab2a-cddd-40f9-9516-aa175b01ebfc/status HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:60985 - "GET /api/auth/me HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:57942 - "GET /api/auth/me HTTP/1.1" 401 Unauthorized
+
+INFO:     127.0.0.1:60985 - "GET /api/auth/me HTTP/1.1" 401 Unauthorized
+
+INFO:     127.0.0.1:60985 - "POST /api/auth/login HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:60985 - "GET /api/auth/me HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:60985 - "GET /api/auth/me HTTP/1.1" 401 Unauthorized
+
+INFO:     127.0.0.1:60985 - "POST /api/auth/login HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:60985 - "GET /api/auth/me HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:60985 - "GET /api/usuarios HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:60985 - "GET /api/usuarios/f3e9b89f-54b2-4b88-96cc-779f5e301cff HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:63369 - "OPTIONS /api/usuarios/f3e9b89f-54b2-4b88-96cc-779f5e301cff HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:60985 - "DELETE /api/usuarios/f3e9b89f-54b2-4b88-96cc-779f5e301cff HTTP/1.1" 409 Conflict
+
+INFO:     127.0.0.1:63369 - "OPTIONS /api/usuarios/f3e9b89f-54b2-4b88-96cc-779f5e301cff/status HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:60985 - "PATCH /api/usuarios/f3e9b89f-54b2-4b88-96cc-779f5e301cff/status HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:60985 - "GET /api/auth/me HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:60985 - "GET /api/auth/me HTTP/1.1" 401 Unauthorized
+
+INFO:     127.0.0.1:60985 - "POST /api/auth/login HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:60985 - "GET /api/auth/me HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:60985 - "GET /api/usuarios HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:60985 - "GET /api/usuarios/48dbe2ae-13ed-4ae6-b783-cfed9c1fdddd HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:51311 - "OPTIONS /api/usuarios/48dbe2ae-13ed-4ae6-b783-cfed9c1fdddd HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:60985 - "DELETE /api/usuarios/48dbe2ae-13ed-4ae6-b783-cfed9c1fdddd HTTP/1.1" 409 Conflict
+
+INFO:     127.0.0.1:51311 - "OPTIONS /api/usuarios/48dbe2ae-13ed-4ae6-b783-cfed9c1fdddd/status HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:60985 - "PATCH /api/usuarios/48dbe2ae-13ed-4ae6-b783-cfed9c1fdddd/status HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:60985 - "GET /api/auth/me HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:60985 - "GET /api/auth/me HTTP/1.1" 401 Unauthorized
+
+INFO:     127.0.0.1:60985 - "POST /api/auth/login HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:60985 - "GET /api/auth/me HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:60985 - "GET /api/usuarios HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:60985 - "GET /api/usuarios/bb44e55c-7ff1-41e8-9b0c-6c486f8247cc HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:59314 - "OPTIONS /api/usuarios/bb44e55c-7ff1-41e8-9b0c-6c486f8247cc HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:60985 - "DELETE /api/usuarios/bb44e55c-7ff1-41e8-9b0c-6c486f8247cc HTTP/1.1" 409 Conflict
+
+INFO:     127.0.0.1:59315 - "GET /api/usuarios/bb44e55c-7ff1-41e8-9b0c-6c486f8247cc HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:60985 - "GET /api/auth/me HTTP/1.1" 401 Unauthorized
+
+INFO:     127.0.0.1:60985 - "POST /api/auth/login HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:60985 - "GET /api/auth/me HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:60985 - "GET /api/usuarios HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:60985 - "GET /api/usuarios/bbf8b917-8ca7-4d1d-9de6-5fcb8fcc649f HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:59314 - "OPTIONS /api/usuarios/bbf8b917-8ca7-4d1d-9de6-5fcb8fcc649f/status HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:60985 - "PATCH /api/usuarios/bbf8b917-8ca7-4d1d-9de6-5fcb8fcc649f/status HTTP/1.1" 409 Conflict
+
+INFO:     127.0.0.1:59315 - "GET /api/usuarios/bbf8b917-8ca7-4d1d-9de6-5fcb8fcc649f HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:60985 - "GET /api/auth/me HTTP/1.1" 401 Unauthorized
+
+INFO:     127.0.0.1:60985 - "POST /api/auth/login HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:60985 - "GET /api/auth/me HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:60985 - "GET /api/usuarios HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:60985 - "GET /api/usuarios/6696ea60-d17e-49a9-8a08-f5bdef30ad29 HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:59314 - "OPTIONS /api/usuarios/6696ea60-d17e-49a9-8a08-f5bdef30ad29 HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:60985 - "PUT /api/usuarios/6696ea60-d17e-49a9-8a08-f5bdef30ad29 HTTP/1.1" 409 Conflict
+
+INFO:     127.0.0.1:59315 - "GET /api/usuarios/6696ea60-d17e-49a9-8a08-f5bdef30ad29 HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:60985 - "GET /api/auth/me HTTP/1.1" 401 Unauthorized
+
+INFO:     127.0.0.1:57517 - "GET /api/usuarios HTTP/1.1" 401 Unauthorized
+
+INFO:     127.0.0.1:51833 - "GET /api/auth/me HTTP/1.1" 401 Unauthorized
+
+INFO:     127.0.0.1:51835 - "GET /api/usuarios/000c1a68-578d-4c63-b88f-b9429741c3bb HTTP/1.1" 401 Unauthorized
+
+INFO:     127.0.0.1:56470 - "GET /api/auth/me HTTP/1.1" 401 Unauthorized
+
+INFO:     127.0.0.1:56475 - "POST /api/usuarios HTTP/1.1" 401 Unauthorized
+
+INFO:     127.0.0.1:55883 - "GET /api/auth/me HTTP/1.1" 401 Unauthorized
+
+INFO:     127.0.0.1:55885 - "PUT /api/usuarios/996d6e39-c21b-4209-8138-1b081b827fcf HTTP/1.1" 401 Unauthorized
+
+INFO:     127.0.0.1:60451 - "GET /api/auth/me HTTP/1.1" 401 Unauthorized
+
+INFO:     127.0.0.1:60453 - "PATCH /api/usuarios/8521581e-6ecf-4b9f-90cc-6987779c9c97/status HTTP/1.1" 401 Unauthorized
+
+INFO:     127.0.0.1:51991 - "GET /api/auth/me HTTP/1.1" 401 Unauthorized
+
+INFO:     127.0.0.1:51995 - "PATCH /api/usuarios/f76d4c40-27ba-43e2-922e-a8b74e9862aa/status HTTP/1.1" 401 Unauthorized
+
+INFO:     127.0.0.1:57017 - "GET /api/auth/me HTTP/1.1" 401 Unauthorized
+
+INFO:     127.0.0.1:57020 - "DELETE /api/usuarios/da225327-e2ce-4c54-8aaa-4f6f381889c5 HTTP/1.1" 401 Unauthorized
+
+INFO:     127.0.0.1:50173 - "GET /api/auth/me HTTP/1.1" 401 Unauthorized
+
+INFO:     127.0.0.1:50173 - "POST /api/auth/login HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:50173 - "GET /api/auth/me HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:50175 - "GET /api/usuarios HTTP/1.1" 403 Forbidden
+
+INFO:     127.0.0.1:51314 - "GET /api/auth/me HTTP/1.1" 401 Unauthorized
+
+INFO:     127.0.0.1:51314 - "POST /api/auth/login HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:51314 - "GET /api/auth/me HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:51319 - "GET /api/usuarios/3528f76a-8abe-4222-9d0a-d84cbb0dffff HTTP/1.1" 403 Forbidden
+
+INFO:     127.0.0.1:59417 - "GET /api/auth/me HTTP/1.1" 401 Unauthorized
+
+INFO:     127.0.0.1:59417 - "POST /api/auth/login HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:59417 - "GET /api/auth/me HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:59419 - "POST /api/usuarios HTTP/1.1" 403 Forbidden
+
+INFO:     127.0.0.1:60060 - "GET /api/auth/me HTTP/1.1" 401 Unauthorized
+
+INFO:     127.0.0.1:60060 - "POST /api/auth/login HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:60060 - "GET /api/auth/me HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:60064 - "PUT /api/usuarios/a02586c7-c8c9-49a7-93df-12e8bc3234e2 HTTP/1.1" 403 Forbidden
+
+INFO:     127.0.0.1:49461 - "GET /api/auth/me HTTP/1.1" 401 Unauthorized
+
+INFO:     127.0.0.1:49461 - "POST /api/auth/login HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:49461 - "GET /api/auth/me HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:49466 - "PATCH /api/usuarios/81e3657c-cf39-4861-97a1-b43d3f0123db/status HTTP/1.1" 403 Forbidden
+
+INFO:     127.0.0.1:63642 - "GET /api/auth/me HTTP/1.1" 401 Unauthorized
+
+INFO:     127.0.0.1:63642 - "POST /api/auth/login HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:63642 - "GET /api/auth/me HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:63644 - "PATCH /api/usuarios/5f4a4ec8-90e0-4cf8-a926-fb2c28b7d864/status HTTP/1.1" 403 Forbidden
+
+INFO:     127.0.0.1:51004 - "GET /api/auth/me HTTP/1.1" 401 Unauthorized
+
+INFO:     127.0.0.1:51004 - "POST /api/auth/login HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:51004 - "GET /api/auth/me HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:51006 - "DELETE /api/usuarios/bd9dcdc0-db6a-43d6-8dbc-874b17192dbf HTTP/1.1" 403 Forbidden
+
+INFO:     127.0.0.1:57045 - "GET /api/auth/me HTTP/1.1" 401 Unauthorized
+
+INFO:     127.0.0.1:57045 - "POST /api/auth/login HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:57045 - "GET /api/auth/me HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:57045 - "GET /api/usuarios HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:57047 - "POST /api/auth/login HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:57047 - "GET /api/produtos HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:57045 - "GET /api/usuarios/633d992e-da29-4c99-be97-6e51e552b3dd HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:50786 - "OPTIONS /api/usuarios/633d992e-da29-4c99-be97-6e51e552b3dd HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:57045 - "PUT /api/usuarios/633d992e-da29-4c99-be97-6e51e552b3dd HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:57045 - "GET /api/auth/me HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:57047 - "GET /api/auth/me HTTP/1.1" 401 Unauthorized
+
+INFO:     127.0.0.1:57047 - "POST /api/auth/login HTTP/1.1" 401 Unauthorized
+
+INFO:     127.0.0.1:57045 - "GET /api/auth/me HTTP/1.1" 401 Unauthorized
+
+INFO:     127.0.0.1:57045 - "POST /api/auth/login HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:57045 - "GET /api/auth/me HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:54046 - "GET /api/auth/me HTTP/1.1" 401 Unauthorized
+
+INFO:     127.0.0.1:54046 - "POST /api/auth/login HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:54046 - "GET /api/auth/me HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:54046 - "GET /api/usuarios HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:54046 - "POST /api/usuarios HTTP/1.1" 201 Created
+
+INFO:     127.0.0.1:54046 - "GET /api/auth/me HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:54047 - "GET /api/usuarios HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:50439 - "OPTIONS /api/auth/login HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:55349 - "GET /api/auth/me HTTP/1.1" 401 Unauthorized
+
+INFO:     127.0.0.1:63378 - "POST /api/auth/login HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:55349 - "GET /api/auth/me HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:55349 - "GET /api/auth/me HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:55349 - "GET /api/families HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:55349 - "GET /api/families HTTP/1.1" 401 Unauthorized
+
+INFO:     127.0.0.1:55349 - "GET /api/auth/me HTTP/1.1" 401 Unauthorized
+
+INFO:     127.0.0.1:55349 - "POST /api/auth/login HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:55349 - "GET /api/auth/me HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:55349 - "GET /api/auth/me HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:55349 - "GET /api/families HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:55349 - "GET /api/families HTTP/1.1" 401 Unauthorized
+
+INFO:     127.0.0.1:56894 - "GET /api/auth/me HTTP/1.1" 401 Unauthorized
+
+INFO:     127.0.0.1:55349 - "POST /api/auth/login HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:55349 - "GET /api/auth/me HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:55349 - "GET /api/auth/me HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:55349 - "GET /api/families HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:55349 - "GET /api/families HTTP/1.1" 401 Unauthorized
+
+INFO:     127.0.0.1:55349 - "GET /api/auth/me HTTP/1.1" 401 Unauthorized
+
+INFO:     127.0.0.1:56894 - "POST /api/auth/login HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:56894 - "GET /api/auth/me HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:56894 - "GET /api/auth/me HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:56894 - "GET /api/families HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:56894 - "GET /api/families HTTP/1.1" 401 Unauthorized
+
+INFO:     127.0.0.1:56894 - "GET /api/auth/me HTTP/1.1" 401 Unauthorized
+
+INFO:     127.0.0.1:56894 - "POST /api/auth/login HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:56894 - "GET /api/auth/me HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:56894 - "GET /api/auth/me HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:56894 - "GET /api/families HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:56894 - "GET /api/families HTTP/1.1" 401 Unauthorized
+
+INFO:     127.0.0.1:56894 - "GET /api/auth/me HTTP/1.1" 401 Unauthorized
+
+INFO:     127.0.0.1:56894 - "POST /api/auth/login HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:56894 - "GET /api/auth/me HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:56894 - "GET /api/auth/me HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:56894 - "GET /api/families HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:56894 - "GET /api/families HTTP/1.1" 401 Unauthorized
+
+INFO:     127.0.0.1:56894 - "GET /api/auth/me HTTP/1.1" 401 Unauthorized
+
+INFO:     127.0.0.1:55349 - "POST /api/auth/login HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:55349 - "GET /api/auth/me HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:55349 - "GET /api/auth/me HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:55349 - "GET /api/families HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:55349 - "GET /api/families HTTP/1.1" 401 Unauthorized
+
+INFO:     127.0.0.1:55349 - "GET /api/auth/me HTTP/1.1" 401 Unauthorized
+
+INFO:     127.0.0.1:55349 - "POST /api/auth/login HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:55349 - "GET /api/auth/me HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:55349 - "GET /api/auth/me HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:55349 - "GET /api/families HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:55349 - "GET /api/families HTTP/1.1" 401 Unauthorized
+
+INFO:     127.0.0.1:56894 - "GET /api/auth/me HTTP/1.1" 401 Unauthorized
+
+INFO:     127.0.0.1:55349 - "POST /api/auth/login HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:55349 - "GET /api/auth/me HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:55349 - "GET /api/auth/me HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:55349 - "GET /api/families HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:55349 - "GET /api/families HTTP/1.1" 401 Unauthorized
+
+INFO:     127.0.0.1:55349 - "GET /api/auth/me HTTP/1.1" 401 Unauthorized
+
+INFO:     127.0.0.1:55349 - "POST /api/auth/login HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:55349 - "GET /api/auth/me HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:55349 - "GET /api/auth/me HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:55349 - "GET /api/families HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:55349 - "GET /api/families HTTP/1.1" 401 Unauthorized
+
+INFO:     127.0.0.1:55349 - "GET /api/auth/me HTTP/1.1" 401 Unauthorized
+
+INFO:     127.0.0.1:55349 - "POST /api/auth/login HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:55349 - "GET /api/auth/me HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:55349 - "GET /api/auth/me HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:55349 - "GET /api/families HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:58772 - "POST /api/auth/logout HTTP/1.1" 204 No Content
+
+INFO:     127.0.0.1:55349 - "GET /api/families HTTP/1.1" 401 Unauthorized
+
+INFO:     127.0.0.1:55349 - "GET /api/auth/me HTTP/1.1" 401 Unauthorized
+
+INFO:     127.0.0.1:55349 - "POST /api/auth/login HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:55349 - "GET /api/auth/me HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:55349 - "GET /api/auth/me HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:55349 - "GET /api/families HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:58772 - "POST /api/auth/logout HTTP/1.1" 204 No Content
+
+INFO:     127.0.0.1:55349 - "GET /api/families HTTP/1.1" 401 Unauthorized
+
+INFO:     127.0.0.1:55349 - "GET /api/auth/me HTTP/1.1" 401 Unauthorized
+
+INFO:     127.0.0.1:55349 - "POST /api/auth/login HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:55349 - "GET /api/auth/me HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:55349 - "GET /api/auth/me HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:55349 - "GET /api/families HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:58772 - "POST /api/auth/logout HTTP/1.1" 204 No Content
+
+INFO:     127.0.0.1:55349 - "GET /api/families HTTP/1.1" 401 Unauthorized
+
+INFO:     127.0.0.1:55349 - "GET /api/auth/me HTTP/1.1" 401 Unauthorized
+
+INFO:     127.0.0.1:56894 - "POST /api/auth/login HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:56894 - "GET /api/auth/me HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:56894 - "GET /api/auth/me HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:56894 - "GET /api/families HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:58772 - "POST /api/auth/logout HTTP/1.1" 204 No Content
+
+INFO:     127.0.0.1:56894 - "GET /api/families HTTP/1.1" 401 Unauthorized
+
+INFO:     127.0.0.1:56894 - "GET /api/auth/me HTTP/1.1" 401 Unauthorized
+
+INFO:     127.0.0.1:55349 - "POST /api/auth/login HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:55349 - "GET /api/auth/me HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:55349 - "GET /api/auth/me HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:55349 - "GET /api/families HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:58772 - "POST /api/auth/logout HTTP/1.1" 204 No Content
+
+INFO:     127.0.0.1:55349 - "GET /api/families HTTP/1.1" 401 Unauthorized
+
+INFO:     127.0.0.1:55349 - "GET /api/auth/me HTTP/1.1" 401 Unauthorized
+
+INFO:     127.0.0.1:55349 - "POST /api/auth/login HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:55349 - "GET /api/auth/me HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:55349 - "GET /api/auth/me HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:55349 - "GET /api/families HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:58772 - "POST /api/auth/logout HTTP/1.1" 204 No Content
+
+INFO:     127.0.0.1:55349 - "GET /api/families HTTP/1.1" 401 Unauthorized
+
+INFO:     127.0.0.1:55349 - "GET /api/auth/me HTTP/1.1" 401 Unauthorized
+
+INFO:     127.0.0.1:55349 - "POST /api/auth/login HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:55349 - "GET /api/auth/me HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:55349 - "GET /api/auth/me HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:55349 - "GET /api/families HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:58772 - "POST /api/auth/logout HTTP/1.1" 204 No Content
+
+INFO:     127.0.0.1:55349 - "GET /api/families HTTP/1.1" 401 Unauthorized
+
+INFO:     127.0.0.1:55349 - "GET /api/auth/me HTTP/1.1" 401 Unauthorized
+
+INFO:     127.0.0.1:55349 - "POST /api/auth/login HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:55349 - "GET /api/auth/me HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:55349 - "GET /api/auth/me HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:55349 - "GET /api/families HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:58772 - "POST /api/auth/logout HTTP/1.1" 204 No Content
+
+INFO:     127.0.0.1:55349 - "GET /api/families HTTP/1.1" 401 Unauthorized
+
+INFO:     127.0.0.1:55349 - "GET /api/auth/me HTTP/1.1" 401 Unauthorized
+
+INFO:     127.0.0.1:56894 - "POST /api/auth/login HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:56894 - "GET /api/auth/me HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:56894 - "GET /api/auth/me HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:56894 - "GET /api/families HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:58772 - "POST /api/auth/logout HTTP/1.1" 204 No Content
+
+INFO:     127.0.0.1:56894 - "GET /api/families HTTP/1.1" 401 Unauthorized
+
+INFO:     127.0.0.1:56894 - "GET /api/auth/me HTTP/1.1" 401 Unauthorized
+
+INFO:     127.0.0.1:55349 - "POST /api/auth/login HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:55349 - "GET /api/auth/me HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:55349 - "GET /api/auth/me HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:55349 - "GET /api/families HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:58772 - "POST /api/auth/logout HTTP/1.1" 204 No Content
+
+INFO:     127.0.0.1:55349 - "GET /api/families HTTP/1.1" 401 Unauthorized
+
+INFO:     127.0.0.1:60147 - "POST /api/auth/login HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:63105 - "GET /api/auth/me HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:60147 - "GET /api/auth/me HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:61270 - "POST /api/auth/login HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:49644 - "GET /api/auth/me HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:61270 - "GET /api/auth/me HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:49649 - "POST /api/auth/login HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:59999 - "GET /api/auth/me HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:49649 - "GET /api/auth/me HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:59999 - "GET /api/families HTTP/1.1" 401 Unauthorized

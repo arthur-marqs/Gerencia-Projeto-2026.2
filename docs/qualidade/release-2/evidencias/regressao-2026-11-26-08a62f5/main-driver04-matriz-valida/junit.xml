@@ -1,0 +1,341 @@
+<?xml version='1.0' encoding='utf-8'?>
+<testsuites name="pytest tests">
+  <testsuite name="pytest" errors="0" failures="0" skipped="0" tests="42" time="41.923" timestamp="2026-11-26T15:33:16.124010-03:00" hostname="DESKTOP-PHDJQ09">
+    <testcase classname="test_qa_matriz" name="test_matriz_driver04[CT-130-candidatos-aprovacao]" file="test_qa_matriz.py" line="58" time="3.042">
+      <properties>
+        <property name="caso" value="CT-130" />
+        <property name="operacao" value="candidatos-aprovacao" />
+        <property name="http" value="403" />
+        <property name="banco_alterado" value="False" />
+      </properties>
+    </testcase>
+    <testcase classname="test_qa_matriz" name="test_matriz_driver04[CT-130-aprovar-sugestao]" file="test_qa_matriz.py" line="58" time="1.067">
+      <properties>
+        <property name="caso" value="CT-130" />
+        <property name="operacao" value="aprovar-sugestao" />
+        <property name="http" value="403" />
+        <property name="banco_alterado" value="False" />
+      </properties>
+    </testcase>
+    <testcase classname="test_qa_matriz" name="test_matriz_driver04[CT-130-listar-maquinas]" file="test_qa_matriz.py" line="58" time="0.898">
+      <properties>
+        <property name="caso" value="CT-130" />
+        <property name="operacao" value="listar-maquinas" />
+        <property name="http" value="403" />
+        <property name="banco_alterado" value="False" />
+      </properties>
+    </testcase>
+    <testcase classname="test_qa_matriz" name="test_matriz_driver04[CT-130-cadastrar-maquina]" file="test_qa_matriz.py" line="58" time="0.872">
+      <properties>
+        <property name="caso" value="CT-130" />
+        <property name="operacao" value="cadastrar-maquina" />
+        <property name="http" value="403" />
+        <property name="banco_alterado" value="False" />
+      </properties>
+    </testcase>
+    <testcase classname="test_qa_matriz" name="test_matriz_driver04[CT-130-editar-maquina]" file="test_qa_matriz.py" line="58" time="0.926">
+      <properties>
+        <property name="caso" value="CT-130" />
+        <property name="operacao" value="editar-maquina" />
+        <property name="http" value="403" />
+        <property name="banco_alterado" value="False" />
+      </properties>
+    </testcase>
+    <testcase classname="test_qa_matriz" name="test_matriz_driver04[CT-130-alterar-status-maquina]" file="test_qa_matriz.py" line="58" time="0.956">
+      <properties>
+        <property name="caso" value="CT-130" />
+        <property name="operacao" value="alterar-status-maquina" />
+        <property name="http" value="403" />
+        <property name="banco_alterado" value="False" />
+      </properties>
+    </testcase>
+    <testcase classname="test_qa_matriz" name="test_matriz_driver04[CT-130-excluir-maquina-livre]" file="test_qa_matriz.py" line="58" time="0.924">
+      <properties>
+        <property name="caso" value="CT-130" />
+        <property name="operacao" value="excluir-maquina-livre" />
+        <property name="http" value="403" />
+        <property name="banco_alterado" value="False" />
+      </properties>
+    </testcase>
+    <testcase classname="test_qa_matriz" name="test_matriz_driver04[CT-130-listar-setups]" file="test_qa_matriz.py" line="58" time="0.898">
+      <properties>
+        <property name="caso" value="CT-130" />
+        <property name="operacao" value="listar-setups" />
+        <property name="http" value="403" />
+        <property name="banco_alterado" value="False" />
+      </properties>
+    </testcase>
+    <testcase classname="test_qa_matriz" name="test_matriz_driver04[CT-130-cadastrar-setup]" file="test_qa_matriz.py" line="58" time="1.011">
+      <properties>
+        <property name="caso" value="CT-130" />
+        <property name="operacao" value="cadastrar-setup" />
+        <property name="http" value="403" />
+        <property name="banco_alterado" value="False" />
+      </properties>
+    </testcase>
+    <testcase classname="test_qa_matriz" name="test_matriz_driver04[CT-130-gerar-sugestao]" file="test_qa_matriz.py" line="58" time="1.234">
+      <properties>
+        <property name="caso" value="CT-130" />
+        <property name="operacao" value="gerar-sugestao" />
+        <property name="http" value="403" />
+        <property name="banco_alterado" value="False" />
+      </properties>
+    </testcase>
+    <testcase classname="test_qa_matriz" name="test_matriz_driver04[CT-130-consultar-sugestao]" file="test_qa_matriz.py" line="58" time="0.900">
+      <properties>
+        <property name="caso" value="CT-130" />
+        <property name="operacao" value="consultar-sugestao" />
+        <property name="http" value="403" />
+        <property name="banco_alterado" value="False" />
+      </properties>
+    </testcase>
+    <testcase classname="test_qa_matriz" name="test_matriz_driver04[CT-130-comparar-sequencias]" file="test_qa_matriz.py" line="58" time="0.900">
+      <properties>
+        <property name="caso" value="CT-130" />
+        <property name="operacao" value="comparar-sequencias" />
+        <property name="http" value="403" />
+        <property name="banco_alterado" value="False" />
+      </properties>
+    </testcase>
+    <testcase classname="test_qa_matriz" name="test_matriz_driver04[CT-130-consultar-plano]" file="test_qa_matriz.py" line="58" time="0.880">
+      <properties>
+        <property name="caso" value="CT-130" />
+        <property name="operacao" value="consultar-plano" />
+        <property name="http" value="403" />
+        <property name="banco_alterado" value="False" />
+      </properties>
+    </testcase>
+    <testcase classname="test_qa_matriz" name="test_matriz_driver04[CT-130-reordenar-manual]" file="test_qa_matriz.py" line="58" time="0.966">
+      <properties>
+        <property name="caso" value="CT-130" />
+        <property name="operacao" value="reordenar-manual" />
+        <property name="http" value="403" />
+        <property name="banco_alterado" value="False" />
+      </properties>
+    </testcase>
+    <testcase classname="test_qa_matriz" name="test_matriz_driver04[CT-131-candidatos-aprovacao]" file="test_qa_matriz.py" line="58" time="0.761">
+      <properties>
+        <property name="caso" value="CT-131" />
+        <property name="operacao" value="candidatos-aprovacao" />
+        <property name="http" value="401" />
+        <property name="banco_alterado" value="False" />
+      </properties>
+    </testcase>
+    <testcase classname="test_qa_matriz" name="test_matriz_driver04[CT-131-aprovar-sugestao]" file="test_qa_matriz.py" line="58" time="0.821">
+      <properties>
+        <property name="caso" value="CT-131" />
+        <property name="operacao" value="aprovar-sugestao" />
+        <property name="http" value="401" />
+        <property name="banco_alterado" value="False" />
+      </properties>
+    </testcase>
+    <testcase classname="test_qa_matriz" name="test_matriz_driver04[CT-131-listar-maquinas]" file="test_qa_matriz.py" line="58" time="0.997">
+      <properties>
+        <property name="caso" value="CT-131" />
+        <property name="operacao" value="listar-maquinas" />
+        <property name="http" value="401" />
+        <property name="banco_alterado" value="False" />
+      </properties>
+    </testcase>
+    <testcase classname="test_qa_matriz" name="test_matriz_driver04[CT-131-cadastrar-maquina]" file="test_qa_matriz.py" line="58" time="1.155">
+      <properties>
+        <property name="caso" value="CT-131" />
+        <property name="operacao" value="cadastrar-maquina" />
+        <property name="http" value="401" />
+        <property name="banco_alterado" value="False" />
+      </properties>
+    </testcase>
+    <testcase classname="test_qa_matriz" name="test_matriz_driver04[CT-131-editar-maquina]" file="test_qa_matriz.py" line="58" time="1.120">
+      <properties>
+        <property name="caso" value="CT-131" />
+        <property name="operacao" value="editar-maquina" />
+        <property name="http" value="401" />
+        <property name="banco_alterado" value="False" />
+      </properties>
+    </testcase>
+    <testcase classname="test_qa_matriz" name="test_matriz_driver04[CT-131-alterar-status-maquina]" file="test_qa_matriz.py" line="58" time="0.795">
+      <properties>
+        <property name="caso" value="CT-131" />
+        <property name="operacao" value="alterar-status-maquina" />
+        <property name="http" value="401" />
+        <property name="banco_alterado" value="False" />
+      </properties>
+    </testcase>
+    <testcase classname="test_qa_matriz" name="test_matriz_driver04[CT-131-excluir-maquina-livre]" file="test_qa_matriz.py" line="58" time="0.919">
+      <properties>
+        <property name="caso" value="CT-131" />
+        <property name="operacao" value="excluir-maquina-livre" />
+        <property name="http" value="401" />
+        <property name="banco_alterado" value="False" />
+      </properties>
+    </testcase>
+    <testcase classname="test_qa_matriz" name="test_matriz_driver04[CT-131-listar-setups]" file="test_qa_matriz.py" line="58" time="0.827">
+      <properties>
+        <property name="caso" value="CT-131" />
+        <property name="operacao" value="listar-setups" />
+        <property name="http" value="401" />
+        <property name="banco_alterado" value="False" />
+      </properties>
+    </testcase>
+    <testcase classname="test_qa_matriz" name="test_matriz_driver04[CT-131-cadastrar-setup]" file="test_qa_matriz.py" line="58" time="0.847">
+      <properties>
+        <property name="caso" value="CT-131" />
+        <property name="operacao" value="cadastrar-setup" />
+        <property name="http" value="401" />
+        <property name="banco_alterado" value="False" />
+      </properties>
+    </testcase>
+    <testcase classname="test_qa_matriz" name="test_matriz_driver04[CT-131-gerar-sugestao]" file="test_qa_matriz.py" line="58" time="0.792">
+      <properties>
+        <property name="caso" value="CT-131" />
+        <property name="operacao" value="gerar-sugestao" />
+        <property name="http" value="401" />
+        <property name="banco_alterado" value="False" />
+      </properties>
+    </testcase>
+    <testcase classname="test_qa_matriz" name="test_matriz_driver04[CT-131-consultar-sugestao]" file="test_qa_matriz.py" line="58" time="0.758">
+      <properties>
+        <property name="caso" value="CT-131" />
+        <property name="operacao" value="consultar-sugestao" />
+        <property name="http" value="401" />
+        <property name="banco_alterado" value="False" />
+      </properties>
+    </testcase>
+    <testcase classname="test_qa_matriz" name="test_matriz_driver04[CT-131-comparar-sequencias]" file="test_qa_matriz.py" line="58" time="0.759">
+      <properties>
+        <property name="caso" value="CT-131" />
+        <property name="operacao" value="comparar-sequencias" />
+        <property name="http" value="401" />
+        <property name="banco_alterado" value="False" />
+      </properties>
+    </testcase>
+    <testcase classname="test_qa_matriz" name="test_matriz_driver04[CT-131-consultar-plano]" file="test_qa_matriz.py" line="58" time="0.765">
+      <properties>
+        <property name="caso" value="CT-131" />
+        <property name="operacao" value="consultar-plano" />
+        <property name="http" value="401" />
+        <property name="banco_alterado" value="False" />
+      </properties>
+    </testcase>
+    <testcase classname="test_qa_matriz" name="test_matriz_driver04[CT-131-reordenar-manual]" file="test_qa_matriz.py" line="58" time="0.843">
+      <properties>
+        <property name="caso" value="CT-131" />
+        <property name="operacao" value="reordenar-manual" />
+        <property name="http" value="401" />
+        <property name="banco_alterado" value="False" />
+      </properties>
+    </testcase>
+    <testcase classname="test_qa_matriz" name="test_matriz_driver04[CT-132-candidatos-aprovacao]" file="test_qa_matriz.py" line="58" time="1.482">
+      <properties>
+        <property name="caso" value="CT-132" />
+        <property name="operacao" value="candidatos-aprovacao" />
+        <property name="http" value="200" />
+        <property name="banco_alterado" value="False" />
+      </properties>
+    </testcase>
+    <testcase classname="test_qa_matriz" name="test_matriz_driver04[CT-132-aprovar-sugestao]" file="test_qa_matriz.py" line="58" time="1.369">
+      <properties>
+        <property name="caso" value="CT-132" />
+        <property name="operacao" value="aprovar-sugestao" />
+        <property name="http" value="201" />
+        <property name="banco_alterado" value="True" />
+      </properties>
+    </testcase>
+    <testcase classname="test_qa_matriz" name="test_matriz_driver04[CT-132-listar-maquinas]" file="test_qa_matriz.py" line="58" time="1.103">
+      <properties>
+        <property name="caso" value="CT-132" />
+        <property name="operacao" value="listar-maquinas" />
+        <property name="http" value="200" />
+        <property name="banco_alterado" value="False" />
+      </properties>
+    </testcase>
+    <testcase classname="test_qa_matriz" name="test_matriz_driver04[CT-132-cadastrar-maquina]" file="test_qa_matriz.py" line="58" time="0.956">
+      <properties>
+        <property name="caso" value="CT-132" />
+        <property name="operacao" value="cadastrar-maquina" />
+        <property name="http" value="201" />
+        <property name="banco_alterado" value="True" />
+      </properties>
+    </testcase>
+    <testcase classname="test_qa_matriz" name="test_matriz_driver04[CT-132-editar-maquina]" file="test_qa_matriz.py" line="58" time="0.968">
+      <properties>
+        <property name="caso" value="CT-132" />
+        <property name="operacao" value="editar-maquina" />
+        <property name="http" value="200" />
+        <property name="banco_alterado" value="True" />
+      </properties>
+    </testcase>
+    <testcase classname="test_qa_matriz" name="test_matriz_driver04[CT-132-alterar-status-maquina]" file="test_qa_matriz.py" line="58" time="0.848">
+      <properties>
+        <property name="caso" value="CT-132" />
+        <property name="operacao" value="alterar-status-maquina" />
+        <property name="http" value="200" />
+        <property name="banco_alterado" value="True" />
+      </properties>
+    </testcase>
+    <testcase classname="test_qa_matriz" name="test_matriz_driver04[CT-132-excluir-maquina-livre]" file="test_qa_matriz.py" line="58" time="1.186">
+      <properties>
+        <property name="caso" value="CT-132" />
+        <property name="operacao" value="excluir-maquina-livre" />
+        <property name="http" value="204" />
+        <property name="banco_alterado" value="True" />
+      </properties>
+    </testcase>
+    <testcase classname="test_qa_matriz" name="test_matriz_driver04[CT-132-listar-setups]" file="test_qa_matriz.py" line="58" time="0.894">
+      <properties>
+        <property name="caso" value="CT-132" />
+        <property name="operacao" value="listar-setups" />
+        <property name="http" value="200" />
+        <property name="banco_alterado" value="False" />
+      </properties>
+    </testcase>
+    <testcase classname="test_qa_matriz" name="test_matriz_driver04[CT-132-cadastrar-setup]" file="test_qa_matriz.py" line="58" time="0.892">
+      <properties>
+        <property name="caso" value="CT-132" />
+        <property name="operacao" value="cadastrar-setup" />
+        <property name="http" value="201" />
+        <property name="banco_alterado" value="True" />
+      </properties>
+    </testcase>
+    <testcase classname="test_qa_matriz" name="test_matriz_driver04[CT-132-gerar-sugestao]" file="test_qa_matriz.py" line="58" time="0.848">
+      <properties>
+        <property name="caso" value="CT-132" />
+        <property name="operacao" value="gerar-sugestao" />
+        <property name="http" value="201" />
+        <property name="banco_alterado" value="True" />
+      </properties>
+    </testcase>
+    <testcase classname="test_qa_matriz" name="test_matriz_driver04[CT-132-consultar-sugestao]" file="test_qa_matriz.py" line="58" time="0.938">
+      <properties>
+        <property name="caso" value="CT-132" />
+        <property name="operacao" value="consultar-sugestao" />
+        <property name="http" value="200" />
+        <property name="banco_alterado" value="False" />
+      </properties>
+    </testcase>
+    <testcase classname="test_qa_matriz" name="test_matriz_driver04[CT-132-comparar-sequencias]" file="test_qa_matriz.py" line="58" time="0.930">
+      <properties>
+        <property name="caso" value="CT-132" />
+        <property name="operacao" value="comparar-sequencias" />
+        <property name="http" value="200" />
+        <property name="banco_alterado" value="False" />
+      </properties>
+    </testcase>
+    <testcase classname="test_qa_matriz" name="test_matriz_driver04[CT-132-consultar-plano]" file="test_qa_matriz.py" line="58" time="0.778">
+      <properties>
+        <property name="caso" value="CT-132" />
+        <property name="operacao" value="consultar-plano" />
+        <property name="http" value="200" />
+        <property name="banco_alterado" value="False" />
+      </properties>
+    </testcase>
+    <testcase classname="test_qa_matriz" name="test_matriz_driver04[CT-132-reordenar-manual]" file="test_qa_matriz.py" line="58" time="0.948">
+      <properties>
+        <property name="caso" value="CT-132" />
+        <property name="operacao" value="reordenar-manual" />
+        <property name="http" value="200" />
+        <property name="banco_alterado" value="True" />
+      </properties>
+    </testcase>
+  </testsuite>
+</testsuites>

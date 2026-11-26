@@ -1,0 +1,15 @@
+<?xml version='1.0' encoding='utf-8'?>
+<testsuites name="Mocha Tests" time="20.832" tests="4" failures="0">
+  <testsuite name="Root Suite" timestamp="2026-11-26T18:46:46" tests="0" file="cypress\e2e\comparacao.feature" time="0.000" failures="0">
+  </testsuite>
+  <testsuite name="Comparar sequência manual e sequência sugerida" timestamp="2026-11-26T18:46:46" tests="4" time="20.775" failures="0">
+    <testcase name="Comparar sequência manual e sequência sugerida CT-120 Exibir as duas sequências e as diferenças" time="5.760" classname="CT-120 Exibir as duas sequências e as diferenças">
+    </testcase>
+    <testcase name="Comparar sequência manual e sequência sugerida CT-121 Orientar a geração quando falta sequência sugerida" time="5.522" classname="CT-121 Orientar a geração quando falta sequência sugerida">
+    </testcase>
+    <testcase name="Comparar sequência manual e sequência sugerida CT-122 Preservar os registros ao consultar a comparação" time="5.564" classname="CT-122 Preservar os registros ao consultar a comparação">
+    </testcase>
+    <testcase name="Comparar sequência manual e sequência sugerida Comparar o planejamento quando o catálogo de máquinas responde 503" time="3.718" classname="Comparar o planejamento quando o catálogo de máquinas responde 503">
+    </testcase>
+  </testsuite>
+</testsuites>

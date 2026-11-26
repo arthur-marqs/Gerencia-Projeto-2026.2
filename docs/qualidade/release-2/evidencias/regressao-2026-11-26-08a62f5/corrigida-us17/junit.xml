@@ -1,0 +1,18 @@
+<?xml version='1.0' encoding='utf-8'?>
+<testsuites name="pytest tests">
+  <testsuite name="pytest" errors="0" failures="0" skipped="0" tests="13" time="15.578" timestamp="2026-11-26T15:34:20.234057-03:00" hostname="DESKTOP-PHDJQ09">
+    <testcase classname="testes.integration.test_us17_aprovacao" name="test_aprova_somente_a_alternativa_escolhida_e_publica_para_execucao[manual]" time="3.177" />
+    <testcase classname="testes.integration.test_us17_aprovacao" name="test_aprova_somente_a_alternativa_escolhida_e_publica_para_execucao[sugerida]" time="1.708" />
+    <testcase classname="testes.integration.test_us17_aprovacao" name="test_informa_ausencia_e_nao_registra_aprovacao" time="0.698" />
+    <testcase classname="testes.integration.test_us17_aprovacao" name="test_rejeita_sequencia_desatualizada_e_preserva_manual_aprovado" time="0.947" />
+    <testcase classname="testes.integration.test_us17_aprovacao" name="test_sugestao_independente_pode_ser_aprovada" time="1.024" />
+    <testcase classname="testes.integration.test_us17_aprovacao" name="test_recusa_sugestao_com_maquina_inelegivel_sem_alterar_historico[maquina-inativa]" time="1.094" />
+    <testcase classname="testes.integration.test_us17_aprovacao" name="test_recusa_sugestao_com_maquina_inelegivel_sem_alterar_historico[compatibilidade-removida]" time="1.122" />
+    <testcase classname="testes.integration.test_us17_aprovacao" name="test_recusa_sugestao_com_maquina_inelegivel_sem_alterar_historico[sugestao-legada]" time="1.322" />
+    <testcase classname="testes.integration.test_us17_aprovacao" name="test_repeticao_preserva_aprovacao_existente_apos_inativar_maquina" time="0.897" />
+    <testcase classname="testes.integration.test_us17_aprovacao" name="test_nova_aprovacao_aguarda_alteracao_de_elegibilidade_em_curso[maquina-inativa]" time="1.093" />
+    <testcase classname="testes.integration.test_us17_aprovacao" name="test_nova_aprovacao_aguarda_alteracao_de_elegibilidade_em_curso[compatibilidade-removida]" time="0.970" />
+    <testcase classname="testes.integration.test_us17_aprovacao" name="test_aprovacoes_concorrentes_nao_alocam_a_mesma_ordem_duas_vezes" time="0.920" />
+    <testcase classname="testes.integration.test_us17_aprovacao" name="test_aprovacao_e_execucao_exigem_sessao" time="0.369" />
+  </testsuite>
+</testsuites>

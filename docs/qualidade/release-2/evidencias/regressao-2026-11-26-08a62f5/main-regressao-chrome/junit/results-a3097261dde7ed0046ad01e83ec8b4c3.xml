@@ -1,0 +1,17 @@
+<?xml version='1.0' encoding='utf-8'?>
+<testsuites name="Mocha Tests" time="49.469" tests="5" failures="0">
+  <testsuite name="Root Suite" timestamp="2026-11-26T18:36:32" tests="0" file="cypress\e2e\compatibilidade.feature" time="0.000" failures="0">
+  </testsuite>
+  <testsuite name="Considerar compatibilidade entre produtos e máquinas" timestamp="2026-11-26T18:36:32" tests="5" time="49.465" failures="0">
+    <testcase name="Considerar compatibilidade entre produtos e máquinas Atribuir ordens a máquinas compatíveis diferentes" time="16.029" classname="Atribuir ordens a máquinas compatíveis diferentes">
+    </testcase>
+    <testcase name="Considerar compatibilidade entre produtos e máquinas Distribuir ordens entre máquinas compatíveis" time="8.441" classname="Distribuir ordens entre máquinas compatíveis">
+    </testcase>
+    <testcase name="Considerar compatibilidade entre produtos e máquinas Bloquear ordem sem máquina compatível" time="9.436" classname="Bloquear ordem sem máquina compatível">
+    </testcase>
+    <testcase name="Considerar compatibilidade entre produtos e máquinas Bloquear ordem compatível somente com máquina inativa" time="7.633" classname="Bloquear ordem compatível somente com máquina inativa">
+    </testcase>
+    <testcase name="Considerar compatibilidade entre produtos e máquinas Separar famílias entre máquinas compatíveis sem setup cadastrado" time="7.561" classname="Separar famílias entre máquinas compatíveis sem setup cadastrado">
+    </testcase>
+  </testsuite>
+</testsuites>

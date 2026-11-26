@@ -1,0 +1,1149 @@
+{
+  "ciclo": "R2-REG-20261126-08a62f5",
+  "geradoEm": "2026-11-26T15:55:44.134706-03:00",
+  "fuso": "America/Sao_Paulo",
+  "execucao": "Codex",
+  "saneamento": "Credenciais, cookies, emails e caminhos locais redigidos. Os hashes em artefatos são das fontes brutas antes do saneamento.",
+  "execucoes": [
+    {
+      "id": "main-pytest",
+      "source": "main",
+      "checkout": "HEAD destacado",
+      "commit": "08a62f5d1d164c7ee2cfbb0282aa7f9784baaf8f",
+      "trackedStatusBefore": "",
+      "trackedStatusAfter": "",
+      "cwd": "backend",
+      "command": [
+        "python3.11.exe",
+        "-m",
+        "pytest",
+        "-q",
+        "--tb=short",
+        "--junitxml=<ciclo>\\run\\main-pytest\\junit.xml",
+        "testes"
+      ],
+      "started": {
+        "utc": "2026-11-26T18:29:07.096Z",
+        "saoPaulo": "2026-11-26 15:29:07-03:00"
+      },
+      "finished": {
+        "utc": "2026-11-26T18:32:28.277Z",
+        "saoPaulo": "2026-11-26 15:32:28-03:00"
+      },
+      "durationSeconds": 201.095,
+      "exitCode": 0,
+      "signal": null,
+      "spawnError": null,
+      "junit": {
+        "total": 325,
+        "passed": 325,
+        "failed": 0,
+        "errors": 0,
+        "skipped": 0,
+        "casesByClass": {
+          "testes.integration.drivers.test_driver01_integridade_ordens": 20,
+          "testes.integration.drivers.test_driver02_idempotency_ordens": 8,
+          "testes.integration.drivers.test_driver04_controle_acesso": 44,
+          "testes.integration.drivers.test_driver05_rate_limiting": 22,
+          "testes.integration.drivers.test_driver06_session_expiration": 4,
+          "testes.integration.test_us01_auth": 9,
+          "testes.integration.test_us02_access_control": 4,
+          "testes.integration.test_us03_maquinas": 15,
+          "testes.integration.test_us04_produtos": 7,
+          "testes.integration.test_us05_families": 7,
+          "testes.integration.test_us06_produto_familia": 7,
+          "testes.integration.test_us07_ordens_producao": 9,
+          "testes.integration.test_us08_prazo_prioridade_ordem": 7,
+          "testes.integration.test_us09_duracao_estimada": 10,
+          "testes.integration.test_us10_tempos_setup": 16,
+          "testes.integration.test_us12_planejamento_manual": 17,
+          "testes.integration.test_us13_sequencia_sugerida": 10,
+          "testes.integration.test_us14_prazos_prioridades": 11,
+          "testes.integration.test_us15_compatibilidade": 8,
+          "testes.integration.test_us16_comparacao": 4,
+          "testes.integration.test_us17_aprovacao": 7,
+          "testes.integration.test_us26_produto_maquina": 12,
+          "testes.integration.test_us32_usuarios": 44,
+          "testes.unit.test_seed_e2e": 6,
+          "testes.unit.test_us14_sequenciamento": 7,
+          "testes.unit.test_us15_sequenciamento": 10
+        }
+      },
+      "artefatos": {
+        "stdout.log": "442decaf9061cac2b1dba8ce5dc135d9b0a7d4ac4cb0da01e66ee5ccbef7b1b1",
+        "junit.xml": "f84ce988fcfc72acc73a075f25f186dbd261db04cc4ebbcfe21450e1cb9135b5"
+      }
+    },
+    {
+      "id": "main-fluxo-bug004",
+      "source": "main",
+      "checkout": "HEAD destacado",
+      "commit": "08a62f5d1d164c7ee2cfbb0282aa7f9784baaf8f",
+      "trackedStatusBefore": "",
+      "trackedStatusAfter": "",
+      "cwd": "backend",
+      "command": [
+        "python3.11.exe",
+        "-m",
+        "pytest",
+        "-q",
+        "--tb=short",
+        "--junitxml=<ciclo>\\run\\main-fluxo-bug004\\junit.xml",
+        "-s",
+        "-o",
+        "junit_family=xunit1",
+        "-p",
+        "testes.integration.conftest",
+        "<ciclo>\\test_qa_ciclo.py"
+      ],
+      "started": {
+        "utc": "2026-11-26T18:32:51.184Z",
+        "saoPaulo": "2026-11-26 15:32:51-03:00"
+      },
+      "finished": {
+        "utc": "2026-11-26T18:32:57.279Z",
+        "saoPaulo": "2026-11-26 15:32:57-03:00"
+      },
+      "durationSeconds": 6.077,
+      "exitCode": 1,
+      "signal": null,
+      "spawnError": null,
+      "junit": {
+        "total": 3,
+        "passed": 1,
+        "failed": 2,
+        "errors": 0,
+        "skipped": 0
+      },
+      "artefatos": {
+        "stdout.log": "992fc0f375756e6b5f5f82e161d9bc291d3f3d9f83ee44037f149f6d5499fdfc",
+        "stderr.log": "372eeeed0ae9aa496ea8067196c924e75d7a15ee42cfccd07fd1821ce0470d32",
+        "junit.xml": "14f48af6c7d293f43845cacd1ba3df648ef2bd7816dfcf33afc20f47739851a9"
+      }
+    },
+    {
+      "id": "main-driver01-http",
+      "source": "main",
+      "checkout": "HEAD destacado",
+      "commit": "08a62f5d1d164c7ee2cfbb0282aa7f9784baaf8f",
+      "trackedStatusBefore": "",
+      "trackedStatusAfter": "",
+      "cwd": "backend",
+      "command": [
+        "python3.11.exe",
+        "<repositorio>\\docs\\qualidade\\release-2\\evidencias-driver01\\qa_desconexao.py"
+      ],
+      "started": {
+        "utc": "2026-11-26T18:32:57.280Z",
+        "saoPaulo": "2026-11-26 15:32:57-03:00"
+      },
+      "finished": {
+        "utc": "2026-11-26T18:33:14.842Z",
+        "saoPaulo": "2026-11-26 15:33:14-03:00"
+      },
+      "durationSeconds": 17.562,
+      "exitCode": 0,
+      "signal": null,
+      "spawnError": null,
+      "artefatos": {
+        "stderr.log": "be03a309c26a38670408c47b1d393f5f134a2d4c66bcbb497601fe6ea5a104bc",
+        "amostras.jsonl": "22f55116969ac902bc6b4854ec30f432c64489d1aeabfe035de83b49c43b5f7e"
+      }
+    },
+    {
+      "id": "main-driver04-matriz-valida",
+      "source": "main",
+      "checkout": "HEAD destacado",
+      "commit": "08a62f5d1d164c7ee2cfbb0282aa7f9784baaf8f",
+      "trackedStatusBefore": "",
+      "trackedStatusAfter": "",
+      "cwd": "backend",
+      "command": [
+        "python3.11.exe",
+        "-m",
+        "pytest",
+        "-q",
+        "--tb=short",
+        "--junitxml=<ciclo>\\run\\main-driver04-matriz-valida\\junit.xml",
+        "-o",
+        "junit_family=xunit1",
+        "-p",
+        "testes.integration.conftest",
+        "<ciclo>\\test_qa_matriz.py"
+      ],
+      "started": {
+        "utc": "2026-11-26T18:33:14.844Z",
+        "saoPaulo": "2026-11-26 15:33:14-03:00"
+      },
+      "finished": {
+        "utc": "2026-11-26T18:33:58.574Z",
+        "saoPaulo": "2026-11-26 15:33:58-03:00"
+      },
+      "durationSeconds": 43.73,
+      "exitCode": 0,
+      "signal": null,
+      "spawnError": null,
+      "junit": {
+        "total": 42,
+        "passed": 42,
+        "failed": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      "artefatos": {
+        "stdout.log": "391874bf6b9a23f585fba61c357de0a929f82a6fcfe5bd2f00580f6cae9203a4",
+        "junit.xml": "792bff778d8723437fb289823a1ddc5abcdfdc7895702b61a17cc0aa9a991c9c"
+      }
+    },
+    {
+      "id": "main-driver06-http",
+      "source": "main",
+      "checkout": "HEAD destacado",
+      "commit": "08a62f5d1d164c7ee2cfbb0282aa7f9784baaf8f",
+      "trackedStatusBefore": "",
+      "trackedStatusAfter": "",
+      "cwd": "backend",
+      "command": [
+        "python3.11.exe",
+        "-m",
+        "pytest",
+        "-q",
+        "--tb=short",
+        "--junitxml=<ciclo>\\run\\main-driver06-http\\junit.xml",
+        "-s",
+        "-p",
+        "testes.integration.conftest",
+        "<ciclo>\\test_qa_driver06_http.py"
+      ],
+      "started": {
+        "utc": "2026-11-26T18:33:58.575Z",
+        "saoPaulo": "2026-11-26 15:33:58-03:00"
+      },
+      "finished": {
+        "utc": "2026-11-26T18:34:08.743Z",
+        "saoPaulo": "2026-11-26 15:34:08-03:00"
+      },
+      "durationSeconds": 10.167,
+      "exitCode": 0,
+      "signal": null,
+      "spawnError": null,
+      "junit": {
+        "total": 3,
+        "passed": 3,
+        "failed": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      "artefatos": {
+        "stdout.log": "cb05200e20eeb10c9df238a3eed2b1ea369b28a39157c422d17c4eb279866e57",
+        "stderr.log": "372eeeed0ae9aa496ea8067196c924e75d7a15ee42cfccd07fd1821ce0470d32",
+        "junit.xml": "e6fc6dac5464508f0010c4303717d9819282ddfc87151056a0ab0b38e2c3d238",
+        "http-desconhecida.json": "10231ebb5897dc197ce6b03ba01555d6b3b07f4704d3c3c6f84d3ff8eef0d3fe",
+        "http-expirada.json": "bd028dd827c964ffaf45a25b3127c0f9e28bb25c2995cdee8d894888eb6e4b0b",
+        "http-invalidada.json": "59183f35ed04f2ee244234899035cf02cd737035a39118b435c903510eaa7b83"
+      }
+    },
+    {
+      "id": "corrigida-fluxo-bug004",
+      "source": "corrigida",
+      "checkout": "HEAD destacado",
+      "commit": "ee2a4a88aea0018cb451c8f9988346fe25551e7a",
+      "trackedStatusBefore": "",
+      "trackedStatusAfter": "",
+      "cwd": "backend",
+      "command": [
+        "python3.11.exe",
+        "-m",
+        "pytest",
+        "-q",
+        "--tb=short",
+        "--junitxml=<ciclo>\\run\\corrigida-fluxo-bug004\\junit.xml",
+        "-s",
+        "-o",
+        "junit_family=xunit1",
+        "-p",
+        "testes.integration.conftest",
+        "<ciclo>\\test_qa_ciclo.py"
+      ],
+      "started": {
+        "utc": "2026-11-26T18:34:08.966Z",
+        "saoPaulo": "2026-11-26 15:34:08-03:00"
+      },
+      "finished": {
+        "utc": "2026-11-26T18:34:18.236Z",
+        "saoPaulo": "2026-11-26 15:34:18-03:00"
+      },
+      "durationSeconds": 9.247,
+      "exitCode": 0,
+      "signal": null,
+      "spawnError": null,
+      "junit": {
+        "total": 3,
+        "passed": 3,
+        "failed": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      "artefatos": {
+        "stdout.log": "4b4bb319b0277b59f57bdc0ee844ef8da8c57535c7f15f99b1a3d7f951731273",
+        "stderr.log": "be03a309c26a38670408c47b1d393f5f134a2d4c66bcbb497601fe6ea5a104bc",
+        "junit.xml": "563f75b7dfaff8cce23d1eac47a70872a6901d35aa739fe77d7317d0029a6278"
+      }
+    },
+    {
+      "id": "corrigida-us17",
+      "source": "corrigida",
+      "checkout": "HEAD destacado",
+      "commit": "ee2a4a88aea0018cb451c8f9988346fe25551e7a",
+      "trackedStatusBefore": "",
+      "trackedStatusAfter": "",
+      "cwd": "backend",
+      "command": [
+        "python3.11.exe",
+        "-m",
+        "pytest",
+        "-q",
+        "--tb=short",
+        "--junitxml=<ciclo>\\run\\corrigida-us17\\junit.xml",
+        "testes/integration/test_us17_aprovacao.py"
+      ],
+      "started": {
+        "utc": "2026-11-26T18:34:18.241Z",
+        "saoPaulo": "2026-11-26 15:34:18-03:00"
+      },
+      "finished": {
+        "utc": "2026-11-26T18:34:36.401Z",
+        "saoPaulo": "2026-11-26 15:34:36-03:00"
+      },
+      "durationSeconds": 18.161,
+      "exitCode": 0,
+      "signal": null,
+      "spawnError": null,
+      "junit": {
+        "total": 13,
+        "passed": 13,
+        "failed": 0,
+        "errors": 0,
+        "skipped": 0,
+        "casesByClass": {
+          "testes.integration.test_us17_aprovacao": 13
+        }
+      },
+      "artefatos": {
+        "stdout.log": "8fdb65051c9fe41495000950c05f5dc81095c0e065f4deccfb5f19a6a774e62a",
+        "junit.xml": "b93452469e5c65aff45a97b31e6226c7f5412aa71926ed48b866a0601658dc15"
+      }
+    },
+    {
+      "id": "main-lint",
+      "source": "main",
+      "checkout": "HEAD destacado",
+      "commit": "08a62f5d1d164c7ee2cfbb0282aa7f9784baaf8f",
+      "trackedStatusBefore": "",
+      "trackedStatusAfter": "",
+      "cwd": "frontend",
+      "command": [
+        "node.exe",
+        "C:\\Program Files\\nodejs\\node_modules\\npm\\bin\\npm-cli.js",
+        "run",
+        "lint"
+      ],
+      "started": {
+        "utc": "2026-11-26T18:34:36.543Z",
+        "saoPaulo": "2026-11-26 15:34:36-03:00"
+      },
+      "finished": {
+        "utc": "2026-11-26T18:34:49.318Z",
+        "saoPaulo": "2026-11-26 15:34:49-03:00"
+      },
+      "durationSeconds": 12.756,
+      "exitCode": 0,
+      "signal": null,
+      "spawnError": null,
+      "artefatos": {
+        "stdout.log": "0d4695f4da2780a75fa8d28ae5fabe88093b7de3774417c514e2ecd90774e01f"
+      }
+    },
+    {
+      "id": "main-build",
+      "source": "main",
+      "checkout": "HEAD destacado",
+      "commit": "08a62f5d1d164c7ee2cfbb0282aa7f9784baaf8f",
+      "trackedStatusBefore": "",
+      "trackedStatusAfter": "",
+      "cwd": "frontend",
+      "command": [
+        "node.exe",
+        "C:\\Program Files\\nodejs\\node_modules\\npm\\bin\\npm-cli.js",
+        "run",
+        "build"
+      ],
+      "started": {
+        "utc": "2026-11-26T18:34:49.320Z",
+        "saoPaulo": "2026-11-26 15:34:49-03:00"
+      },
+      "finished": {
+        "utc": "2026-11-26T18:34:59.921Z",
+        "saoPaulo": "2026-11-26 15:34:59-03:00"
+      },
+      "durationSeconds": 10.601,
+      "exitCode": 0,
+      "signal": null,
+      "spawnError": null,
+      "artefatos": {
+        "stdout.log": "c414de0eb7579e30252deefd79e5ca5f7bb19143945cc78064a71a327e6ddf73"
+      }
+    },
+    {
+      "id": "main-alembic",
+      "source": "main",
+      "checkout": "HEAD destacado",
+      "commit": "08a62f5d1d164c7ee2cfbb0282aa7f9784baaf8f",
+      "trackedStatusBefore": "",
+      "trackedStatusAfter": "",
+      "cwd": "backend",
+      "command": [
+        "python3.11.exe",
+        "-m",
+        "alembic",
+        "upgrade",
+        "head"
+      ],
+      "started": {
+        "utc": "2026-11-26T18:34:59.923Z",
+        "saoPaulo": "2026-11-26 15:34:59-03:00"
+      },
+      "finished": {
+        "utc": "2026-11-26T18:35:02.628Z",
+        "saoPaulo": "2026-11-26 15:35:02-03:00"
+      },
+      "durationSeconds": 2.705,
+      "exitCode": 0,
+      "signal": null,
+      "spawnError": null,
+      "artefatos": {
+        "stderr.log": "be03a309c26a38670408c47b1d393f5f134a2d4c66bcbb497601fe6ea5a104bc"
+      }
+    },
+    {
+      "id": "main-api",
+      "source": "main",
+      "checkout": "HEAD destacado",
+      "commit": "08a62f5d1d164c7ee2cfbb0282aa7f9784baaf8f",
+      "trackedStatusBefore": "",
+      "trackedStatusAfter": "",
+      "cwd": "backend",
+      "command": [
+        "python3.11.exe",
+        "-m",
+        "uvicorn",
+        "app.main:app",
+        "--host",
+        "127.0.0.1",
+        "--port",
+        "8000"
+      ],
+      "started": {
+        "utc": "2026-11-26T18:35:02.630Z",
+        "saoPaulo": "2026-11-26 15:35:02-03:00"
+      },
+      "finished": {
+        "utc": "2026-11-26T18:44:43.203Z",
+        "saoPaulo": "2026-11-26 15:44:43-03:00"
+      },
+      "durationSeconds": 580.573,
+      "exitCode": null,
+      "signal": "SIGTERM",
+      "spawnError": null,
+      "artefatos": {
+        "stdout.log": "954f599c20adb9ba3c8af6b24b1e2b3f541aca95f1ff0c6114ce708e80764c8d",
+        "stderr.log": "29b94ed9c5e11fa30be2d73540fbdf5351fae92549cfab1c144b20ca4b81c784"
+      }
+    },
+    {
+      "id": "main-ui",
+      "source": "main",
+      "checkout": "HEAD destacado",
+      "commit": "08a62f5d1d164c7ee2cfbb0282aa7f9784baaf8f",
+      "trackedStatusBefore": "",
+      "trackedStatusAfter": "",
+      "cwd": "frontend",
+      "command": [
+        "node.exe",
+        "<ciclo>\\main\\frontend\\node_modules\\vite\\bin\\vite.js",
+        "preview",
+        "--host",
+        "127.0.0.1",
+        "--port",
+        "5173",
+        "--strictPort"
+      ],
+      "started": {
+        "utc": "2026-11-26T18:35:02.748Z",
+        "saoPaulo": "2026-11-26 15:35:02-03:00"
+      },
+      "finished": {
+        "utc": "2026-11-26T18:44:43.268Z",
+        "saoPaulo": "2026-11-26 15:44:43-03:00"
+      },
+      "durationSeconds": 580.52,
+      "exitCode": null,
+      "signal": "SIGTERM",
+      "spawnError": null,
+      "artefatos": {
+        "stdout.log": "bd8dbfcb51bb080233543196528006cdfd7b1571bfe995d605a3c3bf02ba543e"
+      }
+    },
+    {
+      "id": "main-regressao-chrome",
+      "source": "main",
+      "checkout": "HEAD destacado",
+      "commit": "08a62f5d1d164c7ee2cfbb0282aa7f9784baaf8f",
+      "trackedStatusBefore": "",
+      "trackedStatusAfter": "",
+      "cwd": "frontend",
+      "command": [
+        "node.exe",
+        "C:\\Program Files\\nodejs\\node_modules\\npm\\bin\\npm-cli.js",
+        "run",
+        "test:e2e:regressao",
+        "--",
+        "--browser",
+        "chrome"
+      ],
+      "started": {
+        "utc": "2026-11-26T18:35:05.593Z",
+        "saoPaulo": "2026-11-26 15:35:05-03:00"
+      },
+      "finished": {
+        "utc": "2026-11-26T18:43:21.432Z",
+        "saoPaulo": "2026-11-26 15:43:21-03:00"
+      },
+      "durationSeconds": 495.851,
+      "exitCode": 0,
+      "signal": null,
+      "spawnError": null,
+      "cypress": {
+        "browser": "chrome",
+        "browserVersion": "158.0.8127.38",
+        "cypressVersion": "16.3.0",
+        "total": 67,
+        "passed": 67,
+        "failed": 0,
+        "pending": 0,
+        "skipped": 0,
+        "durationMs": 443900,
+        "sourceSha256": "913fc32d0ca3101e535260e5ae601d84b4cdf3ad1e91e59d3ab9359edb6a5bea"
+      },
+      "junit": {
+        "total": 67,
+        "passed": 67,
+        "failed": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      "artefatos": {
+        "stdout.log": "4721aed1fc79419711f6803644f56ffebe85d75b179aabd155e02e63f087b056",
+        "run-summary.json": "77ced2bd03579576a98c0fb683df83584aad4c6844f7e1fdb779b1d2747401ff",
+        "junit/results-06f758b22119d9f9bb09299ac24b6bc7.xml": "e590d5be5031e155dc8ba214185034bef0abf01f7e8b7b36a8ac1fa5c4a4d512",
+        "junit/results-277014b404aaa066caae0edd18558a70.xml": "eb678a0961e7dff32232e766e61bd8555cd016d998a553970ac594c3f99e3f36",
+        "junit/results-5ec92704650768355f91616dd3c6cb2e.xml": "69d1a2a0572f122a51c26bf8e7c0035b55624734b325a034d8beccfd1aba470b",
+        "junit/results-9d600c054b6713d2f2423a84caee5a40.xml": "933c5455ecd06ebb1c4d15a5c8bf29bb0d338e90860dcc686af7c5bb709d64f9",
+        "junit/results-a3097261dde7ed0046ad01e83ec8b4c3.xml": "af879f0d5eaf2e9577a44dc85c38deda0d67ea6e9cfe4c26cd54306a85e8b6ad",
+        "junit/results-a62d95906d59bec903c44ff98e8a0e09.xml": "a8a7e58c3e353c70e2d4e63cf0e1b6a85ba0eed6f8da883e238d725b1d10e66d",
+        "junit/results-e2e298308dd47d9d36d01401a10be319.xml": "3e1cf0b9d84cfe59298017790bb05bea391eccc5619567102b1936c39de1b4ed"
+      }
+    },
+    {
+      "id": "main-auth-chrome",
+      "source": "main",
+      "checkout": "HEAD destacado",
+      "commit": "08a62f5d1d164c7ee2cfbb0282aa7f9784baaf8f",
+      "trackedStatusBefore": "",
+      "trackedStatusAfter": "",
+      "cwd": "frontend",
+      "command": [
+        "node.exe",
+        "C:\\Program Files\\nodejs\\node_modules\\npm\\bin\\npm-cli.js",
+        "run",
+        "test:e2e:login",
+        "--",
+        "--browser",
+        "chrome"
+      ],
+      "started": {
+        "utc": "2026-11-26T18:43:21.449Z",
+        "saoPaulo": "2026-11-26 15:43:21-03:00"
+      },
+      "finished": {
+        "utc": "2026-11-26T18:43:46.866Z",
+        "saoPaulo": "2026-11-26 15:43:46-03:00"
+      },
+      "durationSeconds": 25.418,
+      "exitCode": 0,
+      "signal": null,
+      "spawnError": null,
+      "cypress": {
+        "browser": "chrome",
+        "browserVersion": "158.0.8127.38",
+        "cypressVersion": "16.3.0",
+        "total": 12,
+        "passed": 12,
+        "failed": 0,
+        "pending": 0,
+        "skipped": 0,
+        "durationMs": 6139,
+        "sourceSha256": "913fc32d0ca3101e535260e5ae601d84b4cdf3ad1e91e59d3ab9359edb6a5bea"
+      },
+      "artefatos": {
+        "stdout.log": "462af01bc50198e8fa9d14486b1da23d672fb0c10066e836e7e9f8e1be4982e3",
+        "run-summary.json": "768dbe0fa6d0c6754bea091e5486c359b2955e5af43755a2ccb5bad644e33e13"
+      }
+    },
+    {
+      "id": "main-driver06-massa",
+      "source": "main",
+      "checkout": "HEAD destacado",
+      "commit": "08a62f5d1d164c7ee2cfbb0282aa7f9784baaf8f",
+      "trackedStatusBefore": "",
+      "trackedStatusAfter": "",
+      "cwd": "backend",
+      "command": [
+        "python3.11.exe",
+        "-m",
+        "scripts.seed_e2e",
+        "normal"
+      ],
+      "started": {
+        "utc": "2026-11-26T18:43:46.872Z",
+        "saoPaulo": "2026-11-26 15:43:46-03:00"
+      },
+      "finished": {
+        "utc": "2026-11-26T18:43:48.238Z",
+        "saoPaulo": "2026-11-26 15:43:48-03:00"
+      },
+      "durationSeconds": 1.366,
+      "exitCode": 0,
+      "signal": null,
+      "spawnError": null,
+      "artefatos": {}
+    },
+    {
+      "id": "main-driver06-chrome-processo",
+      "source": "main",
+      "checkout": "HEAD destacado",
+      "commit": "08a62f5d1d164c7ee2cfbb0282aa7f9784baaf8f",
+      "trackedStatusBefore": "",
+      "trackedStatusAfter": "",
+      "cwd": "",
+      "command": [
+        "chrome.exe",
+        "--headless",
+        "--disable-gpu",
+        "--no-first-run",
+        "--no-default-browser-check",
+        "--remote-debugging-address=127.0.0.1",
+        "--remote-debugging-port=9234",
+        "--user-data-dir=<ciclo>\\perfil-driver06",
+        "about:blank"
+      ],
+      "started": {
+        "utc": "2026-11-26T18:43:48.240Z",
+        "saoPaulo": "2026-11-26 15:43:48-03:00"
+      },
+      "finished": {
+        "utc": "2026-11-26T18:44:05.282Z",
+        "saoPaulo": "2026-11-26 15:44:05-03:00"
+      },
+      "durationSeconds": 17.042,
+      "exitCode": null,
+      "signal": "SIGTERM",
+      "spawnError": null,
+      "artefatos": {
+        "stderr.log": "2819aa9f5e266d613e4637a945d3c2c5840bf443099c584b1a460275b7ff87e6"
+      }
+    },
+    {
+      "id": "main-driver06-chrome",
+      "source": "main",
+      "checkout": "HEAD destacado",
+      "commit": "08a62f5d1d164c7ee2cfbb0282aa7f9784baaf8f",
+      "trackedStatusBefore": "",
+      "trackedStatusAfter": "",
+      "cwd": "",
+      "command": [
+        "node.exe",
+        "<ciclo>\\qa-sessao.mjs",
+        "<ciclo>\\run\\main-driver06-chrome\\amostras.json",
+        "--medir-driver06"
+      ],
+      "started": {
+        "utc": "2026-11-26T18:43:48.848Z",
+        "saoPaulo": "2026-11-26 15:43:48-03:00"
+      },
+      "finished": {
+        "utc": "2026-11-26T18:44:05.121Z",
+        "saoPaulo": "2026-11-26 15:44:05-03:00"
+      },
+      "durationSeconds": 16.273,
+      "exitCode": 0,
+      "signal": null,
+      "spawnError": null,
+      "artefatos": {
+        "amostras.json": "969e30295b6a37428b1dc1577cad2dd574436d071a80c5b1b5ef931e4e24ec17"
+      }
+    },
+    {
+      "id": "main-bug005-integrado",
+      "source": "main",
+      "checkout": "HEAD destacado",
+      "commit": "08a62f5d1d164c7ee2cfbb0282aa7f9784baaf8f",
+      "trackedStatusBefore": "?? .qa-cycle/",
+      "trackedStatusAfter": "?? .qa-cycle/",
+      "cwd": "",
+      "command": [
+        "node.exe",
+        "<ciclo>\\main\\frontend\\node_modules\\cypress\\bin\\cypress",
+        "run",
+        "--project",
+        ".",
+        "--config-file",
+        ".qa-cycle/cypress-bug005.cjs",
+        "--browser",
+        "chrome"
+      ],
+      "started": {
+        "utc": "2026-11-26T18:44:05.289Z",
+        "saoPaulo": "2026-11-26 15:44:05-03:00"
+      },
+      "finished": {
+        "utc": "2026-11-26T18:44:43.112Z",
+        "saoPaulo": "2026-11-26 15:44:43-03:00"
+      },
+      "durationSeconds": 37.823,
+      "exitCode": 2,
+      "signal": null,
+      "spawnError": null,
+      "junit": {
+        "total": 3,
+        "passed": 1,
+        "failed": 2,
+        "errors": 0,
+        "skipped": 0
+      },
+      "artefatos": {
+        "stdout.log": "6ea3957d74c9a520b9f7cce370946df8b453d6e554e0bf017609a7b5dff58729",
+        "junit.xml": "cca6cf17412dd411041574012195c6175df224d7b0b90454a6db8aa08cd8e521"
+      }
+    },
+    {
+      "id": "corrigida-lint",
+      "source": "corrigida",
+      "checkout": "HEAD destacado",
+      "commit": "ee2a4a88aea0018cb451c8f9988346fe25551e7a",
+      "trackedStatusBefore": "",
+      "trackedStatusAfter": "",
+      "cwd": "frontend",
+      "command": [
+        "node.exe",
+        "C:\\Program Files\\nodejs\\node_modules\\npm\\bin\\npm-cli.js",
+        "run",
+        "lint"
+      ],
+      "started": {
+        "utc": "2026-11-26T18:44:43.455Z",
+        "saoPaulo": "2026-11-26 15:44:43-03:00"
+      },
+      "finished": {
+        "utc": "2026-11-26T18:44:55.275Z",
+        "saoPaulo": "2026-11-26 15:44:55-03:00"
+      },
+      "durationSeconds": 11.761,
+      "exitCode": 0,
+      "signal": null,
+      "spawnError": null,
+      "artefatos": {
+        "stdout.log": "0d4695f4da2780a75fa8d28ae5fabe88093b7de3774417c514e2ecd90774e01f"
+      }
+    },
+    {
+      "id": "corrigida-build",
+      "source": "corrigida",
+      "checkout": "HEAD destacado",
+      "commit": "ee2a4a88aea0018cb451c8f9988346fe25551e7a",
+      "trackedStatusBefore": "",
+      "trackedStatusAfter": "",
+      "cwd": "frontend",
+      "command": [
+        "node.exe",
+        "C:\\Program Files\\nodejs\\node_modules\\npm\\bin\\npm-cli.js",
+        "run",
+        "build"
+      ],
+      "started": {
+        "utc": "2026-11-26T18:44:55.277Z",
+        "saoPaulo": "2026-11-26 15:44:55-03:00"
+      },
+      "finished": {
+        "utc": "2026-11-26T18:45:05.380Z",
+        "saoPaulo": "2026-11-26 15:45:05-03:00"
+      },
+      "durationSeconds": 10.103,
+      "exitCode": 0,
+      "signal": null,
+      "spawnError": null,
+      "artefatos": {
+        "stdout.log": "6039e77488e0eeb5cdb23b889530da27b55a99d33beaad162fefb5319c5d3619"
+      }
+    },
+    {
+      "id": "corrigida-alembic",
+      "source": "corrigida",
+      "checkout": "HEAD destacado",
+      "commit": "ee2a4a88aea0018cb451c8f9988346fe25551e7a",
+      "trackedStatusBefore": "",
+      "trackedStatusAfter": "",
+      "cwd": "backend",
+      "command": [
+        "python3.11.exe",
+        "-m",
+        "alembic",
+        "upgrade",
+        "head"
+      ],
+      "started": {
+        "utc": "2026-11-26T18:45:05.383Z",
+        "saoPaulo": "2026-11-26 15:45:05-03:00"
+      },
+      "finished": {
+        "utc": "2026-11-26T18:45:08.791Z",
+        "saoPaulo": "2026-11-26 15:45:08-03:00"
+      },
+      "durationSeconds": 3.409,
+      "exitCode": 0,
+      "signal": null,
+      "spawnError": null,
+      "artefatos": {
+        "stderr.log": "be03a309c26a38670408c47b1d393f5f134a2d4c66bcbb497601fe6ea5a104bc"
+      }
+    },
+    {
+      "id": "corrigida-api",
+      "source": "corrigida",
+      "checkout": "HEAD destacado",
+      "commit": "ee2a4a88aea0018cb451c8f9988346fe25551e7a",
+      "trackedStatusBefore": "",
+      "trackedStatusAfter": "",
+      "cwd": "backend",
+      "command": [
+        "python3.11.exe",
+        "-m",
+        "uvicorn",
+        "app.main:app",
+        "--host",
+        "127.0.0.1",
+        "--port",
+        "8000"
+      ],
+      "started": {
+        "utc": "2026-11-26T18:45:08.793Z",
+        "saoPaulo": "2026-11-26 15:45:08-03:00"
+      },
+      "finished": {
+        "utc": "2026-11-26T18:46:09.423Z",
+        "saoPaulo": "2026-11-26 15:46:09-03:00"
+      },
+      "durationSeconds": 60.63,
+      "exitCode": null,
+      "signal": "SIGTERM",
+      "spawnError": null,
+      "artefatos": {
+        "stdout.log": "08b6219a90444bfe5f6d7009414f4ddf1f03738dc2c17edd14c2c8c0f3be60ff",
+        "stderr.log": "248225ba4ef84b583b3a457627c09f926f8a14cc6e03527281833c4dc838294c"
+      }
+    },
+    {
+      "id": "corrigida-ui",
+      "source": "corrigida",
+      "checkout": "HEAD destacado",
+      "commit": "ee2a4a88aea0018cb451c8f9988346fe25551e7a",
+      "trackedStatusBefore": "",
+      "trackedStatusAfter": "",
+      "cwd": "frontend",
+      "command": [
+        "node.exe",
+        "<ciclo>\\corrigida\\frontend\\node_modules\\vite\\bin\\vite.js",
+        "preview",
+        "--host",
+        "127.0.0.1",
+        "--port",
+        "5173",
+        "--strictPort"
+      ],
+      "started": {
+        "utc": "2026-11-26T18:45:08.898Z",
+        "saoPaulo": "2026-11-26 15:45:08-03:00"
+      },
+      "finished": {
+        "utc": "2026-11-26T18:46:09.369Z",
+        "saoPaulo": "2026-11-26 15:46:09-03:00"
+      },
+      "durationSeconds": 60.471,
+      "exitCode": null,
+      "signal": "SIGTERM",
+      "spawnError": null,
+      "artefatos": {
+        "stdout.log": "bd8dbfcb51bb080233543196528006cdfd7b1571bfe995d605a3c3bf02ba543e"
+      }
+    },
+    {
+      "id": "corrigida-auth-chrome",
+      "source": "corrigida",
+      "checkout": "HEAD destacado",
+      "commit": "ee2a4a88aea0018cb451c8f9988346fe25551e7a",
+      "trackedStatusBefore": "",
+      "trackedStatusAfter": "",
+      "cwd": "frontend",
+      "command": [
+        "node.exe",
+        "C:\\Program Files\\nodejs\\node_modules\\npm\\bin\\npm-cli.js",
+        "run",
+        "test:e2e:login",
+        "--",
+        "--browser",
+        "chrome"
+      ],
+      "started": {
+        "utc": "2026-11-26T18:45:12.788Z",
+        "saoPaulo": "2026-11-26 15:45:12-03:00"
+      },
+      "finished": {
+        "utc": "2026-11-26T18:45:44.553Z",
+        "saoPaulo": "2026-11-26 15:45:44-03:00"
+      },
+      "durationSeconds": 31.766,
+      "exitCode": 0,
+      "signal": null,
+      "spawnError": null,
+      "cypress": {
+        "browser": "chrome",
+        "browserVersion": "158.0.8127.38",
+        "cypressVersion": "16.3.0",
+        "total": 17,
+        "passed": 17,
+        "failed": 0,
+        "pending": 0,
+        "skipped": 0,
+        "durationMs": 10696,
+        "sourceSha256": "7bb7a7d49eb6cd88e52d8d707cd6c4ca28d325181351a544d3a16d232a345dbd"
+      },
+      "artefatos": {
+        "stdout.log": "a363eaadbdd18f0574c06d15c1170ced7af28849bc34634f28dc675be25a07a8",
+        "run-summary.json": "6925106ae93cdfc066bdf1926a66e3f4d9acf4d0a0480d481e543b83f2f4e36f"
+      }
+    },
+    {
+      "id": "corrigida-bug005-integrado",
+      "source": "corrigida",
+      "checkout": "HEAD destacado",
+      "commit": "ee2a4a88aea0018cb451c8f9988346fe25551e7a",
+      "trackedStatusBefore": "?? .qa-cycle/",
+      "trackedStatusAfter": "?? .qa-cycle/",
+      "cwd": "",
+      "command": [
+        "node.exe",
+        "<ciclo>\\corrigida\\frontend\\node_modules\\cypress\\bin\\cypress",
+        "run",
+        "--project",
+        ".",
+        "--config-file",
+        ".qa-cycle/cypress-bug005.cjs",
+        "--browser",
+        "chrome"
+      ],
+      "started": {
+        "utc": "2026-11-26T18:45:44.560Z",
+        "saoPaulo": "2026-11-26 15:45:44-03:00"
+      },
+      "finished": {
+        "utc": "2026-11-26T18:46:09.287Z",
+        "saoPaulo": "2026-11-26 15:46:09-03:00"
+      },
+      "durationSeconds": 24.727,
+      "exitCode": 0,
+      "signal": null,
+      "spawnError": null,
+      "junit": {
+        "total": 3,
+        "passed": 3,
+        "failed": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      "artefatos": {
+        "stdout.log": "57025698112aa4d9174caf199a4c2654020883434e3c514ecc5b861aa5b28753",
+        "junit.xml": "bc0f6c707c2af8257cebab8a3be718ce79897d33122a8c02b147ecffac204810"
+      }
+    },
+    {
+      "id": "main-electron-alembic",
+      "source": "main",
+      "checkout": "HEAD destacado",
+      "commit": "08a62f5d1d164c7ee2cfbb0282aa7f9784baaf8f",
+      "trackedStatusBefore": "",
+      "trackedStatusAfter": "",
+      "cwd": "backend",
+      "command": [
+        "python3.11.exe",
+        "-m",
+        "alembic",
+        "upgrade",
+        "head"
+      ],
+      "started": {
+        "utc": "2026-11-26T18:46:09.545Z",
+        "saoPaulo": "2026-11-26 15:46:09-03:00"
+      },
+      "finished": {
+        "utc": "2026-11-26T18:46:11.556Z",
+        "saoPaulo": "2026-11-26 15:46:11-03:00"
+      },
+      "durationSeconds": 1.993,
+      "exitCode": 0,
+      "signal": null,
+      "spawnError": null,
+      "artefatos": {
+        "stderr.log": "372eeeed0ae9aa496ea8067196c924e75d7a15ee42cfccd07fd1821ce0470d32"
+      }
+    },
+    {
+      "id": "main-electron-api",
+      "source": "main",
+      "checkout": "HEAD destacado",
+      "commit": "08a62f5d1d164c7ee2cfbb0282aa7f9784baaf8f",
+      "trackedStatusBefore": "",
+      "trackedStatusAfter": "",
+      "cwd": "backend",
+      "command": [
+        "python3.11.exe",
+        "-m",
+        "uvicorn",
+        "app.main:app",
+        "--host",
+        "127.0.0.1",
+        "--port",
+        "8000"
+      ],
+      "started": {
+        "utc": "2026-11-26T18:46:11.558Z",
+        "saoPaulo": "2026-11-26 15:46:11-03:00"
+      },
+      "finished": {
+        "utc": "2026-11-26T18:53:18.731Z",
+        "saoPaulo": "2026-11-26 15:53:18-03:00"
+      },
+      "durationSeconds": 427.173,
+      "exitCode": null,
+      "signal": "SIGTERM",
+      "spawnError": null,
+      "artefatos": {
+        "stdout.log": "4581697bc40984fb83a2a4d5d85c92db9d230c40fbbde82dffcbda051cbbb436",
+        "stderr.log": "cc27fa7d28491fa68e9b60d717041a443b729959093abb0839bc8a7ebaaae3a1"
+      }
+    },
+    {
+      "id": "main-electron-ui",
+      "source": "main",
+      "checkout": "HEAD destacado",
+      "commit": "08a62f5d1d164c7ee2cfbb0282aa7f9784baaf8f",
+      "trackedStatusBefore": "",
+      "trackedStatusAfter": "",
+      "cwd": "frontend",
+      "command": [
+        "node.exe",
+        "<ciclo>\\main\\frontend\\node_modules\\vite\\bin\\vite.js",
+        "preview",
+        "--host",
+        "127.0.0.1",
+        "--port",
+        "5173",
+        "--strictPort"
+      ],
+      "started": {
+        "utc": "2026-11-26T18:46:11.735Z",
+        "saoPaulo": "2026-11-26 15:46:11-03:00"
+      },
+      "finished": {
+        "utc": "2026-11-26T18:53:18.799Z",
+        "saoPaulo": "2026-11-26 15:53:18-03:00"
+      },
+      "durationSeconds": 427.064,
+      "exitCode": null,
+      "signal": "SIGTERM",
+      "spawnError": null,
+      "artefatos": {
+        "stdout.log": "bd8dbfcb51bb080233543196528006cdfd7b1571bfe995d605a3c3bf02ba543e"
+      }
+    },
+    {
+      "id": "main-regressao-electron",
+      "source": "main",
+      "checkout": "HEAD destacado",
+      "commit": "08a62f5d1d164c7ee2cfbb0282aa7f9784baaf8f",
+      "trackedStatusBefore": "",
+      "trackedStatusAfter": "",
+      "cwd": "frontend",
+      "command": [
+        "node.exe",
+        "C:\\Program Files\\nodejs\\node_modules\\npm\\bin\\npm-cli.js",
+        "run",
+        "test:e2e:regressao",
+        "--",
+        "--browser",
+        "electron"
+      ],
+      "started": {
+        "utc": "2026-11-26T18:46:15.567Z",
+        "saoPaulo": "2026-11-26 15:46:15-03:00"
+      },
+      "finished": {
+        "utc": "2026-11-26T18:53:18.621Z",
+        "saoPaulo": "2026-11-26 15:53:18-03:00"
+      },
+      "durationSeconds": 423.056,
+      "exitCode": 0,
+      "signal": null,
+      "spawnError": null,
+      "cypress": {
+        "browser": "electron",
+        "browserVersion": "150.0.7871.250",
+        "cypressVersion": "16.3.0",
+        "total": 67,
+        "passed": 67,
+        "failed": 0,
+        "pending": 0,
+        "skipped": 0,
+        "durationMs": 389264,
+        "sourceSha256": "913fc32d0ca3101e535260e5ae601d84b4cdf3ad1e91e59d3ab9359edb6a5bea"
+      },
+      "junit": {
+        "total": 67,
+        "passed": 67,
+        "failed": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      "artefatos": {
+        "stdout.log": "fdd06d75b4ca98d1031e2a10daf691296f30c7e3cb9edb9ec5548c3835ec0697",
+        "run-summary.json": "cc5b2692769a57cc260e8886a1bb9bcc4c5c2167b2a27c4ea31d9c9a9ccc5ad0",
+        "junit/results-009e734a73ae6279afe1cc7584794d87.xml": "cd45f9d1afd7f7f680032006e7eb719d3d2db09b1206dcfdc05becf60cda4510",
+        "junit/results-0cedc7afc2d0abb833fb4198a7aa89c1.xml": "4379e357280926bb6ae858bcf767b64921ecf35e2414530c944d1cfaa1879e8a",
+        "junit/results-8bcb764af2da8537cb6465f8cc1ef08e.xml": "7a93fde82adf0433cbbd7c768df881db6c2820c790a040788e24ac130cc79ace",
+        "junit/results-95118d4089f287d9fa68884483fa004d.xml": "7494705580c88b3416e64b49991d8e025fb78d03882d856e763226a54e000043",
+        "junit/results-9cbc0a5e19e1448f43eaa6c390d31cd0.xml": "57c27765be75e0038a4cdeb40498be5be03eed236ede0010dda2ab9817e682ff",
+        "junit/results-e79e4087c696aa830f9c323e024cf4ea.xml": "2835ffe55a19e44d6beda3940a6f9b86b941fca31c60ab7e443d3a94fb8392b7",
+        "junit/results-f0ae143876b0e03648a9860ec8ef1dd7.xml": "6d8eda41463a2fd5dfc89bb622b62888416b7f85721305202be6be83c3a5cbf3"
+      }
+    }
+  ]
+}

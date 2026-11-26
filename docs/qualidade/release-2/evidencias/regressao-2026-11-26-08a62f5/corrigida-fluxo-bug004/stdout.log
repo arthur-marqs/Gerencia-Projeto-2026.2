@@ -1,0 +1,11 @@
+{"caso": "RG-01", "manual_min": 50, "sugerido_min": 20, "diferenca_min": -30, "itens_persistidos": 3, "consulta_operador_http": 200}
+
+.{"caso": "BUG-004", "alteracao": "maquina-inativa", "candidato_presente": false, "aprovacao_http": 409, "aprovacoes": 0, "itens": 0, "publicados_operador": 0, "historico_preservado": true}
+
+.{"caso": "BUG-004", "alteracao": "vinculo-removido", "candidato_presente": false, "aprovacao_http": 409, "aprovacoes": 0, "itens": 0, "publicados_operador": 0, "historico_preservado": true}
+
+.
+
+- generated xml file: <ciclo>\run\corrigida-fluxo-bug004\junit.xml -
+
+3 passed in 5.92s

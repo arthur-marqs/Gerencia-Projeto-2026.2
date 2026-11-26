@@ -1,0 +1,11 @@
+invalidada: 20/20 recusadas, máximo 0.014366s
+
+.expirada: 20/20 recusadas, máximo 0.030743s
+
+.desconhecida: 20/20 recusadas, máximo 0.026793s
+
+.
+
+- generated xml file: <ciclo>\run\main-driver06-http\junit.xml -
+
+3 passed in 8.30s

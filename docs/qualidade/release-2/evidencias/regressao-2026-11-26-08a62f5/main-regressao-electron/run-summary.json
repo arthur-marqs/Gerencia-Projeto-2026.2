@@ -1,0 +1,291 @@
+{
+  "startedAt": "2026-11-26T18:46:17.220Z",
+  "branch": "",
+  "commit": "08a62f5d1d164c7ee2cfbb0282aa7f9784baaf8f",
+  "dirty": false,
+  "sourceSha256": "913fc32d0ca3101e535260e5ae601d84b4cdf3ad1e91e59d3ab9359edb6a5bea",
+  "browser": "electron",
+  "configFile": "cypress.config.cjs",
+  "tags": "@regressao and not @wip",
+  "node": "v26.13.0",
+  "platform": "win32 10.0.26300",
+  "finishedAt": "2026-11-26T18:53:18.423Z",
+  "browserVersion": "150.0.7871.250",
+  "cypressVersion": "16.3.0",
+  "total": 67,
+  "passed": 67,
+  "failed": 0,
+  "pending": 0,
+  "skipped": 0,
+  "durationMs": 389264,
+  "tests": [
+    {
+      "title": "Aprovar planejamento de produção / CT-123 Disponibilizar o planejamento aprovado para execução",
+      "state": "passed"
+    },
+    {
+      "title": "Aprovar planejamento de produção / CT-124 Informar que não há planejamento disponível",
+      "state": "passed"
+    },
+    {
+      "title": "Aprovar planejamento de produção / CT-125 Aprovar a sequência sugerida escolhida sem modificar as origens",
+      "state": "passed"
+    },
+    {
+      "title": "Comparar sequência manual e sequência sugerida / CT-120 Exibir as duas sequências e as diferenças",
+      "state": "passed"
+    },
+    {
+      "title": "Comparar sequência manual e sequência sugerida / CT-121 Orientar a geração quando falta sequência sugerida",
+      "state": "passed"
+    },
+    {
+      "title": "Comparar sequência manual e sequência sugerida / CT-122 Preservar os registros ao consultar a comparação",
+      "state": "passed"
+    },
+    {
+      "title": "Comparar sequência manual e sequência sugerida / Comparar o planejamento quando o catálogo de máquinas responde 503",
+      "state": "passed"
+    },
+    {
+      "title": "Considerar compatibilidade entre produtos e máquinas / Atribuir ordens a máquinas compatíveis diferentes",
+      "state": "passed"
+    },
+    {
+      "title": "Considerar compatibilidade entre produtos e máquinas / Distribuir ordens entre máquinas compatíveis",
+      "state": "passed"
+    },
+    {
+      "title": "Considerar compatibilidade entre produtos e máquinas / Bloquear ordem sem máquina compatível",
+      "state": "passed"
+    },
+    {
+      "title": "Considerar compatibilidade entre produtos e máquinas / Bloquear ordem compatível somente com máquina inativa",
+      "state": "passed"
+    },
+    {
+      "title": "Considerar compatibilidade entre produtos e máquinas / Separar famílias entre máquinas compatíveis sem setup cadastrado",
+      "state": "passed"
+    },
+    {
+      "title": "Consultar matriz de setup entre famílias de produtos / Consultar tempos de setup diferentes em cada direção",
+      "state": "passed"
+    },
+    {
+      "title": "Consultar matriz de setup entre famílias de produtos / Consultar matriz sem configurações de setup",
+      "state": "passed"
+    },
+    {
+      "title": "Consultar matriz de setup entre famílias de produtos / Exibir família de destino ausente na lista de famílias",
+      "state": "passed"
+    },
+    {
+      "title": "Consultar matriz de setup entre famílias de produtos / Exibir família de origem ausente na lista de famílias",
+      "state": "passed"
+    },
+    {
+      "title": "Considerar prazos e prioridades no sequenciamento / Priorizar uma ordem urgente mesmo com aumento de setup",
+      "state": "passed"
+    },
+    {
+      "title": "Considerar prazos e prioridades no sequenciamento / Considerar o prazo antes do setup em ordens de mesma prioridade",
+      "state": "passed"
+    },
+    {
+      "title": "Considerar prazos e prioridades no sequenciamento / Considerar prioridades diferentes em ordens de mesmo prazo",
+      "state": "passed"
+    },
+    {
+      "title": "Considerar prazos e prioridades no sequenciamento / Informar dados de planejamento incompletos",
+      "state": "passed"
+    },
+    {
+      "title": "Considerar prazos e prioridades no sequenciamento / Resolver o conflito entre prazo, prioridade e setup (example #1)",
+      "state": "passed"
+    },
+    {
+      "title": "Considerar prazos e prioridades no sequenciamento / Resolver o conflito entre prazo, prioridade e setup (example #2)",
+      "state": "passed"
+    },
+    {
+      "title": "Gerar sequência sugerida de produção / CT-79 Reduzir o setup entre famílias com tempos direcionais",
+      "state": "passed"
+    },
+    {
+      "title": "Gerar sequência sugerida de produção / CT-80 Gerar sugestão para uma única ordem",
+      "state": "passed"
+    },
+    {
+      "title": "Gerar sequência sugerida de produção / CT-81 Sugerir somente as ordens do subconjunto selecionado",
+      "state": "passed"
+    },
+    {
+      "title": "Gerar sequência sugerida de produção / CT-82 Bloquear a geração quando o produto não tem família",
+      "state": "passed"
+    },
+    {
+      "title": "Gerar sequência sugerida de produção / CT-83 Bloquear a geração quando falta um sentido da troca",
+      "state": "passed"
+    },
+    {
+      "title": "Gerar sequência sugerida de produção / CT-84 Gerar sugestão após corrigir as pendências",
+      "state": "passed"
+    },
+    {
+      "title": "Gerar sequência sugerida de produção / CT-85 Negar a solicitação direta à API para o Operador",
+      "state": "passed"
+    },
+    {
+      "title": "Gerar sequência sugerida de produção / CT-107 Gerar uma sugestão antes de salvar o planejamento manual",
+      "state": "passed"
+    },
+    {
+      "title": "Gerar sequência sugerida de produção / CT-108 Preservar a seleção que já tem o menor setup",
+      "state": "passed"
+    },
+    {
+      "title": "Gerar sequência sugerida de produção / CT-109 Preservar a seleção no empate entre os sentidos",
+      "state": "passed"
+    },
+    {
+      "title": "Gerar sequência sugerida de produção / CT-110 Recuperar a sugestão e preservar o planejamento manual",
+      "state": "passed"
+    },
+    {
+      "title": "Gerar sequência sugerida de produção / CT-111 Bloquear a geração sem ordens selecionadas",
+      "state": "passed"
+    },
+    {
+      "title": "Gerar sequência sugerida de produção / CT-112 Manter a seleção de várias ordens da mesma família",
+      "state": "passed"
+    },
+    {
+      "title": "Gerenciar usuários e preservar seus acessos e autoria / CT32 - Cadastrar uma conta ativa e permitir login com os perfis atribuídos",
+      "state": "passed"
+    },
+    {
+      "title": "Gerenciar usuários e preservar seus acessos e autoria / CT33 - Consultar usuários ativos e inativos sem expor senha ou hash",
+      "state": "passed"
+    },
+    {
+      "title": "Gerenciar usuários e preservar seus acessos e autoria / CT34 - Editar dados e substituir perfis mantendo a senha e aplicando novas permissões",
+      "state": "passed"
+    },
+    {
+      "title": "Gerenciar usuários e preservar seus acessos e autoria / CT35 - Cancelar a exclusão e depois confirmar a remoção de uma conta sem vínculos",
+      "state": "passed"
+    },
+    {
+      "title": "Gerenciar usuários e preservar seus acessos e autoria / CT36 - Identificar todos os campos inválidos e preservar os dados anteriores na edição",
+      "state": "passed"
+    },
+    {
+      "title": "Gerenciar usuários e preservar seus acessos e autoria / CT36 - Rejeitar perfis inexistentes enviados diretamente à API",
+      "state": "passed"
+    },
+    {
+      "title": "Gerenciar usuários e preservar seus acessos e autoria / CT37 - Recusar e-mail duplicado de conta ativa durante cadastro (example #1)",
+      "state": "passed"
+    },
+    {
+      "title": "Gerenciar usuários e preservar seus acessos e autoria / CT37 - Recusar e-mail duplicado de conta inativa durante cadastro (example #2)",
+      "state": "passed"
+    },
+    {
+      "title": "Gerenciar usuários e preservar seus acessos e autoria / CT37 - Recusar e-mail duplicado de conta ativa durante edição (example #3)",
+      "state": "passed"
+    },
+    {
+      "title": "Gerenciar usuários e preservar seus acessos e autoria / CT37 - Recusar e-mail duplicado de conta inativa durante edição (example #4)",
+      "state": "passed"
+    },
+    {
+      "title": "Gerenciar usuários e preservar seus acessos e autoria / CT38 - Desativar e reativar sem recuperar as sessões antigas",
+      "state": "passed"
+    },
+    {
+      "title": "Gerenciar usuários e preservar seus acessos e autoria / CT39 - Preservar autoria ao recusar exclusão por ordens de produção (example #1)",
+      "state": "passed"
+    },
+    {
+      "title": "Gerenciar usuários e preservar seus acessos e autoria / CT39 - Preservar autoria ao recusar exclusão por planejamentos (example #2)",
+      "state": "passed"
+    },
+    {
+      "title": "Gerenciar usuários e preservar seus acessos e autoria / CT40 - Preservar o último administrador ativo ao tentar excluir (example #1)",
+      "state": "passed"
+    },
+    {
+      "title": "Gerenciar usuários e preservar seus acessos e autoria / CT40 - Preservar o último administrador ativo ao tentar desativar (example #2)",
+      "state": "passed"
+    },
+    {
+      "title": "Gerenciar usuários e preservar seus acessos e autoria / CT40 - Preservar o último administrador ativo ao tentar remover o perfil (example #3)",
+      "state": "passed"
+    },
+    {
+      "title": "Gerenciar usuários e preservar seus acessos e autoria / CT41 - Recusar listar quando o acesso está sem sessão (example #1)",
+      "state": "passed"
+    },
+    {
+      "title": "Gerenciar usuários e preservar seus acessos e autoria / CT41 - Recusar consultar quando o acesso está sem sessão (example #2)",
+      "state": "passed"
+    },
+    {
+      "title": "Gerenciar usuários e preservar seus acessos e autoria / CT41 - Recusar cadastrar quando o acesso está sem sessão (example #3)",
+      "state": "passed"
+    },
+    {
+      "title": "Gerenciar usuários e preservar seus acessos e autoria / CT41 - Recusar editar quando o acesso está sem sessão (example #4)",
+      "state": "passed"
+    },
+    {
+      "title": "Gerenciar usuários e preservar seus acessos e autoria / CT41 - Recusar desativar quando o acesso está sem sessão (example #5)",
+      "state": "passed"
+    },
+    {
+      "title": "Gerenciar usuários e preservar seus acessos e autoria / CT41 - Recusar reativar quando o acesso está sem sessão (example #6)",
+      "state": "passed"
+    },
+    {
+      "title": "Gerenciar usuários e preservar seus acessos e autoria / CT41 - Recusar excluir quando o acesso está sem sessão (example #7)",
+      "state": "passed"
+    },
+    {
+      "title": "Gerenciar usuários e preservar seus acessos e autoria / CT41 - Recusar listar quando o acesso está operador (example #8)",
+      "state": "passed"
+    },
+    {
+      "title": "Gerenciar usuários e preservar seus acessos e autoria / CT41 - Recusar consultar quando o acesso está operador (example #9)",
+      "state": "passed"
+    },
+    {
+      "title": "Gerenciar usuários e preservar seus acessos e autoria / CT41 - Recusar cadastrar quando o acesso está operador (example #10)",
+      "state": "passed"
+    },
+    {
+      "title": "Gerenciar usuários e preservar seus acessos e autoria / CT41 - Recusar editar quando o acesso está operador (example #11)",
+      "state": "passed"
+    },
+    {
+      "title": "Gerenciar usuários e preservar seus acessos e autoria / CT41 - Recusar desativar quando o acesso está operador (example #12)",
+      "state": "passed"
+    },
+    {
+      "title": "Gerenciar usuários e preservar seus acessos e autoria / CT41 - Recusar reativar quando o acesso está operador (example #13)",
+      "state": "passed"
+    },
+    {
+      "title": "Gerenciar usuários e preservar seus acessos e autoria / CT41 - Recusar excluir quando o acesso está operador (example #14)",
+      "state": "passed"
+    },
+    {
+      "title": "Gerenciar usuários e preservar seus acessos e autoria / CT42 - Substituir a senha e encerrar as sessões anteriores",
+      "state": "passed"
+    },
+    {
+      "title": "Gerenciar usuários e preservar seus acessos e autoria / CT43 - Criar o primeiro administrador pelo script e cadastrar a segunda conta pela interface",
+      "state": "passed"
+    }
+  ]
+}

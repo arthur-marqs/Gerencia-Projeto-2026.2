@@ -1,0 +1,101 @@
+
+> frontend@0.0.0 test:e2e:login
+> node scripts/run-e2e.mjs --config cypress.config.ts --suite login --browser chrome
+
+
+
+
+====================================================================================================
+
+  (Run Starting)
+
+  ┌────────────────────────────────────────────────────────────────────────────────────────────────┐
+  │ Cypress:        16.3.0                                                                         │
+  │ Browser:        Chrome 158 (headless)                                                          │
+  │ Node Version:   v26.13.0 (C:\Program Files\nodejs\node.exe)                                    │
+  │ Specs:          2 found (driver06.feature, login.feature)                                      │
+  │ Searched:       <ciclo> │
+  │                 /main/frontend/cypress/e2e/autenticacao/driver06.feature, H:/PROGRAMACAO/Geren │
+  │                 cia-Projeto-2026.2/.tmp/qa-release2-final-20261126-08a62f5/main/frontend/cypre │
+  │                 ss/e2e/autenticacao/login.feature                                              │
+  └────────────────────────────────────────────────────────────────────────────────────────────────┘
+
+
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+  Running:  driver06.feature                                                                (1 of 2)
+
+
+  Expiração e invalidação de sessão
+    √ Permitir acesso com sessão válida (957ms)
+    √ Retornar ao login após a sessão expirar (420ms)
+    √ Retornar ao login quando a sessão for invalidada em outra funcionalidade (349ms)
+    √ Voltar ao login em Famílias após 401 mesmo se a identidade responder 503 (324ms)
+    √ Voltar ao login em Máquinas após 401 mesmo se a identidade responder 503 (411ms)
+    √ Voltar ao login quando uma consulta da matriz rejeitar a sessão (example #1) (449ms)
+    √ Voltar ao login quando uma consulta da matriz rejeitar a sessão (example #2) (333ms)
+
+
+  7 passing (3s)
+
+
+  (Results)
+
+  ┌────────────────────────────────────────────────────────────────────────────────────────────────┐
+  │ Tests:        7                                                                                │
+  │ Passing:      7                                                                                │
+  │ Failing:      0                                                                                │
+  │ Pending:      0                                                                                │
+  │ Skipped:      0                                                                                │
+  │ Screenshots:  0                                                                                │
+  │ Video:        false                                                                            │
+  │ Duration:     3 seconds                                                                        │
+  │ Spec Ran:     driver06.feature                                                                 │
+  └────────────────────────────────────────────────────────────────────────────────────────────────┘
+
+
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+  Running:  login.feature                                                                   (2 of 2)
+
+
+  Autenticação no SetupFlow
+    √ Exibir a tela de login (456ms)
+    √ Tentar entrar com os campos vazios (387ms)
+    √ Tentar entrar com e-mail inválido (583ms)
+    √ Tentar entrar sem informar a senha (415ms)
+    √ Tentar entrar com credenciais incorretas (632ms)
+
+
+  5 passing (3s)
+
+
+  (Results)
+
+  ┌────────────────────────────────────────────────────────────────────────────────────────────────┐
+  │ Tests:        5                                                                                │
+  │ Passing:      5                                                                                │
+  │ Failing:      0                                                                                │
+  │ Pending:      0                                                                                │
+  │ Skipped:      0                                                                                │
+  │ Screenshots:  0                                                                                │
+  │ Video:        false                                                                            │
+  │ Duration:     2 seconds                                                                        │
+  │ Spec Ran:     login.feature                                                                    │
+  └────────────────────────────────────────────────────────────────────────────────────────────────┘
+
+
+====================================================================================================
+
+  (Run Finished)
+
+
+       Spec                                              Tests  Passing  Failing  Pending  Skipped
+  ┌────────────────────────────────────────────────────────────────────────────────────────────────┐
+  │ √  driver06.feature                         00:03        7        7        -        -        - │
+  ├────────────────────────────────────────────────────────────────────────────────────────────────┤
+  │ √  login.feature                            00:02        5        5        -        -        - │
+  └────────────────────────────────────────────────────────────────────────────────────────────────┘
+    √  All specs passed!                        00:06       12       12        -        -        -
+
+Evidências Cypress: <ciclo>\run\main-auth-chrome

@@ -1,0 +1,33 @@
+<?xml version='1.0' encoding='utf-8'?>
+<testsuites name="Mocha Tests" time="69.911" tests="13" failures="0">
+  <testsuite name="Root Suite" timestamp="2026-11-26T18:38:30" tests="0" file="cypress\e2e\sugestao.feature" time="0.000" failures="0">
+  </testsuite>
+  <testsuite name="Gerar sequência sugerida de produção" timestamp="2026-11-26T18:38:30" tests="13" time="69.910" failures="0">
+    <testcase name="Gerar sequência sugerida de produção CT-79 Reduzir o setup entre famílias com tempos direcionais" time="4.462" classname="CT-79 Reduzir o setup entre famílias com tempos direcionais">
+    </testcase>
+    <testcase name="Gerar sequência sugerida de produção CT-80 Gerar sugestão para uma única ordem" time="4.723" classname="CT-80 Gerar sugestão para uma única ordem">
+    </testcase>
+    <testcase name="Gerar sequência sugerida de produção CT-81 Sugerir somente as ordens do subconjunto selecionado" time="4.337" classname="CT-81 Sugerir somente as ordens do subconjunto selecionado">
+    </testcase>
+    <testcase name="Gerar sequência sugerida de produção CT-82 Bloquear a geração quando o produto não tem família" time="5.096" classname="CT-82 Bloquear a geração quando o produto não tem família">
+    </testcase>
+    <testcase name="Gerar sequência sugerida de produção CT-83 Bloquear a geração quando falta um sentido da troca" time="5.974" classname="CT-83 Bloquear a geração quando falta um sentido da troca">
+    </testcase>
+    <testcase name="Gerar sequência sugerida de produção CT-84 Gerar sugestão após corrigir as pendências" time="7.285" classname="CT-84 Gerar sugestão após corrigir as pendências">
+    </testcase>
+    <testcase name="Gerar sequência sugerida de produção CT-85 Negar a solicitação direta à API para o Operador" time="4.547" classname="CT-85 Negar a solicitação direta à API para o Operador">
+    </testcase>
+    <testcase name="Gerar sequência sugerida de produção CT-107 Gerar uma sugestão antes de salvar o planejamento manual" time="3.535" classname="CT-107 Gerar uma sugestão antes de salvar o planejamento manual">
+    </testcase>
+    <testcase name="Gerar sequência sugerida de produção CT-108 Preservar a seleção que já tem o menor setup" time="4.009" classname="CT-108 Preservar a seleção que já tem o menor setup">
+    </testcase>
+    <testcase name="Gerar sequência sugerida de produção CT-109 Preservar a seleção no empate entre os sentidos" time="4.511" classname="CT-109 Preservar a seleção no empate entre os sentidos">
+    </testcase>
+    <testcase name="Gerar sequência sugerida de produção CT-110 Recuperar a sugestão e preservar o planejamento manual" time="6.576" classname="CT-110 Recuperar a sugestão e preservar o planejamento manual">
+    </testcase>
+    <testcase name="Gerar sequência sugerida de produção CT-111 Bloquear a geração sem ordens selecionadas" time="8.253" classname="CT-111 Bloquear a geração sem ordens selecionadas">
+    </testcase>
+    <testcase name="Gerar sequência sugerida de produção CT-112 Manter a seleção de várias ordens da mesma família" time="5.908" classname="CT-112 Manter a seleção de várias ordens da mesma família">
+    </testcase>
+  </testsuite>
+</testsuites>

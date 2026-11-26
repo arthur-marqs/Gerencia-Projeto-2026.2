@@ -1,0 +1,145 @@
+{
+  "versao": "Chrome/158.0.8127.38",
+  "amostras": [
+    {
+      "estado": "expirada",
+      "tentativa": 1,
+      "http": 401,
+      "respostaMs": 16,
+      "loginMs": 18.099999994039536
+    },
+    {
+      "estado": "expirada",
+      "tentativa": 2,
+      "http": 401,
+      "respostaMs": 12.800000011920929,
+      "loginMs": 15.200000002980232
+    },
+    {
+      "estado": "expirada",
+      "tentativa": 3,
+      "http": 401,
+      "respostaMs": 9.099999994039536,
+      "loginMs": 10.599999994039536
+    },
+    {
+      "estado": "expirada",
+      "tentativa": 4,
+      "http": 401,
+      "respostaMs": 7.4000000059604645,
+      "loginMs": 8.600000008940697
+    },
+    {
+      "estado": "expirada",
+      "tentativa": 5,
+      "http": 401,
+      "respostaMs": 6.899999991059303,
+      "loginMs": 8
+    },
+    {
+      "estado": "expirada",
+      "tentativa": 6,
+      "http": 401,
+      "respostaMs": 7.100000008940697,
+      "loginMs": 8.300000011920929
+    },
+    {
+      "estado": "expirada",
+      "tentativa": 7,
+      "http": 401,
+      "respostaMs": 10.799999997019768,
+      "loginMs": 12.299999997019768
+    },
+    {
+      "estado": "expirada",
+      "tentativa": 8,
+      "http": 401,
+      "respostaMs": 14.699999988079071,
+      "loginMs": 17.19999998807907
+    },
+    {
+      "estado": "expirada",
+      "tentativa": 9,
+      "http": 401,
+      "respostaMs": 17.299999997019768,
+      "loginMs": 19.400000005960464
+    },
+    {
+      "estado": "expirada",
+      "tentativa": 10,
+      "http": 401,
+      "respostaMs": 6.399999991059303,
+      "loginMs": 7.5
+    },
+    {
+      "estado": "invalidada",
+      "tentativa": 1,
+      "http": 401,
+      "respostaMs": 6.200000002980232,
+      "loginMs": 7.200000002980232
+    },
+    {
+      "estado": "invalidada",
+      "tentativa": 2,
+      "http": 401,
+      "respostaMs": 5.700000002980232,
+      "loginMs": 6.799999997019768
+    },
+    {
+      "estado": "invalidada",
+      "tentativa": 3,
+      "http": 401,
+      "respostaMs": 6.5,
+      "loginMs": 7.700000002980232
+    },
+    {
+      "estado": "invalidada",
+      "tentativa": 4,
+      "http": 401,
+      "respostaMs": 7.299999997019768,
+      "loginMs": 8.399999991059303
+    },
+    {
+      "estado": "invalidada",
+      "tentativa": 5,
+      "http": 401,
+      "respostaMs": 6.899999991059303,
+      "loginMs": 8.099999994039536
+    },
+    {
+      "estado": "invalidada",
+      "tentativa": 6,
+      "http": 401,
+      "respostaMs": 6.200000002980232,
+      "loginMs": 7.700000002980232
+    },
+    {
+      "estado": "invalidada",
+      "tentativa": 7,
+      "http": 401,
+      "respostaMs": 6.199999988079071,
+      "loginMs": 7.699999988079071
+    },
+    {
+      "estado": "invalidada",
+      "tentativa": 8,
+      "http": 401,
+      "respostaMs": 6.799999997019768,
+      "loginMs": 8.099999994039536
+    },
+    {
+      "estado": "invalidada",
+      "tentativa": 9,
+      "http": 401,
+      "respostaMs": 5.799999997019768,
+      "loginMs": 7
+    },
+    {
+      "estado": "invalidada",
+      "tentativa": 10,
+      "http": 401,
+      "respostaMs": 7.5,
+      "loginMs": 8.900000005960464
+    }
+  ]
+}
