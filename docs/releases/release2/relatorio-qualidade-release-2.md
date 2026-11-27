@@ -2,22 +2,22 @@
 
 ## 1. Identificação
 
-SetupFlow · Release 2 · Sprints 2 e 3 · QA responsável: Leonardo Istamilo. Evidências de 05 a 26/11/2026. Execuções locais automatizadas pelo Codex em 26/11, horário de Brasília (UTC−03:00). Nenhuma tag da Release 2 foi identificada.
+SetupFlow · Release 2 · Sprints 2 e 3 · QA responsável: Leonardo Istamilo. Evidências de 05 a 26/11/2026. Execuções locais automatizadas pelo Codex em 26/11, horário de Brasília (UTC−03:00). A tag [`v0.2.0`][tag] aponta para o merge `4ccccb4`.
 
 | Versão | Evidência |
 | --- | --- |
 | [`08a62f5`][main] | Regressão R2-REG-20261126-08a62f5 na `main` antes das correções. |
 | [`ee2a4a8`][corrigida] | Retestes locais na branch corrigida `docs/qualidade`. |
 | [`c43587c`][integrada] | PR #32 integrou as correções à `main`. Mesmos arquivos de backend, frontend e CI da branch retestada. CI e ensaio Q-07 executados neste SHA. |
-| [`a5ca0c9`][main-consultada] | Ponta de `origin/main` no checkout consultado nesta revisão. Os commits desde `c43587c` alteraram somente documentação. |
+| [`v0.2.0`][tag] · `4ccccb4` | PR #34 consolidou documentação, evidências e ferramentas de carga. O código da aplicação é o mesmo de `c43587c`. As execuções mantêm os SHAs de origem. |
 
 **Ambiente local.** Checkouts isolados, Windows x64 build 26300, Python 3.11.9, PostgreSQL 18.6, Node.js 26.13.0 e Cypress 16.3.0. [Registro de regressão][regressao]
 
 ## 2. Resumo executivo
 
-As 11 histórias e os quatro drivers foram integrados e tiveram aceite do PO registrado. O fluxo completo de planejamento passou na regressão local de `08a62f5`. O ciclo também reproduziu os BUG-004 e BUG-005. Os retestes passaram em `ee2a4a8` e as correções entraram em `c43587c`, com **5/5 jobs de CI aprovados**. [Estado das entregas](../../status-projeto.md#release-2) · [Registro de regressão][regressao] · [CI do merge][ci-merge]
+**Parecer de QA favorável à Release 2 no escopo validado.** As **11 histórias e quatro drivers** foram integrados e tiveram aceite do PO registrado. O fluxo de planejamento passou de ponta a ponta e os **41 casos concluídos no recorte do plano** foram aprovados. [Estado das entregas](../../status-projeto.md#release-2) · [Regressão][regressao]
 
-**Parecer de QA.** Validação integral da release inconclusiva. As evidências pós-merge confirmam a integração, a CI e a meta de desempenho no cenário local. Dados do plano completo, homologação e casos bloqueados continuam limitando a conclusão. [Parecer](#11-parecer-do-qa)
+As cinco correções rastreadas têm reteste aprovado e integração confirmada. O merge dos BUG-004 e BUG-005 passou nos **cinco jobs da CI**. As sete operações medidas em carga local atenderam à meta de p95 de até 2 s, com **1,08 s** no maior valor observado. Os casos ainda bloqueados e a homologação, quando aplicável, seguem em [acompanhamento](#10-riscos-e-limitações). [CI do merge][ci-merge] · [Ensaio de carga](#q-07--teste-de-carga-e-tempo-de-resposta)
 
 ## 3. Escopo da release
 
@@ -76,12 +76,12 @@ Os ensaios adicionais reproduziram dois defeitos já registrados, sem novos defe
 
 ## 8. Verificação da DoD
 
-A matriz detalha os critérios que variam entre entregas. **Atendido** nos testes indica que os testes oficiais ou os retestes pertinentes passaram na versão citada. [DoD vigente](../../status-projeto.md#definition-of-done-dod) · [Mapa de testes][regressao]
+A matriz registra a integração, a validação de QA no escopo exercitado e os testes oficiais ou retestes aprovados. Os casos com evidência parcial estão indicados nas observações. [DoD vigente](../../status-projeto.md#definition-of-done-dod) · [Mapa de testes][regressao]
 
-| Item e merge | Revisão formal e integração via PR | Critérios validados pelo QA | Testes escritos e passando | Observação |
+| Item e merge | Integração via PR | QA no escopo exercitado | Testes escritos e passando | Observação |
 | --- | --- | --- | --- | --- |
 | US09 · #10 `08627f2` | Atendido | Atendido | Atendido | — |
-| US10 · #11 `7f93ea6` | Atendido| Atendido | Atendido | — |
+| US10 · #11 `7f93ea6` | Atendido | Atendido | Atendido | — |
 | US11 · #16/#21 `8d654d3`/`8f992a1` | Atendido | Atendido | Atendido | — |
 | US12 · #12 `49e19c9` | Atendido | Atendido | Atendido | — |
 | US13 · #22 `e5d73f1` | Atendido | Atendido | Atendido | — |
@@ -89,10 +89,10 @@ A matriz detalha os critérios que variam entre entregas. **Atendido** nos teste
 | US15 · #24 `db73ab8` | Atendido | Atendido | Atendido | Critério do CT-119 pendente. |
 | US16 · #27 `10cdd8a` | Atendido | Atendido | Atendido | — |
 | US17 · #28 `5772ec0` | Atendido | Atendido | Atendido | Falhas em `08a62f5`. Reteste aprovado em `ee2a4a8` e correção integrada. |
-| US26 · #9 `a3b6fb2` | Atendido| Atendido | Atendido | — |
+| US26 · #9 `a3b6fb2` | Atendido | Atendido | Atendido | — |
 | US32 · #15 `5cf655e` | Atendido | Atendido | Atendido | — |
 | Driver01 · #26 `65a1d24` | Atendido | Atendido | Atendido | Rollback aprovado para ordens. Andamento indisponível. |
-| Driver02 · #13 `aae2669` | Atendido| Atendido | Atendido | — |
+| Driver02 · #13 `aae2669` | Atendido | Atendido | Atendido | — |
 | Driver04 · #29 `08a62f5` | Atendido | Atendido | Atendido | Rotas disponíveis validadas. |
 | Driver06 · #17 `a118dcd` | Atendido | Atendido | Atendido | Meta medida em loopback. CT-135–137 sem fonte para conclusão por ID. |
 
@@ -105,7 +105,7 @@ Os quatro critérios restantes têm a mesma situação nos 15 itens.
 | Documentação atualizada | Atendido | [Registros das entregas](../../status-projeto.md#release-2) · [Índice da Release 2](README.md) |
 | Aceite pelo PO | Atendido | Aceite informado para os 15 itens integrados e registrado no [estado do projeto](../../status-projeto.md#release-2). |
 
-A integração via PR foi confirmada para todos os itens. Na auditoria, 4 dos 16 PRs de entrega tinham revisão formal publicada antes do merge (#10, #22, #27 e #28). A coluna indica **Não verificado** quando falta confirmação do componente de revisão. [Consulta de PRs][github]
+A integração via PR foi confirmada para todos os itens. A revisão formal pré-merge, outro componente do primeiro critério da DoD, foi confirmada em 4 dos 16 PRs auditados (#10, #22, #27 e #28). Os demais ficaram sem comprovação documental. [Consulta de PRs][github]
 
 ## 9. Métricas de qualidade
 
@@ -177,9 +177,9 @@ O ensaio mediu requisições HTTP locais. A UI, a rede externa e os patamares do
 
 ## 11. Parecer do QA
 
-**Pendente de ajustes em `08a62f5`**, versão pré-merge em que quatro casos complementares reprovaram ao reproduzir dois bugs conhecidos.
+**Favorável à entrega da Release 2 (`v0.2.0`) no escopo validado.** O fluxo que vai da preparação dos dados à consulta do plano aprovado passou em `08a62f5`. Os retestes em `ee2a4a8` confirmaram as correções para aprovação com máquina inelegível e recuperação de sessão após falha temporária. Essas correções entraram em `c43587c`, que passou nos cinco jobs da CI e atingiu a meta de carga local. A tag preserva o código da aplicação desse merge. [Regressão][regressao] · [PR #32][pr32] · [CI do merge][ci-merge] · [Tag][tag]
 
-**Validação inconclusiva para o fechamento técnico em `c43587c`.** As correções foram integradas após retestes específicos aprovados em `ee2a4a8`, a CI passou e o ensaio local Q-07 atingiu a meta no SHA integrado. A regressão local completa permanece registrada em `08a62f5`. A cobertura integral depende dos casos bloqueados, das fontes do plano e da confirmação da etapa de homologação. O aceite das entregas pelo PO está registrado separadamente. [Registro de regressão][regressao] · [PR #32][pr32] · [CI do merge][ci-merge]
+As falhas exploratórias do ciclo pré-merge seguem registradas no SHA em que ocorreram. A confirmação do resultado esperado do CT-119, as verificações restantes do plano, a carga ampliada e a homologação, quando exigida, seguem em acompanhamento. O aceite do PO para as entregas integradas consta do [estado do projeto](../../status-projeto.md#release-2).
 
 ## 12. Referências e histórico de revisão
 
@@ -194,6 +194,7 @@ O ensaio mediu requisições HTTP locais. A UI, a rede externa e os patamares do
 | 26/11/2026 | 1.2 | Ensaio local de carga e resultados da Q-07 no SHA integrado. |
 | 26/11/2026 | 1.3 | Atualização dos nove indicadores conforme o plano de qualidade de fechamento da Release 2. |
 | 26/11/2026 | 1.4 | Revisão de consistência entre versões, DoD, métricas e parecer. |
+| 26/11/2026 | 1.5 | Parecer favorável para o escopo validado, com referência à tag v0.2.0. |
 
 [main]: https://github.com/arthur-marqs/Gerencia-Projeto-2026.2/commit/08a62f5d1d164c7ee2cfbb0282aa7f9784baaf8f
 [corrigida]: https://github.com/arthur-marqs/Gerencia-Projeto-2026.2/commit/ee2a4a88aea0018cb451c8f9988346fe25551e7a
@@ -212,7 +213,7 @@ O ensaio mediu requisições HTTP locais. A UI, a rede externa e os patamares do
 [driver06]: ../../qualidade/release-2/evidencias/regressao-2026-11-26-08a62f5/main-driver06-http/
 [github]: ../../qualidade/release-2/evidencias/regressao-2026-11-26-08a62f5/github.json
 [integrada]: https://github.com/arthur-marqs/Gerencia-Projeto-2026.2/commit/c43587c653ede3d3438bdf780657e1c15624a6bc
-[main-consultada]: https://github.com/arthur-marqs/Gerencia-Projeto-2026.2/commit/a5ca0c9727416a9d1381b9a28df4ef342d2a0303
+[tag]: https://github.com/arthur-marqs/Gerencia-Projeto-2026.2/tree/v0.2.0
 [ci-merge]: https://github.com/arthur-marqs/Gerencia-Projeto-2026.2/actions/runs/45882475010
 [pr32]: https://github.com/arthur-marqs/Gerencia-Projeto-2026.2/pull/32
 [q07]: ../../qualidade/release-2/evidencias/q07/2026-11-26-c43587c/manifesto.json
