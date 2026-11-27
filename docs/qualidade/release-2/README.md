@@ -1,5 +1,7 @@
 # Evidências de qualidade da Release 2
 
+O ciclo reproduziu os BUG-004 e BUG-005 em `08a62f5` e aprovou os retestes em `ee2a4a8`. As duas correções entraram na `main` em `c43587c`. [PR #32](https://github.com/arthur-marqs/Gerencia-Projeto-2026.2/pull/32)
+
 - [Relatório de Qualidade](../../releases/release2/relatorio-qualidade-release-2.md)
 - [Registro da regressão](regressao-release-2.md)
 - [Evidências do ciclo em 26/11/2026](evidencias/regressao-2026-11-26-08a62f5/README.md)

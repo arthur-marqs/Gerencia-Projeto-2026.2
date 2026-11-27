@@ -1,0 +1,11 @@
+2026-11-26T17:12:56-03:00 a 2026-11-26T17:12:56-03:00 | k6-versao | saída 0 | k6-versao.log
+2026-11-26T17:12:56-03:00 a 2026-11-26T17:12:58-03:00 | migracao | saída 0 | migracao.log
+2026-11-26T17:12:58-03:00 a 2026-11-26T17:13:01-03:00 | massa | saída 0 | massa.log
+2026-11-26T17:13:05-03:00 a 2026-11-26T17:13:16-03:00 | smoke-1-vus | saída 0 | smoke-1-vus.log
+2026-11-26T17:13:03-03:00 a 2026-11-26T17:13:16-03:00 | api-q07_smoke_test | saída 1 | api-q07_smoke_test.log
+2026-11-26T17:13:18-03:00 a 2026-11-26T17:13:49-03:00 | aquecimento-5-vus | saída 0 | aquecimento-5-vus.log
+2026-11-26T17:13:49-03:00 a 2026-11-26T17:16:51-03:00 | medicao-5-vus | saída 0 | medicao-5-vus.log
+2026-11-26T17:13:16-03:00 a 2026-11-26T17:16:51-03:00 | api-q07_5_test | saída 1 | api-q07_5_test.log
+2026-11-26T17:16:53-03:00 a 2026-11-26T17:17:25-03:00 | aquecimento-10-vus | saída 0 | aquecimento-10-vus.log
+2026-11-26T17:17:25-03:00 a 2026-11-26T17:20:28-03:00 | medicao-10-vus | saída 0 | medicao-10-vus.log
+2026-11-26T17:16:51-03:00 a 2026-11-26T17:20:29-03:00 | api-q07_10_test | saída 1 | api-q07_10_test.log

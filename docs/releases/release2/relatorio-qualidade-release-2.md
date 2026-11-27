@@ -2,28 +2,26 @@
 
 ## 1. Identificação
 
-| Campo | Registro |
+SetupFlow · Release 2 · Sprints 2 e 3 · QA responsável: Leonardo Istamilo. Evidências de 05 a 26/11/2026. Execuções locais automatizadas pelo Codex em 26/11, horário de Brasília (UTC−03:00). Nenhuma tag da Release 2 foi identificada.
+
+| Versão | Evidência |
 | --- | --- |
-| Projeto | SetupFlow, Release 2, Sprints 2 e 3 |
-| QA responsável pela release | Leonardo Istamilo, conforme os papéis registrados no projeto |
-| Preparação, execução e registro deste ciclo | Codex. A conferência humana do fechamento da release continua pendente. |
-| Período das evidências históricas consultadas | 05 a 26/11/2026. As datas indicam as evidências encontradas, e o calendário completo da sprint ficou indisponível. |
-| Ciclo | R2-REG-20261126-08a62f5, 26/11/2026, America/Sao_Paulo (UTC−03:00) |
-| Repositório e versão candidata | `arthur-marqs/Gerencia-Projeto-2026.2`, remoto `origin`, `main` em [`08a62f5d1d164c7ee2cfbb0282aa7f9784baaf8f`][main] |
-| Checkout e alterações locais | Cópia isolada em HEAD destacado. O código e as suítes oficiais vieram do commit identificado. Os ensaios auxiliares constam do registro do ciclo. A árvore original estava limpa na branch `docs/qualidade` antes do trabalho. |
-| Versão complementar | [`ee2a4a88aea0018cb451c8f9988346fe25551e7a`][corrigida], `docs/qualidade`, com as duas correções, executada em outra cópia isolada |
-| Tag | `v0.1.0` identifica a Release 1 e é a única tag do remoto. A Release 2 está sem tag identificada. [Consulta do remoto][github] |
-| Ambiente de execução | Windows x64, build 26300, Python 3.11.9, PostgreSQL 18.6, Node.js 26.13.0 e Cypress 16.3.0. API, frontend e bancos locais descartáveis. [Ambiente e comandos][regressao] |
+| [`08a62f5`][main] | Regressão R2-REG-20261126-08a62f5 na `main` antes das correções. |
+| [`ee2a4a8`][corrigida] | Retestes locais na branch corrigida `docs/qualidade`. |
+| [`c43587c`][integrada] | PR #32 integrou as correções à `main`. Mesmos arquivos de backend, frontend e CI da branch retestada. CI e ensaio Q-07 executados neste SHA. |
+| [`a5ca0c9`][main-consultada] | Ponta de `origin/main` no checkout consultado nesta revisão. Os commits desde `c43587c` alteraram somente documentação. |
+
+**Ambiente local.** Checkouts isolados, Windows x64 build 26300, Python 3.11.9, PostgreSQL 18.6, Node.js 26.13.0 e Cypress 16.3.0. [Registro de regressão][regressao]
 
 ## 2. Resumo executivo
 
-**Parecer de QA · Pendente de ajustes para `08a62f5`.** A regressão da versão integrada exercitou as entregas da Release 2 e voltou a encontrar o defeito de aprovação com máquina inelegível. As duas variantes deixaram a sugestão disponível, retornaram HTTP 201 e publicaram um plano que o Operador conseguiu consultar. No fluxo nominal completo, a preparação, o plano manual, a sugestão, a comparação, a aprovação e a consulta passaram na mesma execução. [Registro do ciclo][regressao] · [Evidência do BUG-004][main-bug004]
+As 11 histórias e os quatro drivers foram integrados e tiveram aceite do PO registrado. O fluxo completo de planejamento passou na regressão local de `08a62f5`. O ciclo também reproduziu os BUG-004 e BUG-005. Os retestes passaram em `ee2a4a8` e as correções entraram em `c43587c`, com **5/5 jobs de CI aprovados**. [Estado das entregas](../../status-projeto.md#release-2) · [Registro de regressão][regressao] · [CI do merge][ci-merge]
 
-As issues #18, #19 e #25 estão fechadas e seus fixes estão na `main`. As issues #30 e #31 estão reabertas e têm fixes verificados no histórico de `docs/qualidade`. Ambos os commits de correção continuam fora da versão integrada. O ciclo registrou 325 testes oficiais de backend aprovados, 67 cenários de regressão por navegador e 12 de autenticação no Chrome. As sondagens adicionais reproduziram o BUG-005 na main. Na cópia corrigida, os retestes específicos dos dois bugs passaram. [Resultados][regressao]
+**Parecer de QA.** Validação integral da release inconclusiva. As evidências pós-merge confirmam a integração, a CI e a meta de desempenho no cenário local. Dados do plano completo, homologação e casos bloqueados continuam limitando a conclusão. [Parecer](#11-parecer-do-qa)
 
 ## 3. Escopo da release
 
-O [registro de entregas](../../status-projeto.md#release-2), os PRs e os relatórios de revisão sustentam o recorte de 11 histórias e quatro drivers. A atribuição à Sprint 2 usa o relatório da US32 e os PRs do incremento de cadastros e planejamento manual. A Sprint 3 usa as revisões que citam essa sprint e a matriz CT-105 a CT-137 reproduzida na auditoria. A íntegra do plano da Release 2 e sua programação no Jira ficaram indisponíveis ao ciclo.
+O escopo segue o [registro de entregas](../../status-projeto.md#release-2) e as revisões de cada sprint. A versão integral do plano de testes da Release 2 e o planejamento no Jira ficaram indisponíveis.
 
 | Sprint | Histórias | Drivers |
 | --- | --- | --- |
@@ -34,11 +32,9 @@ As US01 a US08 e o Driver05 são regressão da Release 1. A execução do Operad
 
 ## 4. Estratégia e cobertura
 
-- **Backend.** Pytest completo, incluindo testes unitários e integração pelo TestClient com PostgreSQL real. A cobertura abrange login, logout, permissões, usuários, cadastros, ordens, prazos, prioridades, duração, tempos direcionais e planejamento. [Resultados por classe e caso][backend]
-- **Aceite no navegador.** Cypress/Gherkin das histórias de planejamento, matriz e usuários, com API e banco reais. Cenários da matriz, catálogo e autenticação simulam as respostas específicas indicadas no roteiro. A validação real de sessão e autorização baseia-se nos ensaios da API e do navegador registrados na seção 6. [Cenários e execução][regressao]
-- **Fluxo RG-01.** Em um teste de API com persistência real, foi criada a massa A/B/A, cadastrados setups assimétricos, salvos o manual e a sugestão e comparados 50 e 20 minutos, respectivamente. A sugestão aprovada persistiu três itens e o Operador recebeu a mesma sequência. O cenário usa as regras já verificadas nas US13, US16 e US17. [Teste e evidência][main-bug004]
-- **Retestes.** Cenários oficiais de BUG-001, BUG-002 e BUG-003, sondagens do BUG-004 e do BUG-005 sob as duas versões, medição HTTP dos drivers e verificação complementar de lint e build. A cobertura e o método de cada caso estão no [registro de regressão][regressao].
-- **Exclusões.** Ensaio de carga p95 das operações principais, homologação, execução humana integral do plano e validação de funcionalidades futuras dependem de fontes, ambiente ou incremento separado. A política do lote misto do CT-119 e a aplicabilidade da homologação permanecem para confirmação. Os resultados no ambiente local ou os aceites já comunicados permanecem evidência do escopo identificado.
+O ciclo cobriu autenticação, logout, sessão, permissões, usuários, cadastros, ordens, prazos, prioridades, duração, setup direcional, matriz, planejamento e regressão da Release 1. O Pytest e os ensaios reais de API usaram PostgreSQL. O registro identifica os cenários Cypress com respostas simuladas. [Casos e ambiente][regressao]
+
+No **RG-01**, foram cadastrados dados com setups assimétricos, salvos o plano manual e a sugestão e comparadas as duas alternativas (50 e 20 min). A sugestão aprovada persistiu três itens, consultados pelo Operador na mesma sequência. Homologação, execução humana integral e funcionalidades futuras ficaram fora do ciclo. [Evidência do RG-01][main-bug004]
 
 ## 5. Ciclo de regressão
 
@@ -55,14 +51,14 @@ O [registro detalhado][regressao] traz horários, saída e duração por comando
 
 ## 6. Validação dos drivers
 
-| Driver | Meta recuperada das fontes | Método e amostra | Resultado medido na `main` | Evidência | Situação |
+| Driver | Meta recuperada das fontes | Método e amostra | Resultado em `08a62f5` | Evidência | Situação |
 | --- | --- | --- | --- | --- | --- |
 | Driver01 | Reagir corretamente a 100% de ≥20 interrupções, ao menos 10 cadastros e 10 atualizações, preservando os dados confirmados, sem gravação parcial e com indicação da falha | HTTP real em Uvicorn. Encerramento controlado da conexão da transação de teste após escrita e antes do commit. Conferência por outra conexão, com reenvio e controles positivos | 20/20 HTTP 503, 0 gravações parciais, 3/3 controles válidos e 20/20 recuperações | [Amostras][driver01] · [Revisão](../../qualidade/release-2/revisao-driver01.md) | **Atendida para as gravações de ordens disponíveis.** Andamento da execução indisponível para CT-127/128/129 na variante correspondente. |
 | Driver02 | 20 operações com resposta perdida após commit e cinco reenvios por operação, mantendo os IDs e sem duplicar ordens. Verificar janela de 24 h, nova chave e concorrência | Pytest com commit real e perda de resposta induzida. Oito testes do driver, incluindo a amostra de 20 cadastros e 100 reenvios. A fronteira usa relógio controlado | Oito testes aprovados. O teste quantitativo exige 20 registros únicos, um por chave, e todos os IDs devolvidos iguais aos IDs persistidos | [Pytest][backend] · [Suíte oficial](../../../backend/testes/integration/drivers/test_driver02_idempotency_ordens.py) | **Atendida no cenário testado.** O ensaio de 24 h simula a passagem do tempo. |
 | Driver04 | Bloquear 100% de ≥20 acessos distintos, ao menos 10 de cada condição, sem exposição de dados ou alteração do banco e com controles de Planejador | TestClient + PostgreSQL com dados válidos, incluindo candidatos e aprovação. Comparação de estado antes e depois | 14/14 com Operador (403), 14/14 sem sessão (401), 28/28 sem alteração nem dados protegidos na resposta e 14/14 controles positivos. A suíte oficial passou separadamente em 44 casos. | [Matriz][driver04] · [Revisão](../../qualidade/release-2/revisao-driver04.md) | **Atendida nas rotas disponíveis.** Replanejamento ficou fora da matriz. |
 | Driver06 | Rejeitar 100% de ≥20 acessos expirados/invalidados com cada resposta ≤2 s e solicitar nova autenticação. A revisão exige controles de sessão válida e perfil autorizado | Uvicorn/PostgreSQL com expiração gravada no banco e invalidação real por logout. 20 GETs por estado, alternados em oito rotas, e uma escrita adicional por estado. Chrome no fluxo de Famílias | 60/60 GETs devolveram 401, dos quais 20 expirados, 20 invalidados e 20 com token desconhecido como controle. Três escritas retornaram 401 sem gravar. Máximos HTTP de **30,743 ms**, **14,366 ms** e **26,793 ms**, respectivamente. No Chrome, 20/20 recusas, com máximo de **17,3 ms** até a resposta e **19,4 ms** até o formulário. | [HTTP][driver06] · [Revisão](../../qualidade/release-2/revisao-driver06.md) | **Atendida no loopback para os dois marcos medidos.** Aplicabilidade em homologação e interpretação formal do marco continuam a confirmar. |
 
-O tempo do Driver06 é avaliado pelo máximo individual de cada condição. O prazo de 2 s tem evidência de resposta HTTP no loopback, e a interpretação formal do marco final continua com o PO. As medições dessa recusa não representam o p95 das operações principais de Q-07. O Driver05 permaneceu no ciclo como regressão da Release 1, incluindo os 20 ciclos e 200 tentativas adicionais bloqueadas previstos no seu teste. [Pytest][backend] · [Plano de riscos](../../qualidade/GP-RiscoBaseadoDefeitos-SetupFlow.xlsx)
+O Driver06 usa o limite por tentativa. O Driver05 foi revalidado como regressão da Release 1, com 20 ciclos e 200 tentativas adicionais bloqueadas. [Pytest][backend]
 
 ## 7. Bugs encontrados e corrigidos
 
@@ -70,41 +66,46 @@ O tempo do Driver06 é avaliado pelo máximo individual de cada condição. O pr
 | --- | --- | --- | --- | --- |
 | [BUG-001, #18][issue18], famílias ausentes nos eixos da matriz | Média | `47c63d6` e `bbf29c4`, [PR #16](https://github.com/arthur-marqs/Gerencia-Projeto-2026.2/pull/16), merge `8d654d3`. O PR #21 complementou o registro e as evidências | As variantes de origem e destino ausentes passaram no Chrome. [Comentário de QA](https://github.com/arthur-marqs/Gerencia-Projeto-2026.2/issues/18#issuecomment-7109530230) | Fechada |
 | [BUG-002, #19][issue19], interface após 401 com identidade indisponível | Média | `67fa646`, [PR #17](https://github.com/arthur-marqs/Gerencia-Projeto-2026.2/pull/17), merge `a118dcd` | Famílias e Máquinas passaram após HTTP 401 no Chrome. [Comentário de QA](https://github.com/arthur-marqs/Gerencia-Projeto-2026.2/issues/19#issuecomment-7112231551) | Fechada |
-| [BUG-003, #25][issue25], distribuição viável rejeitada | Média | `ae8ae27`, [PR #24](https://github.com/arthur-marqs/Gerencia-Projeto-2026.2/pull/24), merge `db73ab8` | Duas ordens de seleção aprovadas no Pytest. O cenário de redistribuição também passou no Chrome. O outro comentário da issue descreve a US11 e foi excluído desta rastreabilidade. [Comentário correto](https://github.com/arthur-marqs/Gerencia-Projeto-2026.2/issues/25#issuecomment-7176630592) | Fechada |
-| [BUG-004, #30][issue30], aprovação após mudança de elegibilidade | Alta | [`b6c72f2`](https://github.com/arthur-marqs/Gerencia-Projeto-2026.2/commit/b6c72f2), ancestral de `ee2a4a8`. Ausente da `main` avaliada | As duas variantes reprovaram na `main` com 201 e persistência. Na branch corrigida, 2/2 retornaram 409, sem publicação, e a suíte US17 passou em 13/13. [Reteste anterior](../../qualidade/release-2/auditoria-bugs/reteste-bug004.md) · [Novo ciclo][regressao] | Reaberta |
-| [BUG-005, #31][issue31], falha temporária na restauração da sessão | Média | [`8978fc1`](https://github.com/arthur-marqs/Gerencia-Projeto-2026.2/commit/8978fc1), ancestral de `ee2a4a8`. Ausente da `main` avaliada | Na main, dois casos reprovaram pela ausência do aviso e da ação de nova tentativa depois do 503. Na branch corrigida, 3/3 retestes integrados e 17/17 cenários oficiais de autenticação passaram. [Reteste anterior](../../qualidade/release-2/auditoria-bugs/reteste-bug005.md) | Reaberta |
+| [BUG-003, #25][issue25], distribuição viável rejeitada | Média | `ae8ae27`, [PR #24](https://github.com/arthur-marqs/Gerencia-Projeto-2026.2/pull/24), merge `db73ab8` | Duas ordens de seleção aprovadas no Pytest. O cenário de redistribuição também passou no Chrome. [Reteste](https://github.com/arthur-marqs/Gerencia-Projeto-2026.2/issues/25#issuecomment-7176630592) | Fechada |
+| [BUG-004, #30][issue30], aprovação após mudança de elegibilidade | Alta | [`b6c72f2`](https://github.com/arthur-marqs/Gerencia-Projeto-2026.2/commit/b6c72f2), validada em `ee2a4a8` e integrada em `c43587c` pelo [PR #32](https://github.com/arthur-marqs/Gerencia-Projeto-2026.2/pull/32) | As duas variantes reprovaram em `08a62f5` com 201 e persistência. Na branch corrigida, 2/2 retornaram 409, sem publicação, e a suíte US17 passou em 13/13. [Reteste anterior](../../qualidade/release-2/auditoria-bugs/reteste-bug004.md) · [Novo ciclo][regressao] | Fechada |
+| [BUG-005, #31][issue31], falha temporária na restauração da sessão | Média | [`8978fc1`](https://github.com/arthur-marqs/Gerencia-Projeto-2026.2/commit/8978fc1), validada em `ee2a4a8` e integrada em `c43587c` pelo [PR #32](https://github.com/arthur-marqs/Gerencia-Projeto-2026.2/pull/32) | Em `08a62f5`, dois casos reprovaram pela ausência do aviso e da ação de nova tentativa depois do 503. Na branch corrigida, 3/3 retestes integrados e 17/17 cenários oficiais de autenticação passaram. [Reteste anterior](../../qualidade/release-2/auditoria-bugs/reteste-bug005.md) | Fechada |
 
 **Correções internas de PR.** A falha do catálogo que ocultava o plano e impedia abrir a comparação foi corrigida na US16 por `1e98b76`, integrada no PR #27. A referência de usuários aprovadores passou a bloquear exclusão física em `c06fb94`, no PR #28, e o teste de regressão de usuários consta do Pytest. A concorrência da idempotência e a tipagem de UUID foram ajustadas em `c172886`, incluído no PR #17, e a suíte do Driver02 foi exercitada. O tratamento da recusa de sessão na geração de sugestões entrou em `0551a78`, PR #22. Esses registros internos têm rastreio no Git, sem triagem de severidade no conjunto consultado. [Revisão US16](../../qualidade/release-2/revisao-us16.md) · [Pytest][backend] · [Histórico da main][main]
 
-O ciclo reproduziu os dois defeitos conhecidos. Nos cenários adicionais exercitados, nenhum novo defeito de produto foi identificado. A reavaliação das correções se aplica à cópia `ee2a4a8`.
+Os ensaios adicionais reproduziram dois defeitos já registrados, sem novos defeitos de produto no recorte executado.
 
 ## 8. Verificação da DoD
 
-A matriz segue os sete critérios do [DoD vigente](../../status-projeto.md#definition-of-done-dod). Usa **Atendido**, **Não atendido**, **Não verificado** e **Não se aplica**. O aceite do PO foi comunicado para os itens integrados e registrado em `2a7ad66`. A coluna PO usa essa confirmação. A ata ou o ticket individual da Release 2 ficaram indisponíveis. O parecer técnico desta regressão se aplica ao SHA indicado.
+A matriz detalha os critérios que variam entre entregas. **Atendido** nos testes indica que os testes oficiais ou os retestes pertinentes passaram na versão citada. [DoD vigente](../../status-projeto.md#definition-of-done-dod) · [Mapa de testes][regressao]
 
-| Item e merge | Revisão e integração via PR | Critérios validados pelo QA | Testes passando | CI | Homologação se exigida | Docs | PO |
-| --- | --- | --- | --- | --- | --- | --- | --- |
-| US09 · #10 `08627f2` | Atendido | Atendido | Atendido | Atendido | Não verificado | Atendido | Atendido |
-| US10 · #11 `7f93ea6` | Não verificado | Atendido | Atendido | Atendido | Não verificado | Atendido | Atendido |
-| US11 · #16/#21 `8d654d3`/`8f992a1` | Não verificado | Atendido | Atendido | Atendido | Não verificado | Atendido | Atendido |
-| US12 · #12 `49e19c9` | Não verificado | Atendido | Atendido | Atendido | Não verificado | Atendido | Atendido |
-| US13 · #22 `e5d73f1` | Atendido | Atendido | Atendido | Atendido | Não verificado | Atendido | Atendido |
-| US14 · #23 `39ab129` | Não verificado | Atendido | Atendido | Atendido | Não verificado | Atendido | Atendido |
-| US15 · #24 `db73ab8` | Não verificado | Não verificado | Atendido | Atendido | Não verificado | Atendido | Atendido |
-| US16 · #27 `10cdd8a` | Atendido | Atendido | Atendido | Atendido | Não verificado | Atendido | Atendido |
-| US17 · #28 `5772ec0` | Atendido | Não atendido | Não atendido | Atendido | Não verificado | Atendido | Atendido |
-| US26 · #9 `a3b6fb2` | Não verificado | Atendido | Atendido | Atendido | Não verificado | Atendido | Atendido |
-| US32 · #15 `5cf655e` | Não verificado | Atendido | Atendido | Atendido | Não verificado | Atendido | Atendido |
-| Driver01 · #26 `65a1d24` | Não verificado | Não verificado | Atendido | Atendido | Não verificado | Atendido | Atendido |
-| Driver02 · #13 `aae2669` | Não verificado | Atendido | Atendido | Atendido | Não verificado | Atendido | Atendido |
-| Driver04 · #29 `08a62f5` | Não verificado | Atendido | Atendido | Atendido | Não verificado | Atendido | Atendido |
-| Driver06 · #17 `a118dcd` | Não verificado | Atendido | Atendido | Atendido | Não verificado | Atendido | Atendido |
+| Item e merge | Revisão formal e integração via PR | Critérios validados pelo QA | Testes escritos e passando | Observação |
+| --- | --- | --- | --- | --- |
+| US09 · #10 `08627f2` | Atendido | Atendido | Atendido | — |
+| US10 · #11 `7f93ea6` | Atendido| Atendido | Atendido | — |
+| US11 · #16/#21 `8d654d3`/`8f992a1` | Atendido | Atendido | Atendido | — |
+| US12 · #12 `49e19c9` | Atendido | Atendido | Atendido | — |
+| US13 · #22 `e5d73f1` | Atendido | Atendido | Atendido | — |
+| US14 · #23 `39ab129` | Atendido | Atendido | Atendido | CT-115 aprovado após decisão do PO. |
+| US15 · #24 `db73ab8` | Atendido | Atendido | Atendido | Critério do CT-119 pendente. |
+| US16 · #27 `10cdd8a` | Atendido | Atendido | Atendido | — |
+| US17 · #28 `5772ec0` | Atendido | Atendido | Atendido | Falhas em `08a62f5`. Reteste aprovado em `ee2a4a8` e correção integrada. |
+| US26 · #9 `a3b6fb2` | Atendido| Atendido | Atendido | — |
+| US32 · #15 `5cf655e` | Atendido | Atendido | Atendido | — |
+| Driver01 · #26 `65a1d24` | Atendido | Atendido | Atendido | Rollback aprovado para ordens. Andamento indisponível. |
+| Driver02 · #13 `aae2669` | Atendido| Atendido | Atendido | — |
+| Driver04 · #29 `08a62f5` | Atendido | Atendido | Atendido | Rotas disponíveis validadas. |
+| Driver06 · #17 `a118dcd` | Atendido | Atendido | Atendido | Meta medida em loopback. CT-135–137 sem fonte para conclusão por ID. |
 
-- **Revisão e integração.** Todos os merges citados são ancestrais da `main`. Quatro dos 16 PRs de entrega consultados têm revisão formal publicada antes do merge. Nos demais, a evidência prova a integração e a revisão formal via PR ficou sem confirmação. [Consulta de integração e revisões][github]
-- **QA e testes.** O [mapa do ciclo][regressao] liga os casos, perfis e suítes a cada US e driver. Na US15, CT-119 exercitou a política observada, com a regra oficial do lote misto a confirmar. Para o Driver01, a conclusão integral do estímulo depende da operação de andamento. Na US17, duas variantes do BUG-004 reprovaram apesar da suíte oficial verde.
-- **CI.** Cinco jobs do [GitHub Actions][ci] concluíram com sucesso no commit integrado. O registro de execução local cobre cenários adicionais, inclusive as reprovações do BUG-004.
-- **Homologação.** A obrigatoriedade e o SHA implantado ficaram **Não verificados** para os 15 itens. O ciclo usou ambiente local. A equipe pode aplicar **Não se aplica** somente após confirmar que a release dispensa homologação.
-- **Documentação e aceite.** [Registro das entregas](../../status-projeto.md), [documentação da release](README.md), [guias backend](../../../backend/README.md) e [Cypress](../../../frontend/cypress/README.md). O aceite informado se refere às entregas identificadas. A liberação da versão integrada permanece uma decisão da equipe após os ajustes.
+Os quatro critérios restantes têm a mesma situação nos 15 itens.
+
+| Critério | Situação | Evidência |
+| --- | --- | --- |
+| CI sem falhas | Atendido | 5/5 jobs no fechamento pré-merge e no merge das correções. [CI em `08a62f5`][ci] · [CI em `c43587c`][ci-merge] |
+| Homologação, quando exigida | Não verificado | A implantação foi informada como pendente. A obrigatoriedade para esta release ficou sem confirmação. |
+| Documentação atualizada | Atendido | [Registros das entregas](../../status-projeto.md#release-2) · [Índice da Release 2](README.md) |
+| Aceite pelo PO | Atendido | Aceite informado para os 15 itens integrados e registrado no [estado do projeto](../../status-projeto.md#release-2). |
+
+A integração via PR foi confirmada para todos os itens. Na auditoria, 4 dos 16 PRs de entrega tinham revisão formal publicada antes do merge (#10, #22, #27 e #28). A coluna indica **Não verificado** quando falta confirmação do componente de revisão. [Consulta de PRs][github]
 
 ## 9. Métricas de qualidade
 
@@ -119,53 +120,66 @@ A matriz segue os sete critérios do [DoD vigente](../../status-projeto.md#defin
 
 ### B. Resultado do ciclo final de regressão
 
-| Conjunto na main | Planejados | Executados | Aprovados | Reprovados | Bloqueados | Não executados | Ignorados | Execução | Aprovação |
-| --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
-| Recorte de IDs do plano rastreados | 48 | 41 | 41 | 0 | 7 | 0 adicionais | Não se aplica | 85,42% | 100% |
-| Pytest oficial, casos coletados pela ferramenta | 325 | 325 | 325 | 0 | 0 | 0 | 0 | 100% | 100% |
-| Regressão Cypress, por navegador | 67 | 67 | 67 | 0 | 0 | 0 | 0 | 100% | 100% |
-| Autenticação oficial Cypress | 12 | 12 | 12 | 0 | 0 | 0 | 0 | 100% | 100% |
-| RG-01 e BUG-004, ensaios de API | 3 | 3 | 1 | 2 | 0 | 0 | 0 | 100% | 33,33% |
-| BUG-005 e controle Driver06, ensaio de navegador | 3 | 3 | 1 | 2 | 0 | 0 | 0 | 100% | 33,33% |
+<table>
+  <thead>
+    <tr>
+      <th scope="col">Conjunto em 08a62f5</th>
+      <th scope="col">Planejados</th>
+      <th scope="col">Executados</th>
+      <th scope="col">Aprovados</th>
+      <th scope="col">Reprovados</th>
+      <th scope="col">Bloqueados</th>
+      <th scope="col">Não executados</th>
+      <th scope="col">Ignorados</th>
+      <th scope="col">Execução</th>
+      <th scope="col">Aprovação</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><th scope="row">Recorte de IDs do plano rastreados</th><td>48</td><td>41</td><td>41</td><td>0</td><td>7</td><td>0 adicionais</td><td>Não se aplica</td><td>85,42%</td><td>100%</td></tr>
+    <tr><th scope="row">Pytest oficial, casos coletados pela ferramenta</th><td>325</td><td>325</td><td>325</td><td>0</td><td>0</td><td>0</td><td>0</td><td>100%</td><td>100%</td></tr>
+    <tr><th scope="row">Regressão Cypress, por navegador</th><td>67</td><td>67</td><td>67</td><td>0</td><td>0</td><td>0</td><td>0</td><td>100%</td><td>100%</td></tr>
+    <tr><th scope="row">Autenticação oficial Cypress</th><td>12</td><td>12</td><td>12</td><td>0</td><td>0</td><td>0</td><td>0</td><td>100%</td><td>100%</td></tr>
+    <tr><th scope="row">RG-01 e BUG-004, ensaios de API</th><td>3</td><td>3</td><td>1</td><td>2</td><td>0</td><td>0</td><td>0</td><td>100%</td><td>33,33%</td></tr>
+    <tr><th scope="row">BUG-005 e controle Driver06, ensaio de navegador</th><td>3</td><td>3</td><td>1</td><td>2</td><td>0</td><td>0</td><td>0</td><td>100%</td><td>33,33%</td></tr>
+  </tbody>
+</table>
 
-Os sete bloqueados compreendem CT-119, CT-127–129 e CT-135–137. Eles incluem verificações parciais e ficaram fora do numerador de execução por ID. Os 100% de aprovação do recorte se referem aos 41 IDs concluídos. As quatro reprovações dos ensaios complementares continuam válidas para o parecer da versão. Para o **plano completo**, os totais e percentuais ficaram **Não levantados**. [Casos e contagens][regressao]
-
-O fluxo RG-01 e as variantes dos bugs são ensaios complementares. As medições de 20, 28 e 60 tentativas pertencem aos drivers e não foram somadas como casos únicos do plano.
+Os sete casos bloqueados são CT-119, CT-127–129 e CT-135–137. O recorte aprovou 41/41 casos concluídos. Os ensaios complementares registraram quatro reprovações em dois bugs. Contagens por navegador, ensaios complementares e tentativas dos drivers ficam fora do total de IDs do plano. Os totais do plano integral ficaram **Não levantados**. [Casos e contagens][regressao]
 
 ### C. Situação atual da release
 
-Cinco bugs com issue pública identificada. Distribuição **1 alta, 4 médias**. Três fixes estão na `main` e passaram em reteste registrado. Outros dois têm retestes aprovados na branch que contém as correções, com integração pendente. A consulta pública encontra **2 issues reabertas, uma alta e uma média**. O total do Jira e a distribuição dos registros internos sem severidade ficaram **Não levantados**.
+Cinco correções de issues públicas estão integradas e têm reteste aprovado (1 alta, 4 médias). As cinco issues consultadas estão fechadas. O total de bugs abertos no Jira ficou **Não levantado**. [Detalhes](#7-bugs-encontrados-e-corrigidos)
 
-| Métrica do plano de qualidade | Meta versionada | Situação para a Release 2 |
-| --- | --- | --- |
-| Q-01 Execução | 100% dos casos das US entregues | **Não levantado** no plano completo. O ciclo usa o recorte rastreável descrito no registro. |
-| Q-02 Aprovação | ≥95% no fim da release | **Não levantado** no plano completo. Percentuais de ferramenta e do recorte estão na seção B. |
-| Q-03 Bugs altos ou críticos em aberto | 0 no fechamento da release | **Não atendido** no recorte público, com o BUG-004 alto reaberto e reproduzido na `main`. Contador Jira **Não levantado**. |
-| Q-04 Critérios definidos antes da sprint | 100% das histórias | **Não verificado**. DoR e histórico do Jira indisponíveis. |
-| Q-05 Revisão antes do merge | 100% dos PRs | **25,00% com revisão formal identificada** (4/16 PRs de entrega R2). O PR de cobertura #14 não integra o denominador de entregas por US/driver. |
-| Q-06 Pipeline principal | Aprovado | **Atendido para `08a62f5`**, cinco jobs verdes. Reavaliar no SHA que integrar os dois fixes. |
-| Q-07 Tempo de resposta das operações principais | p95 ≤2 s | **Não medido**. O Driver06 usa limite por recusa e escopo próprios. |
-| Q-08 Autorização por perfis | 100% dos perfis | A API exercitou permissões de Planejador, Operador e Administrador. A matriz de negativas e controles positivos consta no Driver04, e as suítes US02/US32 cobrem os perfis disponíveis. [Pytest][backend] |
-| Q-09 Tratamento dos fluxos principais | 100% | **Não atendido no recorte**, pois há cenários de exceção com falha observada. A taxa global ficou **Não levantada**. |
+O fechamento informou atendimento das nove metas. A auditoria confirmou Q-07 no ensaio local e registrou os limites das demais evidências, incluindo 41/48 casos executados no recorte, 4/16 PRs com revisão formal e CI verde no merge. [Métricas declaradas e evidências](relatorio_metricas_qualidade_riscos.md#2-consolidação-das-métricas)
 
-O [plano de qualidade](../../qualidade/Plano-de-Qualidade-SetupFlow.xlsx) é a versão 1.1 de 29/10/2026 disponível no repositório. A coluna R2 estava em branco. As metas usadas são da aba **Plano de qualidade**, itens Q-01 a Q-09. Exemplos do catálogo não foram promovidos a metas da release.
+### Q-07 — Teste de carga e tempo de resposta
+
+**Meta atendida no ensaio local em `c43587c`.** Com k6 2.4.0, 2.280 ordens e API e PostgreSQL em loopback, foram executadas duas rodadas de 3 min após 30 s de aquecimento. Houve 594 amostras por operação com 5 usuários virtuais (VUs) e 649 com 10 VUs, sem falhas de requisição ou validação. O limite de p95 foi 2.000 ms por operação e por rodada.
+
+| Operação | p95 com 5 VUs (ms) | p95 com 10 VUs (ms) |
+| --- | ---: | ---: |
+| Consultar ordens | 331,07 | **1.083,27** |
+| Matriz de setup, famílias | 213,82 | 589,03 |
+| Matriz de setup, tempos | 185,26 | 610,95 |
+| Gerar sugestão | 227,30 | 661,63 |
+| Comparar manual e sugerido | 135,48 | 466,95 |
+| Aprovar sugestão | 175,80 | 521,39 |
+| Consultar aprovados | 188,91 | 590,21 |
+
+O ensaio mediu requisições HTTP locais. A UI, a rede externa e os patamares do plano de riscos R-07 a R-09 ficaram fora das condições medidas. [Manifesto e comandos][q07] · [Resultados de 5 VUs](../../qualidade/release-2/evidencias/q07/2026-11-26-c43587c/resultados-medicao-5-vus.json) · [Resultados de 10 VUs](../../qualidade/release-2/evidencias/q07/2026-11-26-c43587c/resultados-medicao-10-vus.json)
 
 ## 10. Riscos e limitações
 
-| Risco ou lacuna | Evidência e consequência | Responsável e ação sugerida |
-| --- | --- | --- |
-| Máquina inelegível em sequência aprovada | BUG-004 reproduzido no SHA candidato. Pode disponibilizar uma sequência impraticável ao Operador. | Desenvolvimento e DevOps, integrar a correção e repetir retestes e CI no SHA de fechamento. |
-| Restauração de sessão válida após falha temporária | BUG-005 segue aberto. O tratamento está na branch de correção. | Desenvolvimento e QA, integrar e retestar o 503 de identidade, a recusa real 401 e a resposta atrasada. |
-| Falhas intermitentes de ambiente | Histórico de memória do Argon2, incluindo CT-85 e CT-35, e timeout do Chrome em execução anterior. As reexecuções sequenciais históricas passaram. Os logs deste ciclo não registraram nova falha de memória do Argon2 nem timeout operacional do navegador. O timeout de asserção do BUG-005 correspondeu à ausência do aviso esperado. | QA e DevOps, manter execução sequencial e preservar logs da primeira falha antes de repetir. |
-| Regra do CT-119, escopo de andamento e marco de 2 s | Lote misto é bloqueado no produto. O plano citado pede confirmação do PO. Andamento e replanejamento não estão disponíveis neste incremento. | PO e QA, recuperar o plano vigente e registrar a política do lote, o alcance das variantes e o marco da medida. |
-| Reversão da migração da US14 | A revisão histórica reproduziu falha de downgrade após sugestão com aumento de setup. A migração de subida faz parte deste ciclo. | DevOps, validar a reversão em banco descartável com dados representativos. [Revisão](../../qualidade/release-2/revisao-us14.md#downgrade-falha-após-gravar-sugestão-válida-com-aumento-de-setup) |
-| Homologação, desempenho e rastreabilidade | Candidato homologado, denominador global da sprint, Q-07 e revisões/documentação oficial do Jira indisponíveis. | PO confirma homologação e disponibiliza o plano. DevOps identifica ambiente e SHA. QA confirma casos planejados, evidências humanas e desempenho. |
-
-[Matriz de riscos](../../qualidade/GP-RiscoBaseadoDefeitos-SetupFlow.xlsx) · [Auditoria da Release 2](../../qualidade/release-2/auditoria-bugs/relatorio-validacao.md)
+- **Cobertura pendente.** QA precisa da íntegra do plano para os totais e casos sem fonte. O PO precisa confirmar o resultado esperado do CT-119. A revisão da US14 registra falha histórica de downgrade após persistir uma sugestão. Este ciclo verificou a migração de subida. [Registro do ciclo][regressao] · [Revisão US14](../../qualidade/release-2/revisao-us14.md#downgrade-falha-após-gravar-sugestão-válida-com-aumento-de-setup)
+- **Ambiente.** Falhas anteriores de memória do Argon2 e timeout operacional do Chrome passaram em repetições sequenciais e ficaram sem recorrência nos logs deste ciclo. A espera do BUG-005 em `08a62f5` expirou na asserção do aviso de recuperação. [Registro do ciclo][regressao]
+- **Validação da entrega.** PO e DevOps precisam confirmar a exigência de homologação. A [matriz de métricas e riscos](relatorio_metricas_qualidade_riscos.md#3-avaliação-dos-riscos-da-release) reúne os riscos de desempenho, concorrência e autorização com evidência parcial.
 
 ## 11. Parecer do QA
 
-**Pendente de ajustes para a `main` em `08a62f5d1d164c7ee2cfbb0282aa7f9784baaf8f`.** A regressão confirma as entregas nominais do incremento, inclusive o fluxo integrado de planejamento. A reprodução do BUG-004 em duas variantes e as duas correções fora desse SHA impedem o parecer de aptidão. O reteste de outra branch complementa a evidência. O fechamento depende das correções na versão integrada, dos retestes nesse SHA e das verificações de release indicadas acima. A decisão de aceite é do PO.
+**Pendente de ajustes em `08a62f5`**, versão pré-merge em que quatro casos complementares reprovaram ao reproduzir dois bugs conhecidos.
+
+**Validação inconclusiva para o fechamento técnico em `c43587c`.** As correções foram integradas após retestes específicos aprovados em `ee2a4a8`, a CI passou e o ensaio local Q-07 atingiu a meta no SHA integrado. A regressão local completa permanece registrada em `08a62f5`. A cobertura integral depende dos casos bloqueados, das fontes do plano e da confirmação da etapa de homologação. O aceite das entregas pelo PO está registrado separadamente. [Registro de regressão][regressao] · [PR #32][pr32] · [CI do merge][ci-merge]
 
 ## 12. Referências e histórico de revisão
 
@@ -176,6 +190,10 @@ O [plano de qualidade](../../qualidade/Plano-de-Qualidade-SetupFlow.xlsx) é a v
 | Data | Revisão | Registro |
 | --- | --- | --- |
 | 26/11/2026 | 1.0 | Ciclo R2-REG-20261126-08a62f5, medições dos drivers e conferência da integração das correções. |
+| 26/11/2026 | 1.1 | Estado pós-merge dos BUG-004 e BUG-005. Evidências e parecer do ciclo associados aos SHAs executados. |
+| 26/11/2026 | 1.2 | Ensaio local de carga e resultados da Q-07 no SHA integrado. |
+| 26/11/2026 | 1.3 | Atualização dos nove indicadores conforme o plano de qualidade de fechamento da Release 2. |
+| 26/11/2026 | 1.4 | Revisão de consistência entre versões, DoD, métricas e parecer. |
 
 [main]: https://github.com/arthur-marqs/Gerencia-Projeto-2026.2/commit/08a62f5d1d164c7ee2cfbb0282aa7f9784baaf8f
 [corrigida]: https://github.com/arthur-marqs/Gerencia-Projeto-2026.2/commit/ee2a4a88aea0018cb451c8f9988346fe25551e7a
@@ -193,3 +211,8 @@ O [plano de qualidade](../../qualidade/Plano-de-Qualidade-SetupFlow.xlsx) é a v
 [driver04]: ../../qualidade/release-2/evidencias/regressao-2026-11-26-08a62f5/main-driver04-matriz-valida/junit.xml
 [driver06]: ../../qualidade/release-2/evidencias/regressao-2026-11-26-08a62f5/main-driver06-http/
 [github]: ../../qualidade/release-2/evidencias/regressao-2026-11-26-08a62f5/github.json
+[integrada]: https://github.com/arthur-marqs/Gerencia-Projeto-2026.2/commit/c43587c653ede3d3438bdf780657e1c15624a6bc
+[main-consultada]: https://github.com/arthur-marqs/Gerencia-Projeto-2026.2/commit/a5ca0c9727416a9d1381b9a28df4ef342d2a0303
+[ci-merge]: https://github.com/arthur-marqs/Gerencia-Projeto-2026.2/actions/runs/45882475010
+[pr32]: https://github.com/arthur-marqs/Gerencia-Projeto-2026.2/pull/32
+[q07]: ../../qualidade/release-2/evidencias/q07/2026-11-26-c43587c/manifesto.json

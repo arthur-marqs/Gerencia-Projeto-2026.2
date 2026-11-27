@@ -1,6 +1,6 @@
 # Relatório de validação e auditoria de bugs — SetupFlow R2
 
-**Estado em 26/11/2026.** O PO aceitou as histórias e os drivers já integrados à `main`. A auditoria deste commit encontrou dois defeitos. As correções passaram nos retestes em `docs/qualidade` e aguardam integração. [Estado das entregas e DoD](../../../status-projeto.md) · [Acompanhamento dos defeitos](README.md)
+**Estado em 26/11/2026.** O PO aceitou as histórias e os drivers já integrados à `main`. A auditoria deste commit encontrou dois defeitos. As correções passaram nos retestes em `docs/qualidade` e entraram na `main` em `c43587c`. [PR #32](https://github.com/arthur-marqs/Gerencia-Projeto-2026.2/pull/32) [Estado das entregas e DoD](../../../status-projeto.md) · [Acompanhamento dos defeitos](README.md)
 
 **Atualização em 26/11/2026** — As correções do BUG-004 e do BUG-005 foram validadas localmente nos códigos de `b6c72f2` e `8978fc1`. O parecer acima continua associado ao commit da auditoria original. [Reteste do BUG-004](reteste-bug004.md) · [Reteste do BUG-005](reteste-bug005.md)
 
@@ -132,8 +132,8 @@ As três issues permanecem fechadas. A busca pública por registros equivalentes
 
 ## 11. Reteste do BUG-004
 
-Em 26/11/2026, a correção do [BUG-004](https://github.com/arthur-marqs/Gerencia-Projeto-2026.2/issues/30) foi validada localmente nas duas variantes. A API recusou a aprovação com HTTP 409, preservou a sugestão para consulta e manteve vazia a execução do Operador. A regressão final passou com 331 testes de backend e 12 cenários no Chrome. O parecer se aplica ao código de [`b6c72f2`](https://github.com/arthur-marqs/Gerencia-Projeto-2026.2/commit/b6c72f2beb9c4ba92a4c7871547c895574c8afd2), com integração à `main` pendente. [Relatório e evidências](reteste-bug004.md)
+Em 26/11/2026, a correção do [BUG-004](https://github.com/arthur-marqs/Gerencia-Projeto-2026.2/issues/30) foi validada localmente nas duas variantes. A API recusou a aprovação com HTTP 409, preservou a sugestão para consulta e manteve vazia a execução do Operador. A regressão final passou com 331 testes de backend e 12 cenários no Chrome. O parecer se aplica ao código de [`b6c72f2`](https://github.com/arthur-marqs/Gerencia-Projeto-2026.2/commit/b6c72f2beb9c4ba92a4c7871547c895574c8afd2), integrado à `main` em `c43587c`. [PR #32](https://github.com/arthur-marqs/Gerencia-Projeto-2026.2/pull/32) [Relatório e evidências](reteste-bug004.md)
 
 ## 12. Reteste do BUG-005
 
-Em 26/11/2026, a correção do [BUG-005](https://github.com/arthur-marqs/Gerencia-Projeto-2026.2/issues/31) foi validada localmente. Após uma falha temporária de identidade, o botão **Tentar novamente** restaurou o painel quando a API respondeu 200 com a sessão válida. Uma resposta 401 real abriu o login, e uma resposta 200 atrasada após a rejeição de um recurso protegido foi descartada. O parecer se aplica ao código de [`8978fc1`](https://github.com/arthur-marqs/Gerencia-Projeto-2026.2/commit/8978fc110480f363b65873443c072bcc4469cfd6), com integração à `main` pendente. [Relatório e evidências](reteste-bug005.md)
+Em 26/11/2026, a correção do [BUG-005](https://github.com/arthur-marqs/Gerencia-Projeto-2026.2/issues/31) foi validada localmente. Após uma falha temporária de identidade, o botão **Tentar novamente** restaurou o painel quando a API respondeu 200 com a sessão válida. Uma resposta 401 real abriu o login, e uma resposta 200 atrasada após a rejeição de um recurso protegido foi descartada. O parecer se aplica ao código de [`8978fc1`](https://github.com/arthur-marqs/Gerencia-Projeto-2026.2/commit/8978fc110480f363b65873443c072bcc4469cfd6), integrado à `main` em `c43587c`. [PR #32](https://github.com/arthur-marqs/Gerencia-Projeto-2026.2/pull/32) [Relatório e evidências](reteste-bug005.md)

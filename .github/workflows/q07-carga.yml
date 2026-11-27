@@ -1,0 +1,61 @@
+name: Q-07 carga local
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  q07:
+    runs-on: ubuntu-latest
+    timeout-minutes: 18
+    services:
+      postgres:
+        image: postgres:18
+        env:
+          POSTGRES_USER: q07_ci
+          POSTGRES_PASSWORD: q07_ci
+          POSTGRES_DB: q07_base_test
+        ports:
+          - 55484:5432
+        options: >-
+          --health-cmd "pg_isready -U q07_ci -d q07_base_test"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 10
+    env:
+      DB_USER: q07_ci
+      DB_PASSWORD: q07_ci
+      DB_PORT: '55484'
+      Q07_OUT: q07-artifacts
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Instalar dependências do backend
+        run: python -m pip install -r backend/requirements.txt
+      - name: Instalar k6 v2.4.0
+        run: |
+          cd "$RUNNER_TEMP"
+          curl --fail --silent --show-error --location --output k6.tar.gz +            https://github.com/grafana/k6/releases/download/v2.4.0/k6-v2.4.0-linux-amd64.tar.gz
+          echo '5a5ecf23529ccf93135bc7e5b0c1cd5126ecf5f2672e22eed1556a0ab74abb87  k6.tar.gz' | sha256sum -c -
+          tar -xzf k6.tar.gz
+          echo "$RUNNER_TEMP/k6-v2.4.0-linux-amd64" >> "$GITHUB_PATH"
+      - name: Executar smoke, aquecimentos e rodadas
+        run: |
+          python tests/performance/run_q07.py --backend backend --out "$Q07_OUT" +            --commit "$GITHUB_SHA" --branch "$GITHUB_REF_NAME" +            --estado "$(git status --porcelain)"
+      - name: Registrar resultados no Summary
+        if: always()
+        run: python tests/performance/summarize_q07.py "$Q07_OUT" >> "$GITHUB_STEP_SUMMARY"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: q07-carga
+          if-no-files-found: warn
+          path: |
+            q07-artifacts/manifesto.json
+            q07-artifacts/resultados-*.json
+            q07-artifacts/amostras-*.csv
+            q07-artifacts/*.log

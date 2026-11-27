@@ -1,5 +1,7 @@
 # SetupFlow — Release 2
 
+As correções dos BUG-004 e BUG-005 entraram na `main` em `c43587c`, após os retestes da branch de qualidade. O relatório identifica o estado da integração e os commits das execuções. [PR #32](https://github.com/arthur-marqs/Gerencia-Projeto-2026.2/pull/32)
+
 - [Relatório de Qualidade da Release 2](relatorio-qualidade-release-2.md)
 - [Registro da regressão das Sprints 2 e 3](../../qualidade/release-2/regressao-release-2.md)
 - [Estado das entregas e DoD](../../status-projeto.md#release-2)

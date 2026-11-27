@@ -1,0 +1,25 @@
+INFO  [alembic.runtime.migration] Context impl PostgresqlImpl.
+INFO  [alembic.runtime.migration] Will assume transactional DDL.
+INFO  [alembic.runtime.migration] Running upgrade  -> 8c4926160d84, cria esquema de autenticacao
+INFO  [alembic.runtime.migration] Running upgrade 8c4926160d84 -> 4ba7b334799a, Insere perfis de acesso.
+INFO  [alembic.runtime.migration] Running upgrade 4ba7b334799a -> c6f7b921ad03, Cria a tabela de famílias de produtos para a US05.
+INFO  [alembic.runtime.migration] Running upgrade 4ba7b334799a -> 5ccce81c5c27, cria tabela produtos
+INFO  [alembic.runtime.migration] Running upgrade 5ccce81c5c27 -> 7a2c9f1d4e6b, cria tabela maquinas
+INFO  [alembic.runtime.migration] Running upgrade 5ccce81c5c27, c6f7b921ad03 -> 3e789560b2f5, une migracoes de produtos e familias
+INFO  [alembic.runtime.migration] Running upgrade 3e789560b2f5 -> 72269261cc65, adiciona familia aos produtos
+INFO  [alembic.runtime.migration] Running upgrade 72269261cc65, 7a2c9f1d4e6b -> 6ddbcb3397c4, Merge machine and family migration branches.
+INFO  [alembic.runtime.migration] Running upgrade 6ddbcb3397c4 -> a7c1f2d9e430, cria tabela ordens_producao para a US07
+INFO  [alembic.runtime.migration] Running upgrade a7c1f2d9e430 -> b3f84d2e90a1, adiciona prazo e prioridade às ordens de produção
+INFO  [alembic.runtime.migration] Running upgrade b3f84d2e90a1 -> fc02da88af8f, cria tabela produto_maquina
+INFO  [alembic.runtime.migration] Running upgrade fc02da88af8f -> d4e8f6a2c901, adiciona duração estimada às ordens de produção (US09)
+INFO  [alembic.runtime.migration] Running upgrade d4e8f6a2c901 -> e1a7c9d4b602, Cria a tabela de tempos de setup entre famílias (US10).
+INFO  [alembic.runtime.migration] Running upgrade d4e8f6a2c901 -> ee5cc1c682ae, cria tabelas de planejamento manual us12
+INFO  [alembic.runtime.migration] Running upgrade ee5cc1c682ae -> 7ba9a321106c, garante ordem unica em planejamentos us12
+INFO  [alembic.runtime.migration] Running upgrade 7ba9a321106c, e1a7c9d4b602 -> 9a420823b051, une migracoes us10 e us12
+INFO  [alembic.runtime.migration] Running upgrade 9a420823b051 -> c4e8a1927f30, adiciona idempotência ao cadastro de ordens de produção
+INFO  [alembic.runtime.migration] Running upgrade c4e8a1927f30 -> f032ad660001, Disponibiliza o perfil ADMINISTRADOR para a US-32.
+INFO  [alembic.runtime.migration] Running upgrade f032ad660001 -> 13e41f6d48c2, Cria as tabelas de sugestões de planejamento da US13.
+INFO  [alembic.runtime.migration] Running upgrade 13e41f6d48c2 -> 7c15a3e9d204, Adiciona máquina aos itens da sugestão de planejamento da US15.
+INFO  [alembic.runtime.migration] Running upgrade 13e41f6d48c2 -> 6b14a2e9c703, Permite setup maior quando o sequenciamento considera a urgência.
+INFO  [alembic.runtime.migration] Running upgrade 6b14a2e9c703, 7c15a3e9d204 -> b872837156bd, unifica migrations US14 e US15
+INFO  [alembic.runtime.migration] Running upgrade b872837156bd -> 8d17b4f2c306, Registra sequências aprovadas para execução (US17).

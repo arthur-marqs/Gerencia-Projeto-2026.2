@@ -1,0 +1,133 @@
+
+         /\      Grafana   /‾‾/
+    /\  /  \     |\  __   /  /
+   /  \/    \    | |/ /  /   ‾‾\
+  /          \   |   (  |  (‾)  |
+ / __________ \  |_|\_\  \_____/
+
+
+     execution: local
+        script: <repo>\tests\performance\q07.js
+        output: json (<ciclo>\execucao-1\raw-smoke-1-vus.json)
+
+     scenarios: (100.00%) 1 scenario, 1 max VUs, 55s max duration (incl. graceful stop):
+              * q07: 1 looping VUs for 10s (gracefulStop: 45s)
+
+
+running (01.0s), 1/1 VUs, 0 complete and 0 interrupted iterations
+q07    [   8% ] 1 VUs  00.8s/10s
+
+running (02.0s), 1/1 VUs, 1 complete and 0 interrupted iterations
+q07    [  18% ] 1 VUs  01.8s/10s
+
+running (03.0s), 1/1 VUs, 2 complete and 0 interrupted iterations
+q07    [  28% ] 1 VUs  02.8s/10s
+
+running (04.0s), 1/1 VUs, 2 complete and 0 interrupted iterations
+q07    [  38% ] 1 VUs  03.8s/10s
+
+running (05.0s), 1/1 VUs, 3 complete and 0 interrupted iterations
+q07    [  48% ] 1 VUs  04.8s/10s
+
+running (06.0s), 1/1 VUs, 4 complete and 0 interrupted iterations
+q07    [  58% ] 1 VUs  05.8s/10s
+
+running (07.0s), 1/1 VUs, 5 complete and 0 interrupted iterations
+q07    [  68% ] 1 VUs  06.8s/10s
+
+running (08.0s), 1/1 VUs, 6 complete and 0 interrupted iterations
+q07    [  78% ] 1 VUs  07.8s/10s
+
+running (09.0s), 1/1 VUs, 7 complete and 0 interrupted iterations
+q07    [  88% ] 1 VUs  08.8s/10s
+
+running (10.0s), 1/1 VUs, 8 complete and 0 interrupted iterations
+q07    [  98% ] 1 VUs  09.8s/10s
+{
+  "fase": "smoke",
+  "vus": 1,
+  "duracao": "10s",
+  "massa": {
+    "usuarios": 10,
+    "maquinas": 2,
+    "familias": 2,
+    "produtos": 4,
+    "ordens": 2280,
+    "setups_direcionais": 2,
+    "planos_manuais": 10,
+    "sugestoes_para_aprovacao": 2240,
+    "ordens_por_geracao": 4,
+    "ordens_por_aprovacao": 1,
+    "prazo": "2026-12-10"
+  },
+  "resultados": [
+    {
+      "operacao": "ordens",
+      "amostras": 9,
+      "p50_ms": 84.1272,
+      "p95_ms": 163.3473,
+      "max_ms": 178.5815,
+      "min_ms": 60.5258,
+      "falhas": 0
+    },
+    {
+      "operacao": "matriz_familias",
+      "amostras": 9,
+      "p50_ms": 11.2421,
+      "p95_ms": 14.586799999999998,
+      "max_ms": 16.5154,
+      "min_ms": 9.0823,
+      "falhas": 0
+    },
+    {
+      "operacao": "matriz_tempos",
+      "amostras": 9,
+      "p50_ms": 11.6309,
+      "p95_ms": 51.03435999999998,
+      "max_ms": 76.5178,
+      "min_ms": 9.581,
+      "falhas": 0
+    },
+    {
+      "operacao": "geracao",
+      "amostras": 9,
+      "p50_ms": 18.4937,
+      "p95_ms": 51.64785999999998,
+      "max_ms": 72.4667,
+      "min_ms": 12.9607,
+      "falhas": 0
+    },
+    {
+      "operacao": "comparacao",
+      "amostras": 9,
+      "p50_ms": 12.0711,
+      "p95_ms": 26.079459999999997,
+      "max_ms": 30.1219,
+      "min_ms": 7.7976,
+      "falhas": 0
+    },
+    {
+      "operacao": "aprovacao",
+      "amostras": 9,
+      "p50_ms": 16.3637,
+      "p95_ms": 44.43553999999999,
+      "max_ms": 57.0171,
+      "min_ms": 12.6563,
+      "falhas": 0
+    },
+    {
+      "operacao": "aprovados",
+      "amostras": 9,
+      "p50_ms": 7.7276,
+      "p95_ms": 16.230379999999997,
+      "max_ms": 21.3291,
+      "min_ms": 6.9467,
+      "falhas": 0
+    }
+  ],
+  "iteracoes": 9,
+  "duracao_total_ms": 10971.1037
+}
+
+running (11.0s), 0/1 VUs, 9 complete and 0 interrupted iterations
+q07  ✓ [ 100% ] 1 VUs  10s

@@ -18,4 +18,4 @@ Nos dois cenários originais, o Operador não recebeu um novo plano para execuç
 
 **Regressão final** — 331 testes de backend e 12 cenários no Chrome para US15, US16 e US17 aprovados, além dos 2 retestes específicos no navegador. A primeira execução em paralelo registrou erros de memória no Argon2 e um timeout no Chrome. As repetições sequenciais passaram integralmente. [JUnit do backend](https://github.com/arthur-marqs/Gerencia-Projeto-2026.2/blob/0476c207a47b776959c0a1d9eb63127d2a4430c8/docs/qualidade/release-2/auditoria-bugs/evidencias/reteste-bug004/regressao-backend.xml) · [Regressão no Chrome](https://github.com/arthur-marqs/Gerencia-Projeto-2026.2/blob/0476c207a47b776959c0a1d9eb63127d2a4430c8/docs/qualidade/release-2/auditoria-bugs/evidencias/reteste-bug004/regressao-chrome.json)
 
-**Situação da integração** — Aguardando integração à `main`. O parecer se aplica ao reteste local.
+**Situação da integração.** Correção integrada à `main` em `c43587c`. Os resultados acima se referem ao reteste local anterior ao merge. [PR #32](https://github.com/arthur-marqs/Gerencia-Projeto-2026.2/pull/32)

@@ -1,6 +1,6 @@
 # [BUG] Aprovação publica sugestão com máquina que deixou de ser elegível
 
-**Acompanhamento em 26/11/2026** — Registrado na [issue #30 / BUG-004](https://github.com/arthur-marqs/Gerencia-Projeto-2026.2/issues/30). Correção validada localmente e aguardando integração. [Relatório de reteste](reteste-bug004.md)
+**Acompanhamento em 26/11/2026** — Registrado na [issue #30 / BUG-004](https://github.com/arthur-marqs/Gerencia-Projeto-2026.2/issues/30). Correção validada antes do merge e integrada à `main` em `c43587c`. [PR #32](https://github.com/arthur-marqs/Gerencia-Projeto-2026.2/pull/32) [Relatório de reteste](reteste-bug004.md)
 
 **RELEASE:** R2  
 **SPRINT:** 3  
